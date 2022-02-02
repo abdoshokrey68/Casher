@@ -1,0 +1,126 @@
+/* Start Main Style */
+* {
+    box-sizing: border-box;
+    transition: all 0.5s;
+}
+.clear {
+    clear: both;
+}
+.bg-d-blue {
+    background: #052531 !important;
+}
+.bg-new-warning {
+    color: #052531 !important;
+    background-color: #e9c46a !important;
+}
+.row {
+    margin: auto;
+}
+.bold {
+    font-weight: bold;
+}
+.active {
+    z-index: 2 !important;
+    font-weight: bold !important;
+    color: hsl(196, 81%, 11%) !important;
+    background-color: #e9c46a !important;
+    border-color: #e9c46a !important;
+}
+
+/* login & register box style */
+.row.justify-content-center.members-box {
+    width: 60%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Nav bar Style */
+
+.top-navbar {
+    background: #d3d3d3;
+    color: #052531;
+    font-weight: bold;
+}
+
+/* Products Section Style */
+
+.product a img.product-image {
+    width: 100%;
+    min-height: 100px;
+}
+.invoice-table.invoice-details-table {
+    overflow: auto;
+}
+
+/* all-right-bar-popup */
+.all-right-bar-popup > div,
+.add-product-layout-box > div {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: hsla(0, 0%, 0%, 0.479);
+    z-index: 10;
+    /* transform: translate(-50%, -50%); */
+}
+.all-right-bar-popup > div > div,
+.add-product-layout-box > div > div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 100px;
+    max-height: 90vh;
+    overflow: auto;
+}
+/* VUE JS Notification BOX */
+
+.vue-notification-group {
+    top: 10px !important;
+}
+.vue-notification {
+    top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.vue-notification.success,
+.vue-notification.warn {
+    color: #000;
+}
+
+/* Store Menu Page */
+
+#menu-page .menu-header {
+    height: 100vh;
+    position: relative;
+}
+#menu-page .menu-header img {
+    position: absolute;
+    width: 50%;
+    top: 0;
+    left: 0;
+    transform: translate(50%, 50%);
+}
+#menu-page .menu-content {
+    min-height: 100vh;
+}
+#menu-page .menu-content .content-header {
+    position: relative;
+}
+#menu-page .menu-content .content-header img.store-image {
+    position: absolute;
+    right: 50%;
+    bottom: 0%;
+    width: 30%;
+    transform: translate(50%, 50%);
+    border: 5px solid #052531;
+}
+#menu-page .menu-content .menu-main-content {
+    margin-top: 140px;
+}
+#menu-page .menu-content .menu-main-content .section-name {
+    border-bottom: 2px dashed #052531;
+}
