@@ -5424,9 +5424,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "storeDashboard",
-  props: ["logout", "store_id"],
+  props: ["logout", "store_id", "menu_link"],
   data: function data() {
     return {
       storeINFO: {},
@@ -6037,9 +6042,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RightBar",
-  props: ["store"],
+  props: ["store", "menu_link"],
   data: function data() {
     return {
       invoice_id: null
@@ -9292,6 +9316,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "StoreMenu",
@@ -9299,17 +9344,34 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       store_d: {},
-      image1: "/image/products/1.jpg"
+      image1: "/image/products/1.jpg",
+      date_30: ""
     };
   },
   mounted: function mounted() {
     this.getdetails(this.store_id);
+    this.getDate();
   },
   methods: {
+    getNewProducts: function getNewProducts(date) {
+      if (date > this.date_30) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     getIconClass: function getIconClass(icon) {
       if (icon) {
-        return icon + " float-end";
+        return icon + " float-end mr-2 ml-2";
       }
+    },
+    getDate: function getDate() {
+      var date = new Date();
+      var year = date.getFullYear();
+      var monthCount = date.getMonth(); // var month = months[monthCount].substring(0, 3);
+
+      var day = date.getDay() - 30;
+      this.date_30 = day + "-" + monthCount + "-" + year;
     },
     getdetails: function getdetails(store_id) {
       var _this = this;
@@ -34884,7 +34946,11 @@ var render = function () {
             { staticClass: "col-md-2 col-sm-12 p-0 h-100" },
             [
               _c("right-bar", {
-                attrs: { store: _vm.storeINFO, logout: _vm.logout },
+                attrs: {
+                  store: _vm.storeINFO,
+                  logout: _vm.logout,
+                  menu_link: _vm.menu_link,
+                },
               }),
             ],
             1
@@ -35633,7 +35699,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            New Invoice\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-plus mr-2 ml-2" }),
+          _vm._v("\n            New Invoice\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35648,7 +35717,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Pay The Amount\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-money-bill-wave mr-2 ml-2" }),
+          _vm._v("\n            Pay The Amount\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35662,7 +35734,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Edit Sections\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-list mr-2 ml-2" }),
+          _vm._v("\n            Edit Sections\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35676,7 +35751,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Edit Products\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-cookie-bite mr-2 ml-2" }),
+          _vm._v("\n            Edit Products\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35690,7 +35768,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Daily Invoices\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-file-alt mr-2 ml-2" }),
+          _vm._v("\n            Daily Invoices\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35704,7 +35785,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Edit Members\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-users-cog mr-2 ml-2" }),
+          _vm._v("\n            Edit Members\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35718,7 +35802,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Store Settings\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-store mr-2 ml-2" }),
+          _vm._v("\n            Store Settings\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35732,7 +35819,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Table Management\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-cogs mr-2 ml-2" }),
+          _vm._v("\n\n            Table Management\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35746,7 +35836,10 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Box\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-cash-register mr-2 ml-2" }),
+          _vm._v("\n            Box\n        "),
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -35760,7 +35853,23 @@ var render = function () {
             },
           },
         },
-        [_vm._v("\n            Store History\n        ")]
+        [
+          _c("i", { staticClass: "fas fa-history mr-2 ml-2" }),
+          _vm._v("\n            Store History\n        "),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass:
+            "list-group-item list-group-item-action text-center mb-2 action",
+          attrs: { href: _vm.menu_link, target: "_blank" },
+        },
+        [
+          _c("i", { staticClass: "fas fa-concierge-bell mr-2 ml-2" }),
+          _vm._v("\n            Store Menu\n        "),
+        ]
       ),
       _vm._v(" "),
       _vm._m(1),
@@ -35791,7 +35900,7 @@ var staticRenderFns = [
           "list-group-item list-group-item-action bg-danger text-light bold text-center mb-2 action",
       },
       [
-        _c("i", { staticClass: "fas fa-signout" }),
+        _c("i", { staticClass: "fas fa-sign-out-alt" }),
         _vm._v("\n            Sign out\n        "),
       ]
     )
@@ -39307,7 +39416,11 @@ var render = function () {
                                 _vm._s(section.name) +
                                 "\n                                "
                             ),
-                            _c("i", { class: _vm.getIconClass(section.icon) }),
+                            section.icon
+                              ? _c("i", {
+                                  class: _vm.getIconClass(section.icon),
+                                })
+                              : _vm._e(),
                           ]
                         ),
                         _vm._v(" "),
@@ -39325,8 +39438,12 @@ var render = function () {
                               ]
                             ),
                             _vm._v(" "),
-                            _c("h4", { staticClass: "h4" }, [
-                              _vm._v(_vm._s(product.name)),
+                            _c("h5", { staticClass: "h5" }, [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(product.name) +
+                                  "\n                                    "
+                              ),
                             ]),
                             _vm._v(" "),
                             _c("h6", { staticClass: "h6" }, [

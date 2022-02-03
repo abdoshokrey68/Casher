@@ -2,7 +2,12 @@
     <div id="store-dashboard" class="store-dashboard">
         <div class="row">
             <div class="col-md-2 col-sm-12 p-0 h-100">
-                <right-bar :store="storeINFO" :logout="logout"> </right-bar>
+                <right-bar
+                    :store="storeINFO"
+                    :logout="logout"
+                    :menu_link="menu_link"
+                >
+                </right-bar>
             </div>
             <!-- End right bar -->
             <div class="col-md-10 p-0">
@@ -152,7 +157,7 @@
 <script>
 export default {
     name: "storeDashboard",
-    props: ["logout", "store_id"],
+    props: ["logout", "store_id", "menu_link"],
     data: function () {
         return {
             storeINFO: {},

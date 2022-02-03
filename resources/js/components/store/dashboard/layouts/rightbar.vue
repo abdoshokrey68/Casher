@@ -39,6 +39,7 @@
                 @click="newInvoiceToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-plus mr-2 ml-2"></i>
                 New Invoice
             </button>
             <button
@@ -46,6 +47,7 @@
                 class="list-group-item list-group-item-action text-center mb-2 action"
                 :disabled="!invoice_id || invoice_id != 0"
             >
+                <i class="fas fa-money-bill-wave mr-2 ml-2"></i>
                 Pay The Amount
             </button>
             <!-- <button
@@ -58,50 +60,67 @@
                 @click="editsectionsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-list mr-2 ml-2"></i>
                 Edit Sections
             </button>
             <button
                 @click="editproductsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-cookie-bite mr-2 ml-2"></i>
                 Edit Products
             </button>
             <button
                 @click="daliyinvoiceTogle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-file-alt mr-2 ml-2"></i>
                 Daily Invoices
             </button>
             <button
                 @click="editmembersToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-users-cog mr-2 ml-2"></i>
                 Edit Members
             </button>
             <button
                 @click="storesettingsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-store mr-2 ml-2"></i>
                 Store Settings
             </button>
             <button
                 @click="edittablesToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-cogs mr-2 ml-2"></i>
+
                 Table Management
             </button>
             <button
                 @click="storeBoxToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-cash-register mr-2 ml-2"></i>
                 Box
             </button>
             <button
                 @click="storeHistoryToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
+                <i class="fas fa-history mr-2 ml-2"></i>
                 Store History
             </button>
+            <a
+                :href="menu_link"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+                target="_blank"
+            >
+                <i class="fas fa-concierge-bell mr-2 ml-2"></i>
+                Store Menu
+            </a>
             <!-- <a :href="logout" @click.prevent="logout()"> Logout </a>
 
             <form
@@ -115,7 +134,7 @@
             <button
                 class="list-group-item list-group-item-action bg-danger text-light bold text-center mb-2 action"
             >
-                <i class="fas fa-signout"></i>
+                <i class="fas fa-sign-out-alt"></i>
                 Sign out
             </button>
         </div>
@@ -126,7 +145,7 @@
 <script>
 export default {
     name: "RightBar",
-    props: ["store"],
+    props: ["store", "menu_link"],
     data: function () {
         return {
             invoice_id: null,

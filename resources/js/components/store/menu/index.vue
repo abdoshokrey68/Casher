@@ -40,7 +40,15 @@
                             <div v-if="section.products.length != 0">
                                 <h4 class="h4 section-name p-0 pt-2 pb-2 bold">
                                     {{ section.name }}
-                                    <i :class="getIconClass(section.icon)"></i>
+                                    <i
+                                        v-if="section.icon"
+                                        :class="getIconClass(section.icon)"
+                                    ></i>
+                                    <!-- <span
+                                        class="btn btn-danger p-1 mr-2 ml-2 float-end bold"
+                                    >
+                                        {{ section.discount }} %
+                                    </span> -->
                                 </h4>
                                 <div
                                     v-for="(product, index) in section.products"
@@ -49,7 +57,20 @@
                                     <h6 class="h6 pt-2 float-end bold">
                                         {{ product.price + ".00" }}
                                     </h6>
-                                    <h4 class="h4">{{ product.name }}</h4>
+                                    <h5 class="h5">
+                                        {{ product.name }}
+                                        <!-- <p
+                                            v-if="
+                                                getNewProducts(
+                                                    product.created_at
+                                                )
+                                            "
+                                            class="text-light p-1 m-0 bold btn btn-danger"
+                                            style="background-color: #eb5700"
+                                        >
+                                            New
+                                        </p> -->
+                                    </h5>
                                     <h6 class="h6">
                                         {{ "( " + product.description + " )" }}
                                     </h6>
@@ -75,16 +96,33 @@ export default {
         return {
             store_d: {},
             image1: "/image/products/1.jpg",
+            date_30: "",
         };
     },
     mounted() {
         this.getdetails(this.store_id);
+        this.getDate();
     },
     methods: {
+        getNewProducts: function (date) {
+            if (date > this.date_30) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         getIconClass: function (icon) {
             if (icon) {
-                return icon + " float-end";
+                return icon + " float-end mr-2 ml-2";
             }
+        },
+        getDate() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var monthCount = date.getMonth();
+            // var month = months[monthCount].substring(0, 3);
+            var day = date.getDay() - 30;
+            this.date_30 = day + "-" + monthCount + "-" + year;
         },
         getdetails: function (store_id) {
             axios
