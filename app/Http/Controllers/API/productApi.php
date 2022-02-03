@@ -77,6 +77,14 @@ class productApi extends Controller
             'section_id' => 'required',
             'store_id' => 'required',
         ]);
+        $imageName = null;
+        if ($request->image) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            ]);
+            $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+            $request->image->move(public_path('/image/products'), $imageName);
+        }
         $store = store::find($request->store_id);
         if ($store) {
             if ($store->manager_id == Auth::id()) {
@@ -87,8 +95,9 @@ class productApi extends Controller
                     'stock' => $request->stock,
                     'section_id' => $request->section_id,
                     'store_id' => $request->store_id,
-                    'image'     => null
+                    'image'     => $imageName,
                 ]);
+                return $product;
                 return "Added successfully";
             } else {
                 return 'false';
@@ -109,6 +118,14 @@ class productApi extends Controller
             'store_id' => 'required',
             'edit_product_id' => 'required'
         ]);
+        $imageName = null;
+        if ($request->image) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            ]);
+            $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+            $request->image->move(public_path('/image/products'), $imageName);
+        }
         $product = product::find($request->edit_product_id);
         if ($product) {
             $store = store::find($product->store_id);
@@ -120,7 +137,7 @@ class productApi extends Controller
                     $product->stock         = $request->stock;
                     $product->section_id    = $request->section_id;
                     $product->store_id      = $request->store_id;
-                    $product->image         = null;
+                    $product->image         = $imageName;
                     $product->save();
                     return "Added successfully";
                 } else {

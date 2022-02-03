@@ -265,7 +265,7 @@ export default {
             const response = await this.form
                 .post("/api/updateinfo")
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.notification(
                         "success",
                         "Success",
@@ -320,7 +320,7 @@ export default {
         imageSelected: function (e) {
             const file = e.target.files[0];
             this.form.image = file;
-            console.log(file);
+            // console.log(file);
             this.onImageInput(e);
         },
         onImageInput(event) {
@@ -330,7 +330,7 @@ export default {
         coverSelected: function (e) {
             const file = e.target.files[0];
             this.form.cover = file;
-            console.log(file);
+            // console.log(file);
             this.onCoverInput(e);
         },
         onCoverInput(event) {

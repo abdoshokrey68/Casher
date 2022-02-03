@@ -160,9 +160,23 @@
                             id="store-image"
                             type="file"
                             name="image"
-                            :value="form.image"
                             class="form-control mt-2 mb-2"
+                            @change="imageSelected"
                         />
+                        <div class="justify-content-center d-flex">
+                            <img
+                                v-if="product_image"
+                                :src="product_image"
+                                class="rounded"
+                                style="width: 150px; height: 150px"
+                            />
+                            <img
+                                v-else
+                                src="/image/products/newproduct.png"
+                                class="rounded"
+                                style="width: 150px; height: 150px"
+                            />
+                        </div>
                         <div
                             class="text-danger bold"
                             v-if="form.errors.has('image')"
@@ -260,15 +274,30 @@
                                         <span v-else> limited quantity </span>
                                     </td>
                                     <td class="bold text-danger">
-                                        <img
-                                            :src="product.image"
-                                            class="rounded"
-                                            alt="product image"
-                                            style="
-                                                max-width: 90px;
-                                                max-height: 90px;
-                                            "
-                                        />
+                                        <div>
+                                            <img
+                                                v-if="product.image"
+                                                :src="
+                                                    '/image/products/' +
+                                                    product.image
+                                                "
+                                                class="rounded"
+                                                alt="product image"
+                                                style="
+                                                    max-width: 90px;
+                                                    max-height: 90px;
+                                                "
+                                            />
+                                            <img
+                                                v-else
+                                                src="/image/products/newproduct.png"
+                                                alt="product image"
+                                                style="
+                                                    max-width: 90px;
+                                                    max-height: 90px;
+                                                "
+                                            />
+                                        </div>
                                     </td>
                                     <td class="bold">
                                         <router-link
@@ -339,6 +368,7 @@ export default {
                 edit_product_id: null,
             }),
             product: {},
+            product_image: null,
         };
     },
     mounted() {
@@ -433,7 +463,9 @@ export default {
                     // console.log(res.data);
                     this.products = res.data;
                 })
-                .catch((err) => consol.log(err));
+                .catch((err) => {
+                    // consol.log(err)
+                });
         },
         getProduct: function (product_id) {
             axios
@@ -497,13 +529,23 @@ export default {
 
         formEmpty: function () {
             this.form.reset();
+            this.product_image = null;
         },
         urlReplace: function () {
-            if (this.$route.props) {
-                this.$router.replace({
-                    path: this.currentPath,
-                });
-            }
+            this.$router
+                .replace({
+                    path: this.$route.path,
+                })
+                .catch(() => {});
+        },
+        imageSelected: function (e) {
+            const file = e.target.files[0];
+            this.form.image = file;
+            this.onImageInput(e);
+        },
+        onImageInput(event) {
+            const data = URL.createObjectURL(event.target.files[0]);
+            this.product_image = data;
         },
     },
 };

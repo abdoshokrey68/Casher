@@ -5439,10 +5439,10 @@ __webpack_require__.r(__webpack_exports__);
       payinvoice: false,
       deleteinvoice: false,
       editsections: false,
-      editproducts: false,
+      editproducts: true,
       dailyinvoice: false,
       editmembers: false,
-      storesettings: true,
+      storesettings: false,
       edittables: false,
       storebox: false,
       storehistory: false,
@@ -7372,6 +7372,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditProducts",
@@ -7394,7 +7423,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         section_id: null,
         edit_product_id: null
       }),
-      product: {}
+      product: {},
+      product_image: null
     };
   },
   mounted: function mounted() {
@@ -7518,8 +7548,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/getproducts?store_id=".concat(this.store_id, "}")).then(function (res) {
         // console.log(res.data);
         _this3.products = res.data;
-      })["catch"](function (err) {
-        return consol.log(err);
+      })["catch"](function (err) {// consol.log(err)
       });
     },
     getProduct: function getProduct(product_id) {
@@ -7582,13 +7611,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     formEmpty: function formEmpty() {
       this.form.reset();
+      this.product_image = null;
     },
     urlReplace: function urlReplace() {
-      if (this.$route.props) {
-        this.$router.replace({
-          path: this.currentPath
-        });
-      }
+      this.$router.replace({
+        path: this.$route.path
+      })["catch"](function () {});
+    },
+    imageSelected: function imageSelected(e) {
+      var file = e.target.files[0];
+      this.form.image = file;
+      this.onImageInput(e);
+    },
+    onImageInput: function onImageInput(event) {
+      var data = URL.createObjectURL(event.target.files[0]);
+      this.product_image = data;
     }
   }
 });
@@ -8993,8 +9030,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.buttonloading = !_this.buttonloading;
                 _context.next = 3;
                 return _this.form.post("/api/updateinfo").then(function (res) {
-                  console.log(res.data);
-
+                  // console.log(res.data);
                   _this.notification("success", "Success", "The data has been modified successfully");
 
                   _this.buttonloading = !_this.buttonloading;
@@ -9056,8 +9092,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     imageSelected: function imageSelected(e) {
       var file = e.target.files[0];
-      this.form.image = file;
-      console.log(file);
+      this.form.image = file; // console.log(file);
+
       this.onImageInput(e);
     },
     onImageInput: function onImageInput(event) {
@@ -9066,8 +9102,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     coverSelected: function coverSelected(e) {
       var file = e.target.files[0];
-      this.form.cover = file;
-      console.log(file);
+      this.form.cover = file; // console.log(file);
+
       this.onCoverInput(e);
     },
     onCoverInput: function onCoverInput(event) {
@@ -37264,8 +37300,34 @@ var render = function () {
                           type: "file",
                           name: "image",
                         },
-                        domProps: { value: _vm.form.image },
+                        on: { change: _vm.imageSelected },
                       }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "justify-content-center d-flex" },
+                        [
+                          _vm.product_image
+                            ? _c("img", {
+                                staticClass: "rounded",
+                                staticStyle: {
+                                  width: "150px",
+                                  height: "150px",
+                                },
+                                attrs: { src: _vm.product_image },
+                              })
+                            : _c("img", {
+                                staticClass: "rounded",
+                                staticStyle: {
+                                  width: "150px",
+                                  height: "150px",
+                                },
+                                attrs: {
+                                  src: "/image/products/newproduct.png",
+                                },
+                              }),
+                        ]
+                      ),
                       _vm._v(" "),
                       _vm.form.errors.has("image")
                         ? _c("div", {
@@ -37426,17 +37488,32 @@ var render = function () {
                                     "td",
                                     { staticClass: "bold text-danger" },
                                     [
-                                      _c("img", {
-                                        staticClass: "rounded",
-                                        staticStyle: {
-                                          "max-width": "90px",
-                                          "max-height": "90px",
-                                        },
-                                        attrs: {
-                                          src: product.image,
-                                          alt: "product image",
-                                        },
-                                      }),
+                                      _c("div", [
+                                        product.image
+                                          ? _c("img", {
+                                              staticClass: "rounded",
+                                              staticStyle: {
+                                                "max-width": "90px",
+                                                "max-height": "90px",
+                                              },
+                                              attrs: {
+                                                src:
+                                                  "/image/products/" +
+                                                  product.image,
+                                                alt: "product image",
+                                              },
+                                            })
+                                          : _c("img", {
+                                              staticStyle: {
+                                                "max-width": "90px",
+                                                "max-height": "90px",
+                                              },
+                                              attrs: {
+                                                src: "/image/products/newproduct.png",
+                                                alt: "product image",
+                                              },
+                                            }),
+                                      ]),
                                     ]
                                   ),
                                   _vm._v(" "),

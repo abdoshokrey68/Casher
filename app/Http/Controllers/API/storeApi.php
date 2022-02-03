@@ -55,17 +55,14 @@ class storeApi extends Controller
         $this->validate($request, [
             "name"          =>  "required|max:100",
             "description"   =>  "max:255",
-            "location"      =>  "required",
+            "location"      =>  "required|max:200",
             "phone"         =>  "required",
             "email"         =>  "required|email:rfc,dns",
             "currency"      =>  "required|max:4",
             "manager_id"    =>  "required|integer",
             "store_id"      =>  "required|integer",
             "discount"      =>  "required|integer",
-            // "cover"         =>  "",
-            // "image"         =>  "",
         ]);
-        // return 'done';
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
@@ -102,7 +99,6 @@ class storeApi extends Controller
                     $store->cover = $coverName;
                 }
                 $store->save();
-                return $store;
                 return 'The data has been modified successfully';
             } else {
                 return 'false';
