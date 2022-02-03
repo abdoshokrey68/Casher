@@ -19,6 +19,8 @@
                         @submit.prevent="handleClick()"
                         @keydown="form.onKeydown($event)"
                         enctype="multipart/form-data"
+                        role="form"
+                        class="form-horizontal"
                     >
                         <input
                             hidden
@@ -141,6 +143,13 @@
                             type="file"
                             name="image"
                             class="form-control mt-2 mb-2"
+                            @change="imageSelected"
+                        />
+                        <img
+                            v-if="my_photo"
+                            :src="my_photo"
+                            class="m-auto d-block rounded-circle"
+                            style="width: 300px; height: 300px"
                         />
                         <div
                             class="text-danger bold"
@@ -154,6 +163,14 @@
                             type="file"
                             name="cover"
                             class="form-control mt-2 mb-2"
+                            @change="coverSelected"
+                        />
+
+                        <img
+                            v-if="my_cover"
+                            :src="my_cover"
+                            class="m-auto d-block"
+                            style="width: 100%; height: 300px"
                         />
                         <div
                             class="text-danger bold"
@@ -161,7 +178,7 @@
                             v-html="form.errors.get('cover')"
                         />
 
-                        <div class="float-end">
+                        <div class="float-end mt-3">
                             <button
                                 type="submit"
                                 class="btn btn-primary"
@@ -204,17 +221,20 @@ export default {
             store_id: this.$parent.store_id,
             storeinfo: "",
             buttonloading: false,
+            my_photo: null,
+            my_cover: null,
             form: new Form({
                 name: "",
                 slug: "",
                 description: "",
-                image: "",
-                cover: "",
+                image: null,
+                cover: null,
                 location: "",
                 phone: "",
                 email: "",
                 currency: "EGP",
                 manager_id: "",
+                discount: 0,
                 store_id: this.$parent.store_id,
             }),
         };
@@ -227,13 +247,12 @@ export default {
             this.form.name = this.storeinfo.name;
             this.form.slug = this.storeinfo.slug;
             this.form.description = this.storeinfo.description;
-            this.form.image = this.storeinfo.image;
-            this.form.cover = this.storeinfo.cover;
             this.form.location = this.storeinfo.location;
             this.form.phone = this.storeinfo.phone;
             this.form.email = this.storeinfo.email;
             this.form.currency = this.storeinfo.currency;
             this.form.manager_id = this.storeinfo.manager_id;
+            this.form.discount = this.storeinfo.discount;
             this.form.store_id = this.storeinfo.id;
         },
     },
@@ -246,6 +265,7 @@ export default {
             const response = await this.form
                 .post("/api/updateinfo")
                 .then((res) => {
+                    console.log(res.data);
                     this.notification(
                         "success",
                         "Success",
@@ -296,6 +316,26 @@ export default {
                     }
                 },
             });
+        },
+        imageSelected: function (e) {
+            const file = e.target.files[0];
+            this.form.image = file;
+            console.log(file);
+            this.onImageInput(e);
+        },
+        onImageInput(event) {
+            const data = URL.createObjectURL(event.target.files[0]);
+            this.my_photo = data;
+        },
+        coverSelected: function (e) {
+            const file = e.target.files[0];
+            this.form.cover = file;
+            console.log(file);
+            this.onCoverInput(e);
+        },
+        onCoverInput(event) {
+            const data = URL.createObjectURL(event.target.files[0]);
+            this.my_cover = data;
         },
     },
 };

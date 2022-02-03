@@ -19,6 +19,7 @@ class store extends Model
         'description',
         'discount',
         'image',
+        'thumbnail',
         'cover',
         'location',
         'phone',

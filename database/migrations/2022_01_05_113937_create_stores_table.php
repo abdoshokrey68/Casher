@@ -18,6 +18,7 @@ class CreateStoresTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->string('cover')->nullable();
             $table->string('description')->nullable();
             $table->string('location')->nullable();

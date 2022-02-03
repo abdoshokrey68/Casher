@@ -5442,7 +5442,7 @@ __webpack_require__.r(__webpack_exports__);
       editproducts: false,
       dailyinvoice: false,
       editmembers: false,
-      storesettings: false,
+      storesettings: true,
       edittables: false,
       storebox: false,
       storehistory: false,
@@ -8916,6 +8916,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "storeSettings",
@@ -8925,17 +8942,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       store_id: this.$parent.store_id,
       storeinfo: "",
       buttonloading: false,
+      my_photo: null,
+      my_cover: null,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
         name: "",
         slug: "",
         description: "",
-        image: "",
-        cover: "",
+        image: null,
+        cover: null,
         location: "",
         phone: "",
         email: "",
         currency: "EGP",
         manager_id: "",
+        discount: 0,
         store_id: this.$parent.store_id
       })
     };
@@ -8948,13 +8968,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.name = this.storeinfo.name;
       this.form.slug = this.storeinfo.slug;
       this.form.description = this.storeinfo.description;
-      this.form.image = this.storeinfo.image;
-      this.form.cover = this.storeinfo.cover;
       this.form.location = this.storeinfo.location;
       this.form.phone = this.storeinfo.phone;
       this.form.email = this.storeinfo.email;
       this.form.currency = this.storeinfo.currency;
       this.form.manager_id = this.storeinfo.manager_id;
+      this.form.discount = this.storeinfo.discount;
       this.form.store_id = this.storeinfo.id;
     }
   },
@@ -8974,6 +8993,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.buttonloading = !_this.buttonloading;
                 _context.next = 3;
                 return _this.form.post("/api/updateinfo").then(function (res) {
+                  console.log(res.data);
+
                   _this.notification("success", "Success", "The data has been modified successfully");
 
                   _this.buttonloading = !_this.buttonloading;
@@ -9032,6 +9053,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       });
+    },
+    imageSelected: function imageSelected(e) {
+      var file = e.target.files[0];
+      this.form.image = file;
+      console.log(file);
+      this.onImageInput(e);
+    },
+    onImageInput: function onImageInput(event) {
+      var data = URL.createObjectURL(event.target.files[0]);
+      this.my_photo = data;
+    },
+    coverSelected: function coverSelected(e) {
+      var file = e.target.files[0];
+      this.form.cover = file;
+      console.log(file);
+      this.onCoverInput(e);
+    },
+    onCoverInput: function onCoverInput(event) {
+      var data = URL.createObjectURL(event.target.files[0]);
+      this.my_cover = data;
     }
   }
 });
@@ -35646,7 +35687,16 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-d-blue col-md-12 p-0" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "col-md-12 pt-3 m-auto hover-zoom" }, [
+      _c("img", {
+        staticClass: "col-md-12 rounded-circle d-flex m-auto pt-3",
+        staticStyle: { width: "90%", height: "200px" },
+        attrs: {
+          src: "/image/stores/image/" + _vm.store.image,
+          alt: "Store image",
+        },
+      }),
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "store-info" }, [
       _c(
@@ -35872,23 +35922,11 @@ var render = function () {
         ]
       ),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(0),
     ]),
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8 p-0 pt-3 m-auto hover-zoom" }, [
-      _c("img", {
-        staticClass: "col-md-12 rounded-circle d-flex m-auto pt-3",
-        staticStyle: { width: "90%" },
-        attrs: { src: "/image/stores/fast-food.jpg", alt: "Store image" },
-      }),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -38793,7 +38831,8 @@ var render = function () {
               _c(
                 "form",
                 {
-                  attrs: { enctype: "multipart/form-data" },
+                  staticClass: "form-horizontal",
+                  attrs: { enctype: "multipart/form-data", role: "form" },
                   on: {
                     submit: function ($event) {
                       $event.preventDefault()
@@ -39116,7 +39155,16 @@ var render = function () {
                   _c("input", {
                     staticClass: "form-control mt-2 mb-2",
                     attrs: { type: "file", name: "image" },
+                    on: { change: _vm.imageSelected },
                   }),
+                  _vm._v(" "),
+                  _vm.my_photo
+                    ? _c("img", {
+                        staticClass: "m-auto d-block rounded-circle",
+                        staticStyle: { width: "300px", height: "300px" },
+                        attrs: { src: _vm.my_photo },
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm.form.errors.has("image")
                     ? _c("div", {
@@ -39134,7 +39182,16 @@ var render = function () {
                   _c("input", {
                     staticClass: "form-control mt-2 mb-2",
                     attrs: { id: "store-cover", type: "file", name: "cover" },
+                    on: { change: _vm.coverSelected },
                   }),
+                  _vm._v(" "),
+                  _vm.my_cover
+                    ? _c("img", {
+                        staticClass: "m-auto d-block",
+                        staticStyle: { width: "100%", height: "300px" },
+                        attrs: { src: _vm.my_cover },
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm.form.errors.has("cover")
                     ? _c("div", {
@@ -39145,7 +39202,7 @@ var render = function () {
                       })
                     : _vm._e(),
                   _vm._v(" "),
-                  _c("div", { staticClass: "float-end" }, [
+                  _c("div", { staticClass: "float-end mt-3" }, [
                     _c(
                       "button",
                       {
@@ -39382,7 +39439,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-d-blue", attrs: { id: "menu-page" } }, [
-    _c("div", { staticClass: "container col-md-8 p-0 m-auto" }, [
+    _c("div", { staticClass: "container col-md-8 p-0 pb-5 pt-5 m-auto" }, [
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "menu-content bg-light" }, [
@@ -39475,7 +39532,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "menu-header bg-light" }, [
+    return _c("div", { staticClass: "menu-header bg-light mb-5" }, [
       _c("img", {
         staticClass: "rounded-circle",
         attrs: { src: "/image/stores/fast-food.jpg", alt: "Store image" },

@@ -51,6 +51,7 @@ class storeApi extends Controller
 
     public function updateinfo(Request $request)
     {
+
         $this->validate($request, [
             "name"          =>  "required|max:100",
             "description"   =>  "max:255",
@@ -64,6 +65,7 @@ class storeApi extends Controller
             // "cover"         =>  "",
             // "image"         =>  "",
         ]);
+        // return 'done';
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
@@ -77,7 +79,30 @@ class storeApi extends Controller
                 $store->currency = $request->currency;
                 $store->discount = $request->discount;
                 $store->manager_id = $request->manager_id;
+                if ($request->image) {
+                    $request->validate([
+                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                    ]);
+                    $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+                    $request->image->move(public_path('/image/stores/image'), $imageName);
+                    if (file_exists(public_path("/image/stores/image/$store->image"))) {
+                        unlink(public_path("/image/stores/image/$store->image"));
+                    }
+                    $store->image = $imageName;
+                }
+                if ($request->cover) {
+                    $request->validate([
+                        'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                    ]);
+                    $coverName = time() . rand(1, 9000) . '.' . $request->cover->extension();
+                    $request->cover->move(public_path('/image/stores/cover'), $coverName);
+                    if (file_exists(public_path("/image/stores/cover/$store->cover"))) {
+                        unlink(public_path("/image/stores/cover/$store->cover"));
+                    }
+                    $store->cover = $coverName;
+                }
                 $store->save();
+                return $store;
                 return 'The data has been modified successfully';
             } else {
                 return 'false';

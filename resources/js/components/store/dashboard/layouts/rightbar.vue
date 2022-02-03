@@ -1,11 +1,11 @@
 <template>
     <div class="bg-d-blue col-md-12 p-0">
-        <div class="col-md-8 p-0 pt-3 m-auto hover-zoom">
+        <div class="col-md-12 pt-3 m-auto hover-zoom">
             <img
-                src="/image/stores/fast-food.jpg"
+                :src="'/image/stores/image/' + store.image"
                 alt="Store image"
                 class="col-md-12 rounded-circle d-flex m-auto pt-3"
-                style="width: 90%"
+                style="width: 90%; height: 200px"
             />
         </div>
         <!-- End Image Store -->

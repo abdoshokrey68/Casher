@@ -1,7 +1,7 @@
 <template>
     <div id="menu-page" class="bg-d-blue">
-        <div class="container col-md-8 p-0 m-auto">
-            <div class="menu-header bg-light">
+        <div class="container col-md-8 p-0 pb-5 pt-5 m-auto">
+            <div class="menu-header bg-light mb-5">
                 <img
                     src="/image/stores/fast-food.jpg"
                     alt="Store image"
