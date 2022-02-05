@@ -76,6 +76,47 @@
                             v-if="form.errors.has('email')"
                             v-html="form.errors.get('email')"
                         />
+
+                        <label for="store-password"> Store Password</label>
+                        <input
+                            id="store-password"
+                            v-model="form.password"
+                            type="password"
+                            name="password"
+                            class="form-control mt-2 mb-2"
+                            placeholder="Store Password"
+                            autocomplete="new-password"
+                        />
+                        <div
+                            class="text-danger bold"
+                            v-if="form.errors.has('password')"
+                            v-html="form.errors.get('password')"
+                        />
+                        <ul v-if="form.password" class="list-group">
+                            <li class="">
+                                <i
+                                    class="fas fa-check text-primary bold mr-2 ml-2"
+                                ></i>
+                                Password must not be less than 8 characters
+                            </li>
+                            <li class="">
+                                <i
+                                    class="fas fa-check text-primary bold mr-2 ml-2"
+                                ></i>
+                                Password must contain letters [a,Z]
+                            </li>
+                            <li class="">
+                                <i
+                                    class="fas fa-check text-primary bold mr-2 ml-2"
+                                ></i>
+                                The password must contain symbols [?=.*!$#%]
+                            </li>
+                        </ul>
+                        <small v-if="!form.password" class="text-primary bold">
+                            Leave the field blank if you do not want to change
+                            the password
+                        </small>
+                        <div class="clear"></div>
                         <label for="store-phone"> Store Phone</label>
                         <input
                             id="store-phone"
@@ -220,7 +261,6 @@ export default {
         return {
             store_id: this.$parent.store_id,
             storeinfo: "",
-            buttonloading: false,
             my_photo: null,
             my_cover: null,
             form: new Form({
@@ -232,6 +272,7 @@ export default {
                 location: "",
                 phone: "",
                 email: "",
+                password: "",
                 currency: "EGP",
                 manager_id: "",
                 discount: 0,
@@ -261,7 +302,6 @@ export default {
             this.$parent.storesettings = !this.$parent.storesettings;
         },
         async editStoreSettings() {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/updateinfo")
                 .then((res) => {
@@ -271,11 +311,9 @@ export default {
                         "Success",
                         "The data has been modified successfully"
                     );
-                    this.buttonloading = !this.buttonloading;
                     this.getStoreInfo();
                 })
                 .catch((err) => {
-                    this.buttonloading = !this.buttonloading;
                     this.notification(
                         "error",
                         "Error",

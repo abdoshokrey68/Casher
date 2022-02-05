@@ -355,7 +355,6 @@ export default {
             store_id: this.$parent.store_id,
             products: {},
             sections: {},
-            buttonloading: false,
             productsearch: "",
             form: new Form({
                 name: "",
@@ -405,7 +404,6 @@ export default {
             else this.addNewProduct();
         },
         async addNewProduct() {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/addnewproduct")
                 .then((res) => {
@@ -416,17 +414,14 @@ export default {
                     );
                     this.formEmpty();
                     this.urlReplace();
-                    this.buttonloading = !this.buttonloading;
                     this.addProductForm = !this.addProductForm;
                     this.getProducts();
                 })
                 .catch((err) => {
                     console.log(err);
-                    this.buttonloading = !this.buttonloading;
                 });
         },
         async updateproduct() {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/updateproduct")
                 .then((res) => {
@@ -437,7 +432,6 @@ export default {
                     );
                     this.formEmpty();
                     this.urlReplace();
-                    this.buttonloading = !this.buttonloading;
                     this.addProductForm = !this.addProductForm;
                     this.getProducts();
                 })
@@ -448,7 +442,6 @@ export default {
                         "Warning To Updated Product"
                     );
                     console.log(err);
-                    this.buttonloading = !this.buttonloading;
                 });
         },
         cancelMethod: function () {

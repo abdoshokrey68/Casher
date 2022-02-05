@@ -71,12 +71,12 @@ class sectionApi extends Controller
     public function createnewsection(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
-            'store_id' => 'required|integer',
-            'description' => 'max:255',
-            'discount' => 'required|integer',
+            'name'          => 'required|max:255',
+            'store_id'      => 'required|integer',
+            'description'   => 'max:255',
+            'discount'      => 'required|integer',
         ]);
-
+        $sectionIcon = null;
         $store = store::find($request->store_id);
         if ($store->manager_id == Auth::id()) {
             $section = new section();
@@ -84,6 +84,14 @@ class sectionApi extends Controller
             $section->description = $request->description;
             $section->discount = $request->discount;
             $section->store_id = $request->store_id;
+            $sectionIcon = null;
+            if ($request->icon) {
+                $this->validate($request, [
+                    'icon'          => 'required|max:30',
+                ]);
+                $sectionIcon = $request->icon;
+            }
+            $section->icon = $sectionIcon;
             $section->save();
             return "Added successfully";
         } else {
@@ -108,6 +116,13 @@ class sectionApi extends Controller
                 $section->name = $request->name;
                 $section->description = $request->description;
                 $section->discount = $request->discount;
+                if ($request->icon) {
+                    $this->validate($request, [
+                        'icon'          => 'required|max:30',
+                    ]);
+                    $sectionIcon = $request->icon;
+                    $section->icon = $sectionIcon;
+                }
                 $section->save();
                 return "Updated successfully";
             } else {

@@ -72,6 +72,7 @@ class invoiceApi extends Controller
             'getfrom' => 'required',
             'store_id' => 'required|integer',
         ]);
+        return $request;
         $store_id = Auth::user()->store_id;
         return Excel::download(new InvoiceExport($store_id, $request->getfrom, $request->getto), 'invoices.xlsx');
     }

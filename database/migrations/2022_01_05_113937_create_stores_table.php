@@ -24,6 +24,8 @@ class CreateStoresTable extends Migration
             $table->string('location')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('audience')->default(0);
+            $table->string('password');
             $table->string('currency')->nullable();
             $table->string('discount')->nullable();
             $table->integer('manager_id');
@@ -31,11 +33,7 @@ class CreateStoresTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('stores');

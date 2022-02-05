@@ -170,7 +170,6 @@ export default {
     components: {},
     data: function () {
         return {
-            buttonloading: false,
             newMemberForm: false,
             store_id: this.$parent.store_id,
             members: {},
@@ -217,7 +216,6 @@ export default {
             this.urlReplace();
         },
         async addNewMember() {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/addnewmember")
                 .then((res) => {
@@ -228,7 +226,6 @@ export default {
                     );
                     this.formEmpty();
                     this.urlReplace();
-                    this.buttonloading = !this.buttonloading;
                     this.newMemberForm = !this.newMemberForm;
                     this.getmembers();
                 })
@@ -239,11 +236,9 @@ export default {
                         "Error",
                         "Verify that the e-mail is correct and the data is correct"
                     );
-                    this.buttonloading = !this.buttonloading;
                 });
         },
         async updateMember(edit_member_id) {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/editmember")
                 .then((res) => {
@@ -254,7 +249,6 @@ export default {
                     );
                     this.formEmpty();
                     this.urlReplace();
-                    this.buttonloading = !this.buttonloading;
                     this.newMemberForm = !this.newMemberForm;
                     this.getmembers();
                 })
@@ -265,7 +259,6 @@ export default {
                         "Error",
                         "Verify that the e-mail is correct and the data is correct"
                     );
-                    this.buttonloading = !this.buttonloading;
                 });
         },
         getmembers: function () {

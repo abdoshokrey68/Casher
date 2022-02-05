@@ -11,7 +11,7 @@ class section extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'slug', 'description', 'store_id', 'discount'
+        'name', 'slug', 'icon', 'description', 'store_id', 'discount'
     ];
 
     public function store()

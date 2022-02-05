@@ -103,7 +103,6 @@ export default {
             this.$parent.addproduct_id = null;
         },
         async addToDetails() {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/addtodetails")
                 .then((res) => {
@@ -119,13 +118,11 @@ export default {
                     // });
                     this.time = new Date().getTime();
                     this.form.reset();
-                    this.buttonloading = !this.buttonloading;
                     this.$parent.addProductsComponent =
                         !this.$parent.addProductsComponent;
                 })
                 .catch((err) => {
                     console.log(err);
-                    this.buttonloading = !this.buttonloading;
                 });
         },
         getProductDetails: function () {

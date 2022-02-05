@@ -5438,8 +5438,8 @@ __webpack_require__.r(__webpack_exports__);
       newinvoice: false,
       payinvoice: false,
       deleteinvoice: false,
-      editsections: false,
-      editproducts: true,
+      editsections: true,
+      editproducts: false,
       dailyinvoice: false,
       editmembers: false,
       storesettings: false,
@@ -5917,6 +5917,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6835,7 +6843,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {},
   data: function data() {
     return {
-      buttonloading: false,
       newMemberForm: false,
       store_id: this.$parent.store_id,
       members: {},
@@ -6888,8 +6895,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.buttonloading = !_this.buttonloading;
-                _context.next = 3;
+                _context.next = 2;
                 return _this.form.post("/api/addnewmember").then(function (res) {
                   _this.notification("success", "Success", "Member added successfully");
 
@@ -6897,7 +6903,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.urlReplace();
 
-                  _this.buttonloading = !_this.buttonloading;
                   _this.newMemberForm = !_this.newMemberForm;
 
                   _this.getmembers();
@@ -6905,14 +6910,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(err);
 
                   _this.notification("error", "Error", "Verify that the e-mail is correct and the data is correct");
-
-                  _this.buttonloading = !_this.buttonloading;
                 });
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -6929,8 +6932,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.buttonloading = !_this2.buttonloading;
-                _context2.next = 3;
+                _context2.next = 2;
                 return _this2.form.post("/api/editmember").then(function (res) {
                   _this2.notification("success", "Success", "The data has been modified successfully");
 
@@ -6938,7 +6940,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.urlReplace();
 
-                  _this2.buttonloading = !_this2.buttonloading;
                   _this2.newMemberForm = !_this2.newMemberForm;
 
                   _this2.getmembers();
@@ -6946,14 +6947,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(err);
 
                   _this2.notification("error", "Error", "Verify that the e-mail is correct and the data is correct");
-
-                  _this2.buttonloading = !_this2.buttonloading;
                 });
 
-              case 3:
+              case 2:
                 response = _context2.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -7411,7 +7410,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       store_id: this.$parent.store_id,
       products: {},
       sections: {},
-      buttonloading: false,
       productsearch: "",
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
         name: "",
@@ -7468,8 +7466,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.buttonloading = !_this.buttonloading;
-                _context.next = 3;
+                _context.next = 2;
                 return _this.form.post("/api/addnewproduct").then(function (res) {
                   _this.notification("success", "Success", "Section added successfully");
 
@@ -7477,19 +7474,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.urlReplace();
 
-                  _this.buttonloading = !_this.buttonloading;
                   _this.addProductForm = !_this.addProductForm;
 
                   _this.getProducts();
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.buttonloading = !_this.buttonloading;
                 });
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -7506,8 +7501,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.buttonloading = !_this2.buttonloading;
-                _context2.next = 3;
+                _context2.next = 2;
                 return _this2.form.post("/api/updateproduct").then(function (res) {
                   _this2.notification("success", "Success", "Section Updated Successfully");
 
@@ -7515,7 +7509,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.urlReplace();
 
-                  _this2.buttonloading = !_this2.buttonloading;
                   _this2.addProductForm = !_this2.addProductForm;
 
                   _this2.getProducts();
@@ -7523,13 +7516,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.notification("warn", "Warning", "Warning To Updated Product");
 
                   console.log(err);
-                  _this2.buttonloading = !_this2.buttonloading;
                 });
 
-              case 3:
+              case 2:
                 response = _context2.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -7830,6 +7822,300 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "editSections",
@@ -7837,11 +8123,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       NewSectionFrom: false,
-      buttonloading: false,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
         name: "",
         description: "",
         discount: 0,
+        icon: null,
         store_id: this.$parent.store_id,
         section_id: null
       }),
@@ -7887,26 +8173,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.buttonloading = !_this.buttonloading;
-                _context.next = 3;
+                _context.next = 2;
                 return _this.form.post("/api/createnewsection").then(function (res) {
                   _this.notification("success", "Success", "Section added successfully");
 
                   _this.form.reset();
 
-                  _this.buttonloading = !_this.buttonloading;
                   _this.NewSectionFrom = !_this.NewSectionFrom;
 
                   _this.getSections();
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.buttonloading = !_this.buttonloading;
                 });
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -7923,8 +8206,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.buttonloading = !_this2.buttonloading;
-                _context2.next = 3;
+                _context2.next = 2;
                 return _this2.form.post("/api/updatesection").then(function (res) {
                   _this2.notification("success", "Success", "Section Updated Successfully");
 
@@ -7932,7 +8214,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.form.reset();
 
-                  _this2.buttonloading = !_this2.buttonloading;
                   _this2.NewSectionFrom = !_this2.NewSectionFrom;
 
                   _this2.$router.replace({
@@ -7944,13 +8225,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.notification("warn", "Warning", "Warning To Updated Sections");
 
                   console.log(err);
-                  _this2.buttonloading = !_this2.buttonloading;
                 });
 
-              case 3:
+              case 2:
                 response = _context2.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -8025,13 +8305,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       this.urlReplace();
-    }
-  },
-  urlReplace: function urlReplace() {
-    if (this.$route.query) {
-      this.$router.replace({
-        path: this.$route.path
-      })["catch"](function () {});
+    },
+    urlReplace: function urlReplace() {
+      if (this.$route.query) {
+        this.$router.replace({
+          path: this.$route.path
+        })["catch"](function () {});
+      }
     }
   }
 });
@@ -8970,6 +9250,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "storeSettings",
@@ -8978,7 +9299,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       store_id: this.$parent.store_id,
       storeinfo: "",
-      buttonloading: false,
       my_photo: null,
       my_cover: null,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -8990,6 +9310,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         location: "",
         phone: "",
         email: "",
+        password: "",
         currency: "EGP",
         manager_id: "",
         discount: 0,
@@ -9027,25 +9348,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.buttonloading = !_this.buttonloading;
-                _context.next = 3;
+                _context.next = 2;
                 return _this.form.post("/api/updateinfo").then(function (res) {
                   // console.log(res.data);
                   _this.notification("success", "Success", "The data has been modified successfully");
 
-                  _this.buttonloading = !_this.buttonloading;
-
                   _this.getStoreInfo();
                 })["catch"](function (err) {
-                  _this.buttonloading = !_this.buttonloading;
-
                   _this.notification("error", "Error", "The data is not updated, there seems to be a problem");
                 });
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -9243,8 +9559,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.buttonloading = !_this.buttonloading;
-                _context.next = 3;
+                _context.next = 2;
                 return _this.form.post("/api/addtodetails").then(function (res) {
                   console.log(res.data);
 
@@ -9261,17 +9576,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.form.reset();
 
-                  _this.buttonloading = !_this.buttonloading;
                   _this.$parent.addProductsComponent = !_this.$parent.addProductsComponent;
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.buttonloading = !_this.buttonloading;
                 });
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -9323,8 +9636,128 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9415,14 +9848,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "StoreMenu",
   props: ["store_id"],
   data: function data() {
     return {
       store_d: {},
+      joinForm: false,
       image1: "/image/products/1.jpg",
-      date_30: ""
+      date_30: "",
+      form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
+        store_id: this.store_id,
+        phone: null
+      })
     };
   },
   mounted: function mounted() {
@@ -9437,9 +9876,42 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
     },
+    addaudience: function addaudience() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.form.get("/api/store/addaudience").then(function (res) {
+                  _this.notification("success", "Success", "Data has been sent");
+
+                  console.log(res.data);
+
+                  _this.form.reset();
+                })["catch"](function (err) {
+                  _this.notification("error", "Error", "Something went wrong Check the data");
+
+                  console.log(err);
+                });
+
+              case 2:
+                response = _context.sent;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     getIconClass: function getIconClass(icon) {
       if (icon) {
-        return icon + " float-end mr-2 ml-2";
+        return;
       }
     },
     getDate: function getDate() {
@@ -9451,13 +9923,23 @@ __webpack_require__.r(__webpack_exports__);
       this.date_30 = day + "-" + monthCount + "-" + year;
     },
     getdetails: function getdetails(store_id) {
-      var _this = this;
+      var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/store_d?store_id=".concat(store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/store_d?store_id=".concat(store_id)).then(function (res) {
         console.log(res.data);
-        _this.store_d = res.data;
+        _this2.store_d = res.data;
       })["catch"](function (err) {
         console.log(err);
+      });
+    },
+    notification: function notification(type, title, text) {
+      this.$notify({
+        group: "dashboard",
+        speed: 1500,
+        type: type,
+        // error , warn, success
+        title: title,
+        text: text
       });
     }
   }
@@ -35724,14 +36206,23 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-d-blue col-md-12 p-0" }, [
     _c("div", { staticClass: "col-md-12 pt-3 m-auto hover-zoom" }, [
-      _c("img", {
-        staticClass: "col-md-12 rounded-circle d-flex m-auto pt-3",
-        staticStyle: { width: "90%", height: "200px" },
-        attrs: {
-          src: "/image/stores/image/" + _vm.store.image,
-          alt: "Store image",
-        },
-      }),
+      _vm.store.image
+        ? _c("img", {
+            staticClass: "col-md-12 rounded-circle d-flex m-auto pt-3",
+            staticStyle: { width: "90%", height: "200px" },
+            attrs: {
+              src: "/image/stores/image/" + _vm.store.image,
+              alt: "Store image",
+            },
+          })
+        : _c("img", {
+            staticClass: "col-md-12 rounded-circle d-flex m-auto pt-3",
+            staticStyle: { width: "90%", height: "200px" },
+            attrs: {
+              src: "/image/stores/image/store1.jpg",
+              alt: "Store image",
+            },
+          }),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "store-info" }, [
@@ -37884,6 +38375,681 @@ var render = function () {
                           })
                         : _vm._e(),
                       _vm._v(" "),
+                      _c("div", { staticClass: "section-icon" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v(
+                            "Select Section Icon (Optional)\n                        "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-utensils",
+                                id: "fa-utensils",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-utensils"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-utensils"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(0),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-hamburger",
+                                id: "fa-hamburger",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-hamburger"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-hamburger"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(1),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-pizza-slice",
+                                id: "fa-pizza-slice",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-pizza-slice"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-pizza-slice"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(2),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-ice-cream",
+                                id: "fa-ice-cream",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-ice-cream"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-ice-cream"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(3),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-hotdog",
+                                id: "fa-hotdog",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-hotdog"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-hotdog"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(4),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-fish",
+                                id: "fa-fish",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-fish"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-fish"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(5),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-cheese",
+                                id: "fa-cheese",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-cheese"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-cheese"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(6),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-drumstick-bite",
+                                id: "fa-drumstick-bite",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-drumstick-bite"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-drumstick-bite"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(7),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-mug-hot",
+                                id: "fa-mug-hot",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-mug-hot"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-mug-hot"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(8),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-coffee",
+                                id: "fa-coffee",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-coffee"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-coffee"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(9),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-cocktail",
+                                id: "fa-cocktail",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-cocktail"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-cocktail"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(10),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-beer",
+                                id: "fa-beer",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-beer"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-beer"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(11),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-tshirt",
+                                id: "fa-tshirt",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-tshirt"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-tshirt"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(12),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-mitten",
+                                id: "fa-mitten",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-mitten"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-mitten"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(13),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-socks",
+                                id: "fa-socks",
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.icon, "fas fa-socks"),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-socks"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(14),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-user-tie",
+                                id: "fa-user-tie",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-user-tie"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-user-tie"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(15),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-hat-cowboy-side",
+                                id: "fa-hat-cowboy-side",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-hat-cowboy-side"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-hat-cowboy-side"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(16),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-3" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.icon,
+                                  expression: "form.icon",
+                                },
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "icon",
+                                value: "fas fa-hat-cowboy",
+                                id: "fa-hat-cowboy",
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.form.icon,
+                                  "fas fa-hat-cowboy"
+                                ),
+                              },
+                              on: {
+                                change: function ($event) {
+                                  return _vm.$set(
+                                    _vm.form,
+                                    "icon",
+                                    "fas fa-hat-cowboy"
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _vm._m(17),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("small", { staticClass: "text-warning bold" }, [
+                          _vm._v(
+                            "\n                            This icon will appear in the menu"
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.icon,
+                            expression: "form.icon",
+                          },
+                        ],
+                        staticClass: "form-control mt-2 mb-2",
+                        attrs: {
+                          type: "number",
+                          name: "icon",
+                          placeholder: "Discount",
+                        },
+                        domProps: { value: _vm.form.icon },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "icon", $event.target.value)
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _vm.form.errors.has("icon")
+                        ? _c("div", {
+                            staticClass: "text-danger bold",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.form.errors.get("icon")),
+                            },
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c("div", { staticClass: "float-end" }, [
                         _c(
                           "button",
@@ -37897,13 +39063,25 @@ var render = function () {
                               attrs: { role: "status", hidden: !_vm.form.busy },
                             }),
                             _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fas fa-plus mt-2 ml-2",
-                              attrs: { hidden: _vm.form.busy },
-                            }),
-                            _vm._v(
-                              "\n                            Add Section\n                        "
-                            ),
+                            _vm.form.section_id
+                              ? _c("span", [
+                                  _c("i", {
+                                    staticClass: "fas fa-edit mt-2 ml-2",
+                                    attrs: { hidden: _vm.form.busy },
+                                  }),
+                                  _vm._v(
+                                    "\n                                Edit Section"
+                                  ),
+                                ])
+                              : _c("span", [
+                                  _c("i", {
+                                    staticClass: "fas fa-plus mt-2 ml-2",
+                                    attrs: { hidden: _vm.form.busy },
+                                  }),
+                                  _vm._v(
+                                    "\n                                Add Section"
+                                  ),
+                                ]),
                           ]
                         ),
                         _vm._v(" "),
@@ -37932,10 +39110,6 @@ var render = function () {
               _vm._v(" "),
               !_vm.NewSectionFrom
                 ? _c("div", { staticClass: "old-sections" }, [
-                    _c("h3", { staticClass: "h5" }, [
-                      _vm._v("CURRENT SECTIONS"),
-                    ]),
-                    _vm._v(" "),
                     _c("label", { attrs: { for: "search-sections" } }, [
                       _vm._v("Search in Sections"),
                     ]),
@@ -37983,7 +39157,7 @@ var render = function () {
                               "table table-hover table-striped table-dark",
                           },
                           [
-                            _vm._m(0),
+                            _vm._m(18),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -38003,6 +39177,14 @@ var render = function () {
                                         _vm._v(" "),
                                         _c("td", [
                                           _vm._v(_vm._s(section.discount)),
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c("i", {
+                                            class:
+                                              section.icon +
+                                              " fa-2x text-light",
+                                          }),
                                         ]),
                                         _vm._v(" "),
                                         _c(
@@ -38075,11 +39257,157 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-utensils" } }, [
+      _c("i", { staticClass: "fas fa-utensils fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-hamburger" } }, [
+      _c("i", { staticClass: "fas fa-hamburger fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-pizza-slice" } }, [
+      _c("i", { staticClass: "fas fa-pizza-slice fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-ice-cream" } }, [
+      _c("i", { staticClass: "fas fa-ice-cream fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-hotdog" } }, [
+      _c("i", { staticClass: "fas fa-hotdog fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-fish" } }, [
+      _c("i", { staticClass: "fas fa-fish fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-cheese" } }, [
+      _c("i", { staticClass: "fas fa-cheese fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-drumstick-bite" } }, [
+      _c("i", { staticClass: "fas fa-drumstick-bite fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-mug-hot" } }, [
+      _c("i", { staticClass: "fas fa-mug-hot fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-coffee" } }, [
+      _c("i", { staticClass: "fas fa-coffee fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-cocktail" } }, [
+      _c("i", { staticClass: "fas fa-cocktail fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-beer" } }, [
+      _c("i", { staticClass: "fas fa-beer fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-tshirt" } }, [
+      _c("i", { staticClass: "fas fa-tshirt fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-mitten" } }, [
+      _c("i", { staticClass: "fas fa-mitten fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-socks" } }, [
+      _c("i", { staticClass: "fas fa-socks fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-user-tie" } }, [
+      _c("i", { staticClass: "fas fa-user-tie fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-hat-cowboy-side" } }, [
+      _c("i", { staticClass: "fas fa-hat-cowboy-side fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-hat-cowboy" } }, [
+      _c("i", { staticClass: "fas fa-hat-cowboy fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "text-center" }, [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Discount")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Icon")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Edit")]),
         _vm._v(" "),
@@ -39063,6 +40391,67 @@ var render = function () {
                       })
                     : _vm._e(),
                   _vm._v(" "),
+                  _c("label", { attrs: { for: "store-password" } }, [
+                    _vm._v(" Store Password"),
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.password,
+                        expression: "form.password",
+                      },
+                    ],
+                    staticClass: "form-control mt-2 mb-2",
+                    attrs: {
+                      id: "store-password",
+                      type: "password",
+                      name: "password",
+                      placeholder: "Store Password",
+                      autocomplete: "new-password",
+                    },
+                    domProps: { value: _vm.form.password },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "password", $event.target.value)
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _vm.form.errors.has("password")
+                    ? _c("div", {
+                        staticClass: "text-danger bold",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.form.errors.get("password")),
+                        },
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.form.password
+                    ? _c("ul", { staticClass: "list-group" }, [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _vm._m(3),
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.form.password
+                    ? _c("small", { staticClass: "text-primary bold" }, [
+                        _vm._v(
+                          "\n                        Leave the field blank if you do not want to change\n                        the password\n                    "
+                        ),
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
                   _c("label", { attrs: { for: "store-phone" } }, [
                     _vm._v(" Store Phone"),
                   ]),
@@ -39342,6 +40731,39 @@ var staticRenderFns = [
       ]
     )
   },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", {}, [
+      _c("i", { staticClass: "fas fa-check text-primary bold mr-2 ml-2" }),
+      _vm._v(
+        "\n                            Password must not be less than 8 characters\n                        "
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", {}, [
+      _c("i", { staticClass: "fas fa-check text-primary bold mr-2 ml-2" }),
+      _vm._v(
+        "\n                            Password must contain letters [a,Z]\n                        "
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", {}, [
+      _c("i", { staticClass: "fas fa-check text-primary bold mr-2 ml-2" }),
+      _vm._v(
+        "\n                            The password must contain symbols [?=.*!$#%]\n                        "
+      ),
+    ])
+  },
 ]
 render._withStripped = true
 
@@ -39515,122 +40937,342 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bg-d-blue", attrs: { id: "menu-page" } }, [
-    _c("div", { staticClass: "container col-md-8 p-0 pb-5 pt-5 m-auto" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "menu-content bg-light" }, [
-        _vm._m(1),
+  return _c(
+    "div",
+    { staticClass: "bg-d-blue", attrs: { id: "menu-page" } },
+    [
+      _c("div", { staticClass: "container col-md-8 p-0 pb-5 pt-5 m-auto" }, [
+        _c("div", { staticClass: "menu-header bg-light mb-5" }, [
+          _vm.store_d.image
+            ? _c("img", {
+                staticClass: "rounded-circle store-image",
+                attrs: {
+                  src: "/image/stores/image/" + _vm.store_d.image,
+                  alt: "Store image",
+                },
+              })
+            : _c("img", {
+                staticClass: "rounded-circle store-image",
+                attrs: {
+                  src: "/image/stores/image/store1.jpg",
+                  alt: "Store image",
+                },
+              }),
+        ]),
         _vm._v(" "),
-        _c("div", { staticClass: "clear" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "menu-main-content" }, [
-          _c(
-            "div",
-            { staticClass: "row" },
-            _vm._l(_vm.store_d.sections, function (section, index) {
-              return _c("div", { key: index, staticClass: "col-md-4" }, [
-                _vm.image1
-                  ? _c("img", {
-                      staticClass: "col-md-12",
-                      attrs: { src: _vm.image1 },
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                section.products.length != 0
-                  ? _c(
-                      "div",
-                      [
-                        _c(
-                          "h4",
-                          { staticClass: "h4 section-name p-0 pt-2 pb-2 bold" },
+        _c("div", { staticClass: "menu-content bg-light" }, [
+          _c("div", { staticClass: "content-header border-bottom border-2" }, [
+            _vm.store_d.cover
+              ? _c("img", {
+                  staticClass: "p-0 store-cover",
+                  staticStyle: { width: "100%", height: "250px" },
+                  attrs: {
+                    src: "/image/stores/cover/" + _vm.store_d.cover,
+                    alt: "store-cover",
+                  },
+                })
+              : _c("img", {
+                  staticClass: "p-0 store-cover",
+                  staticStyle: { width: "100%", height: "250px" },
+                  attrs: {
+                    src: "/image/stores/cover/fast-food.jpg",
+                    alt: "store-cover",
+                  },
+                }),
+            _vm._v(" "),
+            _vm.store_d.image
+              ? _c("img", {
+                  staticClass: "rounded-circle store-image",
+                  attrs: {
+                    src: "/image/stores/image/" + _vm.store_d.image,
+                    alt: "Store image",
+                  },
+                })
+              : _c("img", {
+                  staticClass: "rounded-circle store-image",
+                  attrs: {
+                    src: "/image/stores/image/store1.jpg",
+                    alt: "Store image",
+                  },
+                }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "clear" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "menu-main-content" }, [
+            _vm.store_d.audience == 1
+              ? _c("div", { staticClass: "add-audience m-auto p-2 col-md-5" }, [
+                  _c("div", { staticClass: "m-auto" }, [
+                    !_vm.joinForm
+                      ? _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-primary m-auto d-block col-md-12 mb-3",
+                            staticStyle: { width: "-webkit-fill-available" },
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function ($event) {
+                                _vm.joinForm = !_vm.joinForm
+                              },
+                            },
+                          },
                           [
+                            _c("i", {
+                              staticClass: "fas fa-plus mt-2 ml-2",
+                              attrs: { hidden: _vm.form.busy },
+                            }),
                             _vm._v(
-                              "\n                                " +
-                                _vm._s(section.name) +
-                                "\n                                "
+                              "\n                            Join Us\n                        "
                             ),
-                            section.icon
-                              ? _c("i", {
-                                  class: _vm.getIconClass(section.icon),
-                                })
-                              : _vm._e(),
                           ]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(section.products, function (product, index) {
-                          return _c("div", { key: index }, [
+                        )
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _vm.joinForm
+                    ? _c(
+                        "form",
+                        {
+                          staticClass: "col-md-12",
+                          on: {
+                            submit: function ($event) {
+                              $event.preventDefault()
+                              return _vm.addaudience()
+                            },
+                            keydown: function ($event) {
+                              return _vm.form.onKeydown($event)
+                            },
+                          },
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.store_id,
+                                expression: "form.store_id",
+                              },
+                            ],
+                            attrs: {
+                              hidden: "",
+                              type: "integer",
+                              name: "store_id",
+                            },
+                            domProps: { value: _vm.form.store_id },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "store_id",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm._m(0),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.phone,
+                                expression: "form.phone",
+                              },
+                            ],
+                            staticClass: "form-control mt-2 mb-2",
+                            attrs: {
+                              type: "phone",
+                              name: "phone",
+                              placeholder: "Enter Your WhatsApp Number",
+                            },
+                            domProps: { value: _vm.form.phone },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "phone", $event.target.value)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.form.errors.has("phone")
+                            ? _c("div", {
+                                staticClass: "text-danger bold",
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.form.errors.get("phone")
+                                  ),
+                                },
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "float-end mt-2" }, [
                             _c(
-                              "h6",
-                              { staticClass: "h6 pt-2 float-end bold" },
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: {
+                                  type: "submit",
+                                  disabled: _vm.form.busy,
+                                },
+                              },
                               [
+                                _c("span", {
+                                  staticClass:
+                                    "spinner-border spinner-border-sm",
+                                  attrs: {
+                                    role: "status",
+                                    hidden: !_vm.form.busy,
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fas fa-plus mt-2 ml-2",
+                                  attrs: { hidden: _vm.form.busy },
+                                }),
                                 _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(product.price + ".00") +
-                                    "\n                                "
+                                  "\n                                Join Now\n                            "
                                 ),
                               ]
                             ),
                             _vm._v(" "),
-                            _c("h5", { staticClass: "h5" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-light text-danger",
+                                attrs: { type: "submit" },
+                                on: {
+                                  click: function ($event) {
+                                    _vm.joinForm = !_vm.joinForm
+                                  },
+                                },
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-times mt-2 ml-2",
+                                }),
+                                _vm._v(
+                                  "\n                                Cancel\n                            "
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ]
+                      )
+                    : _vm._e(),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "clear" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row mt-3" },
+              _vm._l(_vm.store_d.sections, function (section, index) {
+                return _c("div", { key: index, staticClass: "col-md-4" }, [
+                  section.products.length != 0
+                    ? _c(
+                        "div",
+                        [
+                          _vm.image1
+                            ? _c("img", {
+                                staticStyle: { width: "100%" },
+                                attrs: { src: _vm.image1 },
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "h4",
+                            {
+                              staticClass: "h4 section-name p-0 pt-2 pb-2 bold",
+                            },
+                            [
                               _vm._v(
-                                "\n                                    " +
-                                  _vm._s(product.name) +
-                                  "\n                                    "
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("h6", { staticClass: "h6" }, [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s("( " + product.description + " )") +
+                                "\n                                " +
+                                  _vm._s(section.name) +
                                   "\n                                "
                               ),
-                            ]),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "m-1" }),
-                          ])
-                        }),
-                      ],
-                      2
-                    )
-                  : _vm._e(),
-              ])
-            }),
-            0
-          ),
+                              section.icon
+                                ? _c("i", {
+                                    class:
+                                      section.icon + " float-end mr-2 ml-2",
+                                  })
+                                : _vm._e(),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(section.products, function (product, index) {
+                            return _c("div", { key: index }, [
+                              _c(
+                                "h6",
+                                { staticClass: "h6 pt-2 float-end bold" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(product.price + ".00") +
+                                      "\n                                    "
+                                  ),
+                                  _c("i", {
+                                    staticClass:
+                                      "fas fa-coin text-warning mr-1 ml-1",
+                                  }),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("h5", { staticClass: "h5" }, [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(product.name) +
+                                    "\n                                    "
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("h6", { staticClass: "h6" }, [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s("( " + product.description + " )") +
+                                    "\n                                "
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("hr", { staticClass: "m-1" }),
+                            ])
+                          }),
+                        ],
+                        2
+                      )
+                    : _vm._e(),
+                ])
+              }),
+              0
+            ),
+          ]),
         ]),
       ]),
-    ]),
-  ])
+      _vm._v(" "),
+      _c("notifications", { attrs: { group: "dashboard" } }),
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "menu-header bg-light mb-5" }, [
-      _c("img", {
-        staticClass: "rounded-circle",
-        attrs: { src: "/image/stores/fast-food.jpg", alt: "Store image" },
-      }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-header" }, [
-      _c("img", {
-        staticClass: "p-0 store-cover",
-        staticStyle: { width: "100%" },
-        attrs: { src: "/image/menu/cover/fast-food.png", alt: "store-cover" },
-      }),
-      _vm._v(" "),
-      _c("img", {
-        staticClass: "rounded-circle store-image",
-        attrs: { src: "/image/stores/fast-food.jpg", alt: "Store image" },
-      }),
+    return _c("label", { attrs: { for: "phone" } }, [
+      _c("i", { staticClass: "fas fa-bell text-warning bold mr-2 ml-2" }),
+      _vm._v(
+        "\n                            To know the latest offers, you can join us and\n                            leave your phone number\n                        "
+      ),
     ])
   },
 ]

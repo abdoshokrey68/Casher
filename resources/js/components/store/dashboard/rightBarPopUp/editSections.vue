@@ -80,6 +80,283 @@
                             v-if="form.errors.has('discount')"
                             v-html="form.errors.get('discount')"
                         />
+                        <div class="section-icon">
+                            <label for=""
+                                >Select Section Icon (Optional)
+                            </label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-utensils"
+                                        v-model="form.icon"
+                                        id="fa-utensils"
+                                    />
+                                    <label for="fa-utensils"
+                                        ><i
+                                            class="fas fa-utensils fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-hamburger"
+                                        v-model="form.icon"
+                                        id="fa-hamburger"
+                                    />
+                                    <label for="fa-hamburger"
+                                        ><i
+                                            class="fas fa-hamburger fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-pizza-slice"
+                                        v-model="form.icon"
+                                        id="fa-pizza-slice"
+                                    />
+                                    <label for="fa-pizza-slice"
+                                        ><i
+                                            class="fas fa-pizza-slice fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-ice-cream"
+                                        v-model="form.icon"
+                                        id="fa-ice-cream"
+                                    />
+                                    <label for="fa-ice-cream"
+                                        ><i
+                                            class="fas fa-ice-cream fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-hotdog"
+                                        v-model="form.icon"
+                                        id="fa-hotdog"
+                                    />
+                                    <label for="fa-hotdog"
+                                        ><i
+                                            class="fas fa-hotdog fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-fish"
+                                        v-model="form.icon"
+                                        id="fa-fish"
+                                    />
+                                    <label for="fa-fish"
+                                        ><i
+                                            class="fas fa-fish fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-cheese"
+                                        v-model="form.icon"
+                                        id="fa-cheese"
+                                    />
+                                    <label for="fa-cheese"
+                                        ><i
+                                            class="fas fa-cheese fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-drumstick-bite"
+                                        v-model="form.icon"
+                                        id="fa-drumstick-bite"
+                                    />
+                                    <label for="fa-drumstick-bite"
+                                        ><i
+                                            class="fas fa-drumstick-bite fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-mug-hot"
+                                        v-model="form.icon"
+                                        id="fa-mug-hot"
+                                    />
+                                    <label for="fa-mug-hot"
+                                        ><i
+                                            class="fas fa-mug-hot fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-coffee"
+                                        v-model="form.icon"
+                                        id="fa-coffee"
+                                    />
+                                    <label for="fa-coffee"
+                                        ><i
+                                            class="fas fa-coffee fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-cocktail"
+                                        v-model="form.icon"
+                                        id="fa-cocktail"
+                                    />
+                                    <label for="fa-cocktail"
+                                        ><i
+                                            class="fas fa-cocktail fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-beer"
+                                        v-model="form.icon"
+                                        id="fa-beer"
+                                    />
+                                    <label for="fa-beer"
+                                        ><i
+                                            class="fas fa-beer fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-tshirt"
+                                        v-model="form.icon"
+                                        id="fa-tshirt"
+                                    />
+                                    <label for="fa-tshirt"
+                                        ><i
+                                            class="fas fa-tshirt fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-mitten"
+                                        v-model="form.icon"
+                                        id="fa-mitten"
+                                    />
+                                    <label for="fa-mitten"
+                                        ><i
+                                            class="fas fa-mitten fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-socks"
+                                        v-model="form.icon"
+                                        id="fa-socks"
+                                    />
+                                    <label for="fa-socks"
+                                        ><i
+                                            class="fas fa-socks fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-user-tie"
+                                        v-model="form.icon"
+                                        id="fa-user-tie"
+                                    />
+                                    <label for="fa-user-tie"
+                                        ><i
+                                            class="fas fa-user-tie fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-hat-cowboy-side"
+                                        v-model="form.icon"
+                                        id="fa-hat-cowboy-side"
+                                    />
+                                    <label for="fa-hat-cowboy-side"
+                                        ><i
+                                            class="fas fa-hat-cowboy-side fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input
+                                        type="radio"
+                                        name="icon"
+                                        value="fas fa-hat-cowboy"
+                                        v-model="form.icon"
+                                        id="fa-hat-cowboy"
+                                    />
+                                    <label for="fa-hat-cowboy"
+                                        ><i
+                                            class="fas fa-hat-cowboy fa-2x mr-2 ml-2"
+                                        ></i
+                                    ></label>
+                                </div>
+                            </div>
+                            <small class="text-warning bold">
+                                This icon will appear in the menu</small
+                            >
+                        </div>
+
+                        <input
+                            v-model="form.icon"
+                            type="number"
+                            name="icon"
+                            class="form-control mt-2 mb-2"
+                            placeholder="Discount"
+                        />
+                        <div
+                            class="text-danger bold"
+                            v-if="form.errors.has('icon')"
+                            v-html="form.errors.get('icon')"
+                        />
+
                         <div class="float-end">
                             <button
                                 type="submit"
@@ -91,11 +368,20 @@
                                     role="status"
                                     :hidden="!form.busy"
                                 ></span>
-                                <i
-                                    class="fas fa-plus mt-2 ml-2"
-                                    :hidden="form.busy"
-                                ></i>
-                                Add Section
+                                <span v-if="form.section_id">
+                                    <i
+                                        class="fas fa-edit mt-2 ml-2"
+                                        :hidden="form.busy"
+                                    ></i>
+                                    Edit Section</span
+                                >
+                                <span v-else>
+                                    <i
+                                        class="fas fa-plus mt-2 ml-2"
+                                        :hidden="form.busy"
+                                    ></i>
+                                    Add Section</span
+                                >
                             </button>
 
                             <button
@@ -109,7 +395,6 @@
                     <div class="clear"></div>
                     <!-- End Form Add new section -->
                     <div class="old-sections" v-if="!NewSectionFrom">
-                        <h3 class="h5">CURRENT SECTIONS</h3>
                         <label for="search-sections">Search in Sections</label>
                         <input
                             type="text"
@@ -129,6 +414,7 @@
                                     <tr class="text-center">
                                         <th scope="col">Name</th>
                                         <th scope="col">Discount</th>
+                                        <th scope="col">Icon</th>
                                         <th scope="col">Edit</th>
                                         <th scope="col">Delete</th>
                                     </tr>
@@ -140,6 +426,14 @@
                                         <tr :key="index" class="text-center">
                                             <td>{{ section.name }}</td>
                                             <td>{{ section.discount }}</td>
+                                            <td>
+                                                <i
+                                                    :class="
+                                                        section.icon +
+                                                        ' fa-2x text-light'
+                                                    "
+                                                ></i>
+                                            </td>
                                             <td class="bold">
                                                 <router-link
                                                     :to="
@@ -185,11 +479,11 @@ export default {
     data: function () {
         return {
             NewSectionFrom: false,
-            buttonloading: false,
             form: new Form({
                 name: "",
                 description: "",
                 discount: 0,
+                icon: null,
                 store_id: this.$parent.store_id,
                 section_id: null,
             }),
@@ -227,7 +521,6 @@ export default {
             }
         },
         async createNewSection() {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/createnewsection")
                 .then((res) => {
@@ -237,17 +530,14 @@ export default {
                         "Section added successfully"
                     );
                     this.form.reset();
-                    this.buttonloading = !this.buttonloading;
                     this.NewSectionFrom = !this.NewSectionFrom;
                     this.getSections();
                 })
                 .catch((err) => {
                     console.log(err);
-                    this.buttonloading = !this.buttonloading;
                 });
         },
         async updateSection() {
-            this.buttonloading = !this.buttonloading;
             const response = await this.form
                 .post("/api/updatesection")
                 .then((res) => {
@@ -258,7 +548,6 @@ export default {
                     );
                     console.log(res);
                     this.form.reset();
-                    this.buttonloading = !this.buttonloading;
                     this.NewSectionFrom = !this.NewSectionFrom;
                     this.$router.replace({
                         path: this.currentPath,
@@ -272,7 +561,6 @@ export default {
                         "Warning To Updated Sections"
                     );
                     console.log(err);
-                    this.buttonloading = !this.buttonloading;
                 });
         },
         editsectionsToggle: function () {
@@ -343,15 +631,15 @@ export default {
             }
             this.urlReplace();
         },
-    },
-    urlReplace: function () {
-        if (this.$route.query) {
-            this.$router
-                .replace({
-                    path: this.$route.path,
-                })
-                .catch(() => {});
-        }
+        urlReplace: function () {
+            if (this.$route.query) {
+                this.$router
+                    .replace({
+                        path: this.$route.path,
+                    })
+                    .catch(() => {});
+            }
+        },
     },
 };
 </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\audience;
 use App\Models\invoice;
 use App\Models\invoicedet;
 use App\Models\product;
@@ -12,6 +13,7 @@ use App\Models\table;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class storeApi extends Controller
 {
@@ -76,6 +78,12 @@ class storeApi extends Controller
                 $store->currency = $request->currency;
                 $store->discount = $request->discount;
                 $store->manager_id = $request->manager_id;
+                if ($request->password) {
+                    $request->validate([
+                        'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
+                    ]);
+                    $store->password = Hash::make($request->password);
+                }
                 if ($request->image) {
                     $request->validate([
                         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -103,6 +111,27 @@ class storeApi extends Controller
             } else {
                 return 'false';
             }
+        } else {
+            return 'false';
+        }
+    }
+
+    public function addaudience(Request $request)
+    {
+        $this->validate($request, [
+            'store_id'  => 'required',
+            'phone'     => 'required|integer'
+        ]);
+        $store = store::find($request->store_id);
+        if ($store) {
+            $audience = new audience();
+            $audience->store_id = $request->store_id;
+            $audience->phone = $request->phone;
+            if (Auth::id()) {
+                $audience->member_id = Auth::id();
+            }
+            $audience->save();
+            return $audience;
         } else {
             return 'false';
         }

@@ -99,10 +99,11 @@
 }
 #menu-page .menu-header img {
     position: absolute;
-    width: 50%;
-    top: 0;
-    left: 0;
-    transform: translate(50%, 50%);
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40%;
 }
 #menu-page .menu-content {
     min-height: 100vh;
@@ -115,8 +116,19 @@
     right: 50%;
     bottom: 0%;
     width: 30%;
+    height: 85%;
     transform: translate(50%, 50%);
     border: 5px solid #052531;
+}
+@media only screen and (max-width: 600px) {
+    #menu-page .menu-header img {
+        width: 50%;
+        height: 25%;
+    }
+    #menu-page .menu-content .content-header img.store-image {
+        width: 40% !important;
+        height: 70% !important;
+    }
 }
 #menu-page .menu-content .menu-main-content {
     margin-top: 140px;

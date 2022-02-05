@@ -2,7 +2,15 @@
     <div class="bg-d-blue col-md-12 p-0">
         <div class="col-md-12 pt-3 m-auto hover-zoom">
             <img
+                v-if="store.image"
                 :src="'/image/stores/image/' + store.image"
+                alt="Store image"
+                class="col-md-12 rounded-circle d-flex m-auto pt-3"
+                style="width: 90%; height: 200px"
+            />
+            <img
+                v-else
+                src="/image/stores/image/store1.jpg"
                 alt="Store image"
                 class="col-md-12 rounded-circle d-flex m-auto pt-3"
                 style="width: 90%; height: 200px"

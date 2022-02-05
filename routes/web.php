@@ -26,6 +26,7 @@ Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('stor
 Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
 Route::get('api/store_d',           [storeApi::class, 'store_d']);
 Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
+Route::get('api/store/addaudience',       [storeApi::class, 'addaudience']);
 
 // ================================================================
 // ========================== INVOICES API ========================
