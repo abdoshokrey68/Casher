@@ -53,7 +53,6 @@ class storeApi extends Controller
 
     public function updateinfo(Request $request)
     {
-
         $this->validate($request, [
             "name"          =>  "required|max:100",
             "description"   =>  "max:255",
@@ -64,6 +63,7 @@ class storeApi extends Controller
             "manager_id"    =>  "required|integer",
             "store_id"      =>  "required|integer",
             "discount"      =>  "required|integer",
+            "audience"      =>  "required",
         ]);
         $store_id = $request->store_id;
         $store = store::find($store_id);
@@ -78,6 +78,11 @@ class storeApi extends Controller
                 $store->currency = $request->currency;
                 $store->discount = $request->discount;
                 $store->manager_id = $request->manager_id;
+                if ($request->audience == false) {
+                    $store->audience = 0;
+                } else {
+                    $store->audience = 1;
+                }
                 if ($request->password) {
                     $request->validate([
                         'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
@@ -107,7 +112,7 @@ class storeApi extends Controller
                     $store->cover = $coverName;
                 }
                 $store->save();
-                return 'The data has been modified successfully';
+                return $store;
             } else {
                 return 'false';
             }

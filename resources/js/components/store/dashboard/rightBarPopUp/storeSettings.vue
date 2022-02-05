@@ -178,6 +178,31 @@
                             v-if="form.errors.has('location')"
                             v-html="form.errors.get('location')"
                         />
+                        <div class="form-check form-switch">
+                            <input
+                                id="store-audience"
+                                v-model="form.audience"
+                                type="checkbox"
+                                name="audience"
+                                class="form-check-input mt-2 mb-2"
+                            />
+                            <label
+                                class="form-check-label p-1"
+                                for="store-audience"
+                                >Store Audience</label
+                            >
+                            <div class="clear"></div>
+                            <small class="text-primary bold">
+                                You can receive the phone numbers of store
+                                visitors to follow up on all the new offers and
+                                products through the WhatsApp group
+                            </small>
+                        </div>
+                        <div
+                            class="text-danger bold"
+                            v-if="form.errors.has('audience')"
+                            v-html="form.errors.get('audience')"
+                        />
 
                         <label for="store-image">Store Image : </label>
                         <input
@@ -271,6 +296,7 @@ export default {
                 cover: null,
                 location: "",
                 phone: "",
+                audience: false,
                 email: "",
                 password: "",
                 currency: "EGP",
@@ -295,6 +321,11 @@ export default {
             this.form.manager_id = this.storeinfo.manager_id;
             this.form.discount = this.storeinfo.discount;
             this.form.store_id = this.storeinfo.id;
+            if (this.storeinfo.audience == 0) {
+                this.form.audience = false;
+            } else {
+                this.form.audience = true;
+            }
         },
     },
     methods: {
@@ -305,7 +336,7 @@ export default {
             const response = await this.form
                 .post("/api/updateinfo")
                 .then((res) => {
-                    // console.log(res.data);
+                    console.log(res.data);
                     this.notification(
                         "success",
                         "Success",

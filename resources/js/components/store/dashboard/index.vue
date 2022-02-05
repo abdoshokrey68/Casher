@@ -37,7 +37,7 @@
             <div class="all-right-bar-popup">
                 <div
                     id="new-invoice"
-                    class="new-invoice"
+                    class="row new-invoice"
                     @click.self="newinvoice = !newinvoice"
                     v-if="newinvoice"
                 >
@@ -47,7 +47,7 @@
 
                 <div
                     id="pay-invoice"
-                    class="pay-invoice"
+                    class="row pay-invoice"
                     @click.self="payinvoice = !payinvoice"
                     v-if="payinvoice"
                 >
@@ -57,7 +57,7 @@
 
                 <div
                     id="delete-invoice"
-                    class="delete-invoice"
+                    class="row delete-invoice"
                     @click.self="deleteinvoice = !deleteinvoice"
                     v-if="deleteinvoice"
                 >
@@ -67,7 +67,7 @@
 
                 <div
                     id="edit-sections"
-                    class="edit-sections"
+                    class="row edit-sections"
                     @click.self="editsections = !editsections"
                     v-if="editsections"
                 >
@@ -77,7 +77,7 @@
 
                 <div
                     id="edit-products"
-                    class="edit-products"
+                    class="row edit-products"
                     @click.self="editproducts = !editproducts"
                     v-if="editproducts"
                 >
@@ -87,7 +87,7 @@
 
                 <div
                     id="daily-invoice"
-                    class="daily-invoice"
+                    class="row daily-invoice"
                     @click.self="dailyinvoice = !dailyinvoice"
                     v-if="dailyinvoice"
                 >
@@ -97,7 +97,7 @@
 
                 <div
                     id="edit-members"
-                    class="edit-members"
+                    class="row edit-members"
                     @click.self="editmembers = !editmembers"
                     v-if="editmembers"
                 >
@@ -107,7 +107,7 @@
 
                 <div
                     id="store-settings"
-                    class="store-settings"
+                    class="row store-settings"
                     @click.self="storesettings = !storesettings"
                     v-if="storesettings"
                 >
@@ -117,7 +117,7 @@
 
                 <div
                     id="edit-tables"
-                    class="edit-tables"
+                    class="row edit-tables"
                     @click.self="edittables = !edittables"
                     v-if="edittables"
                 >
@@ -127,7 +127,7 @@
 
                 <div
                     id="store-box"
-                    class="store-box"
+                    class="row store-box"
                     @click.self="storebox = !storebox"
                     v-if="storebox"
                 >
@@ -137,7 +137,7 @@
 
                 <div
                     id="store-box"
-                    class="store-box"
+                    class="row store-box"
                     @click.self="storehistory = !storehistory"
                     v-if="storehistory"
                 >
@@ -164,11 +164,11 @@ export default {
             newinvoice: false,
             payinvoice: false,
             deleteinvoice: false,
-            editsections: true,
+            editsections: false,
             editproducts: false,
             dailyinvoice: false,
             editmembers: false,
-            storesettings: false,
+            storesettings: true,
             edittables: false,
             storebox: false,
             storehistory: false,

@@ -22,7 +22,7 @@ class HomeController extends Controller
         $user_id = Auth::id();
         $store = store::where('manager_id', $user_id)->first();
         if ($store) {
-            return redirect()->route('store', $store->id);
+            return view('home');
         } else {
             return view('home');
         }

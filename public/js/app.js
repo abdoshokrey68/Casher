@@ -5438,11 +5438,11 @@ __webpack_require__.r(__webpack_exports__);
       newinvoice: false,
       payinvoice: false,
       deleteinvoice: false,
-      editsections: true,
+      editsections: false,
       editproducts: false,
       dailyinvoice: false,
       editmembers: false,
-      storesettings: false,
+      storesettings: true,
       edittables: false,
       storebox: false,
       storehistory: false,
@@ -9291,6 +9291,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "storeSettings",
@@ -9309,6 +9334,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cover: null,
         location: "",
         phone: "",
+        audience: false,
         email: "",
         password: "",
         currency: "EGP",
@@ -9333,6 +9359,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.manager_id = this.storeinfo.manager_id;
       this.form.discount = this.storeinfo.discount;
       this.form.store_id = this.storeinfo.id;
+
+      if (this.storeinfo.audience == 0) {
+        this.form.audience = false;
+      } else {
+        this.form.audience = true;
+      }
     }
   },
   methods: {
@@ -9350,7 +9382,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/updateinfo").then(function (res) {
-                  // console.log(res.data);
+                  console.log(res.data);
+
                   _this.notification("success", "Success", "The data has been modified successfully");
 
                   _this.getStoreInfo();
@@ -9887,15 +9920,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.get("/api/store/addaudience").then(function (res) {
-                  _this.notification("success", "Success", "Data has been sent");
+                  _this.notification("success", "Success", "Data has been sent"); // console.log(res.data);
 
-                  console.log(res.data);
 
+                  // console.log(res.data);
                   _this.form.reset();
-                })["catch"](function (err) {
-                  _this.notification("error", "Error", "Something went wrong Check the data");
 
-                  console.log(err);
+                  _this.joinForm = !_this.joinForm;
+                })["catch"](function (err) {
+                  _this.notification("error", "Error", "Something went wrong Check the data"); // console.log(err);
+
                 });
 
               case 2:
@@ -35547,7 +35581,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "new-invoice",
+                    staticClass: "row new-invoice",
                     attrs: { id: "new-invoice" },
                     on: {
                       click: function ($event) {
@@ -35567,7 +35601,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "pay-invoice",
+                    staticClass: "row pay-invoice",
                     attrs: { id: "pay-invoice" },
                     on: {
                       click: function ($event) {
@@ -35587,7 +35621,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "delete-invoice",
+                    staticClass: "row delete-invoice",
                     attrs: { id: "delete-invoice" },
                     on: {
                       click: function ($event) {
@@ -35607,7 +35641,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "edit-sections",
+                    staticClass: "row edit-sections",
                     attrs: { id: "edit-sections" },
                     on: {
                       click: function ($event) {
@@ -35627,7 +35661,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "edit-products",
+                    staticClass: "row edit-products",
                     attrs: { id: "edit-products" },
                     on: {
                       click: function ($event) {
@@ -35647,7 +35681,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "daily-invoice",
+                    staticClass: "row daily-invoice",
                     attrs: { id: "daily-invoice" },
                     on: {
                       click: function ($event) {
@@ -35667,7 +35701,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "edit-members",
+                    staticClass: "row edit-members",
                     attrs: { id: "edit-members" },
                     on: {
                       click: function ($event) {
@@ -35687,7 +35721,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "store-settings",
+                    staticClass: "row store-settings",
                     attrs: { id: "store-settings" },
                     on: {
                       click: function ($event) {
@@ -35707,7 +35741,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "edit-tables",
+                    staticClass: "row edit-tables",
                     attrs: { id: "edit-tables" },
                     on: {
                       click: function ($event) {
@@ -35727,7 +35761,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "store-box",
+                    staticClass: "row store-box",
                     attrs: { id: "store-box" },
                     on: {
                       click: function ($event) {
@@ -35747,7 +35781,7 @@ var render = function () {
               ? _c(
                   "div",
                   {
-                    staticClass: "store-box",
+                    staticClass: "row store-box",
                     attrs: { id: "store-box" },
                     on: {
                       click: function ($event) {
@@ -40614,6 +40648,84 @@ var render = function () {
                       })
                     : _vm._e(),
                   _vm._v(" "),
+                  _c("div", { staticClass: "form-check form-switch" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.audience,
+                          expression: "form.audience",
+                        },
+                      ],
+                      staticClass: "form-check-input mt-2 mb-2",
+                      attrs: {
+                        id: "store-audience",
+                        type: "checkbox",
+                        name: "audience",
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.form.audience)
+                          ? _vm._i(_vm.form.audience, null) > -1
+                          : _vm.form.audience,
+                      },
+                      on: {
+                        change: function ($event) {
+                          var $$a = _vm.form.audience,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.form,
+                                  "audience",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.form,
+                                  "audience",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.form, "audience", $$c)
+                          }
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label p-1",
+                        attrs: { for: "store-audience" },
+                      },
+                      [_vm._v("Store Audience")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "clear" }),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-primary bold" }, [
+                      _vm._v(
+                        "\n                            You can receive the phone numbers of store\n                            visitors to follow up on all the new offers and\n                            products through the WhatsApp group\n                        "
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _vm.form.errors.has("audience")
+                    ? _c("div", {
+                        staticClass: "text-danger bold",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.form.errors.get("audience")),
+                        },
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("label", { attrs: { for: "store-image" } }, [
                     _vm._v("Store Image : "),
                   ]),
@@ -40975,7 +41087,7 @@ var render = function () {
                   staticClass: "p-0 store-cover",
                   staticStyle: { width: "100%", height: "250px" },
                   attrs: {
-                    src: "/image/stores/cover/fast-food.jpg",
+                    src: "/image/stores/cover/fast-food.png",
                     alt: "store-cover",
                   },
                 }),

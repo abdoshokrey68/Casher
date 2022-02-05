@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home',                 [HomeController::class, 'index'])->name('home');
-Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store');
+Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
 Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
 
 // ================================================================

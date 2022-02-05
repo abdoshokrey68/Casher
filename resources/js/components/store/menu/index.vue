@@ -27,7 +27,7 @@
                     />
                     <img
                         v-else
-                        src="/image/stores/cover/fast-food.jpg"
+                        src="/image/stores/cover/fast-food.png"
                         class="p-0 store-cover"
                         alt="store-cover"
                         style="width: 100%; height: 250px"
@@ -237,8 +237,9 @@ export default {
                         "Success",
                         "Data has been sent"
                     );
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.form.reset();
+                    this.joinForm = !this.joinForm;
                 })
                 .catch((err) => {
                     this.notification(
@@ -246,7 +247,7 @@ export default {
                         "Error",
                         "Something went wrong Check the data"
                     );
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getIconClass: function (icon) {
