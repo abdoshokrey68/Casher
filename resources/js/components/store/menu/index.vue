@@ -1,5 +1,9 @@
 <template>
-    <div id="menu-page" class="bg-d-blue">
+    <div
+        id="menu-page"
+        class="bg-d-blue"
+        :style="'background-color:' + menu.background_co + '!important'"
+    >
         <div class="container col-md-8 p-0 pb-5 pt-5 m-auto">
             <div class="menu-header bg-light mb-5">
                 <img
@@ -76,7 +80,7 @@
                             <input
                                 hidden
                                 v-model="form.store_id"
-                                type="integer"
+                                type="number"
                                 name="store_id"
                             />
                             <label for="phone">
@@ -133,20 +137,35 @@
                             class="col-md-4"
                             v-for="(section, index) in store_d.sections"
                             :key="index"
+                            v-if="section.products.length != 0"
                         >
-                            <div v-if="section.products.length != 0">
+                            <div>
                                 <img
-                                    :src="image1"
-                                    v-if="image1"
-                                    style="width: 100%"
+                                    :src="
+                                        '/image/products/' +
+                                        section.products[0].image
+                                    "
+                                    style="width: 100%; max-height: 150px"
                                 />
-                                <h4 class="h4 section-name p-0 pt-2 pb-2 bold">
+                                <h4
+                                    class="h4 section-name p-0 pt-2 pb-2 bold"
+                                    :style="
+                                        'color:' +
+                                        menu.heading_co +
+                                        '!important'
+                                    "
+                                >
                                     {{ section.name }}
                                     <i
                                         v-if="section.icon"
                                         :class="
                                             section.icon +
                                             ' float-end mr-2 ml-2'
+                                        "
+                                        :style="
+                                            'color:' +
+                                            menu.icon_co +
+                                            '!important'
                                         "
                                     ></i>
 
@@ -160,13 +179,27 @@
                                     v-for="(product, index) in section.products"
                                     :key="index"
                                 >
-                                    <h6 class="h6 pt-2 float-end bold">
-                                        {{ product.price + ".00" }}
+                                    <h6
+                                        :style="
+                                            'color:' +
+                                            menu.price_co +
+                                            '!important'
+                                        "
+                                        class="h6 pt-2 float-end bold"
+                                    >
+                                        {{ product.price }}
                                         <i
                                             class="fas fa-coin text-warning mr-1 ml-1"
                                         ></i>
                                     </h6>
-                                    <h5 class="h5">
+                                    <h5
+                                        class="h5"
+                                        :style="
+                                            'color:' +
+                                            menu.text_co +
+                                            '!important'
+                                        "
+                                    >
                                         {{ product.name }}
                                         <!-- <p
                                             v-if="
@@ -180,7 +213,15 @@
                                             New
                                         </p> -->
                                     </h5>
-                                    <h6 class="h6">
+                                    <h6
+                                        v-if="product.description"
+                                        :style="
+                                            'color:' +
+                                            menu.des_co +
+                                            '!important'
+                                        "
+                                        class="h6 bold"
+                                    >
                                         {{ "( " + product.description + " )" }}
                                     </h6>
                                     <hr class="m-1" />
@@ -208,8 +249,8 @@ export default {
         return {
             store_d: {},
             joinForm: false,
-            image1: "/image/products/1.jpg",
             date_30: "",
+            menu: {},
             form: new Form({
                 store_id: this.store_id,
                 phone: null,
@@ -218,6 +259,7 @@ export default {
     },
     mounted() {
         this.getdetails(this.store_id);
+        this.getStoreMenu();
         this.getDate();
     },
     methods: {
@@ -262,6 +304,15 @@ export default {
             // var month = months[monthCount].substring(0, 3);
             var day = date.getDay() - 30;
             this.date_30 = day + "-" + monthCount + "-" + year;
+        },
+        getStoreMenu: function () {
+            axios
+                .get(`/api/store/menu?store_id=${this.store_id}`)
+                .then((res) => {
+                    // console.log(res.data);
+                    this.menu = res.data;
+                })
+                .catch((err) => console.log(err));
         },
         getdetails: function (store_id) {
             axios

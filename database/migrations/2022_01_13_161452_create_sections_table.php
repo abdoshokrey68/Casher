@@ -19,7 +19,7 @@ class CreateSectionsTable extends Migration
             $table->string('slug')->nullable();
             $table->string('description')->nullable();
             $table->integer('store_id');
-            $table->integer('discount')->nullable();
+            // $table->integer('discount')->nullable();
             $table->string('icon')->nullable();
             $table->timestamps();
         });

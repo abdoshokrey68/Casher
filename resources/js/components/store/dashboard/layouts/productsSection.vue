@@ -47,16 +47,13 @@
                             class="btn m-0 p-0 m-1 text-dark bold position-absolute bg-light"
                             style="right=0;"
                         >
-                            <span v-if="product.price.length > 2">{{
-                                product.price
-                            }}</span>
-                            <span v-else>{{ product.price + ".00" }}</span>
+                            {{ product.price }}
                             USD
                         </div>
                         <a href="#">
                             <img
                                 class="product-image"
-                                :src="product.image"
+                                :src="'/image/products/' + product.image"
                                 alt="product image"
                             />
                             <a

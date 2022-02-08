@@ -50,6 +50,10 @@
                             class="form-control mt-2 mb-2"
                             placeholder="Enter Member Email"
                         />
+                        <small class="text-danger bold">
+                            The email that will be added must be logged in to
+                            the platform
+                        </small>
                         <div
                             class="text-danger bold"
                             v-if="form.errors.has('email')"

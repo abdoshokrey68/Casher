@@ -103,6 +103,7 @@
                             v-model="form.price"
                             type="number"
                             name="price"
+                            step="0.01"
                             class="form-control mt-2 mb-2"
                             min="0"
                             placeholder="Product Price"

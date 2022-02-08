@@ -34,6 +34,7 @@ Vue.component('store-settings', require('./components/store/dashboard/rightBarPo
 Vue.component('edit-tables', require('./components/store/dashboard/rightBarPopUp/editTables.vue').default);
 Vue.component('store-box', require('./components/store/dashboard/rightBarPopUp/storeBox.vue').default);
 Vue.component('store-history', require('./components/store/dashboard/rightBarPopUp/storeHistory.vue').default);
+Vue.component('edit-menu', require('./components/store/dashboard/rightBarPopUp/storeMenu.vue').default);
 
 // ===================== IMPORT SMALL LAYOUTS  ======================
 

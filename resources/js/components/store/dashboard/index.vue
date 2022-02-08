@@ -133,17 +133,27 @@
                 >
                     <store-box> </store-box>
                 </div>
-                <!-- End Of Edit Store Talbes Component -->
+                <!-- End Of Edit Store Box Component -->
 
                 <div
-                    id="store-box"
-                    class="row store-box"
+                    id="store-history"
+                    class="row store-history"
                     @click.self="storehistory = !storehistory"
                     v-if="storehistory"
                 >
                     <store-history> </store-history>
                 </div>
-                <!-- End Of Edit Store Talbes Component -->
+                <!-- End Of Edit Store History Component -->
+
+                <div
+                    id="store-menu"
+                    class="row store-menu"
+                    @click.self="storemenu = !storemenu"
+                    v-if="storemenu"
+                >
+                    <edit-menu> </edit-menu>
+                </div>
+                <!-- End Of Edit Store Menu Component -->
             </div>
             <!-- End Of All POP UP Boxs -->
             <vue-confirm-dialog></vue-confirm-dialog>
@@ -168,10 +178,11 @@ export default {
             editproducts: false,
             dailyinvoice: false,
             editmembers: false,
-            storesettings: true,
+            storesettings: false,
             edittables: false,
             storebox: false,
             storehistory: false,
+            storemenu: false,
             time: "",
         };
     },

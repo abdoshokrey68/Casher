@@ -9,6 +9,6 @@ class box extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'amount', 'store_id', 'member_id'
+        'amount', 'status', 'store_id', 'member_id'
     ];
 }

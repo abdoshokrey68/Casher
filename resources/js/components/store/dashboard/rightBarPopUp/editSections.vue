@@ -68,18 +68,6 @@
                             v-html="form.errors.get('description')"
                         />
 
-                        <input
-                            v-model="form.discount"
-                            type="number"
-                            name="discount"
-                            class="form-control mt-2 mb-2"
-                            placeholder="Discount"
-                        />
-                        <div
-                            class="text-danger bold"
-                            v-if="form.errors.has('discount')"
-                            v-html="form.errors.get('discount')"
-                        />
                         <div class="section-icon">
                             <label for=""
                                 >Select Section Icon (Optional)
@@ -339,18 +327,10 @@
                                     ></label>
                                 </div>
                             </div>
-                            <small class="text-warning bold">
+                            <small class="text-primary bold">
                                 This icon will appear in the menu</small
                             >
                         </div>
-
-                        <input
-                            v-model="form.icon"
-                            type="number"
-                            name="icon"
-                            class="form-control mt-2 mb-2"
-                            placeholder="Discount"
-                        />
                         <div
                             class="text-danger bold"
                             v-if="form.errors.has('icon')"
@@ -413,7 +393,6 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th scope="col">Name</th>
-                                        <th scope="col">Discount</th>
                                         <th scope="col">Icon</th>
                                         <th scope="col">Edit</th>
                                         <th scope="col">Delete</th>
@@ -425,7 +404,6 @@
                                     >
                                         <tr :key="index" class="text-center">
                                             <td>{{ section.name }}</td>
-                                            <td>{{ section.discount }}</td>
                                             <td>
                                                 <i
                                                     :class="
@@ -482,7 +460,6 @@ export default {
             form: new Form({
                 name: "",
                 description: "",
-                discount: 0,
                 icon: null,
                 store_id: this.$parent.store_id,
                 section_id: null,
@@ -509,7 +486,6 @@ export default {
             this.form.section_id = this.section.id;
             this.form.name = this.section.name;
             this.form.description = this.section.description;
-            this.form.discount = this.section.discount;
         },
     },
     methods: {

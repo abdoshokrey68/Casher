@@ -72,7 +72,7 @@ class productApi extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'description' => 'max:255',
-            'price' => 'required|integer',
+            'price' => 'required',
             'stock' => 'required|integer',
             'section_id' => 'required',
             'store_id' => 'required',
@@ -112,7 +112,7 @@ class productApi extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'description' => 'max:255',
-            'price' => 'required|integer',
+            'price' => 'required|decimal',
             'stock' => 'required|integer',
             'section_id' => 'required|integer',
             'store_id' => 'required',

@@ -1,24 +1,50 @@
 <?php
 
+use App\Exports\UsersExport;
 use App\Http\Controllers\API\ApiController;
+use App\Http\Controllers\API\boxApi;
 use App\Http\Controllers\API\storeApi;
 use App\Http\Controllers\API\membersApi;
 use App\Http\Controllers\API\invoiceApi;
 use App\Http\Controllers\API\invoiceDetailsApi;
+use App\Http\Controllers\API\menuApi;
 use App\Http\Controllers\API\sectionApi;
 use App\Http\Controllers\API\productApi;
 use App\Http\Controllers\API\tableApi;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyController;
+use App\Models\menu;
+use App\Models\store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Dompdf\Dompdf;
 
 
 Auth::routes();
 
+Route::get('test', function () {
+    $url = route('store.menu', 2);
+    // return (new UsersExport)->download('users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    return $qrcode = QrCode::size(300)->generate($url);
+    return view('qrCode', compact('qrcode'));
+});
+
+Route::get('pdf/{store_id}', function ($store_id) {
+    $menu = menu::where('store_id', $store_id)->first();
+    $store = store::find($store_id);
+    $url =  url(public_path('image\menu\QR\border2.jpg'));
+    return view('store.menu.qrcode.qrcode', compact('menu', 'store', 'url'));
+    $pdf = PDF::loadView('store.menu.qrcode.qrcode', compact('menu', 'store', 'url'));
+    return $pdf->download('QrCode.pdf');
+    $pdf = PDF::loadView('store.menu.qrcode.qrcode', compact('menu', 'store', 'url'))->stream();
+    return $pdf;
+})->middleware('checkmember');
+
 Route::get('/home',                 [HomeController::class, 'index'])->name('home');
 Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
 Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
+Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
 
 // ================================================================
 // ========================== Store API ===========================
@@ -26,7 +52,7 @@ Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('stor
 Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
 Route::get('api/store_d',           [storeApi::class, 'store_d']);
 Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
-Route::get('api/store/addaudience',       [storeApi::class, 'addaudience']);
+Route::get('api/store/addaudience', [storeApi::class, 'addaudience']);
 
 // ================================================================
 // ========================== INVOICES API ========================
@@ -80,3 +106,16 @@ Route::get('api/gettable',          [tableApi::class, 'gettable']);
 Route::post('api/addtable',         [tableApi::class, 'addtable']);
 Route::post('api/updatetable',      [tableApi::class, 'updatetable']);
 Route::get('api/deletetable',       [tableApi::class, 'deletetable']);
+
+// ================================================================
+// ========================== Menu API ==========================
+// ================================================================
+Route::get('api/store/menu',        [menuApi::class, 'index']);
+Route::post('api/store/menu',       [menuApi::class, 'edit']);
+
+
+// ================================================================
+// ========================== Store BOX API ==========================
+// ================================================================
+Route::get('api/store/getboxinfo',  [boxApi::class, 'getboxinfo']);
+Route::post('api/store/addtobox',   [boxApi::class, 'addtobox']);

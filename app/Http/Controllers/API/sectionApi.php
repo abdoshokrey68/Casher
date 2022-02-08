@@ -74,7 +74,6 @@ class sectionApi extends Controller
             'name'          => 'required|max:255',
             'store_id'      => 'required|integer',
             'description'   => 'max:255',
-            'discount'      => 'required|integer',
         ]);
         $sectionIcon = null;
         $store = store::find($request->store_id);
@@ -82,7 +81,6 @@ class sectionApi extends Controller
             $section = new section();
             $section->name = $request->name;
             $section->description = $request->description;
-            $section->discount = $request->discount;
             $section->store_id = $request->store_id;
             $sectionIcon = null;
             if ($request->icon) {
@@ -106,7 +104,6 @@ class sectionApi extends Controller
             'store_id' => 'required|integer',
             'section_id' => 'required|integer',
             'description' => 'max:255',
-            'discount' => 'required|integer',
         ]);
 
         $store = store::find($request->store_id);
@@ -115,7 +112,6 @@ class sectionApi extends Controller
             if ($section) {
                 $section->name = $request->name;
                 $section->description = $request->description;
-                $section->discount = $request->discount;
                 if ($request->icon) {
                     $this->validate($request, [
                         'icon'          => 'required|max:30',

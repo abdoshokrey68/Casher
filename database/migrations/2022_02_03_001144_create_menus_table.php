@@ -16,10 +16,14 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->integer('store_id');
-            $table->integer('design_no');
-            $table->integer('background_co');
-            $table->integer('text_co');
-            $table->integer('heading_co');
+            $table->string('qrcode_name')->nullable();
+            $table->integer('design_no')->nullable();
+            $table->string('background_co')->default('#052531');
+            $table->string('text_co')->default('#000000');
+            $table->string('heading_co')->default('#052531');
+            $table->string('des_co')->default('#787878');
+            $table->string('icon_co')->default('#000000');
+            $table->string('price_co')->default('#000000');
             $table->timestamps();
         });
     }

@@ -16,6 +16,7 @@ class CreateBoxesTable extends Migration
         Schema::create('boxes', function (Blueprint $table) {
             $table->id();
             $table->integer('amount');
+            $table->integer('status')->default(0); // [0] =>  received || [1] => delivered
             $table->integer('store_id');
             $table->integer('member_id');
             $table->timestamps();

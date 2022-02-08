@@ -91,7 +91,7 @@
                         >
                             Today's total sales
                             <span id="total-salse" class="text-danger bold">
-                                {{ total + ".00" }}
+                                {{ total }}
                             </span>
                         </h5>
                     </div>

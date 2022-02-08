@@ -22,23 +22,23 @@
             <h1 id="store-name" class="text-center text-light p-2 h4 mt-2">
                 {{ store.name }}
             </h1>
-            <h6
+            <!-- <h6
                 id="store-email"
                 v-if="store.email"
                 class="text-center text-light p-2 small m-0"
             >
                 <i class="fas fa-envelope-open-text mr-1 ml-1"></i>
                 {{ store.email }}
-            </h6>
+            </h6> -->
 
-            <h6
+            <!-- <h6
                 id="store-phone"
                 v-if="store.phone"
                 class="text-center text-light p-2 small m-0"
             >
                 <i class="fas fa-headphones-alt mr-1 ml-1"></i>
                 {{ store.phone }}
-            </h6>
+            </h6> -->
         </div>
         <!-- End Store Info -->
 
@@ -121,13 +121,20 @@
                 <i class="fas fa-history mr-2 ml-2"></i>
                 Store History
             </button>
+            <button
+                @click="storeMenuToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-concierge-bell mr-2 ml-2"></i>
+                Store Menu
+            </button>
             <a
                 :href="menu_link"
                 class="list-group-item list-group-item-action text-center mb-2 action"
                 target="_blank"
             >
                 <i class="fas fa-concierge-bell mr-2 ml-2"></i>
-                Store Menu
+                Open Menu
             </a>
             <!-- <a :href="logout" @click.prevent="logout()"> Logout </a>
 
@@ -203,6 +210,9 @@ export default {
         },
         storeHistoryToggle: function () {
             this.$parent.storehistory = !this.$parent.storehistory;
+        },
+        storeMenuToggle: function () {
+            this.$parent.storemenu = !this.$parent.storemenu;
         },
         logout: function () {
             document.getElementById("logout-form").submit();

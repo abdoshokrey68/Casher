@@ -30,6 +30,7 @@ class HomeController extends Controller
 
     public function store($store_id)
     {
+
         $store = store::where('id', $store_id)->first();
         if ($store) {
             if ($store->manager_id == Auth::id()) {
@@ -50,5 +51,11 @@ class HomeController extends Controller
         } else {
             return 'false';
         }
+    }
+
+    public function downloadQrCode($store_id)
+    {
+        $pdf = PDF::loadView('store.menu.qrcode.qrcode');
+        return $pdf->download('invoice.pdf');
     }
 }

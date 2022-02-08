@@ -125,7 +125,7 @@ class storeApi extends Controller
     {
         $this->validate($request, [
             'store_id'  => 'required',
-            'phone'     => 'required|integer'
+            'phone'     => 'required'
         ]);
         $store = store::find($request->store_id);
         if ($store) {
