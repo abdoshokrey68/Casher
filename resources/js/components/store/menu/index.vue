@@ -88,7 +88,7 @@
                                     class="fas fa-bell text-warning bold mr-2 ml-2"
                                 ></i>
                                 To know the latest offers, you can join us and
-                                leave your phone number
+                                leave your WhatsApp number
                             </label>
                             <input
                                 v-model="form.phone"
@@ -201,7 +201,7 @@
                                         "
                                     >
                                         {{ product.name }}
-                                        <!-- <p
+                                        <!-- <p`
                                             v-if="
                                                 getNewProducts(
                                                     product.created_at
@@ -233,6 +233,7 @@
             </div>
             <!-- End menu-content Div -->
         </div>
+        <!-- <main-footer /> -->
         <notifications group="dashboard" />
         <!-- VUE NOTIFICATION COMPONENT -->
     </div>
@@ -242,7 +243,9 @@
 <script>
 import Form from "vform";
 import axios from "axios";
+// import mainFooter from "../layouts/mainFooter.vue";
 export default {
+    // components: { mainFooter },
     name: "StoreMenu",
     props: ["store_id"],
     data: function () {

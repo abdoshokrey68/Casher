@@ -42,6 +42,7 @@ Vue.component('edit-menu', require('./components/store/dashboard/rightBarPopUp/s
 // ===================== Main Store pages ======================
 Vue.component('dashboard-store', require('./components/store/dashboard/index.vue').default);
 Vue.component('store-menu', require('./components/store/menu/index.vue').default);
+Vue.component('main-footer', require('./components/store/layouts/mainFooter.vue').default);
 
 
 import router from './routes/routes.js';

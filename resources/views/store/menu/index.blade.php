@@ -4,4 +4,8 @@
     <div>
         <store-menu  store_id="{{$store_id}}" />
     </div>
+    <div>
+        <main-footer />
+    </div>
 @endsection
+
