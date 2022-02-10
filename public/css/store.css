@@ -136,3 +136,16 @@
 #menu-page .menu-content .menu-main-content .section-name {
     border-bottom: 2px dashed #052531;
 }
+
+/* ================================ */
+/* ========== Home Pages ========== */
+/* ================================ */
+
+/* Start Create store Page */
+#crate-store .create-box {
+    margin: auto;
+    box-shadow: 8px 15px 15px #504ca0;
+}
+#crate-store .create-store-heading h4 {
+    border-bottom: 2px solid #514da2;
+}

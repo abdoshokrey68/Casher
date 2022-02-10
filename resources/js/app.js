@@ -39,11 +39,17 @@ Vue.component('edit-menu', require('./components/store/dashboard/rightBarPopUp/s
 // ===================== IMPORT SMALL LAYOUTS  ======================
 
 
-// ===================== Main Store pages ======================
+// ===================== Store Compoentn ======================
 Vue.component('dashboard-store', require('./components/store/dashboard/index.vue').default);
 Vue.component('store-menu', require('./components/store/menu/index.vue').default);
 Vue.component('main-footer', require('./components/store/layouts/mainFooter.vue').default);
 
+// ============================================================
+// ===================== Home Components ======================
+// ============================================================
+
+Vue.component('home-component', require('./components/home/homeComponent.vue').default);
+Vue.component('create-store', require('./components/home/createStore.vue').default);
 
 import router from './routes/routes.js';
 

@@ -25,9 +25,8 @@ class CreateStoresTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('audience')->default(0);
-            $table->string('password');
             $table->string('currency')->nullable();
-            $table->string('discount')->nullable();
+            $table->string('discount')->default(0);
             $table->integer('manager_id');
             $table->timestamps();
         });

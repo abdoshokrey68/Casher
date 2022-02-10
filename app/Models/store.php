@@ -20,7 +20,6 @@ class store extends Model
         'discount',
         'image',
         'thumbnail',
-        'password',
         'cover',
         'audience',
         'location',

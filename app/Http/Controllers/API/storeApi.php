@@ -141,4 +141,31 @@ class storeApi extends Controller
             return 'false';
         }
     }
+
+    public function addNewStore(Request $request)
+    {
+        $this->validate($request, [
+            'name'      => 'required|max:120',
+            'email'     => 'required|email:rfc,dns',
+            'phone'     => 'required',
+            'location'  => 'required',
+            'currency'  => 'required|min:3|max:3',
+        ]);
+        // $request->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
+
+        $store = new store();
+        // $store = store::create([$request->all()]);
+        $store->name = $request->name;
+        $store->email = $request->email;
+        $store->phone = $request->phone;
+        $store->location = $request->location;
+        $store->currency = $request->currency;
+        $store->manager_id = 2; // Will Delete Soon
+        $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
+        $store->save();
+        return [
+            'storeName' => $store->name,
+            'route'     => route('store', $store->id),
+        ];
+    }
 }

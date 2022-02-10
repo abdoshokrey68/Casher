@@ -3,7 +3,7 @@
 @section('homecontent')
     <div class="container">
         <div class="card-body">
-            <home-component />
+            <create-store />
         </div>
     </div>
 @endsection

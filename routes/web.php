@@ -12,7 +12,6 @@ use App\Http\Controllers\API\sectionApi;
 use App\Http\Controllers\API\productApi;
 use App\Http\Controllers\API\tableApi;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MyController;
 use App\Models\menu;
 use App\Models\store;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +41,7 @@ Route::get('pdf/{store_id}', function ($store_id) {
 })->middleware('checkmember');
 
 Route::get('/home',                 [HomeController::class, 'index'])->name('home');
+Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
 Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
 Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
 Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
@@ -53,6 +53,7 @@ Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
 Route::get('api/store_d',           [storeApi::class, 'store_d']);
 Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
 Route::get('api/store/addaudience', [storeApi::class, 'addaudience']);
+Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
 
 // ================================================================
 // ========================== INVOICES API ========================

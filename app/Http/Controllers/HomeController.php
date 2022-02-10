@@ -28,10 +28,15 @@ class HomeController extends Controller
         }
     }
 
+    public function createStore()
+    {
+        return view('createstore');
+    }
+
     public function store($store_id)
     {
-
-        $store = store::where('id', $store_id)->first();
+        $store = store::find($store_id);
+        return $store;
         if ($store) {
             if ($store->manager_id == Auth::id()) {
                 return view('store.dashboard.index', compact('store_id'));
