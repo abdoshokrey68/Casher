@@ -50,6 +50,7 @@ Vue.component('main-footer', require('./components/store/layouts/mainFooter.vue'
 
 Vue.component('home-component', require('./components/home/homeComponent.vue').default);
 Vue.component('create-store', require('./components/home/createStore.vue').default);
+Vue.component('casher-program', require('./components/home/casherProgram.vue').default);
 
 import router from './routes/routes.js';
 

@@ -1,6 +1,6 @@
 <template>
     <div id="create-store">
-        <div class="container row">
+        <div class="container row" style="min-height: 90vh">
             <div
                 class="col-md-10 p-0 mt-5 m-auto create-box"
                 style="box-shadow: 8px 15px 15px #504ca0"
@@ -220,7 +220,7 @@ export default {
                     );
                     this.storeName = res.data.storeName;
                     this.route = res.data.route;
-                    // console.log(res.data);
+                    console.log(res.data);
                     this.form.reset();
                 })
                 .catch((err) => {

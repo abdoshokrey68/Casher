@@ -28,6 +28,11 @@ class HomeController extends Controller
         }
     }
 
+    public function casherProgram()
+    {
+        return view('home.casher');
+    }
+
     public function createStore()
     {
         return view('createstore');
@@ -36,7 +41,6 @@ class HomeController extends Controller
     public function store($store_id)
     {
         $store = store::find($store_id);
-        return $store;
         if ($store) {
             if ($store->manager_id == Auth::id()) {
                 return view('store.dashboard.index', compact('store_id'));

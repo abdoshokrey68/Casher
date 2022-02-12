@@ -3,7 +3,7 @@
 @section('homecontent')
     <div>
         <div>
-            <home-component casher_route="{{route('casher.program')}}" />
+            <casher-program home="{{route('home')}}" />
         </div>
     </div>
 @endsection

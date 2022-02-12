@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\audience;
 use App\Models\invoice;
 use App\Models\invoicedet;
+use App\Models\position;
 use App\Models\product;
 use App\Models\section;
 use App\Models\store;
@@ -163,9 +164,21 @@ class storeApi extends Controller
         $store->manager_id = 2; // Will Delete Soon
         $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
         $store->save();
+        $value = $this->createPosition($store->id, Auth::id());
+        return $value;
         return [
             'storeName' => $store->name,
             'route'     => route('store', $store->id),
         ];
+    }
+
+    protected function createPosition($store_id, $user_id)
+    {
+        $position = new position();
+        $position->position = 0;
+        $position->store_id = $store_id;
+        $position->member_id = $user_id;
+        $position->save();
+        return $position;
     }
 }

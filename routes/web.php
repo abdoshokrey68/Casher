@@ -41,6 +41,7 @@ Route::get('pdf/{store_id}', function ($store_id) {
 })->middleware('checkmember');
 
 Route::get('/home',                 [HomeController::class, 'index'])->name('home');
+Route::get('/casher-program',       [HomeController::class, 'casherProgram'])->name('casher.program');
 Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
 Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
 Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');

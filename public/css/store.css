@@ -6,12 +6,28 @@
 .clear {
     clear: both;
 }
+.link-unstyled,
+.link-unstyled:link,
+.link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
 .bg-d-blue {
     background: #052531 !important;
+}
+.image-res {
+    width: 100%;
+    height: 100%;
+}
+.text-d-blue {
+    color: #052531 !important;
 }
 .bg-new-warning {
     color: #052531 !important;
     background-color: #e9c46a !important;
+}
+.text-warning {
+    color: #dba400 !important;
 }
 .row {
     margin: auto;
@@ -26,7 +42,12 @@
     background-color: #e9c46a !important;
     border-color: #e9c46a !important;
 }
-
+.line-60 {
+    line-height: 60px;
+}
+.line-40 {
+    line-height: 40px;
+}
 /* login & register box style */
 .row.justify-content-center.members-box {
     width: 60%;
@@ -141,11 +162,103 @@
 /* ========== Home Pages ========== */
 /* ================================ */
 
+/* Home Page */
+
+#home-compo .home-header,
+#casher-program-compo .casher-program-header {
+    background-image: url("/image/home/online-ordering-FB.png");
+    height: 65vh;
+    background-size: cover;
+    position: relative;
+}
+
+#home-compo .home-header .header-text,
+#casher-program-compo .casher-program-header .header-text {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.623);
+    color: #fff;
+    transform: translate(-10%, -50%);
+}
+#home-compo #key-features .row > div {
+    border-radius: 20px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+#home-compo #key-features .row > div:hover {
+    background: #ffc107;
+    color: #000 !important;
+    cursor: pointer;
+}
+#home-compo #key-features .row > div:hover i {
+    color: #fff !important;
+}
+#home-compo .our-programs .heading,
+#casher-program-compo .the-benefits {
+    border-top: 1px solid #000;
+    position: relative;
+    top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+#home-compo .our-programs .heading h3 {
+    color: #000;
+    text-decoration: none;
+    font-style: italic;
+    font-size: 29px;
+    text-align: center;
+    padding: 5px;
+    background: #fff;
+    width: 36%;
+    margin: 0px auto;
+    display: block;
+    position: relative;
+    top: -24px;
+    font-family: "Droid serif", serif;
+}
+
 /* Start Create store Page */
 #crate-store .create-box {
     margin: auto;
     box-shadow: 8px 15px 15px #504ca0;
 }
+#casher-program-compo .the-benefits #the-benefits-content {
+    cursor: pointer;
+}
+#casher-program-compo .the-benefits #the-benefits-content .row .bg-light.p-5 {
+    min-height: 52vh;
+}
+#casher-program-compo .the-benefits .heading h3 {
+    color: #000;
+    text-decoration: none;
+    font-style: italic;
+    font-size: 29px;
+    text-align: center;
+    padding: 5px;
+    background: #fff;
+    width: 55%;
+    margin: 0px auto;
+    display: block;
+    position: relative;
+    top: -24px;
+    font-family: "Droid serif", serif;
+}
+
+#casher-program-compo #the-benefits-content {
+    background-image: url("/image/home/waiter-taking-order.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: hsla(0, 0%, 33%, 0.486);
+}
+
+#casher-program-compo #the-benefits-content .row > div:hover i {
+    color: #000 !important;
+}
+
+/* Casher Program Page */
 #crate-store .create-store-heading h4 {
     border-bottom: 2px solid #514da2;
 }
