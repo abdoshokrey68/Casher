@@ -4,17 +4,19 @@
             <div>
                 <i
                     id="icon-slide-up"
-                    :style="'transform:rotate(180deg)'"
+                    :style="'transform:rotate(' + turn + 'turn)'"
                     class="fas fa-chevron-down fa-2x text-light p-2 float-end"
                 ></i>
-                <h3 class="h3 text-center p-2 bg-secondary text-light bold">
+                <h3
+                    class="h3 text-center p-2 bg-secondary text-light bold text-uppercase"
+                >
                     {{ heading }}
                 </h3>
             </div>
 
             <transition name="slide">
                 <div class="child" v-if="isShow">
-                    <p class="lead">
+                    <p class="lead text-initial text-uppercase">
                         {{ msg }}
                     </p>
                 </div>
@@ -60,20 +62,22 @@ div {
     overflow: hidden;
     max-height: 0;
 }
+.slide .child .text-justify {
+    text-align: justify !important;
+}
 </style>
-
 <script>
 export default {
     name: "SlideDown",
     data: function () {
         return {
             isShow: false,
-            turn: 0.5,
+            turn: 1,
         };
     },
     watch: {
         isShow: function () {
-            if (turn == 0.5) {
+            if (this.turn == 0.5) {
                 this.turn = 1;
             } else {
                 this.turn = 0.5;

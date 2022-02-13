@@ -5531,6 +5531,85 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -6077,17 +6156,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SlideDown",
   data: function data() {
     return {
       isShow: false,
-      turn: 0.5
+      turn: 1
     };
   },
   watch: {
     isShow: function isShow() {
-      if (turn == 0.5) {
+      if (this.turn == 0.5) {
         this.turn = 1;
       } else {
         this.turn = 0.5;
@@ -16709,7 +16792,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-1a831b70] {\n    cursor: pointer;\n}\n.slide-enter-active[data-v-1a831b70] {\n    transition-duration: 0.3s;\n    transition-timing-function: ease-in;\n}\n.slide-leave-active[data-v-1a831b70] {\n    transition-duration: 0.3s;\n    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);\n}\n.slide-enter-to[data-v-1a831b70],\n.slide-leave[data-v-1a831b70] {\n    max-height: 100px;\n    overflow: hidden;\n}\n.slide-enter[data-v-1a831b70],\n.slide-leave-to[data-v-1a831b70] {\n    overflow: hidden;\n    max-height: 0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-1a831b70] {\n    cursor: pointer;\n}\n.slide-enter-active[data-v-1a831b70] {\n    transition-duration: 0.3s;\n    transition-timing-function: ease-in;\n}\n.slide-leave-active[data-v-1a831b70] {\n    transition-duration: 0.3s;\n    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);\n}\n.slide-enter-to[data-v-1a831b70],\n.slide-leave[data-v-1a831b70] {\n    max-height: 100px;\n    overflow: hidden;\n}\n.slide-enter[data-v-1a831b70],\n.slide-leave-to[data-v-1a831b70] {\n    overflow: hidden;\n    max-height: 0;\n}\n.slide .child .text-justify[data-v-1a831b70] {\n    text-align: justify !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38190,6 +38273,128 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "The black box",
+                  msg: "We understand the importance of maintaining security in every facility and minimizing risks that may arise. So our system puts an end to your concerns by installing the black box feature.\n                                Similar to the black box function in aircraft, this system can track any modification such as listing a new product, changing the price of a commodity, changing the password, or canceling an item and all the tasks that occur within the system.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "multilanguage",
+                  msg: "It is a multi-language program and can be adapted to each user or restaurant, making it easy to use.\n                                And reduce inconveniences that may arise in a multinational work environment, so that all employees can use it.",
+                },
+              }),
+            ],
+            1
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "the-benefits" }, [
+      _vm._m(3),
+      _vm._v(" "),
+      _c("div", { staticClass: "content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading:
+                    "Monitoring the working hours and attendance of employees",
+                  msg: "Managing employee time and attendance can take up a lot of your time and allow human mistakes to cost you your work. Therefore, this feature provides you with an organized and successful schedule for tracking employee details and calculating salaries.\n                        You can combine your employees' work time and attendance with their scheduled breaks, and connect them to a mini payroll system that does the job for you. Thus, you can monitor the efficiency of your employees and pay their salaries according to the quality of their performance, without making any effort on your part.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "daily plate",
+                  msg: "One of the most difficult tasks that restaurants with a multi-choice menu face is changing their special dishes daily, weekly, and even monthly.\n                        Our restaurant point of sale software automatically informs your employees of the meals or specials that the chef will serve that day. With the click of a button, you can send your weekly, monthly and quarterly menu to your customers via email or SMS.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Order Tracking",
+                  msg: "Allow your customers to track their orders as soon as the order is placed.\n                            Through this unique feature, an alert is sent to them as soon as the restaurant receives their order until the delivery driver leaves the restaurant, without downloading any application. Customers can also track the delivery driver on the map, with the ability to communicate with him.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Increase sales automatically",
+                  msg: "This smart feature is a source of income as waiters, cashiers and phone operators for the delivery service have an effective tool that contributes to increasing sales automatically.\n                            This smart feature memorizes customers' buying patterns and targets others by suggesting similar products to increase sales as a side product, appetizer or drink, or even to modify them based on what others have requested.\n                            No need to remind your employees to suggest products to increase their sales or even update your dishes. This feature does it for you and ensures increased revenue.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Customer preferences",
+                  msg: "The program determines the customer's preferences and saves them automatically. The smart library learns about his purchasing patterns and his own preferences, so that the system immediately suggests if he wants any additions to his regular order.\n                            Thus, this easy-to-use feature preserves the customer's choices, making them feel important and cared for.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading:
+                    "Real-time monitoring of stock and prescription runs out",
+                  msg: "What is the benefit of a point of sale system if it does not include the feature of tracking stock levels, especially in real time?\n                        It's an effective way to see how much ingredients and recipes are available and track their availability in real time for reorders, making the audit process easier. During the inventory process, it becomes easy to detect product/commodity theft or mismanagement.\n                        This unique feature helps auditors and operations managers complete a quick preview of inventory contents without having to stop businesses to perform physical counts.",
+                },
+              }),
+            ],
+            1
+          ),
         ]),
       ]),
     ]),
@@ -38351,7 +38556,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "heading" }, [
-      _c("h3", { staticClass: "h3" }, [_vm._v("Application features")]),
+      _c("h3", { staticClass: "h3" }, [
+        _vm._v("Features Available In The App"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "heading" }, [
+      _c("h3", { staticClass: "h3" }, [_vm._v("Features Coming Soon")]),
     ])
   },
 ]
@@ -39096,13 +39311,16 @@ var render = function () {
         _c("div", [
           _c("i", {
             staticClass: "fas fa-chevron-down fa-2x text-light p-2 float-end",
-            style: "transform:rotate(180deg)",
+            style: "transform:rotate(" + _vm.turn + "turn)",
             attrs: { id: "icon-slide-up" },
           }),
           _vm._v(" "),
           _c(
             "h3",
-            { staticClass: "h3 text-center p-2 bg-secondary text-light bold" },
+            {
+              staticClass:
+                "h3 text-center p-2 bg-secondary text-light bold text-uppercase",
+            },
             [
               _vm._v(
                 "\n                " + _vm._s(_vm.heading) + "\n            "
@@ -39114,7 +39332,7 @@ var render = function () {
         _c("transition", { attrs: { name: "slide" } }, [
           _vm.isShow
             ? _c("div", { staticClass: "child" }, [
-                _c("p", { staticClass: "lead" }, [
+                _c("p", { staticClass: "lead text-initial text-uppercase" }, [
                   _vm._v(
                     "\n                    " +
                       _vm._s(_vm.msg) +

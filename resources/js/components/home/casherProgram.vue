@@ -198,7 +198,7 @@ import slideDownVue from "./layouts/slideDown.vue"
         </div> -->
         <div class="the-benefits">
             <div class="heading">
-                <h3 class="h3">Application features</h3>
+                <h3 class="h3">Features Available In The App</h3>
             </div>
             <div class="content">
                 <div class="row">
@@ -207,6 +207,85 @@ import slideDownVue from "./layouts/slideDown.vue"
                             heading="Complaint Management"
                             msg="Are you having trouble receiving your customers' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers.
                                 For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="The black box"
+                            msg="We understand the importance of maintaining security in every facility and minimizing risks that may arise. So our system puts an end to your concerns by installing the black box feature.
+                                    Similar to the black box function in aircraft, this system can track any modification such as listing a new product, changing the price of a commodity, changing the password, or canceling an item and all the tasks that occur within the system."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="multilanguage"
+                            msg="It is a multi-language program and can be adapted to each user or restaurant, making it easy to use.
+                                    And reduce inconveniences that may arise in a multinational work environment, so that all employees can use it."
+                        >
+                        </slide-down>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="the-benefits">
+            <div class="heading">
+                <h3 class="h3">Features Coming Soon</h3>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Monitoring the working hours and attendance of employees"
+                            msg="Managing employee time and attendance can take up a lot of your time and allow human mistakes to cost you your work. Therefore, this feature provides you with an organized and successful schedule for tracking employee details and calculating salaries.
+                            You can combine your employees' work time and attendance with their scheduled breaks, and connect them to a mini payroll system that does the job for you. Thus, you can monitor the efficiency of your employees and pay their salaries according to the quality of their performance, without making any effort on your part."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="daily plate"
+                            msg="One of the most difficult tasks that restaurants with a multi-choice menu face is changing their special dishes daily, weekly, and even monthly.
+                            Our restaurant point of sale software automatically informs your employees of the meals or specials that the chef will serve that day. With the click of a button, you can send your weekly, monthly and quarterly menu to your customers via email or SMS."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Order Tracking"
+                            msg="Allow your customers to track their orders as soon as the order is placed.
+                                Through this unique feature, an alert is sent to them as soon as the restaurant receives their order until the delivery driver leaves the restaurant, without downloading any application. Customers can also track the delivery driver on the map, with the ability to communicate with him."
+                        >
+                        </slide-down>
+                    </div>
+
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Increase sales automatically"
+                            msg="This smart feature is a source of income as waiters, cashiers and phone operators for the delivery service have an effective tool that contributes to increasing sales automatically.
+                                This smart feature memorizes customers' buying patterns and targets others by suggesting similar products to increase sales as a side product, appetizer or drink, or even to modify them based on what others have requested.
+                                No need to remind your employees to suggest products to increase their sales or even update your dishes. This feature does it for you and ensures increased revenue."
+                        >
+                        </slide-down>
+                    </div>
+
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Customer preferences"
+                            msg="The program determines the customer's preferences and saves them automatically. The smart library learns about his purchasing patterns and his own preferences, so that the system immediately suggests if he wants any additions to his regular order.
+                                Thus, this easy-to-use feature preserves the customer's choices, making them feel important and cared for."
+                        >
+                        </slide-down>
+                    </div>
+
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Real-time monitoring of stock and prescription runs out"
+                            msg="What is the benefit of a point of sale system if it does not include the feature of tracking stock levels, especially in real time?
+                            It's an effective way to see how much ingredients and recipes are available and track their availability in real time for reorders, making the audit process easier. During the inventory process, it becomes easy to detect product/commodity theft or mismanagement.
+                            This unique feature helps auditors and operations managers complete a quick preview of inventory contents without having to stop businesses to perform physical counts."
                         >
                         </slide-down>
                     </div>
