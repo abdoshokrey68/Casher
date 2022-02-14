@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class position extends Model
 {
@@ -11,4 +12,14 @@ class position extends Model
     protected $fillable = [
         'position', 'store_id', 'member_id'
     ];
+
+    /**
+     * Get the user that owns the position
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(store::class, 'store_id');
+    }
 }

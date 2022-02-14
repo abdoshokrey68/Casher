@@ -16,6 +16,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <!-- Authentication Links -->
+
                 @guest
                     @if (Route::has('login'))
                         <li class="nav-item">
@@ -29,8 +30,23 @@
                         </li>
                     @endif
                 @else
+                    @if (Auth::user()->positions())
+                        <div class="dropdown">
+                            <button class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-store mr-1 ml-1"></i> Your Stores
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
+                                    <li><a class="dropdown-item" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <li class="nav-item mr-2 ml-2">
+                        <a class="nav-link text-light" href="{{ route('home.create-store') }}"> <i class="fas fa-shop mr-1 ml-"></i> Create Store</a>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
 

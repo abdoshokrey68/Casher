@@ -4,8 +4,23 @@ window.Vue = require('vue').default;
 
 import VueConfirmDialog from 'vue-confirm-dialog'
 import Form from 'vform';
+// import i18n from './i18n';
+import Vue from 'vue'
 
-import Vue           from 'vue';
+import VueI18n from 'vue-i18n'
+Vue.use(VueI18n)
+
+import axios from 'axios';
+// =====================================
+// ========= Set Language Settings =====
+// =====================================
+localStorage.setItem('lang', 'ar');
+// window.location.reload();
+const lang = localStorage.getItem('lang') || 'en'
+axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.headers['Accept-Language'] = lang;
+
+// import Vue           from 'vue';
 import Notifications from 'vue-notification';
 
 Vue.use(Notifications)
@@ -56,5 +71,6 @@ import router from './routes/routes.js';
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    // i18n
 });

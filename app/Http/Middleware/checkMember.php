@@ -22,11 +22,17 @@ class checkMember
         $user = Auth::user();
         if ($user) {
             $store_id = $request->store_id;
-            $position = position::where('store_id', $store_id)->where('member_id', $user->id)->first();
-            if ($position)
-                return $next($request);
-            else
+            $store = store::find($store_id);
+            if ($store) {
+                $position = position::where('store_id', $store_id)->where('member_id', $user->id)->first();
+                if ($position) {
+                    return $next($request);
+                } else {
+                    return redirect()->route('home');
+                }
+            } else {
                 return redirect()->route('home');
+            }
         } else {
             return redirect()->route('home');
         }

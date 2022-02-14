@@ -1,7 +1,7 @@
 <template>
     <div id="invoice-details" class="">
         <div class="col-md-12 p-1 bg-d-blue text-light">
-            <h5 class="text-center p-2 m-0 bold">Invoice Details</h5>
+            <h5 class="text-center p-2 m-0 bold">{{ $t(message.invo_det) }}</h5>
         </div>
         <!-- End invoice details Header -->
         <div class="invoice-table invoice-details-table">

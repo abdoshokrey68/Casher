@@ -139,6 +139,7 @@
                         <img
                             src="/image/home/why-choose-us.jpg"
                             class="col-md-12 borderd image-res"
+                            alt="choose-us"
                         />
                     </div>
                     <div class="col-md-6 p-2">

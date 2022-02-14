@@ -13,16 +13,22 @@ use App\Http\Controllers\API\productApi;
 use App\Http\Controllers\API\tableApi;
 use App\Http\Controllers\HomeController;
 use App\Models\menu;
+use App\Models\position;
 use App\Models\store;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Dompdf\Dompdf;
-
+use Illuminate\Support\Facades\Hash;
 
 Auth::routes();
 
 Route::get('test', function () {
+
+    // return position::with('store')->get();
+    // return Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions
+    return Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions;
     $url = route('store.menu', 2);
     // return (new UsersExport)->download('users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     return $qrcode = QrCode::size(300)->generate($url);
@@ -40,6 +46,7 @@ Route::get('pdf/{store_id}', function ($store_id) {
     return $pdf;
 })->middleware('checkmember');
 
+Route::get('/',                     [HomeController::class, 'index'])->name('home');
 Route::get('/home',                 [HomeController::class, 'index'])->name('home');
 Route::get('/casher-program',       [HomeController::class, 'casherProgram'])->name('casher.program');
 Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');

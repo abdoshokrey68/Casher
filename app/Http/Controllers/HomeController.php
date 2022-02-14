@@ -13,19 +13,12 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index()
     {
-        // check if he has store
-        $user_id = Auth::id();
-        $store = store::where('manager_id', $user_id)->first();
-        if ($store) {
-            return view('home');
-        } else {
-            return view('home');
-        }
+        return view('home');
     }
 
     public function casherProgram()
@@ -42,13 +35,9 @@ class HomeController extends Controller
     {
         $store = store::find($store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                return view('store.dashboard.index', compact('store_id'));
-            } else {
-                return view('home');
-            }
+            return view('store.dashboard.index', compact('store_id'));
         } else {
-            return 'false';
+            return redirect()->route('home');
         }
     }
 

@@ -165,7 +165,6 @@ class storeApi extends Controller
         $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
         $store->save();
         $value = $this->createPosition($store->id, Auth::id());
-        return $value;
         return [
             'storeName' => $store->name,
             'route'     => route('store', $store->id),
@@ -175,7 +174,7 @@ class storeApi extends Controller
     protected function createPosition($store_id, $user_id)
     {
         $position = new position();
-        $position->position = 0;
+        $position->poristion = 0;
         $position->store_id = $store_id;
         $position->member_id = $user_id;
         $position->save();
