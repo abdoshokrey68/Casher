@@ -68,7 +68,7 @@
                                     class="fas fa-plus mt-2 ml-2"
                                     :hidden="form.busy"
                                 ></i>
-                                Join Us
+                                {{lang.join_us}}
                             </button>
                         </div>
                         <form
@@ -87,15 +87,14 @@
                                 <i
                                     class="fas fa-bell text-warning bold mr-2 ml-2"
                                 ></i>
-                                To know the latest offers, you can join us and
-                                leave your WhatsApp number
+                                {{lang.latest_offers}}
                             </label>
                             <input
                                 v-model="form.phone"
                                 type="phone"
                                 name="phone"
                                 class="form-control mt-2 mb-2"
-                                placeholder="Enter Your WhatsApp Number"
+                                :placeholder="lang.whatsapp_number"
                             />
                             <div
                                 class="text-danger bold"
@@ -118,7 +117,7 @@
                                         class="fas fa-plus mt-2 ml-2"
                                         :hidden="form.busy"
                                     ></i>
-                                    Join Now
+                                    {{lang.join_now}}
                                 </button>
                                 <button
                                     type="submit"
@@ -126,7 +125,7 @@
                                     @click="joinForm = !joinForm"
                                 >
                                     <i class="fas fa-times mt-2 ml-2"></i>
-                                    Cancel
+                                    {{lang.cancel}}
                                 </button>
                             </div>
                         </form>

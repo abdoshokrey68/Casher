@@ -48,7 +48,7 @@
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-plus mr-2 ml-2"></i>
-                New Invoice
+                {{ lang.new_invoice }}
             </button>
             <button
                 @click="payInvoiceToggle()"
@@ -56,7 +56,7 @@
                 :disabled="!invoice_id || invoice_id != 0"
             >
                 <i class="fas fa-money-bill-wave mr-2 ml-2"></i>
-                Pay The Amount
+                {{ lang.pay_the_amount }}
             </button>
             <!-- <button
                 @click="deleteInvoiceToggle()"
@@ -69,35 +69,35 @@
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-list mr-2 ml-2"></i>
-                Edit Sections
+                {{ lang.edit_section }}
             </button>
             <button
                 @click="editproductsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-cookie-bite mr-2 ml-2"></i>
-                Edit Products
+                {{ lang.edit_products }}
             </button>
             <button
                 @click="daliyinvoiceTogle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-file-alt mr-2 ml-2"></i>
-                Daily Invoices
+                {{ lang.daily_invoice }}
             </button>
             <button
                 @click="editmembersToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-users-cog mr-2 ml-2"></i>
-                Edit Members
+                {{ lang.edit_members }}
             </button>
             <button
                 @click="storesettingsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-store mr-2 ml-2"></i>
-                Store Settings
+                {{ lang.store_settings }}
             </button>
             <button
                 @click="edittablesToggle()"
@@ -105,28 +105,28 @@
             >
                 <i class="fas fa-cogs mr-2 ml-2"></i>
 
-                Table Management
+                {{ lang.table_manage }}
             </button>
             <button
                 @click="storeBoxToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-cash-register mr-2 ml-2"></i>
-                Box
+                {{ lang.box }}
             </button>
             <button
                 @click="storeHistoryToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-history mr-2 ml-2"></i>
-                Store History
+                {{ lang.store_history }}
             </button>
             <button
                 @click="storeMenuToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-concierge-bell mr-2 ml-2"></i>
-                Store Menu
+                {{ lang.store_menu }}
             </button>
             <a
                 :href="menu_link"
@@ -134,7 +134,7 @@
                 target="_blank"
             >
                 <i class="fas fa-concierge-bell mr-2 ml-2"></i>
-                Open Menu
+                {{ lang.open_menu }}
             </a>
             <!-- <a :href="logout" @click.prevent="logout()"> Logout </a>
 
@@ -150,7 +150,7 @@
                 class="list-group-item list-group-item-action bg-danger text-light bold text-center mb-2 action"
             >
                 <i class="fas fa-sign-out-alt"></i>
-                Sign out
+                {{ lang.logout }}
             </button>
         </div>
         <!-- End Orderd List -->
@@ -164,6 +164,7 @@ export default {
     data: function () {
         return {
             invoice_id: null,
+            lang: this.$parent.lang,
         };
     },
     watch: {

@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Add Product
+                    {{ lang.add_product }}
                 </h2>
             </div>
             <!-- End Add Prodact Header -->
@@ -46,14 +46,15 @@
                                 class="fas fa-plus mt-2 ml-2"
                                 :hidden="form.busy"
                             ></i>
-                            Add Section
+                            {{ lang.add_product }}
                         </button>
 
                         <button
                             @click.prevent="cancelMethod()"
                             class="btn btn-light text-danger bold"
                         >
-                            <i class="fas fa-times mt-2 ml-2"></i> Cancel
+                            <i class="fas fa-times mt-2 ml-2"></i>
+                            {{ lang.cancel }}
                         </button>
                     </div>
                 </form>
@@ -70,6 +71,7 @@ export default {
     data: function () {
         return {
             product: {},
+            store_id: this.$parent.store_id,
             productquantity: 1,
             form: new Form({
                 quantity: 1,
@@ -77,7 +79,7 @@ export default {
                 table_id: 0,
                 product_id: this.product_id,
             }),
-            count: 0,
+            lang: this.$parent.lang,
         };
     },
     mounted() {
@@ -107,12 +109,34 @@ export default {
                 .post("/api/addtodetails")
                 .then((res) => {
                     console.log(res.data);
-                    this.$router.push(
+                    // if (this.$route.query.get_invoice_details) {
+                    //     var l_g_i_d =
+                    //         this.$route.query.get_invoice_details.Number() + 1; // Latest get invoice details
+                    //     console.log(
+                    //         this.$route.query.get_invoice_details.Number()
+                    //     );
+                    // } else {
+                    //     var l_g_i_d = 0;
+                    // }
+                    console.log(this.$route.query);
+                    var url = this.$route.query;
+                    delete url.invoice_id;
+                    console.log(this.$route.query);
+                    console.log(url);
+
+                    this.$router.replace(
                         this.$route.fullPath +
                             "&get_invoice_details=" +
-                            this.count
+                            this.time
                     );
-                    this.count++;
+
+                    console.log(this.$route.query.get_invoice_details);
+                    // this.$router.push({
+                    //     path: `store/${this.store_id}`,
+                    //     query: { get_invoice_details: this.time },
+                    // });
+
+                    console.log(this.$route.query);
                     // this.$router.push({
                     //     params: { get_invoice_details: "this.time" },
                     // });

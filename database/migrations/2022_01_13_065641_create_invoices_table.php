@@ -18,10 +18,11 @@ class CreateInvoicesTable extends Migration
             $table->string('username')->nullable();
             $table->integer('create_id');
             $table->integer('store_id');
-            $table->integer('discount')->nullable(); // Discount For All Invoice on For Store
+            $table->integer('discount')->default(0); // Discount For All Invoice on For Store
             $table->integer('total')->nullable();
             $table->integer('paid')->nullable();
             $table->integer('table_id')->nullable();
+            $table->integer('status')->default(0); // if this is finished => [1];
             $table->softDeletes();
             $table->timestamps();
 

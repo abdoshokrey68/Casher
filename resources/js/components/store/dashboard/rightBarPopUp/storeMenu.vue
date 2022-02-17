@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Store Menu
+                    {{ lang.store_menu }}
                 </h2>
             </div>
             <!-- End Edit Menu Header -->
@@ -48,7 +48,7 @@
                     <div class="qr-code-box">
                         <div class="card row">
                             <div class="card-header">
-                                <h5 class="h5">Menu QR Code</h5>
+                                <h5 class="h5">{{ lang.menu_qr_code }}</h5>
                             </div>
                             <div class="card-body row col-md-6 m-auto">
                                 <img
@@ -63,7 +63,7 @@
                                     class="btn btn-primary d-block mt-2"
                                     download
                                 >
-                                    Download QR
+                                    {{ lang.download_qr }}
                                 </a>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                     <div class="card mt-3">
                         <div class="menu-design">
                             <div class="card-header">
-                                <h5 class="h5">Edit Menu Design</h5>
+                                <h5 class="h5">{{ lang.edit_menu_des }}</h5>
                             </div>
                             <div class="card-body row">
                                 <form
@@ -87,9 +87,9 @@
                                     />
 
                                     <div class="background-color">
-                                        <label for="background_co"
-                                            >Background Color</label
-                                        >
+                                        <label for="background_co">{{
+                                            lang.bg_co
+                                        }}</label>
                                         <input
                                             id="background_co"
                                             v-model="form.background_co"
@@ -109,7 +109,9 @@
                                     </div>
 
                                     <div class="text-color">
-                                        <label for="text_co">Text Color</label>
+                                        <label for="text_co">
+                                            {{ lang.text_co }}
+                                        </label>
                                         <input
                                             id="text_co"
                                             v-model="form.text_co"
@@ -125,9 +127,9 @@
                                     </div>
 
                                     <div class="des-color">
-                                        <label for="des_co"
-                                            >Product Description Color</label
-                                        >
+                                        <label for="des_co">{{
+                                            lang.product_des_co
+                                        }}</label>
                                         <input
                                             id="des_co"
                                             v-model="form.des_co"
@@ -143,9 +145,9 @@
                                     </div>
 
                                     <div class="price-color">
-                                        <label for="price_co"
-                                            >Price Color</label
-                                        >
+                                        <label for="price_co">{{
+                                            lang.price_co
+                                        }}</label>
                                         <input
                                             id="price_co"
                                             v-model="form.price_co"
@@ -161,7 +163,9 @@
                                     </div>
 
                                     <div class="icon-color">
-                                        <label for="icon_co">Icon Color</label>
+                                        <label for="icon_co">
+                                            {{ lang.icon_co }}
+                                        </label>
                                         <input
                                             id="icon_co"
                                             v-model="form.icon_co"
@@ -177,9 +181,9 @@
                                     </div>
 
                                     <div class="heading-color">
-                                        <label for="heading_co"
-                                            >Headings Color</label
-                                        >
+                                        <label for="heading_co">{{
+                                            lang.heading_co
+                                        }}</label>
                                         <input
                                             id="heading_co"
                                             v-model="form.heading_co"
@@ -211,7 +215,7 @@
                                                 class="fas fa-plus mt-2 ml-2"
                                                 :hidden="form.busy"
                                             ></i>
-                                            Edit Design
+                                            {{ lang.edit_design }}
                                         </button>
 
                                         <button
@@ -221,7 +225,7 @@
                                             <i
                                                 class="fas fa-times mt-2 ml-2"
                                             ></i>
-                                            Cancel
+                                            {{ lang.cancel }}
                                         </button>
                                     </div>
                                 </form>
@@ -245,6 +249,7 @@ export default {
         return {
             store_id: this.$parent.store_id,
             menu: {},
+            lang: this.$parent.lang,
             form: new Form({
                 store_id: this.$parent.store_id,
                 design_no: null,

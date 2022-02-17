@@ -15,14 +15,14 @@
                     :class="boxDelivery(form.status)"
                     @click="boxForm = !boxForm"
                 >
-                    Treasury Delivery
+                    {{ lang.treasury_delivery }}
                 </a>
                 <a
                     href="#"
                     :class="boxReceive(form.status)"
                     @click="boxForm = !boxForm"
                 >
-                    Receipt Of The Treasury
+                    {{ lang.receipt_of_treasury }}
                 </a>
             </div>
             <div>
@@ -36,10 +36,10 @@
                         <label for="amount">
                             <i class="fas fa-money-bill-alt bold mr-2 ml-2"></i>
                             <span v-if="form.status == 0">
-                                Received amount
+                                {{ lang.received_amount }}
                             </span>
-                            <span v-else> The Amount Delivered</span> "
-                            {{ username }} "
+                            <span v-else> {{ lang.the_amount_delivered }}</span>
+                            " {{ username }} "
                         </label>
                         <input
                             v-model="form.amount"
@@ -72,7 +72,7 @@
                                 class="fas fa-plus mt-2 ml-2"
                                 :hidden="form.busy"
                             ></i>
-                            Send Amount
+                            {{ lang.send_amount }}
                         </button>
                         <button
                             type="submit"
@@ -80,7 +80,7 @@
                             @click="boxForm = !boxForm"
                         >
                             <i class="fas fa-times mt-2 ml-2"></i>
-                            Cancel
+                            {{ lang.cancel }}
                         </button>
                     </div>
                 </form>
@@ -103,6 +103,7 @@ export default {
             username: null,
             password: null,
             boxForm: false,
+            lang: this.$parent.lang,
             form: new Form({
                 store_id: this.$parent.store_id,
                 amount: 0,

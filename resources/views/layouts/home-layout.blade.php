@@ -24,8 +24,7 @@
     <link href="{{ asset('css/store.css') }}" rel="stylesheet">
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 </head>
-<body class="bg-body">
-
+<body class="bg-body" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <div id="app">
         <nav class="navbar navbar-expand-md  navbar-dark bg-dark  shadow-sm">
             <div class="container">
@@ -35,38 +34,30 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ">
                         <!-- Authentication Links -->
-
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}"> @lang('site.login') </a>
                                 </li>
                             @endif
-
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}"> @lang('site.register') </a>
                                 </li>
                             @endif
                         @else
                             @empty (!Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions)
                                 <div class="dropdown">
                                     <button class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-store mr-1 ml-1"></i> Your Stores
+                                        <i class="fas fa-store mr-1 ml-1"></i> @lang('site.your_store')
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
-                                            <li><a class="dropdown-item" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
+                                            <li><a class="dropdown-item mt-1 ml-1" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -78,21 +69,13 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item bg-light bold mt-1 mb-1" href="{{ route('logout') }}"
+                                    <a class="dropdown-item bg-danger text-light bold mt-1 mb-1" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                     <i class="fas fa-right-from-bracket mr-1 ml-1"></i>
-                                        {{ __('Logout') }}
+                                            @lang('site.logout')
                                     </a>
-                                    <a class="dropdown-item bg-danger text-dark bold mt-1 mb-1" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                                    <i class="fas fa-right-from-bracket mr-1 ml-1"></i>
-                                        {{ __('Logout') }}
-                                    </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -107,6 +90,25 @@
         <main>
             @yield('homecontent')
         </main>
+        {{-- Language Box --}}
+        <div class="dropdown btn-group dropup dropdown-btn-position" style="margin: 0 5px; {{app()->getLocale() == 'ar' ? 'left: 20px; right:auto' : '' }}">
+            <button class="btn btn-warning bg-new-warning bold text-uppercase " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
+            >
+                {{-- <i class="fas fa-globe mr-1 ml-1"></i> --}}
+                {{app()->getLocale()}}
+            </button>
+            <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuLink">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <li>
+                        <a rel="alternate" class="dropdown-item text-center mt-1 mb-1" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                            {{ $properties['native'] }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        {{-- End Language Box --}}
+
         <div>
             <footer>
                 <div

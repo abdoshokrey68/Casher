@@ -184,12 +184,23 @@ export default {
             storehistory: false,
             storemenu: false,
             time: "",
+            locale: "",
+            lang: this.getLang(),
         };
     },
     mounted() {
         this.getStoreInfo();
         this.time = new Date().getTime();
         this.urlReplace();
+
+        // var url = this.$route.path.split("/");
+        // var filter = url.filter((e) => e == "en");
+        // var length = url.filter((e) => e == "en").length;
+        // if (length == 1) {
+        //     this.lang = this.getLang("en");
+        // } else {
+        //     this.lang = this.getLang("ar");
+        // }
     },
     watch: {
         $route: function () {

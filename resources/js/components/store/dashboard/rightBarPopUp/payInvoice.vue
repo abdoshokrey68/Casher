@@ -8,7 +8,9 @@
                 >
                     <i class="fas fa-times"></i>
                 </button>
-                <h2 class="h4 text-center bold p-2 mt-2">Invoice Value</h2>
+                <h2 class="h4 text-center bold p-2 mt-2">
+                    {{ lang.invoice_value }}
+                </h2>
             </div>
             <div class="card pay-invoice-tabels m-2">
                 <input
@@ -18,7 +20,9 @@
                     disabled
                 />
 
-                <h2 class="text-center h4 bold m-2 p-3">The amount paid</h2>
+                <h2 class="text-center h4 bold m-2 p-3">
+                    {{ lang.the_amount_paid }}
+                </h2>
                 <input
                     type="text"
                     name=""
@@ -26,7 +30,9 @@
                     class="form-control h5 border-primary"
                     placeholder="Enter the amount"
                 />
-                <h2 class="text-center h4 bold m-2 p-3">Remaining Amount</h2>
+                <h2 class="text-center h4 bold m-2 p-3">
+                    {{ lang.remaining_amount }}
+                </h2>
                 <input
                     type="text"
                     class="form-control disabled bold text-center text-danger"
@@ -39,7 +45,7 @@
                     class="btn btn-warning h5 p-3 mt-3 text-center bold"
                 >
                     <i class="fas fa-money-bill-wave"></i>
-                    Pay Now
+                    {{ lang.pay }}
                 </a>
             </div>
         </div>
@@ -53,6 +59,7 @@ export default {
     data: function () {
         return {
             invoice_id: null,
+            lang: this.$parent.lang,
         };
     },
     watch: {

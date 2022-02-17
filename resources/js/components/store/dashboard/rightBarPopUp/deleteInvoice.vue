@@ -9,19 +9,21 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Delete Invoice
+                    {{ lang.delete_invoice }}
                 </h2>
             </div>
             <!-- End delete invoice Header -->
             <div class="delete-invoice content p-2">
                 <form action="#" class="p-2 bold mb-2">
                     <div class="form-group mt-2">
-                        <label for="invoice-id">Invoice Number</label>
+                        <label for="invoice-id">{{
+                            lang.invoice_number
+                        }}</label>
                         <input
                             type="number"
                             class="form-control mt-2"
                             id="invoice-id"
-                            placeholder="Enter Invoice Number"
+                            :placeholder="lang.invoice_number"
                             min="1"
                         />
                     </div>
@@ -30,14 +32,14 @@
                             @click="handleClick()"
                             class="btn btn-danger mr-1 ml-1"
                         >
-                            <i class="fas fa-trash-alt"></i> Delete
+                            <i class="fas fa-trash-alt"></i> {{ lang.delete }}
                         </button>
                         <button
                             @click="deleteInvoiceToggle()"
                             class="btn text-secondary mr-1 ml-1 bold"
                         >
                             <i class="fas fa-times"></i>
-                            Cancel
+                            {{ lang.cancel }}
                         </button>
                     </div>
                 </form>

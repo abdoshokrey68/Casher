@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Select Table
+                    {{ lang.select_table }}
                 </h2>
             </div>
             <div class="card new-invoice-tabels">
@@ -36,7 +36,7 @@
                                 v-if="table.status != 0"
                                 class="text-warning bold"
                             >
-                                "Reserved"
+                                "{{ lang.reserved }}"
                             </small>
                         </router-link>
                     </div>
@@ -46,7 +46,7 @@
                             class="p-3 btn btn-danger bold col-12 action"
                         >
                             <i class="fas fa-money-bill-wave"></i>
-                            Cash</a
+                            {{ lang.cash }}</a
                         >
                     </div>
                 </div>
@@ -63,6 +63,7 @@ export default {
             store_id: this.$parent.store_id,
             tables: {},
             time: "",
+            lang: this.$parent.lang,
         };
     },
     mounted() {

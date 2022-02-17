@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Store Sections
+                    {{ lang.store_sections }}
                 </h2>
             </div>
             <!-- End Edit Secitons Header -->
@@ -21,7 +21,7 @@
                         class="btn btn-primary col-md-5 mb-2 mt-2"
                     >
                         <i class="fas fa-plus mr-2 ml-2"></i>
-                        Add New Section
+                        {{ lang.add_new_section }}
                     </button>
                     <form
                         @submit.prevent="getFormMethod(form.section_id)"
@@ -48,7 +48,7 @@
                             type="text"
                             name="name"
                             class="form-control mt-2 mb-2"
-                            placeholder="Name"
+                            :placeholder="lang.name"
                         />
                         <div
                             class="text-danger bold"
@@ -60,7 +60,7 @@
                             v-model="form.description"
                             name="description"
                             class="form-control mt-2 mb-2"
-                            placeholder="Description"
+                            :placeholder="lang.des"
                         ></textarea>
                         <div
                             class="text-danger bold"
@@ -69,9 +69,7 @@
                         />
 
                         <div class="section-icon">
-                            <label for=""
-                                >Select Section Icon (Optional)
-                            </label>
+                            <label for="">{{ lang.section_icon_op }} </label>
                             <div class="row">
                                 <div class="col-md-3">
                                     <input
@@ -328,7 +326,7 @@
                                 </div>
                             </div>
                             <small class="text-primary bold">
-                                This icon will appear in the menu</small
+                                {{ lang.this_icon_menu }}</small
                             >
                         </div>
                         <div
@@ -353,14 +351,14 @@
                                         class="fas fa-edit mt-2 ml-2"
                                         :hidden="form.busy"
                                     ></i>
-                                    Edit Section</span
+                                    {{ lang_edit_section }}</span
                                 >
                                 <span v-else>
                                     <i
                                         class="fas fa-plus mt-2 ml-2"
                                         :hidden="form.busy"
                                     ></i>
-                                    Add Section</span
+                                    {{ lang.add_section }}</span
                                 >
                             </button>
 
@@ -368,14 +366,17 @@
                                 @click.prevent="cancelMethod()"
                                 class="btn btn-light text-danger bold"
                             >
-                                <i class="fas fa-times mt-2 ml-2"></i> Cancel
+                                <i class="fas fa-times mt-2 ml-2"></i>
+                                {{ lang.cancel }}
                             </button>
                         </div>
                     </form>
                     <div class="clear"></div>
                     <!-- End Form Add new section -->
                     <div class="old-sections" v-if="!NewSectionFrom">
-                        <label for="search-sections">Search in Sections</label>
+                        <label for="search-sections">{{
+                            lang.search_section
+                        }}</label>
                         <input
                             type="text"
                             name="search-sections"
@@ -392,10 +393,10 @@
                             >
                                 <thead>
                                     <tr class="text-center">
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Icon</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Delete</th>
+                                        <th scope="col">{{ lang.name }}</th>
+                                        <th scope="col">{{ lang.icon }}</th>
+                                        <th scope="col">{{ lang.edit }}</th>
+                                        <th scope="col">{{ lang.delete }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -469,6 +470,7 @@ export default {
             sectionSearch: null,
             section: {},
             currentPath: null,
+            lang: this.$parent.lang,
         };
     },
     mounted() {

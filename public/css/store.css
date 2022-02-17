@@ -50,11 +50,12 @@
 }
 /* login & register box style */
 .row.justify-content-center.members-box {
-    width: 60%;
-    position: fixed;
+    width: 80%;
+    margin-top: 60px;
+    /* position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
 }
 
 /* Nav bar Style */
@@ -63,6 +64,10 @@
     background: #d3d3d3;
     color: #052531;
     font-weight: bold;
+}
+
+.navbar .collapse.navbar-collapse {
+    justify-content: end;
 }
 
 /* Products Section Style */
@@ -162,7 +167,16 @@
 /* ========== Home Pages ========== */
 /* ================================ */
 
-/* Home Page */
+.dropdown-btn-position {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
+.dropdown-btn-position button#dropdownMenuLink {
+    font-size: 1.5em;
+    border-radius: 50%;
+}
+/* Home Component */
 
 #home-compo .home-header,
 #casher-program-compo .casher-program-header {

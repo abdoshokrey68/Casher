@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Edit Sections
+                    {{ lang.edit_section }}
                 </h2>
             </div>
             <!-- End Edit Secitons Header -->
@@ -20,7 +20,8 @@
                         v-if="!tableForm"
                         @click="tableForm = !tableForm"
                     >
-                        <i class="fas fa-plus mr-2 ml-2"></i> Add New Table
+                        <i class="fas fa-plus mr-2 ml-2"></i>
+                        {{ lang.add_new_table }}
                     </button>
                     <form
                         @submit.prevent="getFormMethod()"
@@ -47,7 +48,7 @@
                             type="text"
                             name="name"
                             class="form-control mt-2 mb-2"
-                            placeholder="Enter Table Name"
+                            :placeholder="lang.en_table_name"
                         />
                         <div
                             class="text-danger bold"
@@ -70,22 +71,27 @@
                                     class="fas fa-plus mt-2 ml-2"
                                     :hidden="form.busy"
                                 ></i>
-                                <span v-if="form.table_id"> Edit Table </span>
-                                <span v-else> Add Table </span>
+                                <span v-if="form.table_id">
+                                    {{ lang.edit_table }}
+                                </span>
+                                <span v-else> {{ lang.add_table }} </span>
                             </button>
 
                             <button
                                 @click.prevent="cancelMethod()"
                                 class="btn btn-light text-danger bold"
                             >
-                                <i class="fas fa-times mt-2 ml-2"></i> Cancel
+                                <i class="fas fa-times mt-2 ml-2"></i>
+                                {{ lang.cancel }}
                             </button>
                         </div>
                     </form>
                     <!-- End Form Add new table -->
                     <div class="old-tables" v-if="!tableForm">
-                        <h3 class="h5 bold mt-3">CURRENT TABLES</h3>
-                        <label for="search-tables">Search in Tables</label>
+                        <h3 class="h5 bold mt-3">{{ lang.current_tables }}</h3>
+                        <label for="search-tables">{{
+                            lang.search_tables
+                        }}</label>
                         <input
                             type="text"
                             name="search-tables"
@@ -102,10 +108,10 @@
                             >
                                 <thead>
                                     <tr class="text-center">
-                                        <th scope="col">NO</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Delete</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">{{ lang.name }}</th>
+                                        <th scope="col">{{ lang.edit }}</th>
+                                        <th scope="col">{{ lang.delete }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -161,6 +167,7 @@ export default {
             table: {},
             searchTables: null,
             tableForm: false,
+            lang: this.$parent.lang,
             form: new Form({
                 name: "",
                 table_id: null,

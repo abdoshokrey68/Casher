@@ -1,18 +1,18 @@
 <template>
     <div id="invoice-details" class="">
         <div class="col-md-12 p-1 bg-d-blue text-light">
-            <h5 class="text-center p-2 m-0 bold">{{ $t(message.invo_det) }}</h5>
+            <h5 class="text-center p-2 m-0 bold">{{ lang.invo_det }}</h5>
         </div>
         <!-- End invoice details Header -->
         <div class="invoice-table invoice-details-table">
             <table class="table">
                 <thead>
                     <tr class="text-center">
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Discount</th>
-                        <th scope="col">Total</th>
+                        <th scope="col">{{ lang.name }}</th>
+                        <th scope="col">{{ lang.price }}</th>
+                        <th scope="col">{{ lang.quantity }}</th>
+                        <th scope="col">{{ lang.discount }}</th>
+                        <th scope="col">{{ lang.total }}</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -45,7 +45,7 @@
         <div class="col-md-12 mt-5" v-if="invoice_id">
             <div class="border rounded col-md-12 mt-5">
                 <h5 v-if="invoiceDetails.discount" class="bold p-3">
-                    Total Before Discount
+                    {{ lang.total_be_discount }}
                     <span>
                         {{ invoiceDetails.total }}
                         <span class="text-danger">
@@ -53,15 +53,11 @@
                         </span>
                     </span>
                 </h5>
-                <h5 class="bold p-3">The Total Amount</h5>
+                <h5 class="bold p-3">{{ lang.total_amount }}</h5>
                 <input
                     type="text"
                     class="form-control disabled p-3 text-center bold bg-d-blue text-light"
-                    :value="
-                        invoiceDetails.invoiceTotal -
-                        invoiceDetails.invoiceTotal *
-                            (invoiceDetails.discount / 100)
-                    "
+                    :value="getInvoiceValue()"
                     disabled
                 />
             </div>
@@ -77,12 +73,13 @@ export default {
             store_id: this.$parent.store_id,
             invoiceDetails: {},
             invoice_id: 0,
+            lang: this.$parent.lang,
         };
     },
     watch: {
         $route: function () {
             if (
-                this.$route.query.invoice_id &&
+                this.$route.query.invoice_id ||
                 this.$route.query.get_invoice_details
             ) {
                 this.invoice_id = this.$route.query.invoice_id;
@@ -110,7 +107,7 @@ export default {
             axios
                 .get(`/api/invoicedetails?invoice_id=${this.invoice_id}`)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.invoiceDetails = res.data;
                 })
                 .catch((err) => {
@@ -121,12 +118,26 @@ export default {
             axios
                 .get(`/api/deletedetails?invoice_details_id=${details_id}`)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.getInvoiceDetails();
                 })
                 .catch((err) => {
                     console.log(err);
                 });
+        },
+        getInvoiceValue: function (total, discount) {
+            // if (this.invoiceDetails == "empty")
+            //     console.log(this.invoiceDetails);
+            if (this.invoiceDetails == "empty") {
+                return 0;
+            } else {
+                if (discount != 0 && total != 0) {
+                    return total - total * (discount / 100);
+                } else {
+                    return total;
+                }
+            }
+            console.log(total + " && " + discount);
         },
     },
 };

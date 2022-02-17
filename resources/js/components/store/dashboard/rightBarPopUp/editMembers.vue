@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    <i class="fas fa-users-cog"></i> User Management
+                    <i class="fas fa-users-cog"></i> {{ lang.user_manage }}
                 </h2>
             </div>
             <!-- End Edit Members Header -->
@@ -20,7 +20,8 @@
                         @click="newMemberForm = !newMemberForm"
                         class="btn btn-primary text-center mb-2"
                     >
-                        <i class="fas fa-user-plus"></i> Add New Member
+                        <i class="fas fa-user-plus"></i>
+                        {{ lang.add_new_member }}
                     </button>
 
                     <form
@@ -48,11 +49,10 @@
                             type="email"
                             name="email"
                             class="form-control mt-2 mb-2"
-                            placeholder="Enter Member Email"
+                            :placeholder="lang.en_member_email"
                         />
                         <small class="text-danger bold">
-                            The email that will be added must be logged in to
-                            the platform
+                            {{ lang.the_email_that }}
                         </small>
                         <div
                             class="text-danger bold"
@@ -61,16 +61,18 @@
                         />
 
                         <div class="form-group mt-2">
-                            <label for="employment">Employment</label>
+                            <label for="employment">{{
+                                lang.employment
+                            }}</label>
                             <select
                                 id="employment"
                                 class="form-control"
                                 v-model="form.position"
                             >
-                                <option value="0">Manager</option>
-                                <option value="1">Casher</option>
-                                <option value="2">Restaurant</option>
-                                <option value="3">Admin</option>
+                                <option value="0">{{ lang.manager }}</option>
+                                <option value="1">{{ lang.casher }}</option>
+                                <option value="2">{{ lang.restaurant }}</option>
+                                <option value="3">{{ lang.admin }}</option>
                             </select>
                         </div>
 
@@ -89,14 +91,15 @@
                                     class="fas fa-plus mt-2 ml-2"
                                     :hidden="form.busy"
                                 ></i>
-                                Add Member
+                                {{ lang.add_member }}
                             </button>
 
                             <button
                                 @click.prevent="cancelMethod()"
                                 class="btn btn-light text-danger bold"
                             >
-                                <i class="fas fa-times mt-2 ml-2"></i> Cancel
+                                <i class="fas fa-times mt-2 ml-2"></i>
+                                {{ lang.cancel }}
                             </button>
                         </div>
                     </form>
@@ -111,12 +114,12 @@
                     <table class="table table-hover table-striped table-dark">
                         <thead>
                             <tr class="text-center">
-                                <th scope="col">No.</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
+                                <th scope="col">#</th>
+                                <th scope="col">{{ lang.name }}</th>
+                                <th scope="col">{{ lang.email }}</th>
+                                <th scope="col">{{ lang.position }}</th>
+                                <th scope="col">{{ lang.edit }}</th>
+                                <th scope="col">{{ lang.delete }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,18 +132,18 @@
                                 <td>{{ member.name }}</td>
                                 <td>{{ member.email }}</td>
                                 <td>
-                                    <span v-if="member.position == 0"
-                                        >Manager</span
-                                    >
-                                    <span v-if="member.position == 1"
-                                        >Casher</span
-                                    >
-                                    <span v-if="member.position == 2"
-                                        >Restaurant</span
-                                    >
-                                    <span v-if="member.position == 3"
-                                        >Admin</span
-                                    >
+                                    <span v-if="member.position == 0">{{
+                                        lang.manager
+                                    }}</span>
+                                    <span v-if="member.position == 1">{{
+                                        lang.casher
+                                    }}</span>
+                                    <span v-if="member.position == 2">{{
+                                        lang.restaurant
+                                    }}</span>
+                                    <span v-if="member.position == 3">{{
+                                        lang.admin
+                                    }}</span>
                                 </td>
                                 <td>
                                     <router-link
@@ -178,6 +181,7 @@ export default {
             store_id: this.$parent.store_id,
             members: {},
             member: {},
+            lang: this.$parent.lang,
             form: new Form({
                 email: "",
                 member_id: null,

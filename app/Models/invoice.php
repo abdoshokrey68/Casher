@@ -12,7 +12,14 @@ class invoice extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'create_id', 'store_id', 'discount', 'total', 'table_id', 'username',
+        'create_id',
+        'store_id',
+        'discount',
+        'total',
+        'table_id',
+        'username',
+        'status',
+        'paid',
     ];
 
     protected $hidden = [

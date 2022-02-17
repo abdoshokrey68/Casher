@@ -3,7 +3,7 @@
         <div class="col-md-12 bg-new-warning bold p-2">
             <div class="row">
                 <div class="col-md-4 p-0">
-                    <h5 class="pt-2">Prodacts</h5>
+                    <h5 class="pt-2">{{ lang.prudacts }}</h5>
                 </div>
                 <div class="col-md-8">
                     <input
@@ -11,7 +11,7 @@
                         class="form-control"
                         name="search-products"
                         id="search-products"
-                        placeholder="Search Prodacts"
+                        :placeholder="lang.search_products"
                     />
                 </div>
             </div>
@@ -25,14 +25,14 @@
                 {{ sectionDetails.name }}
             </h4>
             <h4 class="h4 bold border-bottom p-3" v-if="section_id == 0">
-                All Products
+                {{ lang.all_products }}
             </h4>
 
             <h4
                 v-if="products && products.length < 1"
                 class="h4 bold text-center text-danger p-3"
             >
-                There are no items yet
+                {{ lang.no_items_yet }}
             </h4>
             <div class="clear"></div>
             <div class="row">
@@ -96,6 +96,7 @@ export default {
             products: {},
             addProductsComponent: false,
             addproduct_id: null,
+            lang: this.$parent.lang,
         };
     },
     watch: {

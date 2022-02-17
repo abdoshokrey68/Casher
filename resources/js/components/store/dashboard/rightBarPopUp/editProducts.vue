@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Prodacts Control
+                    {{ lang.products_control }}
                 </h2>
             </div>
             <!-- End Edit Product Header -->
@@ -51,7 +51,7 @@
                         @click="addProductForm = !addProductForm"
                         class="btn btn-dark text-center mb-2"
                     >
-                        Add New Product
+                        {{ lang.add_new_product }}
                     </button>
 
                     <form
@@ -79,7 +79,7 @@
                             type="text"
                             name="name"
                             class="form-control mt-2 mb-2"
-                            placeholder="Product Name"
+                            :placeholder="lang.product_name"
                         />
                         <div
                             class="text-danger bold"
@@ -91,7 +91,7 @@
                             v-model="form.description"
                             name="description"
                             class="form-control mt-2 mb-2"
-                            placeholder="Product Description"
+                            :placeholder="lang.product_des"
                         ></textarea>
                         <div
                             class="text-danger bold"
@@ -106,7 +106,7 @@
                             step="0.01"
                             class="form-control mt-2 mb-2"
                             min="0"
-                            placeholder="Product Price"
+                            :placeholder="lang.product_price"
                         />
                         <div
                             class="text-danger bold"
@@ -115,7 +115,7 @@
                         />
 
                         <label for="section-id" class="mt-2">
-                            Choose Product Category
+                            {{ lang.ch_product_category }}
                         </label>
                         <select
                             id="section-id"
@@ -138,7 +138,7 @@
                         />
 
                         <label for="product-stock" class="mt-2">
-                            Product Stock
+                            {{ lang.product_stock }}
                         </label>
                         <select
                             id="product-stock"
@@ -146,9 +146,13 @@
                             v-model="form.stock"
                             class="form-control"
                         >
-                            <option value="0">Not Avilable</option>
-                            <option value="1" selected>Avilable</option>
-                            <option value="2">Limited Quantity</option>
+                            <option value="0">{{ lang.not_avilable }}</option>
+                            <option value="1" selected>
+                                {{ lang.avilable }}
+                            </option>
+                            <option value="2">
+                                {{ lang.limited_quantity }}
+                            </option>
                         </select>
                         <div
                             class="text-danger bold"
@@ -156,7 +160,9 @@
                             v-html="form.errors.get('stock')"
                         />
 
-                        <label for="store-image mt-2"> Product Image </label>
+                        <label for="store-image mt-2">
+                            {{ lang.product_image }}
+                        </label>
                         <input
                             id="store-image"
                             type="file"
@@ -199,14 +205,15 @@
                                     class="fas fa-plus mt-2 ml-2"
                                     :hidden="form.busy"
                                 ></i>
-                                Add Section
+                                {{ lang.add_product }}
                             </button>
 
                             <button
                                 @click.prevent="cancelMethod()"
                                 class="btn btn-light text-danger bold"
                             >
-                                <i class="fas fa-times mt-2 ml-2"></i> Cancel
+                                <i class="fas fa-times mt-2 ml-2"></i>
+                                {{ lang.cancel }}
                             </button>
                         </div>
                     </form>
@@ -217,9 +224,9 @@
                 <div class="old-products" v-if="!addProductForm">
                     <div class="row">
                         <div class="col-md-2 p-0 pt-2">
-                            <label for="new-product bold"
-                                >Current Products</label
-                            >
+                            <label for="new-product bold">{{
+                                lang.current_products
+                            }}</label>
                         </div>
                         <div class="col-md-10">
                             <input
@@ -227,7 +234,7 @@
                                 v-model="productsearch"
                                 id="new-product"
                                 class="form-control"
-                                placeholder="Search for a product"
+                                :placeholder="lang.search_products"
                             />
                         </div>
                     </div>
@@ -240,13 +247,17 @@
                         >
                             <thead>
                                 <tr class="text-center">
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Product Section</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Proudct Stock</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
+                                    <th scope="col">{{ lang.product_name }}</th>
+                                    <th scope="col">
+                                        {{ lang.product_section }}
+                                    </th>
+                                    <th scope="col">{{ lang.price }}</th>
+                                    <th scope="col">
+                                        {{ lang.product_stock }}
+                                    </th>
+                                    <th scope="col">{{ lang.image }}</th>
+                                    <th scope="col">{{ lang.edit }}</th>
+                                    <th scope="col">{{ lang.delete }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -267,12 +278,14 @@
                                     <td class="pt-4">{{ product.price }}</td>
                                     <td class="bold pt-4">
                                         <span v-if="product.stock == 0">
-                                            Not Avilable
+                                            {{ lang.not_avilable }}
                                         </span>
                                         <span v-else-if="product.stock == 1">
-                                            Avilable
+                                            {{ lang.avilable }}
                                         </span>
-                                        <span v-else> limited quantity </span>
+                                        <span v-else>
+                                            {{ lang.limited_quantity }}
+                                        </span>
                                     </td>
                                     <td class="bold text-danger">
                                         <div>
@@ -330,10 +343,10 @@
                         >
                             <h4 class="h4">
                                 <span v-if="productsearch.length >= 1">
-                                    There are no products with this name
+                                    {{ lang.no_products }}
                                 </span>
                                 <span v-else>
-                                    There are no products, add products
+                                    {{ lang.no_products_add_one }}
                                 </span>
                             </h4>
                         </div>
@@ -369,6 +382,7 @@ export default {
             }),
             product: {},
             product_image: null,
+            lang: this.$parent.lang,
         };
     },
     mounted() {

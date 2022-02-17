@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    Billing Details
+                    {{ lang.billing_details }}
                 </h2>
             </div>
             <!-- End Daily Invoice Header -->
@@ -17,9 +17,9 @@
                 <div class="invoice-date mb-3 p-2 card">
                     <div class="row m-0">
                         <div class="col-md-6">
-                            <label for="from-date" class="form-label"
-                                >From :</label
-                            >
+                            <label for="from-date" class="form-label">{{
+                                lang.from
+                            }}</label>
                             <input
                                 type="date"
                                 class="form-control"
@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="to-date" class="form-label"
-                                >To :
+                                >{{ lang.to }}
                             </label>
                             <input
                                 type="date"
@@ -41,14 +41,14 @@
                     </div>
                     <div class="clear"></div>
                     <small class="bold text-danger col-md-12">
-                        Date Style "DD-MM-YYYY"
+                        {{ lang.date_style }} "DD-MM-YYYY"
                     </small>
                     <br />
                     <button
                         @click="getDailyInvoice()"
                         class="btn btn-primary float-end"
                     >
-                        Show The Invoices
+                        {{ lang.show_invoice }}
                     </button>
                 </div>
                 <!-- End Select Date Box  -->
@@ -89,7 +89,7 @@
                             v-if="total != undefined"
                             class="h4 mt-2 text-center bold mt-5"
                         >
-                            Today's total sales
+                            {{ lang.total_sales }}
                             <span id="total-salse" class="text-danger bold">
                                 {{ total }}
                             </span>
@@ -104,12 +104,12 @@
                         >
                             <thead>
                                 <tr class="text-center">
-                                    <th scope="col">Invoice No.</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Discount</th>
-                                    <th scope="col">Table No.</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Delete</th>
+                                    <th scope="col">{{ lang.invoice_no }}</th>
+                                    <th scope="col">{{ lang.total }}</th>
+                                    <th scope="col">{{ lang.discount }}</th>
+                                    <th scope="col">{{ lang.table_no }}</th>
+                                    <th scope="col">{{ lang.date }}</th>
+                                    <th scope="col">{{ lang.delete }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -208,7 +208,7 @@
                             <h4
                                 class="h4 text-danger col-md-12 text-center bold"
                             >
-                                No invoices “The time period must be changed”
+                                {{ lang.no_invoice }}
                             </h4>
                         </div>
                     </div>

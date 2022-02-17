@@ -9,7 +9,8 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    <i class="fas fa-history mr-2 ml-2"></i> Store History
+                    <i class="fas fa-history mr-2 ml-2"></i>
+                    {{ lang.store_history }}
                 </h2>
             </div>
             <!-- End Edit Members Header -->
@@ -45,6 +46,7 @@ export default {
         return {
             store_id: this.$parent.store_id,
             members: {},
+            lang: this.$parent.lang,
         };
     },
     mounted() {

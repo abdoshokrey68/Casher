@@ -6,7 +6,7 @@
                     <div class="col-md-12 p-0">
                         <div class="row">
                             <div class="col-4 pr-1 pl-1 pt-2 text-center">
-                                <p class="p-0 m-0">Invoice NO</p>
+                                <p class="p-0 m-0">{{ lang.invoice_no }}</p>
                             </div>
                             <div class="col-8 p-0">
                                 <input
@@ -23,7 +23,7 @@
                     <div class="col-md-12 p-0">
                         <div class="row">
                             <div class="col-4 pr-1 pl-1 pt-2 text-center">
-                                <p class="p-0 m-0">Table NO</p>
+                                <p class="p-0 m-0">{{ lang.table_no }}</p>
                             </div>
                             <div class="col-8 p-0">
                                 <input
@@ -62,6 +62,7 @@ export default {
             date: null,
             table_id: 0,
             invoice_id: 0,
+            lang: this.$parent.lang,
         };
     },
     mounted() {
@@ -80,6 +81,12 @@ export default {
                 this.invoice_id = this.$route.query.invoice_id;
             }
         },
+    },
+    mounted() {
+        // url = this.$route;
+        // var url = this.$route.path.split("/");
+        // console.log(url.filter((e) => e == "en").length);
+        // console.log(this.$route.path);
     },
     methods: {
         newinvoiceToggle: function () {

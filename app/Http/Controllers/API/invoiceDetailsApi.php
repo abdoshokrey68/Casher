@@ -25,7 +25,6 @@ class invoiceDetailsApi extends Controller
             return 'empty';
         } else {
             $invoice = invoice::find($invoice_id);
-            return $request;
             if ($invoice) {
                 $store = store::find($invoice->store_id);
                 if ($store) {
@@ -63,14 +62,12 @@ class invoiceDetailsApi extends Controller
             if ($store) {
                 if ($store->manager_id == Auth::id()) {
                     if ($request->invoice_id == 0) {
-                        $invoice = new invoice();
-                        $invoice->create_id = date('ymd');
-                        $invoice->store_id = $store->id;
-                        $invoice->discount = $store->discount;
-                        $invoice->table_id = $request->table_id;
-                        return $request;
-                        $invoice->save();
+                        // return $store;
+                        $invoice = $this->createInvoice($store, $request->table_id);
                         return $invoice;
+                        $invoice = $this->updateTable($request->table_id, $invoice->id);
+                        $invoice = invoice::find($invoice->id);
+                        return $invoice->id;
                     } else {
                         $invoice = invoice::find($request->invoice_id);
                         if ($invoice) {
@@ -131,5 +128,24 @@ class invoiceDetailsApi extends Controller
         } else {
             return 'false3';
         }
+    }
+
+    protected function createInvoice($store, $table_id)
+    {
+        $invoice = new invoice();
+        $invoice->create_id = date('ymd');
+        $invoice->store_id = $store->id;
+        $invoice->discount = $store->discount;
+        $invoice->table_id = $table_id;
+        $invoice->username = Auth::user()->name;
+        $invoice->save();
+        return $invoice;
+    }
+
+    protected function updateTable($table_id, $invoice_id)
+    {
+        $table = table::find($table_id);
+        $table->invoice_id = $invoice_id;
+        $table->save();
     }
 }

@@ -1,28 +1,29 @@
 require('./bootstrap');
 
+import Vue from 'vue'
 window.Vue = require('vue').default;
 
 import VueConfirmDialog from 'vue-confirm-dialog'
 import Form from 'vform';
-// import i18n from './i18n';
-import Vue from 'vue'
-
-import VueI18n from 'vue-i18n'
-Vue.use(VueI18n)
-
 import axios from 'axios';
+
+
+// import i18n from './i18n.js';
+
+// Vue.config.productionTip = false;
+
+
 // =====================================
 // ========= Set Language Settings =====
 // =====================================
-localStorage.setItem('lang', 'ar');
+// localStorage.setItem('lang', 'ar');
 // window.location.reload();
-const lang = localStorage.getItem('lang') || 'en'
+
+const lang = localStorage.getItem('lang') || 'ar';
 axios.defaults.baseURL = 'http://localhost:8000';
-axios.defaults.headers['Accept-Language'] = lang;
+axios.defaults.headers['Accept-Language'] = "ar";
 
-// import Vue           from 'vue';
 import Notifications from 'vue-notification';
-
 Vue.use(Notifications)
 
 Vue.use(VueConfirmDialog)
@@ -68,9 +69,32 @@ Vue.component('create-store', require('./components/home/createStore.vue').defau
 Vue.component('casher-program', require('./components/home/casherProgram.vue').default);
 
 import router from './routes/routes.js';
+import ar from './lang/ar.json';
+import en from './lang/en.json';
 
+// const def_lang = localStorage.getItem('lang');
+var def_lang = localStorage.getItem('lang');
+Vue.prototype.getLocale = function getLocale() {
+    if (length == 1) {
+        this.lang = this.getLang("en");
+    } else {
+        this.lang = this.getLang("ar");
+    }
+}
+Vue.prototype.getLang = function getLang(lang = def_lang) {
+    var url = this.$route.path.split("/");
+    var filter = url.filter((e) => e == "en");
+    var length = url.filter((e) => e == "en").length;
+    if (length == 1) {
+        return en;
+    } else {
+        return ar;
+    }
+}
 const app = new Vue({
     el: '#app',
     router,
-    // i18n
+    // i18n,
+    mounted() {
+    }
 });

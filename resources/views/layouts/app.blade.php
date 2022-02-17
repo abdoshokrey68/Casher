@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('css/store.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 </head>
-<body class="bg-body">
+<body class="bg-body" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <div id="app">
         @if (Route::currentRouteName() == 'login' || Route::currentRouteName() == 'register')
         <nav class="navbar navbar-expand-md  navbar-dark bg-dark  shadow-sm">
@@ -43,37 +43,25 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ">
                         <!-- Authentication Links -->
-
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}"> @lang('site.login') </a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}"> @lang('site.register') </a>
                                 </li>
                             @endif
                         @else
-                            @if (Auth::user()->positions())
-                                <div class="dropdown">
-                                    <button class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-store mr-1 ml-1"></i> Your Stores
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
-                                            <li><a class="dropdown-item" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
                             <li class="nav-item mr-2 ml-2">
                                 <a class="nav-link text-light" href="{{ route('home.create-store') }}"> <i class="fas fa-shop mr-1 ml-"></i> Create Store</a>
                             </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -83,7 +71,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        @lang('site.logout')
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -101,6 +89,24 @@
         <main>
             @yield('content')
         </main>
+        {{-- Language Box --}}
+        <div class="dropdown btn-group dropup dropdown-btn-position" style="margin: 0 5px; {{app()->getLocale() == 'ar' ? 'left: 20px; right:auto' : '' }}">
+            <button class="btn btn-warning bg-new-warning bold text-uppercase " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
+            >
+                {{-- <i class="fas fa-globe mr-1 ml-1"></i> --}}
+                    {{app()->getLocale()}}
+            </button>
+            <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuLink">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <li>
+                        <a rel="alternate" class="dropdown-item text-center mt-1 mb-1" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                            {{ $properties['native'] }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        {{-- End Language Box --}}
     </div>
     <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

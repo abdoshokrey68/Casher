@@ -22,12 +22,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Hash;
 
-Auth::routes();
 
 Route::get('test', function () {
-
-    // return position::with('store')->get();
-    // return Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions
+    return LaravelLocalization::getSupportedLocales();
     return Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions;
     $url = route('store.menu', 2);
     // return (new UsersExport)->download('users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
@@ -46,85 +43,91 @@ Route::get('pdf/{store_id}', function ($store_id) {
     return $pdf;
 })->middleware('checkmember');
 
-Route::get('/',                     [HomeController::class, 'index'])->name('home');
-Route::get('/home',                 [HomeController::class, 'index'])->name('home');
-Route::get('/casher-program',       [HomeController::class, 'casherProgram'])->name('casher.program');
-Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
-Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
-Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
-Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () { //...
+    Auth::routes();
+    Route::get('/',                     [HomeController::class, 'index'])->name('home');
+    Route::get('/home',                 [HomeController::class, 'index'])->name('home');
+    Route::get('/casher-program',       [HomeController::class, 'casherProgram'])->name('casher.program');
+    Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
+    Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
+    Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
+    Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
+});
 
-// ================================================================
-// ========================== Store API ===========================
-// ================================================================
-Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
-Route::get('api/store_d',           [storeApi::class, 'store_d']);
-Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
-Route::get('api/store/addaudience', [storeApi::class, 'addaudience']);
-Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
+Route::group(['middleware' => ['checkMemberPosition']], function () { //...
 
-// ================================================================
-// ========================== INVOICES API ========================
-// ================================================================
-Route::get('api/dailyinvoice',      [invoiceApi::class, 'dailyinvoice']);
-Route::get('api/deleteinvoice',     [invoiceApi::class, 'deleteinvoice']);
-Route::get('api/invoice/export',    [invoiceApi::class, 'export']);
+    // ================================================================
+    // ========================== Store API ===========================
+    // ================================================================
+    Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
+    Route::get('api/store_d',           [storeApi::class, 'store_d']);
+    Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
+    Route::get('api/store/addaudience', [storeApi::class, 'addaudience']);
+    Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
 
-// ================================================================
-// ====================== INVOICE DETAILS API =====================
-// ================================================================
-Route::get('api/invoicedetails',    [invoiceDetailsApi::class, 'invoicedetails']);
-Route::post('api/addtodetails',     [invoiceDetailsApi::class, 'addtodetails']);
-Route::get('api/deletedetails',     [invoiceDetailsApi::class, 'deletedetails']);
+    // ================================================================
+    // ========================== INVOICES API ========================
+    // ================================================================
+    Route::get('api/dailyinvoice',      [invoiceApi::class, 'dailyinvoice']);
+    Route::get('api/deleteinvoice',     [invoiceApi::class, 'deleteinvoice']);
+    Route::get('api/invoice/export',    [invoiceApi::class, 'export']);
 
-// ================================================================
-// ========================== SECTIONS API ========================
-// ================================================================
-Route::get('api/sectiondet',        [sectionApi::class, 'sectiondet']);
-Route::get('api/getsections',       [sectionApi::class, 'getsections']);
-Route::get('api/getsection',        [sectionApi::class, 'getsection']);
-Route::get('api/deletesection',     [sectionApi::class, 'deletesection']);
-Route::post('api/createnewsection', [sectionApi::class, 'createnewsection']);
-Route::post('api/updatesection',    [sectionApi::class, 'updatesection']);
+    // ================================================================
+    // ====================== INVOICE DETAILS API =====================
+    // ================================================================
+    Route::get('api/invoicedetails',    [invoiceDetailsApi::class, 'invoicedetails']);
+    Route::post('api/addtodetails',     [invoiceDetailsApi::class, 'addtodetails']);
+    Route::get('api/deletedetails',     [invoiceDetailsApi::class, 'deletedetails']);
 
-// ================================================================
-// ========================== PRODUCTS API ========================
-// ================================================================
-Route::get('api/getproducts',       [productApi::class, 'getproducts']);
-Route::get('api/getproduct',        [productApi::class, 'getproduct']);
-Route::get('api/productdetails',    [productApi::class, 'productdetails']);
-Route::post('api/addnewproduct',    [productApi::class, 'addnewproduct']);
-Route::post('api/updateproduct',    [productApi::class, 'updateproduct']);
-Route::get('api/deleteproduct',     [productApi::class, 'deleteproduct']);
-Route::get('api/product/export',    [productApi::class, 'export']);
+    // ================================================================
+    // ========================== SECTIONS API ========================
+    // ================================================================
+    Route::get('api/sectiondet',        [sectionApi::class, 'sectiondet']);
+    Route::get('api/getsections',       [sectionApi::class, 'getsections']);
+    Route::get('api/getsection',        [sectionApi::class, 'getsection']);
+    Route::get('api/deletesection',     [sectionApi::class, 'deletesection']);
+    Route::post('api/createnewsection', [sectionApi::class, 'createnewsection']);
+    Route::post('api/updatesection',    [sectionApi::class, 'updatesection']);
 
-// ================================================================
-// ========================== MEMBERS API =========================
-// ================================================================
-Route::get('api/getmembers',        [membersApi::class, 'index']);
-Route::get('api/getmember',         [membersApi::class, 'getmember']);
-Route::post('api/addnewmember',     [membersApi::class, 'add']);
-Route::post('api/editmember',       [membersApi::class, 'edit']);
-Route::get('api/deletemember',      [membersApi::class, 'delete']);
+    // ================================================================
+    // ========================== PRODUCTS API ========================
+    // ================================================================
+    Route::get('api/getproducts',       [productApi::class, 'getproducts']);
+    Route::get('api/getproduct',        [productApi::class, 'getproduct']);
+    Route::get('api/productdetails',    [productApi::class, 'productdetails']);
+    Route::post('api/addnewproduct',    [productApi::class, 'addnewproduct']);
+    Route::post('api/updateproduct',    [productApi::class, 'updateproduct']);
+    Route::get('api/deleteproduct',     [productApi::class, 'deleteproduct']);
+    Route::get('api/product/export',    [productApi::class, 'export']);
 
-// ================================================================
-// ========================== TABLES API ==========================
-// ================================================================
-Route::get('api/gettables',         [tableApi::class, 'gettables']);
-Route::get('api/gettable',          [tableApi::class, 'gettable']);
-Route::post('api/addtable',         [tableApi::class, 'addtable']);
-Route::post('api/updatetable',      [tableApi::class, 'updatetable']);
-Route::get('api/deletetable',       [tableApi::class, 'deletetable']);
+    // ================================================================
+    // ========================== MEMBERS API =========================
+    // ================================================================
+    Route::get('api/getmembers',        [membersApi::class, 'index']);
+    Route::get('api/getmember',         [membersApi::class, 'getmember']);
+    Route::post('api/addnewmember',     [membersApi::class, 'add']);
+    Route::post('api/editmember',       [membersApi::class, 'edit']);
+    Route::get('api/deletemember',      [membersApi::class, 'delete']);
 
-// ================================================================
-// ========================== Menu API ==========================
-// ================================================================
-Route::get('api/store/menu',        [menuApi::class, 'index']);
-Route::post('api/store/menu',       [menuApi::class, 'edit']);
+    // ================================================================
+    // ========================== TABLES API ==========================
+    // ================================================================
+    Route::get('api/gettables',         [tableApi::class, 'gettables']);
+    Route::get('api/gettable',          [tableApi::class, 'gettable']);
+    Route::post('api/addtable',         [tableApi::class, 'addtable']);
+    Route::post('api/updatetable',      [tableApi::class, 'updatetable']);
+    Route::get('api/deletetable',       [tableApi::class, 'deletetable']);
+
+    // ================================================================
+    // ========================== Menu API ==========================
+    // ================================================================
+    Route::get('api/store/menu',        [menuApi::class, 'index']);
+    Route::post('api/store/menu',       [menuApi::class, 'edit']);
 
 
-// ================================================================
-// ========================== Store BOX API ==========================
-// ================================================================
-Route::get('api/store/getboxinfo',  [boxApi::class, 'getboxinfo']);
-Route::post('api/store/addtobox',   [boxApi::class, 'addtobox']);
+    // ================================================================
+    // ========================== Store BOX API ==========================
+    // ================================================================
+    Route::get('api/store/getboxinfo',  [boxApi::class, 'getboxinfo']);
+    Route::post('api/store/addtobox',   [boxApi::class, 'addtobox']);
+});

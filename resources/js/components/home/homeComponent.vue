@@ -60,7 +60,7 @@
                             </div>
                             <div class="prog-img">
                                 <img
-                                    src="image/home/materdine-teaser.jpg"
+                                    src="/image/home/materdine-teaser.jpg"
                                     alt="prog-image"
                                     class="col-md-12 image-res"
                                 />
@@ -80,7 +80,7 @@
                             </div>
                             <div class="prog-img">
                                 <img
-                                    src="image/home/qr-degital-menu.jpg"
+                                    src="/image/home/qr-degital-menu.jpg"
                                     alt="prog-image"
                                     class="col-md-12 image-res"
                                 />
@@ -101,7 +101,7 @@
                             </div>
                             <div class="prog-img">
                                 <img
-                                    src="image/home/soon.jpg"
+                                    src="/image/home/soon.jpg"
                                     alt="prog-image"
                                     class="col-md-12 image-res"
                                 />
@@ -122,7 +122,7 @@
                             </div>
                             <div class="prog-img">
                                 <img
-                                    src="image/home/soon.jpg"
+                                    src="/image/home/soon.jpg"
                                     alt="prog-image"
                                     class="col-md-12 image-res"
                                 />
@@ -159,6 +159,12 @@
 <script>
 export default {
     name: "HomeCompoentn",
-    props: ["casher_route"],
+    props: ["casher_route", "locale"],
+    data: function () {
+        return {};
+    },
+    mounted() {
+        // console.log();
+    },
 };
 </script>
