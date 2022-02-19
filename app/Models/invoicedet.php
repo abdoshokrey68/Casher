@@ -10,7 +10,7 @@ class invoicedet extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'product_id', 'price', 'quantity', 'discount', 'invoice_id', 'store_id'
+        'name', 'product_id', 'price', 'quantity',  'invoice_id', 'store_id'
     ];
 
     public function invoice()

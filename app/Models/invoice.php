@@ -16,8 +16,9 @@ class invoice extends Model
         'store_id',
         'discount',
         'total',
+        'f_discount',
         'table_id',
-        'username',
+        'member_id',
         'status',
         'paid',
     ];

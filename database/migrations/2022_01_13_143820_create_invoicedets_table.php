@@ -17,9 +17,9 @@ class CreateInvoicedetsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('product_id')->nullable();
-            $table->string('price');
-            $table->string('quantity');
-            $table->string('discount')->default(0); // Discount For Items
+            $table->decimal('price', $precision = 19, $scale = 2)->default(0.00);
+            $table->integer('quantity');
+            // $table->string('discount')->default(0); // Discount For Items
             $table->integer('invoice_id');
             $table->integer('store_id');
             $table->timestamps();

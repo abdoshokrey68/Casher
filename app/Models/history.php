@@ -9,5 +9,5 @@ class history extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['discription', 'member_id', 'store_id'];
+    protected $fillable = ['des_ar', 'des_en', 'member_id', 'store_id'];
 }

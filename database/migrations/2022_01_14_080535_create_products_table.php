@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('price');
+            $table->decimal('price', $precision = 19, $scale = 2);
             $table->string('image')->nullable();
             $table->integer('stock'); // 0 => not avilable | 1 => avilable | 2 => limited quantity
             $table->integer('section_id');

@@ -466,7 +466,7 @@ export default {
         },
         getProducts: function () {
             axios
-                .get(`/api/getproducts?store_id=${this.store_id}}`)
+                .get(`/api/getproducts?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.products = res.data;

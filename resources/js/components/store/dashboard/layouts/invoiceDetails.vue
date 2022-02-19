@@ -11,7 +11,6 @@
                         <th scope="col">{{ lang.name }}</th>
                         <th scope="col">{{ lang.price }}</th>
                         <th scope="col">{{ lang.quantity }}</th>
-                        <th scope="col">{{ lang.discount }}</th>
                         <th scope="col">{{ lang.total }}</th>
                         <th scope="col"></th>
                     </tr>
@@ -25,12 +24,6 @@
                         <td>{{ details.name }}</td>
                         <td>{{ details.price }}</td>
                         <td>{{ details.quantity }}</td>
-                        <td>
-                            <span v-if="details.discount != 0">
-                                {{ details.discount + "%" }}
-                            </span>
-                            <span v-else>--</span>
-                        </td>
                         <td>{{ details.price * details.quantity }}</td>
                         <td class="bold">
                             <a href="#" @click="handleClick(details.id)">
@@ -57,7 +50,13 @@
                 <input
                     type="text"
                     class="form-control disabled p-3 text-center bold bg-d-blue text-light"
-                    :value="getInvoiceValue()"
+                    readonly="readonly"
+                    :value="
+                        getInvoiceValue(
+                            invoiceDetails.f_discount,
+                            invoiceDetails.discount
+                        )
+                    "
                     disabled
                 />
             </div>
@@ -131,13 +130,8 @@ export default {
             if (this.invoiceDetails == "empty") {
                 return 0;
             } else {
-                if (discount != 0 && total != 0) {
-                    return total - total * (discount / 100);
-                } else {
-                    return total;
-                }
+                return total;
             }
-            console.log(total + " && " + discount);
         },
     },
 };

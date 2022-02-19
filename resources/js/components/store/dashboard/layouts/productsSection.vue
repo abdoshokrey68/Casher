@@ -47,7 +47,9 @@
                             class="btn m-0 p-0 m-1 text-dark bold position-absolute bg-light"
                             style="right=0;"
                         >
-                            {{ product.price }}
+                            <span v-if="product.price">
+                                {{ product.price }}
+                            </span>
                             USD
                         </div>
                         <a href="#">
@@ -110,13 +112,17 @@ export default {
         },
         // Get The New Section Parameter
     },
-    mounted() {},
+    mounted() {
+        if (this.section_id != null) {
+            this.getSections();
+        }
+    },
     methods: {
         addProductComponent: function (product_id) {
             this.addproduct_id = product_id;
             this.addProductsComponent = !this.addProductsComponent;
         },
-        getSections() {
+        getSections: function () {
             axios
                 .get(
                     `/api/sectiondet?store_id=${this.store_id}&section_id=${this.section_id}`

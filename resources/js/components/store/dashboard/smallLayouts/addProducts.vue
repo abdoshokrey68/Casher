@@ -50,7 +50,7 @@
                         </button>
 
                         <button
-                            @click.prevent="cancelMethod()"
+                            @click.prevent="addProductsToggle()"
                             class="btn btn-light text-danger bold"
                         >
                             <i class="fas fa-times mt-2 ml-2"></i>
@@ -73,6 +73,7 @@ export default {
             product: {},
             store_id: this.$parent.store_id,
             productquantity: 1,
+            invoice_id: 55,
             form: new Form({
                 quantity: 1,
                 invoice_id: 0,
@@ -80,6 +81,7 @@ export default {
                 product_id: this.product_id,
             }),
             lang: this.$parent.lang,
+            time: 0,
         };
     },
     mounted() {
@@ -108,38 +110,16 @@ export default {
             const response = await this.form
                 .post("/api/addtodetails")
                 .then((res) => {
-                    console.log(res.data);
-                    // if (this.$route.query.get_invoice_details) {
-                    //     var l_g_i_d =
-                    //         this.$route.query.get_invoice_details.Number() + 1; // Latest get invoice details
-                    //     console.log(
-                    //         this.$route.query.get_invoice_details.Number()
-                    //     );
-                    // } else {
-                    //     var l_g_i_d = 0;
-                    // }
-                    console.log(this.$route.query);
-                    var url = this.$route.query;
-                    delete url.invoice_id;
-                    console.log(this.$route.query);
-                    console.log(url);
+                    this.invoice_id = res.data.invoice_id;
+                    // console.log(res.data);
+                    this.updateUrl(this.invoice_id);
 
-                    this.$router.replace(
-                        this.$route.fullPath +
-                            "&get_invoice_details=" +
-                            this.time
-                    );
+                    // this.$router.replace(
+                    //     this.$route.fullPath +
+                    //         "&get_invoice_details=" +
+                    //         this.time
+                    // );
 
-                    console.log(this.$route.query.get_invoice_details);
-                    // this.$router.push({
-                    //     path: `store/${this.store_id}`,
-                    //     query: { get_invoice_details: this.time },
-                    // });
-
-                    console.log(this.$route.query);
-                    // this.$router.push({
-                    //     params: { get_invoice_details: "this.time" },
-                    // });
                     this.time = new Date().getTime();
                     this.form.reset();
                     this.$parent.addProductsComponent =
@@ -179,7 +159,20 @@ export default {
                     console.log(err);
                 });
         },
-        cancelMethod: function () {},
+        updateUrl: function (invoice_id) {
+            this.$router
+                .push({
+                    path: this.$route.path,
+                    query: {
+                        table_id: this.$route.query.table_id,
+                        invoice_id: invoice_id,
+                        section: this.$route.query.section_id,
+                        time: this.$route.query.time,
+                        get_invoice_details: this.time,
+                    },
+                })
+                .catch(() => {});
+        },
     },
 };
 </script>

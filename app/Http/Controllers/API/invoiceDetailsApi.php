@@ -29,12 +29,7 @@ class invoiceDetailsApi extends Controller
                 $store = store::find($invoice->store_id);
                 if ($store) {
                     if ($store->manager_id == Auth::id()) {
-                        $invoiceDetails = invoice::where('id', $invoice_id)->with('invoicedets')->first();
-                        $invoiceTotal = 0;
-                        foreach ($invoiceDetails->invoicedets as $details) {
-                            $invoiceTotal = $invoiceTotal + (($details->price - ($details->price * ($details->discount / 100))) * $details->quantity);
-                        }
-                        $invoiceDetails->invoiceTotal = $invoiceTotal;
+                        $invoiceDetails = $this->updateInvoiceTotal($invoice_id);
                         return $invoiceDetails;
                     } else {
                         return 'false1';
@@ -64,33 +59,32 @@ class invoiceDetailsApi extends Controller
                     if ($request->invoice_id == 0) {
                         // return $store;
                         $invoice = $this->createInvoice($store, $request->table_id);
-                        return $invoice;
-                        $invoice = $this->updateTable($request->table_id, $invoice->id);
-                        $invoice = invoice::find($invoice->id);
-                        return $invoice->id;
+                        $invoice_id =  $invoice->id;
+                        $table = $this->updateTable($request->table_id, $invoice_id);
                     } else {
                         $invoice = invoice::find($request->invoice_id);
                         if ($invoice) {
+                            $invoice_id = $request->invoice_id;
                         } else {
                             return 'false2';
                         }
                     }
-                    $details = invoicedet::where('invoice_id', $request->invoice_id)->where('product_id', $request->product_id)->first();
+                    $details = invoicedet::where('invoice_id', $invoice_id)->where('product_id', $request->product_id)->first();
                     if ($details) {
+                        return 'test1';
                         $details->quantity = $details->quantity + $request->quantity;
                         $details->save();
-                        return $details;;
+                        return $details;
                     } else {
-                        $details = new invoicedet();
-                        $details->name = $product->name;
-                        $details->product_id = $request->product_id;
-                        $details->price =  $product->price;
-                        $details->quantity = $request->quantity;
-                        $details->discount = $invoice->discount;
-                        $details->invoice_id = $request->invoice_id;
-                        $details->store_id = $store->id;
-                        $details->save();
-                        return 'Item has been added successfully';
+
+                        return $details = $this->createDetails($product, $request, $store->id, $invoice_id);
+
+                        return [
+                            'invoice_id'    => $invoice_id,
+                            'table'         => $table,
+                            'details'       => $details
+                        ];
+                        // return 'Item has been added successfully';
                     }
                 } else {
                     return 'false3';
@@ -137,7 +131,7 @@ class invoiceDetailsApi extends Controller
         $invoice->store_id = $store->id;
         $invoice->discount = $store->discount;
         $invoice->table_id = $table_id;
-        $invoice->username = Auth::user()->name;
+        $invoice->member_id = Auth::id();
         $invoice->save();
         return $invoice;
     }
@@ -145,7 +139,43 @@ class invoiceDetailsApi extends Controller
     protected function updateTable($table_id, $invoice_id)
     {
         $table = table::find($table_id);
-        $table->invoice_id = $invoice_id;
+        $table->status = $invoice_id;
         $table->save();
+        return $table;
+    }
+
+    protected function updateInvoiceTotal($invoice_id)
+    {
+        $invoiceDetails = invoice::where('id', $invoice_id)->with('invoicedets')->first();
+        $invoiceDetails->f_discount = 0;
+        $invoiceDetails->total = 0;
+        if ($invoiceDetails->discount != 0) {
+            foreach ($invoiceDetails->invoicedets as $details) {
+                $invoiceDetails->total = $invoiceDetails->total + ($details->price  * $details->quantity);
+                $invoiceDetails->f_discount = $invoiceDetails->f_discount + ($details->price - (($details->price * ($invoiceDetails->discount / 100)) * $details->quantity));
+                // $invoiceDetails->f_discount = $invoiceDetails->f_discount + ($details->price - (($details->price * ($invoiceDetails->discount / 100))) * $details->quantity);
+            }
+        } else {
+            foreach ($invoiceDetails->invoicedets as $details) {
+                $invoiceDetails->total = ($invoiceDetails->total + ($details->price  * $details->quantity));
+                $invoiceDetails->f_discount = ($invoiceDetails->f_discount + ($details->price  * $details->quantity));
+            }
+        }
+        $invoiceDetails->save();
+        // $invoiceDetails->f_discount = $invoiceTotal;
+        return $invoiceDetails;
+    }
+
+    protected function createDetails($product, $request, $store_id, $invoice_id)
+    {
+        $details = new invoicedet();
+        $details->name = $product->name;
+        $details->product_id = $request->product_id;
+        $details->price =  $product->price;
+        $details->quantity = $request->quantity;
+        $details->invoice_id = $invoice_id;
+        $details->store_id = $store_id;
+        $details->save();
+        return $details;
     }
 }

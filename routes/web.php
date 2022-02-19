@@ -70,6 +70,7 @@ Route::group(['middleware' => ['checkMemberPosition']], function () { //...
     // ================================================================
     Route::get('api/dailyinvoice',      [invoiceApi::class, 'dailyinvoice']);
     Route::get('api/deleteinvoice',     [invoiceApi::class, 'deleteinvoice']);
+    Route::post('api/payinvoice',        [invoiceApi::class, 'payInvoice']);
     Route::get('api/invoice/export',    [invoiceApi::class, 'export']);
 
     // ================================================================

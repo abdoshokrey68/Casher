@@ -15,12 +15,13 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->nullable();
+            $table->integer('member_id');
             $table->integer('create_id');
             $table->integer('store_id');
             $table->integer('discount')->default(0); // Discount For All Invoice on For Store
-            $table->integer('total')->nullable();
-            $table->integer('paid')->nullable();
+            $table->decimal('total', $precision = 19, $scale = 2)->default(0.00);
+            $table->decimal('f_discount', $precision = 19, $scale = 2)->default(0.00);
+            $table->decimal('paid', $precision = 19, $scale = 2)->nullable();
             $table->integer('table_id')->nullable();
             $table->integer('status')->default(0); // if this is finished => [1];
             $table->softDeletes();

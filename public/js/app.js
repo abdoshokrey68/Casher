@@ -6511,7 +6511,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "invoiceDetails",
   data: function data() {
@@ -6574,14 +6573,8 @@ __webpack_require__.r(__webpack_exports__);
       if (this.invoiceDetails == "empty") {
         return 0;
       } else {
-        if (discount != 0 && total != 0) {
-          return total - total * (discount / 100);
-        } else {
-          return total;
-        }
+        return total;
       }
-
-      console.log(total + " && " + discount);
     }
   }
 });
@@ -6822,6 +6815,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -6850,7 +6845,11 @@ __webpack_require__.r(__webpack_exports__);
     } // Get The New Section Parameter
 
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    if (this.section_id != null) {
+      this.getSections();
+    }
+  },
   methods: {
     addProductComponent: function addProductComponent(product_id) {
       this.addproduct_id = product_id;
@@ -7051,12 +7050,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       invoice_id: null,
+      invoice_btn: false,
       lang: this.$parent.lang
     };
   },
   watch: {
     $route: function $route() {
-      if (this.$route.query.invoice_id && this.$route.query.table_id && !this.$route.query.table_id) this.invoice_id = this.$route.query.invoice_id; // else this.invoice_id = null;
+      if (this.$route.query.invoice_id && this.$route.query.table_id) {
+        this.invoice_id = parseInt(this.$route.query.invoice_id);
+
+        if (this.invoice_id != 0) {
+          this.invoice_btn = true;
+        } else {
+          this.invoice_btn = false;
+        }
+      } // else this.invoice_id = null;
+
     }
   },
   methods: {
@@ -8542,7 +8551,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getProducts: function getProducts() {
       var _this3 = this;
 
-      axios.get("/api/getproducts?store_id=".concat(this.store_id, "}")).then(function (res) {
+      axios.get("/api/getproducts?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this3.products = res.data;
       })["catch"](function (err) {// consol.log(err)
@@ -9801,6 +9810,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -9855,28 +9873,144 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PayInvoice",
   components: {},
   data: function data() {
     return {
       invoice_id: null,
-      lang: this.$parent.lang
+      lang: this.$parent.lang,
+      invoice: {},
+      paidamount: 0.0,
+      remaining: 0.0,
+      pay_btn: true,
+      form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
+        paidamount: 0.0,
+        invoice_id: null,
+        table_id: null
+      })
     };
   },
   watch: {
-    $route: function $route() {
-      if (this.$route.query.invoice_id) {
-        this.invoice_id = this.$route.query.invoice_id;
+    paidamount: function paidamount() {
+      this.remaining = this.paidamount - this.invoice.f_discount;
+      this.form.paidamount = parseInt(this.paidamount);
+
+      if (this.remaining >= 0.0) {
+        this.pay_btn = false;
+      } else {
+        this.pay_btn = true;
       }
+    }
+  },
+  mounted: function mounted() {
+    if (this.$route.query.invoice_id) {
+      this.invoice_id = parseInt(this.$route.query.invoice_id);
+      this.getInvoiceDetails(this.invoice_id);
+      this.form.invoice_id = this.invoice_id;
+      this.form.table_id = parseInt(this.$route.query.table_id);
+    } else {
+      this.payinvoiceToggle();
     }
   },
   methods: {
     payinvoiceToggle: function payinvoiceToggle() {
       this.$parent.payinvoice = !this.$parent.payinvoice;
     },
-    getInvoiceDetails: function getInvoiceDetails() {
-      axios.get("/api/invoicedetails=".concat(this.invoice_id));
+    getInvoiceDetails: function getInvoiceDetails(invoice_id) {
+      var _this = this;
+
+      axios.get("/api/invoicedetails?invoice_id=".concat(invoice_id)).then(function (res) {
+        // console.log(res.data);
+        _this.invoice = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    paidinvoice: function paidinvoice() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this2.form.post("/api/payinvoice").then(function (res) {
+                  _this2.notification("success", "Success", "Section added successfully");
+
+                  _this2.urlReplace();
+
+                  _this2.payinvoiceToggle();
+                })["catch"](function (err) {
+                  console.log(err);
+                });
+
+              case 2:
+                response = _context.sent;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    notification: function notification(type, title, text) {
+      this.$notify({
+        group: "dashboard",
+        speed: 1500,
+        type: type,
+        // error , warn, success
+        title: title,
+        text: text
+      });
+    },
+    urlReplace: function urlReplace() {
+      if (this.$route.query) {
+        this.$router.replace({
+          path: this.$route.path
+        })["catch"](function () {});
+      }
     }
   }
 });
@@ -11142,13 +11276,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       product: {},
       store_id: this.$parent.store_id,
       productquantity: 1,
+      invoice_id: 55,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
         quantity: 1,
         invoice_id: 0,
         table_id: 0,
         product_id: this.product_id
       }),
-      lang: this.$parent.lang
+      lang: this.$parent.lang,
+      time: 0
     };
   },
   mounted: function mounted() {
@@ -11180,49 +11316,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/addtodetails").then(function (res) {
-                  console.log(res.data); // if (this.$route.query.get_invoice_details) {
-                  //     var l_g_i_d =
-                  //         this.$route.query.get_invoice_details.Number() + 1; // Latest get invoice details
-                  //     console.log(
-                  //         this.$route.query.get_invoice_details.Number()
-                  //     );
-                  // } else {
-                  //     var l_g_i_d = 0;
-                  // }
+                  _this.invoice_id = res.data.invoice_id; // console.log(res.data);
 
-                  // if (this.$route.query.get_invoice_details) {
-                  //     var l_g_i_d =
-                  //         this.$route.query.get_invoice_details.Number() + 1; // Latest get invoice details
-                  //     console.log(
-                  //         this.$route.query.get_invoice_details.Number()
-                  //     );
-                  // } else {
-                  //     var l_g_i_d = 0;
-                  // }
-                  console.log(_this.$route.query);
-                  var url = _this.$route.query;
-                  delete url.invoice_id;
-                  console.log(_this.$route.query);
-                  console.log(url);
+                  // console.log(res.data);
+                  _this.updateUrl(_this.invoice_id); // this.$router.replace(
+                  //     this.$route.fullPath +
+                  //         "&get_invoice_details=" +
+                  //         this.time
+                  // );
 
-                  _this.$router.replace(_this.$route.fullPath + "&get_invoice_details=" + _this.time);
 
-                  console.log(_this.$route.query.get_invoice_details); // this.$router.push({
-                  //     path: `store/${this.store_id}`,
-                  //     query: { get_invoice_details: this.time },
-                  // });
-
-                  // this.$router.push({
-                  //     path: `store/${this.store_id}`,
-                  //     query: { get_invoice_details: this.time },
-                  // });
-                  console.log(_this.$route.query); // this.$router.push({
-                  //     params: { get_invoice_details: "this.time" },
-                  // });
-
-                  // this.$router.push({
-                  //     params: { get_invoice_details: "this.time" },
-                  // });
+                  // this.$router.replace(
+                  //     this.$route.fullPath +
+                  //         "&get_invoice_details=" +
+                  //         this.time
+                  // );
                   _this.time = new Date().getTime();
 
                   _this.form.reset();
@@ -11270,7 +11378,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(err);
       });
     },
-    cancelMethod: function cancelMethod() {}
+    updateUrl: function updateUrl(invoice_id) {
+      this.$router.push({
+        path: this.$route.path,
+        query: {
+          table_id: this.$route.query.table_id,
+          invoice_id: invoice_id,
+          section: this.$route.query.section_id,
+          time: this.$route.query.time,
+          get_invoice_details: this.time
+        }
+      })["catch"](function () {});
+    }
   }
 });
 
@@ -11875,7 +11994,8 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
 var routes = [{
   path: '/store/:store_id',
   name: 'storeDashboard',
-  component: _components_store_dashboard_index_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _components_store_dashboard_index_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  props: true
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes,
@@ -39895,10 +40015,6 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("th", { attrs: { scope: "col" } }, [
-              _vm._v(_vm._s(_vm.lang.discount)),
-            ]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [
               _vm._v(_vm._s(_vm.lang.total)),
             ]),
             _vm._v(" "),
@@ -39915,18 +40031,6 @@ var render = function () {
               _c("td", [_vm._v(_vm._s(details.price))]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(details.quantity))]),
-              _vm._v(" "),
-              _c("td", [
-                details.discount != 0
-                  ? _c("span", [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(details.discount + "%") +
-                          "\n                        "
-                      ),
-                    ])
-                  : _c("span", [_vm._v("--")]),
-              ]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(details.price * details.quantity))]),
               _vm._v(" "),
@@ -39985,8 +40089,13 @@ var render = function () {
             _c("input", {
               staticClass:
                 "form-control disabled p-3 text-center bold bg-d-blue text-light",
-              attrs: { type: "text", disabled: "" },
-              domProps: { value: _vm.getInvoiceValue() },
+              attrs: { type: "text", readonly: "readonly", disabled: "" },
+              domProps: {
+                value: _vm.getInvoiceValue(
+                  _vm.invoiceDetails.f_discount,
+                  _vm.invoiceDetails.discount
+                ),
+              },
             }),
           ]),
         ])
@@ -40177,10 +40286,17 @@ var render = function () {
                       staticStyle: {},
                     },
                     [
+                      product.price
+                        ? _c("span", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(product.price) +
+                                "\n                        "
+                            ),
+                          ])
+                        : _vm._e(),
                       _vm._v(
-                        "\n                        " +
-                          _vm._s(product.price) +
-                          "\n                        USD\n                    "
+                        "\n                        USD\n                    "
                       ),
                     ]
                   ),
@@ -40324,7 +40440,7 @@ var render = function () {
         {
           staticClass:
             "list-group-item list-group-item-action text-center mb-2 action",
-          attrs: { disabled: !_vm.invoice_id || _vm.invoice_id != 0 },
+          attrs: { disabled: !_vm.invoice_btn },
           on: {
             click: function ($event) {
               return _vm.payInvoiceToggle()
@@ -44104,56 +44220,150 @@ var render = function () {
           _c("div", { staticClass: "card pay-invoice-tabels m-2" }, [
             _c("input", {
               staticClass: "form-control disabled bold text-center text-danger",
-              attrs: { type: "text", value: "803.75", disabled: "" },
-            }),
-            _vm._v(" "),
-            _c("h2", { staticClass: "text-center h4 bold m-2 p-3" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.lang.the_amount_paid) +
-                  "\n            "
-              ),
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control h5 border-primary",
-              attrs: {
-                type: "text",
-                name: "",
-                id: "",
-                placeholder: "Enter the amount",
-              },
-            }),
-            _vm._v(" "),
-            _c("h2", { staticClass: "text-center h4 bold m-2 p-3" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.lang.remaining_amount) +
-                  "\n            "
-              ),
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control disabled bold text-center text-danger",
-              attrs: { type: "text", value: "200.25", disabled: "" },
+              attrs: { type: "text", disabled: "" },
+              domProps: { value: _vm.invoice.f_discount },
             }),
             _vm._v(" "),
             _c(
-              "a",
+              "form",
               {
-                staticClass: "btn btn-warning h5 p-3 mt-3 text-center bold",
-                attrs: { href: "#" },
                 on: {
-                  click: function ($event) {
-                    return _vm.payinvoiceToggle()
+                  submit: function ($event) {
+                    $event.preventDefault()
+                    return _vm.paidinvoice()
+                  },
+                  keydown: function ($event) {
+                    return _vm.form.onKeydown($event)
                   },
                 },
               },
               [
-                _c("i", { staticClass: "fas fa-money-bill-wave" }),
-                _vm._v(
-                  "\n                " + _vm._s(_vm.lang.pay) + "\n            "
-                ),
+                _c("h2", { staticClass: "text-center h4 bold m-2 p-3" }, [
+                  _c("label", { attrs: { for: "paidamount" } }, [
+                    _vm._v(_vm._s(_vm.lang.the_amount_paid)),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.paidamount,
+                      expression: "paidamount",
+                    },
+                  ],
+                  staticClass: "form-control h5 border-primary text-center",
+                  attrs: {
+                    type: "number",
+                    step: "0.01",
+                    name: "paidamount",
+                    id: "paidamount",
+                    min: "0",
+                    placeholder: "Enter the amount",
+                  },
+                  domProps: { value: _vm.paidamount },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.paidamount = $event.target.value
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _vm.form.errors.has("price")
+                  ? _c("div", {
+                      staticClass: "text-danger bold",
+                      domProps: {
+                        innerHTML: _vm._s(_vm.form.errors.get("price")),
+                      },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("h2", { staticClass: "text-center h4 bold m-2 p-3" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.lang.remaining_amount) +
+                      "\n                "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.remaining,
+                      expression: "remaining",
+                    },
+                  ],
+                  staticClass:
+                    "form-control disabled bold text-center text-danger",
+                  attrs: { type: "text", disabled: "", readonly: "readonly" },
+                  domProps: { value: _vm.remaining },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.remaining = $event.target.value
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-warning col-md-12 h5 p-3 mt-3 text-center bold",
+                      attrs: {
+                        type: "submit",
+                        disabled: _vm.form.busy || _vm.pay_btn,
+                      },
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "spinner-border spinner-border-sm",
+                        attrs: { role: "status", hidden: !_vm.form.busy },
+                      }),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "fas fa-money-bill-wave",
+                        attrs: { hidden: _vm.form.busy },
+                      }),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.lang.pay) +
+                          "\n                    "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-light mt-2 col-md-12 text-danger bold",
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.payinvoiceToggle()
+                        },
+                      },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-times mt-2 ml-2" }),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.lang.cancel) +
+                          "\n                    "
+                      ),
+                    ]
+                  ),
+                ]),
               ]
             ),
           ]),
@@ -45794,7 +46004,7 @@ var render = function () {
                       on: {
                         click: function ($event) {
                           $event.preventDefault()
-                          return _vm.cancelMethod()
+                          return _vm.addProductsToggle()
                         },
                       },
                     },

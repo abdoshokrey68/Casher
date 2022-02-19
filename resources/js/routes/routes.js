@@ -13,6 +13,7 @@ const routes = [
         path: '/store/:store_id',
         name: 'storeDashboard',
         component: Store,
+        props: true,
     },
 ]
 

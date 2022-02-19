@@ -10,7 +10,7 @@ class table extends Model
     use HasFactory;
 
     protected $fillabe = [
-        'name', 'slug', 'store_id', 'status'
+        'name', 'slug', 'store_id', 'status', 'invoice_id'
     ];
 
     public function store()

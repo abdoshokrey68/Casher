@@ -6,6 +6,7 @@ use App\Exports\InvoiceExport;
 use App\Http\Controllers\Controller;
 use App\Models\invoice;
 use App\Models\store;
+use App\Models\table;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,39 @@ class invoiceApi extends Controller
             }
         } else {
             return 'false';
+        }
+    }
+
+    public function payInvoice(Request $request)
+    {
+        $this->validate($request, [
+            'invoice_id' => 'required|numeric',
+            'table_id' => 'required|numeric',
+            'paidamount' => 'required|numeric',
+        ]);
+        $invoice = invoice::find($request->invoice_id);
+        $store = store::find($invoice->store_id);
+        $table = table::find($request->table_id);
+        if ($invoice->store_id == $table->store_id) {
+            if ($store) {
+                if ($store->manager_id == Auth::id()) {
+                    if ($request->paidamount >= $invoice->f_discount) {
+                        $table->status = 0;
+                        $table->save();
+                        $invoice->paid = $request->paidamount;
+                        $invoice->save();
+                        return 'Invoice Completed';
+                    } else {
+                        return 'false';
+                    }
+                } else {
+                    return 'false';
+                }
+            } else {
+                return 'false';
+            }
+        } else {
+            return 'fasle';
         }
     }
 

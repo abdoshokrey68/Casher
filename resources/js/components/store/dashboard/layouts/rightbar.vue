@@ -53,7 +53,7 @@
             <button
                 @click="payInvoiceToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
-                :disabled="!invoice_id || invoice_id != 0"
+                :disabled="!invoice_btn"
             >
                 <i class="fas fa-money-bill-wave mr-2 ml-2"></i>
                 {{ lang.pay_the_amount }}
@@ -164,17 +164,20 @@ export default {
     data: function () {
         return {
             invoice_id: null,
+            invoice_btn: false,
             lang: this.$parent.lang,
         };
     },
     watch: {
         $route: function () {
-            if (
-                this.$route.query.invoice_id &&
-                this.$route.query.table_id &&
-                !this.$route.query.table_id
-            )
-                this.invoice_id = this.$route.query.invoice_id;
+            if (this.$route.query.invoice_id && this.$route.query.table_id) {
+                this.invoice_id = parseInt(this.$route.query.invoice_id);
+                if (this.invoice_id != 0) {
+                    this.invoice_btn = true;
+                } else {
+                    this.invoice_btn = false;
+                }
+            }
             // else this.invoice_id = null;
         },
     },
