@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyApi;
 use App\Models\menu;
 use App\Models\store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class menuApi extends Controller
@@ -51,6 +53,11 @@ class menuApi extends Controller
                 $menu->des_co = $request->des_co;
                 $menu->icon_co = $request->icon_co;
                 $menu->price_co = $request->price_co;
+
+                $historyApi = new historyApi;
+                $des_ar = " تم تعديل منيو المتجر ";
+                $des_en = " Store menu has been modified ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 $menu->save();
                 return $menu;
             } else {

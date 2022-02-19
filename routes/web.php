@@ -11,6 +11,7 @@ use App\Http\Controllers\API\menuApi;
 use App\Http\Controllers\API\sectionApi;
 use App\Http\Controllers\API\productApi;
 use App\Http\Controllers\API\tableApi;
+use App\Http\Controllers\historyApi;
 use App\Http\Controllers\HomeController;
 use App\Models\menu;
 use App\Models\position;
@@ -131,4 +132,11 @@ Route::group(['middleware' => ['checkMemberPosition']], function () { //...
     // ================================================================
     Route::get('api/store/getboxinfo',  [boxApi::class, 'getboxinfo']);
     Route::post('api/store/addtobox',   [boxApi::class, 'addtobox']);
+
+
+    // ================================================================
+    // ========================== Store HISTORY API ==========================
+    // ================================================================
+    Route::get('api/gethistory',  [historyApi::class, 'index']);
+    // Route::post('api/store/addtobox',   [historyApi::class, 'addtobox']);
 });

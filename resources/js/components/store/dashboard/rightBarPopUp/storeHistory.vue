@@ -1,5 +1,5 @@
 <template>
-    <div id="new-members" class="col-md-4 m-auto">
+    <div id="new-members" class="col-md-7 m-auto">
         <div class="card justify-center border-warning border-2">
             <div class="new-members-header">
                 <button
@@ -9,8 +9,8 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    <i class="fas fa-history mr-2 ml-2"></i>
-                    {{ lang.store_history }}
+                    <i class="fas fa-shield mr-2 ml-2"></i>
+                    {{ lang.dark_box }}
                 </h2>
             </div>
             <!-- End Edit Members Header -->
@@ -20,15 +20,28 @@
                     class="curret-members-table mt-2"
                 >
                     <table class="table table-hover table-striped table-light">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">#</th>
+                                <th scope="col">{{ lang.des }}</th>
+                                <th scope="col">{{ lang.email }}</th>
+                                <th scope="col">{{ lang.from_n }}</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr
                                 class="text-center"
-                                v-for="(member, index) in members"
+                                v-for="(history, index) in histories"
                                 :key="index"
                             >
-                                <td>{{ member.name }}</td>
-                                <td>{{ member.email }}</td>
-                                <td>{{ member.id }}</td>
+                                <td :class="getClass(history.status)">
+                                    {{ index + 1 }}
+                                </td>
+                                <td :class="getClass(history.status)">
+                                    {{ history.des }}
+                                </td>
+                                <td>{{ history.member.email }}</td>
+                                <td>{{ history.from }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -39,31 +52,48 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-    name: "PayInvoice",
+    name: "StoreHistory",
     components: {},
     data: function () {
         return {
             store_id: this.$parent.store_id,
-            members: {},
+            histories: {},
             lang: this.$parent.lang,
+            locale: "en",
         };
     },
     mounted() {
-        this.getmembers();
+        var url = this.$route.path.split("/");
+        var filter = url.filter((e) => e == "en");
+        var length = url.filter((e) => e == "en").length;
+        if (length == 1) {
+            this.locale = "en";
+        } else {
+            this.locale = "ar";
+        }
+        this.getHistory(this.store_id, this.locale);
     },
     methods: {
         storeHistoryToggle: function () {
             this.$parent.storehistory = !this.$parent.storehistory;
         },
-        getmembers: function () {
+        getHistory: function (store_id, locale) {
             axios
-                .get(`/api/getmembers?store_id=${this.store_id}`)
+                .get(`/api/gethistory?store_id=${store_id}&locale=${locale}`)
                 .then((res) => {
-                    // console.log(res);
-                    this.members = res.data;
+                    console.log(res.data);
+                    this.histories = res.data;
                 })
                 .catch((err) => console.log(err));
+        },
+        getClass: function (status) {
+            if (status == 0) {
+                return "text-center bold";
+            } else {
+                return "text-center";
+            }
         },
     },
 };

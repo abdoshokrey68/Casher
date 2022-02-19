@@ -229,6 +229,7 @@ export default {
             to: "0",
             invoices: null,
             total: 0,
+            lang: this.$parent.lang,
         };
     },
     mounted() {

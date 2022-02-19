@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyApi;
 use App\Models\invoice;
 use App\Models\invoicedet;
 use App\Models\product;
@@ -97,7 +98,12 @@ class productApi extends Controller
                     'store_id' => $request->store_id,
                     'image'     => $imageName,
                 ]);
-                return $product;
+
+                $historyApi = new historyApi;
+                $des_ar = " تمت إضافة عنصر يسمى '$product->name' ";
+                $des_en = " An item called ' $product->name ' has been added. ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+
                 return "Added successfully";
             } else {
                 return 'false';
@@ -139,6 +145,11 @@ class productApi extends Controller
                     $product->store_id      = $request->store_id;
                     $product->image         = $imageName;
                     $product->save();
+
+                    $historyApi = new historyApi;
+                    $des_ar = " تمت تعديل العنصر  '$product->name' ";
+                    $des_en = " The item '$product->name' has been modified ";
+                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                     return "Added successfully";
                 } else {
                     return 'false';
@@ -158,7 +169,13 @@ class productApi extends Controller
         if ($product) {
             $store = store::find($product->store_id);
             if ($store->manager_id == Auth::id()) {
+                $old_product_name = $product->name;
                 $product->delete();
+
+                $historyApi = new historyApi;
+                $des_ar = " تم حذف العنصر '$old_product_name' ";
+                $des_en = " The item '$old_product_name' has been removed. ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 return "Deleted successfully";
             } else {
                 return 'false';

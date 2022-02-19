@@ -107,7 +107,7 @@ export default {
                 .get(`/api/invoicedetails?invoice_id=${this.invoice_id}`)
                 .then((res) => {
                     // console.log(res.data);
-                    this.invoiceDetails = res.data;
+                    this.invoiceDetails = res.data.invoiceDetails;
                 })
                 .catch((err) => {
                     console.log(err);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyApi;
+use App\Models\history;
 use App\Models\invoice;
 use App\Models\invoicedet;
 use App\Models\product;
@@ -152,8 +154,7 @@ class invoiceDetailsApi extends Controller
         if ($invoiceDetails->discount != 0) {
             foreach ($invoiceDetails->invoicedets as $details) {
                 $invoiceDetails->total = $invoiceDetails->total + ($details->price  * $details->quantity);
-                $invoiceDetails->f_discount = $invoiceDetails->f_discount + ($details->price - (($details->price * ($invoiceDetails->discount / 100)) * $details->quantity));
-                // $invoiceDetails->f_discount = $invoiceDetails->f_discount + ($details->price - (($details->price * ($invoiceDetails->discount / 100))) * $details->quantity);
+                $invoiceDetails->f_discount = $invoiceDetails->f_discount + ($details->price * $details->quantity - (($details->price * ($invoiceDetails->discount / 100)) * $details->quantity));
             }
         } else {
             foreach ($invoiceDetails->invoicedets as $details) {
@@ -162,7 +163,6 @@ class invoiceDetailsApi extends Controller
             }
         }
         $invoiceDetails->save();
-        // $invoiceDetails->f_discount = $invoiceTotal;
         return $invoiceDetails;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyApi;
 use App\Models\box;
 use App\Models\store;
 use App\Models\User;
@@ -39,7 +40,7 @@ class boxApi extends Controller
             'store_id'      => 'required',
             'amount'        => 'required',
             'status'        => 'required',
-            'password'      => 'required',
+            // 'password'      => 'required',
         ]);
         // if ($request->password == Auth::user()->password) {
         $store = store::find($request->store_id);
@@ -50,6 +51,16 @@ class boxApi extends Controller
             $box->member_id = Auth::id();
             $box->status = $request->status == 0 ? 1 : 0;
             $box->save();
+
+            $historyApi = new historyApi;
+            if ($request->status == 0) {
+                $des_ar = ' تم إستلام الصندوق ';
+                $des_en = 'The box has been received';
+            } else {
+                $des_ar = ' تم تسليم الصندوق  ';
+                $des_en = 'The box has been delivered';
+            }
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
             return $box;
         } else {
             return 'false';

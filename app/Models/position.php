@@ -22,4 +22,9 @@ class position extends Model
     {
         return $this->belongsTo(store::class, 'store_id');
     }
+
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'member_id');
+    }
 }

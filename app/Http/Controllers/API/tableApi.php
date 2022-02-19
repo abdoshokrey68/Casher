@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyApi;
 use App\Models\invoice;
 use App\Models\invoicedet;
 use App\Models\product;
@@ -69,6 +70,11 @@ class tableApi extends Controller
                 $table->status = 0;
                 $table->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
                 $table->save();
+
+                $historyApi = new historyApi;
+                $des_ar = " تم إنشاء طاولة جديدة ' $table->name ' ";
+                $des_en = " A new table '$table->name' has been created";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 return "Added successfully";
             } else {
                 return 'false';
@@ -94,6 +100,11 @@ class tableApi extends Controller
                 if ($store->manager_id == Auth::id()) {
                     $table->name = $request->name;
                     $table->save();
+
+                    $historyApi = new historyApi;
+                    $des_ar = " تم تعديل الطاولة' $table->name ' ";
+                    $des_en = " The table has been modified '$table->name'";
+                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                     return "Edited successfully";
                 } else {
                     return 'false';
@@ -114,7 +125,13 @@ class tableApi extends Controller
             $store = store::find($table->store_id);
             if ($store) {
                 if ($store->manager_id == Auth::id()) {
+                    $table_old_name = $table->name;
                     $table->delete();
+
+                    $historyApi = new historyApi;
+                    $des_ar = " تم حذف  الطاولة' $table_old_name ' ";
+                    $des_en = " Table '$table_old_name' has been deleted.";
+                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                     return "Deleted successfully";
                 } else {
                     return 'false';

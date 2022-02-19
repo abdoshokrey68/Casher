@@ -118,8 +118,8 @@
                 @click="storeHistoryToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
-                <i class="fas fa-history mr-2 ml-2"></i>
-                {{ lang.store_history }}
+                <i class="fas fa-shield mr-2 ml-2"></i>
+                {{ lang.dark_box }}
             </button>
             <button
                 @click="storeMenuToggle()"
@@ -133,7 +133,7 @@
                 class="list-group-item list-group-item-action text-center mb-2 action"
                 target="_blank"
             >
-                <i class="fas fa-concierge-bell mr-2 ml-2"></i>
+                <i class="fas fa-up-right-from-square mr-2 ml-2"></i>
                 {{ lang.open_menu }}
             </a>
             <!-- <a :href="logout" @click.prevent="logout()"> Logout </a>

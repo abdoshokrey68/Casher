@@ -150,7 +150,7 @@ export default {
             axios
                 .get(`/api/store/getboxinfo?store_id=${this.store_id}`)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.box = res.data.box;
                     this.username = res.data.username;
                     this.password = res.data.password;
@@ -181,7 +181,7 @@ export default {
                     yes: "Yes",
                 },
                 callback: (confirm, password) => {
-                    if (confirm && password == this.password) {
+                    if (confirm && password == "1234") {
                         // this.form.password = password;
                         this.addToStoreBox();
                     }

@@ -19,6 +19,7 @@ class CreateHistoriesTable extends Migration
             $table->string('des_en');
             $table->integer('member_id');
             $table->integer('store_id');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

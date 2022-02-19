@@ -181,7 +181,7 @@ export default {
             storesettings: false,
             edittables: false,
             storebox: false,
-            storehistory: false,
+            storehistory: true,
             storemenu: false,
             time: "",
             locale: "",

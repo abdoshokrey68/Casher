@@ -19,9 +19,6 @@ import axios from 'axios';
 // localStorage.setItem('lang', 'ar');
 // window.location.reload();
 
-const lang = localStorage.getItem('lang') || 'ar';
-axios.defaults.baseURL = 'http://localhost:8000';
-axios.defaults.headers['Accept-Language'] = "ar";
 
 import Notifications from 'vue-notification';
 Vue.use(Notifications)
@@ -81,13 +78,18 @@ Vue.prototype.getLocale = function getLocale() {
         this.lang = this.getLang("ar");
     }
 }
+// const lang = localStorage.getItem('lang') || 'ar';
+axios.defaults.baseURL = 'http://localhost:8000';
 Vue.prototype.getLang = function getLang(lang = def_lang) {
     var url = this.$route.path.split("/");
     var filter = url.filter((e) => e == "en");
     var length = url.filter((e) => e == "en").length;
     if (length == 1) {
+        axios.defaults.headers['Accept-Language'] = "en";
         return en;
     } else {
+
+        axios.defaults.headers['Accept-Language'] = "ar";
         return ar;
     }
 }

@@ -309,6 +309,7 @@
 
     "billing_details" : " Billing Details",
     "from": "From : ",
+    "from_n": "From  ",
     "to": "To : ",
     "date_style": "Date Style",
     "show_invoice": "Show The Invoices",
@@ -383,7 +384,7 @@
     "join_us" : "Join Us",
     "latest_offer": "To know the latest offers, you can join us and leave your WhatsApp number",
     "whatsapp_number": "Enter Your WhatsApp Number",
-    "join_now": "Join Now"
-
+    "join_now": "Join Now",
+    "dark_box": " The Black Box"
 
 }

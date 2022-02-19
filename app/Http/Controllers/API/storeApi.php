@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyApi;
 use App\Models\audience;
 use App\Models\invoice;
 use App\Models\invoicedet;
@@ -112,6 +113,13 @@ class storeApi extends Controller
                     }
                     $store->cover = $coverName;
                 }
+
+
+                $historyApi = new historyApi;
+                $des_ar = " تم تعديل بيانات المتجر ";
+                $des_en = " Store information has been modified ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+
                 $store->save();
                 return $store;
             } else {
@@ -165,6 +173,11 @@ class storeApi extends Controller
         $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
         $store->save();
         $value = $this->createPosition($store->id, Auth::id());
+
+        $historyApi = new historyApi;
+        $des_ar = " تم إنشاء المتجر نتمني لك كل التوفيق ";
+        $des_en = " The store has been created, we wish you all the best ";
+        $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
         return [
             'storeName' => $store->name,
             'route'     => route('store', $store->id),

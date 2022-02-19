@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\historyApi;
 use App\Models\invoice;
 use App\Models\invoicedet;
 use App\Models\product;
@@ -91,11 +92,18 @@ class sectionApi extends Controller
             }
             $section->icon = $sectionIcon;
             $section->save();
+
+            $historyApi = new historyApi;
+            $des_ar = " تم إنشاء قسم جديد بإسم  '$section->name'  ";
+            $des_en = " A new section has been created called '$section->name' ";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
             return "Added successfully";
         } else {
             return 'false';
         }
     }
+
+
 
     public function updatesection(Request $request)
     {
@@ -120,6 +128,11 @@ class sectionApi extends Controller
                     $section->icon = $sectionIcon;
                 }
                 $section->save();
+
+                $historyApi = new historyApi;
+                $des_ar = " تم تعديل القسم ' $section->name ' ";
+                $des_en = " Section '$section->name' has been modified ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 return "Updated successfully";
             } else {
                 return 'false';
@@ -137,7 +150,13 @@ class sectionApi extends Controller
             $store = store::find($section->store_id);
             if ($store) {
                 if ($store->manager_id == Auth::id()) {
+                    $setion_old_name = $section->name;
                     $section->delete();
+
+                    $historyApi = new historyApi;
+                    $des_ar = " تم حذف القسم '$setion_old_name'";
+                    $des_en = " Section '$setion_old_name' has been removed ";
+                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                     return "Deleted successfully";
                 } else {
                     return 'false';
