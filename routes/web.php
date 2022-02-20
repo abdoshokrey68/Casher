@@ -25,8 +25,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 Route::get('test', function () {
-    return LaravelLocalization::getSupportedLocales();
-    return Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions;
+    return position::select('career')->first()->career;
     $url = route('store.menu', 2);
     // return (new UsersExport)->download('users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     return $qrcode = QrCode::size(300)->generate($url);

@@ -90,7 +90,7 @@
             @yield('content')
         </main>
         {{-- Language Box --}}
-        <div class="dropdown btn-group dropup dropdown-btn-position" style="margin: 0 5px; {{app()->getLocale() == 'ar' ? 'left: 20px; right:auto' : '' }}">
+        <div class="dropdown btn-group dropup dropdown-btn-position" style=" {{app()->getLocale() == 'ar' ? 'left: 20px; right:auto' : '' }}">
             <button class="btn btn-warning bg-new-warning bold text-uppercase " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
             >
                 {{-- <i class="fas fa-globe mr-1 ml-1"></i> --}}
