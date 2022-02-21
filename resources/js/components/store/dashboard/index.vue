@@ -158,7 +158,7 @@
             <!-- End Of All POP UP Boxs -->
             <vue-confirm-dialog></vue-confirm-dialog>
             <!-- VUE CONFIRM DIALOAG COMPONENT -->
-            <notifications group="dashboard" />
+            <notifications :class="getTextAlign()" group="dashboard" />
             <!-- VUE NOTIFICATION COMPONENT -->
         </div>
     </div>
@@ -177,11 +177,11 @@ export default {
             editsections: false,
             editproducts: false,
             dailyinvoice: false,
-            editmembers: false,
+            editmembers: true,
             storesettings: false,
             edittables: false,
             storebox: false,
-            storehistory: true,
+            storehistory: false,
             storemenu: false,
             time: "",
             locale: "",
@@ -192,7 +192,6 @@ export default {
         this.getStoreInfo();
         this.time = new Date().getTime();
         this.urlReplace();
-
         // var url = this.$route.path.split("/");
         // var filter = url.filter((e) => e == "en");
         // var length = url.filter((e) => e == "en").length;
@@ -226,6 +225,12 @@ export default {
                     })
                     .catch(() => {});
             }
+        },
+        getTextAlign: function () {
+            var locale = this.getLocale();
+            console.log(locale);
+            if (locale == "ar") return "text-right";
+            else return "text-left";
         },
     },
 };

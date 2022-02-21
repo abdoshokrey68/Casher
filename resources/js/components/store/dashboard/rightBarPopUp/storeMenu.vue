@@ -260,10 +260,12 @@ export default {
                 icon_co: null,
                 price_co: null,
             }),
+            locale: "",
         };
     },
     mounted() {
         this.getStoreMenu();
+        this.locale = this.getLocale();
     },
     watch: {
         menu: function () {
@@ -302,9 +304,9 @@ export default {
                 .then((res) => {
                     console.log(res.data);
                     this.notification(
-                        "success",
-                        "Success",
-                        "The data has been modified successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.data_modified
                     );
                     this.form.reset();
                     this.getStoreMenu();
@@ -312,9 +314,9 @@ export default {
                 .catch((err) => {
                     console.log(err);
                     this.notification(
-                        "error",
-                        "Error",
-                        "There is a problem, please check the data and try again"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.please_check_the_data
                     );
                 });
         },
@@ -352,6 +354,13 @@ export default {
                 console.log(btn.getAttribute("href"));
                 btn.setAttribute("href", "originalBase64.default");
             });
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
+            }
         },
     },
 };

@@ -230,11 +230,13 @@ export default {
             invoices: null,
             total: 0,
             lang: this.$parent.lang,
+            locale: "",
         };
     },
     mounted() {
         // this.getDailyInvoice();
         this.getDate();
+        this.locale = this.getLocale();
     },
     watch: {},
     methods: {
@@ -269,17 +271,17 @@ export default {
                     console.log(res);
                     this.getDailyInvoice();
                     this.notification(
-                        "success",
-                        "Success",
-                        "Deleted successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.delete_suucess
                     );
                 })
                 .catch((err) => {
                     console.log(err);
                     this.notification(
-                        "warn",
-                        "Warning",
-                        "Warning To Updated Product"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.upaate_error
                     );
                 });
         },
@@ -306,6 +308,13 @@ export default {
                 title: title,
                 text: text,
             });
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
+            }
         },
     },
 };

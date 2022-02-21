@@ -22,9 +22,14 @@ use Illuminate\Support\Facades\Route;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Hash;
-
+use Symfony\Component\ErrorHandler\Error\FatalError;
 
 Route::get('test', function () {
+    $positions = position::first();
+
+
+    return abort(404);
+
     return position::select('career')->first()->career;
     $url = route('store.menu', 2);
     // return (new UsersExport)->download('users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);

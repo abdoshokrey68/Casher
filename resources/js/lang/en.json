@@ -300,6 +300,7 @@
     "edit_products" : "Edit Products",
     "daily_invoice" : "Daily Invoices",
     "edit_members":"Edit Members",
+    "edit_member":"Edit Member",
     "store_settings":"Store Settings",
     "table_manage":"Table Management",
     "box":"Box",
@@ -328,7 +329,7 @@
     "manager":"Manager",
     "casher":"Casher",
     "restaurant": "Restaurant",
-    "admin": "Supervisor",
+    "supervisor": "Supervisor",
     "cancel": "Cancel",
     "position": "Position",
     "en_member_email" : "Enter Member Email",
@@ -385,6 +386,55 @@
     "latest_offer": "To know the latest offers, you can join us and leave your WhatsApp number",
     "whatsapp_number": "Enter Your WhatsApp Number",
     "join_now": "Join Now",
-    "dark_box": " The Black Box"
+    "dark_box": " The Black Box",
+
+
+
+    "success": " Success message ",
+    "error" : "Error Message",
+    "select_all_u" : "Select All",
+    "show_u"    : "SHOW",
+    "edit_u"    : "EDIT",
+    "add_u"     : "ADD",
+    "delete_u"  : "DELETE",
+    "user_permissions" : "User Permissions",
+    "invoice_sett"  : "Billing settings",
+    "section_sett"  : "Section settings",
+    "product_sett"  : "Product settings",
+    "store_sett"    : "Store settings",
+    "member_sett"   : "Member settings",
+    "table_sett"    : "Table settings",
+    "menu_sett"     : "Menu settings",
+    "black_box_sett"     : "Black Box settings",
+
+    "member_add_succ"        : "Member added successfully",
+    "verify_data"   : "Verify that the e-mail is correct and the data is correct",
+    "data_modified" : "The data has been modified successfully",
+    "employee_deleted" : "An employee has been successfully deleted",
+    "erroring_member_delete" : "Erroring To Deleted Member",
+
+    "warning" : "Warning",
+    "delete_suucess" : "Deleted successfully",
+    "update_error" : "Product update error",
+    "product_add_succ" : "Product added successfully",
+    "product_update_succ" : "Product Updated Successfully",
+    "product_update_error" : "Error To Update Product",
+    "section_add_succ" : "Section added successfully",
+    "section_update_succ" : "Section Updated Successfully",
+    "section_update_error" : "Error To Update Section",
+    "add_success"   : " Added successfully ",
+    "delete_success"   : " Deleted successfully ",
+    "edit_success"   : " Edited successfully ",
+    "there_seems_problem" : "The data is not added, there seems to be a problem",
+    "deleted_there_problem" : "Not deleted, there may be a problem",
+    "went_wrong"        : "Something went wrong Check the data ",
+    "data_has_sent"     : "Data has been sent",
+    "please_check_the_data"  : "There is a problem, please check the data and try again",
+    "select_the_table"  : "Select the table or type of payment first"
+
+
+
+
+
 
 }

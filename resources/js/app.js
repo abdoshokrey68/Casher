@@ -72,10 +72,13 @@ import en from './lang/en.json';
 // const def_lang = localStorage.getItem('lang');
 var def_lang = localStorage.getItem('lang');
 Vue.prototype.getLocale = function getLocale() {
+    var url = this.$route.path.split("/");
+    var filter = url.filter((e) => e == "en");
+    var length = url.filter((e) => e == "en").length;
     if (length == 1) {
-        this.lang = this.getLang("en");
+        return 'en';
     } else {
-        this.lang = this.getLang("ar");
+        return 'ar';
     }
 }
 // const lang = localStorage.getItem('lang') || 'ar';
@@ -88,7 +91,6 @@ Vue.prototype.getLang = function getLang(lang = def_lang) {
         axios.defaults.headers['Accept-Language'] = "en";
         return en;
     } else {
-
         axios.defaults.headers['Accept-Language'] = "ar";
         return ar;
     }

@@ -106,6 +106,7 @@ export default {
                 invoice_id: null,
                 table_id: null,
             }),
+            locale: "",
         };
     },
     watch: {
@@ -128,6 +129,7 @@ export default {
         } else {
             this.payinvoiceToggle();
         }
+        this.locale = this.getLocale();
     },
     methods: {
         payinvoiceToggle: function () {
@@ -148,11 +150,11 @@ export default {
             const response = await this.form
                 .post("/api/payinvoice")
                 .then((res) => {
-                    this.notification(
-                        "success",
-                        "Success",
-                        "Section added successfully"
-                    );
+                    // this.notification(
+                    //     "success",
+                    //     "Success",
+                    //     "Section added successfully"
+                    // );
                     this.urlReplace();
                     this.payinvoiceToggle();
                 })
@@ -176,6 +178,13 @@ export default {
                         path: this.$route.path,
                     })
                     .catch(() => {});
+            }
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
             }
         },
     },

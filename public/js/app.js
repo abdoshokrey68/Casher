@@ -6383,11 +6383,11 @@ __webpack_require__.r(__webpack_exports__);
       editsections: false,
       editproducts: false,
       dailyinvoice: false,
-      editmembers: false,
+      editmembers: true,
       storesettings: false,
       edittables: false,
       storebox: false,
-      storehistory: true,
+      storehistory: false,
       storemenu: false,
       time: "",
       locale: "",
@@ -6428,6 +6428,11 @@ __webpack_require__.r(__webpack_exports__);
           path: this.$route.path
         })["catch"](function () {});
       }
+    },
+    getTextAlign: function getTextAlign() {
+      var locale = this.getLocale();
+      console.log(locale);
+      if (locale == "ar") return "text-right";else return "text-left";
     }
   }
 });
@@ -7464,12 +7469,14 @@ __webpack_require__.r(__webpack_exports__);
       to: "0",
       invoices: null,
       total: 0,
-      lang: this.$parent.lang
+      lang: this.$parent.lang,
+      locale: ""
     };
   },
   mounted: function mounted() {
     // this.getDailyInvoice();
     this.getDate();
+    this.locale = this.getLocale();
   },
   watch: {},
   methods: {
@@ -7504,11 +7511,11 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.getDailyInvoice();
 
-        _this2.notification("success", "Success", "Deleted successfully");
+        _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.delete_suucess);
       })["catch"](function (err) {
         console.log(err);
 
-        _this2.notification("warn", "Warning", "Warning To Updated Product");
+        _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.upaate_error);
       });
     },
     handleClick: function handleClick(invoice_id) {
@@ -7537,6 +7544,13 @@ __webpack_require__.r(__webpack_exports__);
         title: title,
         text: text
       });
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
+      }
     }
   }
 });
@@ -7836,6 +7850,526 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditMembers",
@@ -7848,30 +8382,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       member: {},
       lang: this.$parent.lang,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
+        invoice: [],
+        section: [],
+        member: [],
+        product: [],
+        box: [],
+        table: [],
+        store: [],
+        history: [],
+        menu: [],
         email: "",
         member_id: null,
         position: 3,
         store_id: this.$parent.store_id
-      })
+      }),
+      locale: ""
     };
   },
   mounted: function mounted() {
     this.getmembers();
     this.formEmpty();
     this.urlReplace();
+    this.locale = this.getLocale();
   },
   watch: {
     $route: function $route() {
       if (this.$route.query.edit_member_id) {
         this.form.member_id = this.$route.query.edit_member_id;
         this.newMemberForm = !this.newMemberForm;
-        this.getMember(this.$route.query.edit_member_id);
+        this.getMember(this.$route.query.edit_member_id, this.store_id);
       }
     },
     member: function member() {
-      this.form.email = this.member.email;
+      this.form.email = this.member.getmember.email;
       this.form.position = this.member.position;
       this.form.store_id = this.member.store_id;
+      this.form.invoice = this.member.invoice;
+      this.form.section = this.member.section;
+      this.form.product = this.member.product;
+      this.form.table = this.member.table;
+      this.form.member = this.member.member;
+      this.form.store = this.member.store;
+      this.form.menu = this.member.menu;
+      this.form.history = this.member.history;
+      this.form.box = this.member.box;
     }
   },
   methods: {
@@ -7897,7 +8451,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/addnewmember").then(function (res) {
-                  _this.notification("success", "Success", "Member added successfully");
+                  // console.log(res.data);
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.member_add_succ);
 
                   _this.formEmpty();
 
@@ -7907,9 +8462,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.getmembers();
                 })["catch"](function (err) {
-                  console.log(err);
-
-                  _this.notification("error", "Error", "Verify that the e-mail is correct and the data is correct");
+                  // console.log(err);
+                  _this.notification(_this.getType("error"), _this.lang.error, _this.lang.verify_data);
                 });
 
               case 2:
@@ -7934,8 +8488,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return _this2.form.post("/api/editmember").then(function (res) {
-                  _this2.notification("success", "Success", "The data has been modified successfully");
+                  _this2.notification(getType("success"), _this2.lang.success, _this2.lang.data_modified); // console.log(res.data);
 
+
+                  // console.log(res.data);
                   _this2.formEmpty();
 
                   _this2.urlReplace();
@@ -7944,9 +8500,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.getmembers();
                 })["catch"](function (err) {
-                  console.log(err);
-
-                  _this2.notification("error", "Error", "Verify that the e-mail is correct and the data is correct");
+                  // console.log(err);
+                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.verify_data);
                 });
 
               case 2:
@@ -7966,31 +8521,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/getmembers?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res);
         _this3.members = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err)
       });
     },
-    getMember: function getMember(member_id) {
+    getMember: function getMember(member_id, store_id) {
       var _this4 = this;
 
-      axios.get("/api/getmember?member_id=".concat(member_id)).then(function (res) {
+      axios.get("/api/getmember?member_id=".concat(member_id, "&store_id=").concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this4.member = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
-    deletemember: function deletemember(member_id) {
+    deletemember: function deletemember(member_id, store_id) {
       var _this5 = this;
 
-      axios.get("/api/deletemember?member_id=".concat(member_id)).then(function (res) {
-        _this5.notification("success", "Success ", "An employee has been successfully deleted");
+      axios.get("/api/deletemember?member_id=".concat(member_id, "&store_id=").concat(store_id)).then(function (res) {
+        _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.employee_deleted);
 
         _this5.getmembers();
       })["catch"](function (err) {
-        console.log(err);
-
-        _this5.notification("error", "Error", "Erroring To Deleted Member");
+        // console.log(err);
+        _this5.notification(_this5.getType("error"), _this5.lang.error, _this5.lang.erroring_member_delete);
       });
     },
     handleClick: function handleClick(member_id) {
@@ -8005,7 +8557,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         },
         callback: function callback(confirm, password) {
           if (confirm && password == "1234") {
-            _this6.deletemember(member_id);
+            _this6.deletemember(member_id, _this6.store_id);
           }
         }
       });
@@ -8028,6 +8580,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.$router.replace({
           path: this.$route.path
         })["catch"](function () {});
+      }
+    },
+    getFloatPosition: function getFloatPosition() {
+      if (this.locale == "ar") {
+        return "float-start";
+      } else {
+        return "float-end";
+      }
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
       }
     }
   }
@@ -8437,13 +9003,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }),
       product: {},
       product_image: null,
-      lang: this.$parent.lang
+      lang: this.$parent.lang,
+      locale: ""
     };
   },
   mounted: function mounted() {
     this.getProducts();
     this.getSections();
     this.urlReplace();
+    this.locale = this.getLocale();
   },
   watch: {
     $route: function $route() {
@@ -8483,7 +9051,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/addnewproduct").then(function (res) {
-                  _this.notification("success", "Success", "Section added successfully");
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.product_add_succ);
 
                   _this.formEmpty();
 
@@ -8518,7 +9086,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return _this2.form.post("/api/updateproduct").then(function (res) {
-                  _this2.notification("success", "Success", "Section Updated Successfully");
+                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.product_update_succ);
 
                   _this2.formEmpty();
 
@@ -8528,7 +9096,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.getProducts();
                 })["catch"](function (err) {
-                  _this2.notification("warn", "Warning", "Warning To Updated Product");
+                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.product_update_error);
 
                   console.log(err);
                 });
@@ -8585,7 +9153,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // console.log(res);
         _this6.getProducts();
 
-        _this6.notification("success", "Success", "Deleted successfully");
+        _this6.notification(_this6.getType("success"), _this6.lang.success, _this6.lang.delete_suucess);
       })["catch"](function (err) {
         console.log(err);
       });
@@ -8633,6 +9201,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onImageInput: function onImageInput(event) {
       var data = URL.createObjectURL(event.target.files[0]);
       this.product_image = data;
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
+      }
     }
   }
 });
@@ -9129,12 +9704,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       sectionSearch: null,
       section: {},
       currentPath: null,
-      lang: this.$parent.lang
+      lang: this.$parent.lang,
+      locale: ""
     };
   },
   mounted: function mounted() {
     this.getSections();
     this.currentPath = this.$route.path;
+    this.locale = this.getLocale();
   },
   watch: {
     $route: function $route() {
@@ -9168,7 +9745,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/createnewsection").then(function (res) {
-                  _this.notification("success", "Success", "Section added successfully");
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.section_add_succ);
 
                   _this.form.reset();
 
@@ -9201,7 +9778,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return _this2.form.post("/api/updatesection").then(function (res) {
-                  _this2.notification("success", "Success", "Section Updated Successfully");
+                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.section_update_succ);
 
                   console.log(res);
 
@@ -9215,7 +9792,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.getSections();
                 })["catch"](function (err) {
-                  _this2.notification("warn", "Warning", "Warning To Updated Sections");
+                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.section_update_error);
 
                   console.log(err);
                 });
@@ -9284,7 +9861,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this6 = this;
 
       axios.get("/api/deletesection?section_id=".concat(section_id)).then(function (res) {
-        _this6.notification("success", "Success", "Section has been deleted successfully");
+        _this6.notification(_this6.getType("success"), _this6.lang.success, _this6.lang.delete_suucess);
 
         _this6.getSections();
       });
@@ -9304,6 +9881,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.$router.replace({
           path: this.$route.path
         })["catch"](function () {});
+      }
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
       }
     }
   }
@@ -9503,12 +10087,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: "",
         table_id: null,
         store_id: this.$parent.store_id
-      })
+      }),
+      locale: ""
     };
   },
   mounted: function mounted() {
     this.getTables();
     this.urlReplace();
+    this.locale = this.getLocale();
   },
   watch: {
     $route: function $route() {
@@ -9552,7 +10138,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this.form.post("/api/addtable").then(function (res) {
                   console.log(res.data);
 
-                  _this.notification("success", "Success", "Added successfully");
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.add_success);
 
                   _this.tableForm = !_this.tableForm;
                   _this.buttonloading = !_this.buttonloading;
@@ -9565,7 +10151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 })["catch"](function (err) {
                   _this.buttonloading = !_this.buttonloading;
 
-                  _this.notification("error", "Error", "The data is not added, there seems to be a problem");
+                  _this.notification(_this.getType("error"), _this.lang.error, _this.lang.there_seems_problem);
                 });
 
               case 3:
@@ -9591,7 +10177,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.buttonloading = !_this2.buttonloading;
                 _context2.next = 3;
                 return _this2.form.post("/api/updatetable").then(function (res) {
-                  _this2.notification("success", "Success", "The data has been modified successfully");
+                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.data_modified);
 
                   _this2.tableForm = !_this2.tableForm;
 
@@ -9605,7 +10191,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 })["catch"](function (err) {
                   _this2.buttonloading = !_this2.buttonloading;
 
-                  _this2.notification("error", "Error", "The data is not updated, there seems to be a problem");
+                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.there_seems_problem);
                 });
 
               case 3:
@@ -9643,13 +10229,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/deletetable?table_id=".concat(table_id)).then(function (res) {
         console.log(res.data);
 
-        _this5.notification("success", "Success", "Deleted successfully");
+        _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.delete_success);
 
         _this5.getTables();
       })["catch"](function (err) {
         console.log(err);
 
-        _this5.notification("error", "Error", "Not deleted, there may be a problem");
+        _this5.notification(_this5.getType("error"), _this5.lang.error, _this5.lang.deleted_there_problem);
       });
     },
     notification: function notification(type, title, text) {
@@ -9686,6 +10272,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.$router.replace({
           path: this.$route.path
         })["catch"](function () {});
+      }
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
       }
     }
   }
@@ -9926,7 +10519,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         paidamount: 0.0,
         invoice_id: null,
         table_id: null
-      })
+      }),
+      locale: ""
     };
   },
   watch: {
@@ -9950,6 +10544,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     } else {
       this.payinvoiceToggle();
     }
+
+    this.locale = this.getLocale();
   },
   methods: {
     payinvoiceToggle: function payinvoiceToggle() {
@@ -9976,8 +10572,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this2.form.post("/api/payinvoice").then(function (res) {
-                  _this2.notification("success", "Success", "Section added successfully");
-
+                  // this.notification(
+                  //     "success",
+                  //     "Success",
+                  //     "Section added successfully"
+                  // );
                   _this2.urlReplace();
 
                   _this2.payinvoiceToggle();
@@ -10011,6 +10610,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.$router.replace({
           path: this.$route.path
         })["catch"](function () {});
+      }
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
       }
     }
   }
@@ -10150,11 +10756,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         amount: 0,
         status: 0,
         password: null
-      })
+      }),
+      locale: ""
     };
   },
   mounted: function mounted() {
     this.getBoxInfo();
+    this.locale = this.getLocale();
   },
   watch: {
     box: function box() {
@@ -10176,7 +10784,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/store/addtobox").then(function (res) {
-                  _this.notification("success", "Success", "Data has been sent");
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_has_Sent);
 
                   console.log(res.data);
 
@@ -10186,7 +10794,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.getBoxInfo();
                 })["catch"](function (err) {
-                  _this.notification("error", "Error", "Something went wrong Check the data");
+                  _this.notification(_this.getType("error"), _this.lang.error, _this.lang.went_wrong);
                 });
 
               case 2:
@@ -10209,7 +10817,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.username = res.data.username;
         _this2.password = res.data.password;
       })["catch"](function (err) {
-        _this2.notification("error", "Error", "Something went wrong Check the data");
+        _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.went_wrong);
       });
     },
     notification: function notification(type, title, text) {
@@ -10252,6 +10860,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return "btn btn-secondary col-md-12 p-2 mt-2";
       } else {
         return "btn btn-secondary col-md-12 p-2 mt-2 disabled";
+      }
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
       }
     }
   }
@@ -10660,11 +11275,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         des_co: null,
         icon_co: null,
         price_co: null
-      })
+      }),
+      locale: ""
     };
   },
   mounted: function mounted() {
     this.getStoreMenu();
+    this.locale = this.getLocale();
   },
   watch: {
     menu: function menu() {
@@ -10709,7 +11326,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.form.post("/api/store/menu").then(function (res) {
                   console.log(res.data);
 
-                  _this2.notification("success", "Success", "The data has been modified successfully");
+                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.data_modified);
 
                   _this2.form.reset();
 
@@ -10717,7 +11334,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 })["catch"](function (err) {
                   console.log(err);
 
-                  _this2.notification("error", "Error", "There is a problem, please check the data and try again");
+                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.please_check_the_data);
                 });
 
               case 2:
@@ -10769,6 +11386,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(btn.getAttribute("href"));
         btn.setAttribute("href", "originalBase64.default");
       });
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
+      }
     }
   }
 });
@@ -11098,11 +11722,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         manager_id: "",
         discount: 0,
         store_id: this.$parent.store_id
-      })
+      }),
+      locale: ""
     };
   },
   mounted: function mounted() {
     this.getStoreInfo();
+    this.locale = this.getLocale();
   },
   watch: {
     storeinfo: function storeinfo() {
@@ -11141,11 +11767,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this.form.post("/api/updateinfo").then(function (res) {
                   console.log(res.data);
 
-                  _this.notification("success", "Success", "The data has been modified successfully");
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_modified);
 
                   _this.getStoreInfo();
                 })["catch"](function (err) {
-                  _this.notification("error", "Error", "The data is not updated, there seems to be a problem");
+                  _this.notification(_this.getType("error"), _this.lang.error, _this.lang.please_check_the_data);
                 });
 
               case 2:
@@ -11215,6 +11841,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onCoverInput: function onCoverInput(event) {
       var data = URL.createObjectURL(event.target.files[0]);
       this.my_cover = data;
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
+      }
     }
   }
 });
@@ -11323,7 +11956,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         product_id: this.product_id
       }),
       lang: this.$parent.lang,
-      time: 0
+      time: 0,
+      locale: ""
     };
   },
   mounted: function mounted() {
@@ -11334,10 +11968,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.table_id = parseInt(this.$route.query.table_id);
     } else {
       this.$parent.addProductsComponent = !this.$parent.addProductsComponent;
-      this.notification("error", "Error Message", "Select the table or type of payment first");
+      this.notification(this.getType("error"), this.lang.error, this.lang.select_the_table);
     }
 
     this.time = new Date().getTime();
+    this.locale = this.getLocale();
   },
   methods: {
     addProductsToggle: function addProductsToggle() {
@@ -11428,6 +12063,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           get_invoice_details: this.time
         }
       })["catch"](function () {});
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
+      }
     }
   }
 });
@@ -11767,13 +12409,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
         store_id: this.store_id,
         phone: null
-      })
+      }),
+      locale: "",
+      lang: this.getLang()
     };
   },
   mounted: function mounted() {
     this.getdetails(this.store_id);
     this.getStoreMenu();
     this.getDate();
+    this.locale = this.getLocale();
   },
   methods: {
     getNewProducts: function getNewProducts(date) {
@@ -11794,7 +12439,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.get("/api/store/addaudience").then(function (res) {
-                  _this.notification("success", "Success", "Data has been sent"); // console.log(res.data);
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_has_sent); // console.log(res.data);
 
 
                   // console.log(res.data);
@@ -11802,7 +12447,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.joinForm = !_this.joinForm;
                 })["catch"](function (err) {
-                  _this.notification("error", "Error", "Something went wrong Check the data"); // console.log(err);
+                  _this.notification(_this.getType("error"), _this.lang.error, _this.lang.went_wrong); // console.log(err);
 
                 });
 
@@ -11859,6 +12504,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         title: title,
         text: text
       });
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
+      }
     }
   }
 });
@@ -11939,10 +12591,18 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('casher-program', (__webpa
 var def_lang = localStorage.getItem('lang');
 
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.getLocale = function getLocale() {
+  var url = this.$route.path.split("/");
+  var filter = url.filter(function (e) {
+    return e == "en";
+  });
+  var length = url.filter(function (e) {
+    return e == "en";
+  }).length;
+
   if (length == 1) {
-    this.lang = this.getLang("en");
+    return 'en';
   } else {
-    this.lang = this.getLang("ar");
+    return 'ar';
   }
 }; // const lang = localStorage.getItem('lang') || 'ar';
 
@@ -40002,7 +40662,10 @@ var render = function () {
           _vm._v(" "),
           _c("vue-confirm-dialog"),
           _vm._v(" "),
-          _c("notifications", { attrs: { group: "dashboard" } }),
+          _c("notifications", {
+            class: _vm.getTextAlign(),
+            attrs: { group: "dashboard" },
+          }),
         ],
         1
       ),
@@ -41457,10 +42120,2369 @@ var render = function () {
                             ]),
                             _vm._v(" "),
                             _c("option", { attrs: { value: "3" } }, [
-                              _vm._v(_vm._s(_vm.lang.admin)),
+                              _vm._v(_vm._s(_vm.lang.supervisor)),
                             ]),
                           ]
                         ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card mt-3" }, [
+                        _c("h5", { staticClass: "card-header bold" }, [
+                          _c("i", { staticClass: "fas fa-user-gear" }),
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.lang.user_permissions) +
+                              "\n                        "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
+                          _c(
+                            "div",
+                            { staticClass: "card row invoice-box mb-2" },
+                            [
+                              _c(
+                                "h6",
+                                { staticClass: "card-header bold p-3" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.lang.invoice_sett) +
+                                      "\n                                    "
+                                  ),
+                                  _c("div", { class: _vm.getFloatPosition() }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.invoice,
+                                          expression: "form.invoice",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "invoice-all",
+                                        type: "checkbox",
+                                        name: "invoice",
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(_vm.form.invoice)
+                                          ? _vm._i(_vm.form.invoice, null) > -1
+                                          : _vm.form.invoice,
+                                      },
+                                      on: {
+                                        change: [
+                                          function ($event) {
+                                            var $$a = _vm.form.invoice,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "invoice",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "invoice",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(_vm.form, "invoice", $$c)
+                                            }
+                                          },
+                                          function ($event) {
+                                            _vm.form.invoice = [1, 2, 3, 4]
+                                          },
+                                        ],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "invoice-all" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.lang.select_all_u) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row card-body" }, [
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.invoice,
+                                        expression: "form.invoice",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "invoice-show",
+                                      type: "checkbox",
+                                      name: "invoice",
+                                      value: "1",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.invoice)
+                                        ? _vm._i(_vm.form.invoice, "1") > -1
+                                        : _vm.form.invoice,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.invoice,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "1",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "invoice", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "invoice-show" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.show_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.invoice,
+                                        expression: "form.invoice",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "invoice-add",
+                                      type: "checkbox",
+                                      name: "invoice",
+                                      value: "2",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.invoice)
+                                        ? _vm._i(_vm.form.invoice, "2") > -1
+                                        : _vm.form.invoice,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.invoice,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "2",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "invoice", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "invoice-add" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.add_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.invoice,
+                                        expression: "form.invoice",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "invoice-edit",
+                                      type: "checkbox",
+                                      name: "invoice",
+                                      value: "3",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.invoice)
+                                        ? _vm._i(_vm.form.invoice, "3") > -1
+                                        : _vm.form.invoice,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.invoice,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "3",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "invoice", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "invoice-edit" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.edit_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.invoice,
+                                        expression: "form.invoice",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "invoice-delete",
+                                      type: "checkbox",
+                                      name: "invoice",
+                                      value: "4",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.invoice)
+                                        ? _vm._i(_vm.form.invoice, "4") > -1
+                                        : _vm.form.invoice,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.invoice,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "4",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "invoice",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "invoice", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "invoice-delete" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.delete_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card row section-box mb-2" },
+                            [
+                              _c(
+                                "h6",
+                                { staticClass: "card-header bold p-3" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.lang.section_sett) +
+                                      "\n\n                                    "
+                                  ),
+                                  _c("div", { class: _vm.getFloatPosition() }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.section,
+                                          expression: "form.section",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "section-all",
+                                        type: "checkbox",
+                                        name: "section",
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(_vm.form.section)
+                                          ? _vm._i(_vm.form.section, null) > -1
+                                          : _vm.form.section,
+                                      },
+                                      on: {
+                                        change: [
+                                          function ($event) {
+                                            var $$a = _vm.form.section,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "section",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "section",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(_vm.form, "section", $$c)
+                                            }
+                                          },
+                                          function ($event) {
+                                            _vm.form.section = [1, 2, 3, 4]
+                                          },
+                                        ],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "section-all" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.lang.select_all_u) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row card-body" }, [
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.section,
+                                        expression: "form.section",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "section-show",
+                                      type: "checkbox",
+                                      name: "section",
+                                      value: "1",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.section)
+                                        ? _vm._i(_vm.form.section, "1") > -1
+                                        : _vm.form.section,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.section,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "1",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "section", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "section-show" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.show_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.section,
+                                        expression: "form.section",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "section-add",
+                                      type: "checkbox",
+                                      name: "section",
+                                      value: "2",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.section)
+                                        ? _vm._i(_vm.form.section, "2") > -1
+                                        : _vm.form.section,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.section,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "2",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "section", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "section-add" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.add_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.section,
+                                        expression: "form.section",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "section-edit",
+                                      type: "checkbox",
+                                      name: "section",
+                                      value: "3",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.section)
+                                        ? _vm._i(_vm.form.section, "3") > -1
+                                        : _vm.form.section,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.section,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "3",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "section", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "section-edit" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.edit_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.section,
+                                        expression: "form.section",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "section-delete",
+                                      type: "checkbox",
+                                      name: "section",
+                                      value: "4",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.section)
+                                        ? _vm._i(_vm.form.section, "4") > -1
+                                        : _vm.form.section,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.section,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "4",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "section",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "section", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "section-delete" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.delete_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card row product-box mb-2" },
+                            [
+                              _c(
+                                "h6",
+                                { staticClass: "card-header bold p-3" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.lang.product_sett) +
+                                      "\n\n                                    "
+                                  ),
+                                  _c("div", { class: _vm.getFloatPosition() }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.product,
+                                          expression: "form.product",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "product-all",
+                                        type: "checkbox",
+                                        name: "product",
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(_vm.form.product)
+                                          ? _vm._i(_vm.form.product, null) > -1
+                                          : _vm.form.product,
+                                      },
+                                      on: {
+                                        change: [
+                                          function ($event) {
+                                            var $$a = _vm.form.product,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "product",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "product",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(_vm.form, "product", $$c)
+                                            }
+                                          },
+                                          function ($event) {
+                                            _vm.form.product = [1, 2, 3, 4]
+                                          },
+                                        ],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "product-all" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.lang.select_all_u) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row card-body" }, [
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.product,
+                                        expression: "form.product",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "product-show",
+                                      type: "checkbox",
+                                      name: "product",
+                                      value: "1",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.product)
+                                        ? _vm._i(_vm.form.product, "1") > -1
+                                        : _vm.form.product,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.product,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "1",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "product", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "product-show" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.show_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.product,
+                                        expression: "form.product",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "product-add",
+                                      type: "checkbox",
+                                      name: "product",
+                                      value: "2",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.product)
+                                        ? _vm._i(_vm.form.product, "2") > -1
+                                        : _vm.form.product,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.product,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "2",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "product", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "product-add" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.add_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.product,
+                                        expression: "form.product",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "product-edit",
+                                      type: "checkbox",
+                                      name: "product",
+                                      value: "3",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.product)
+                                        ? _vm._i(_vm.form.product, "3") > -1
+                                        : _vm.form.product,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.product,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "3",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "product", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "product-edit" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.edit_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.product,
+                                        expression: "form.product",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "product-delete",
+                                      type: "checkbox",
+                                      name: "product",
+                                      value: "4",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.product)
+                                        ? _vm._i(_vm.form.product, "4") > -1
+                                        : _vm.form.product,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.product,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "4",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "product",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "product", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "product-delete" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.delete_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card row table-box mb-2" },
+                            [
+                              _c(
+                                "h6",
+                                { staticClass: "card-header bold p-3" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.lang.table_sett) +
+                                      "\n\n                                    "
+                                  ),
+                                  _c("div", { class: _vm.getFloatPosition() }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.table,
+                                          expression: "form.table",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "table-all",
+                                        type: "checkbox",
+                                        name: "table",
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(_vm.form.table)
+                                          ? _vm._i(_vm.form.table, null) > -1
+                                          : _vm.form.table,
+                                      },
+                                      on: {
+                                        change: [
+                                          function ($event) {
+                                            var $$a = _vm.form.table,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "table",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "table",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(_vm.form, "table", $$c)
+                                            }
+                                          },
+                                          function ($event) {
+                                            _vm.form.table = [1, 2, 3, 4]
+                                          },
+                                        ],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "table-all" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.lang.select_all_u) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row card-body" }, [
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.table,
+                                        expression: "form.table",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "table-show",
+                                      type: "checkbox",
+                                      name: "table",
+                                      value: "1",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.table)
+                                        ? _vm._i(_vm.form.table, "1") > -1
+                                        : _vm.form.table,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.table,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "1",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "table", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "table-show" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.show_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.table,
+                                        expression: "form.table",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "table-add",
+                                      type: "checkbox",
+                                      name: "table",
+                                      value: "2",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.table)
+                                        ? _vm._i(_vm.form.table, "2") > -1
+                                        : _vm.form.table,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.table,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "2",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "table", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("label", { attrs: { for: "table-add" } }, [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.lang.add_u) +
+                                        "\n                                        "
+                                    ),
+                                  ]),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.table,
+                                        expression: "form.table",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "table-edit",
+                                      type: "checkbox",
+                                      name: "table",
+                                      value: "3",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.table)
+                                        ? _vm._i(_vm.form.table, "3") > -1
+                                        : _vm.form.table,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.table,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "3",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "table", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "table-edit" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.edit_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.table,
+                                        expression: "form.table",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "table-delete",
+                                      type: "checkbox",
+                                      name: "table",
+                                      value: "4",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.table)
+                                        ? _vm._i(_vm.form.table, "4") > -1
+                                        : _vm.form.table,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.table,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "4",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "table",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "table", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "table-delete" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.delete_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card row member-box mb-2" },
+                            [
+                              _c(
+                                "h6",
+                                { staticClass: "card-header bold p-3" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.lang.member_sett) +
+                                      "\n\n                                    "
+                                  ),
+                                  _c("div", { class: _vm.getFloatPosition() }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.member,
+                                          expression: "form.member",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "member-all",
+                                        type: "checkbox",
+                                        name: "member",
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(_vm.form.member)
+                                          ? _vm._i(_vm.form.member, null) > -1
+                                          : _vm.form.member,
+                                      },
+                                      on: {
+                                        change: [
+                                          function ($event) {
+                                            var $$a = _vm.form.member,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "member",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "member",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(_vm.form, "member", $$c)
+                                            }
+                                          },
+                                          function ($event) {
+                                            _vm.form.member = [1, 2, 3, 4]
+                                          },
+                                        ],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "member-all" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.lang.select_all_u) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row card-body" }, [
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.member,
+                                        expression: "form.member",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "member-show",
+                                      type: "checkbox",
+                                      name: "member",
+                                      value: "1",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.member)
+                                        ? _vm._i(_vm.form.member, "1") > -1
+                                        : _vm.form.member,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.member,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "1",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "member", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "member-show" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.show_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.member,
+                                        expression: "form.member",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "member-add",
+                                      type: "checkbox",
+                                      name: "member",
+                                      value: "2",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.member)
+                                        ? _vm._i(_vm.form.member, "2") > -1
+                                        : _vm.form.member,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.member,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "2",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "member", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "member-add" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.add_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.member,
+                                        expression: "form.member",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "member-edit",
+                                      type: "checkbox",
+                                      name: "member",
+                                      value: "3",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.member)
+                                        ? _vm._i(_vm.form.member, "3") > -1
+                                        : _vm.form.member,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.member,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "3",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "member", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "member-edit" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.edit_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.member,
+                                        expression: "form.member",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "member-delete",
+                                      type: "checkbox",
+                                      name: "member",
+                                      value: "4",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.member)
+                                        ? _vm._i(_vm.form.member, "4") > -1
+                                        : _vm.form.member,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.member,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "4",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "member",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "member", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "member-delete" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.delete_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card row store-box mb-2" },
+                            [
+                              _c(
+                                "h6",
+                                { staticClass: "card-header bold p-3" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.lang.store_sett) +
+                                      "\n\n                                    "
+                                  ),
+                                  _c("div", { class: _vm.getFloatPosition() }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.store,
+                                          expression: "form.store",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "store-all",
+                                        type: "checkbox",
+                                        name: "store",
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(_vm.form.store)
+                                          ? _vm._i(_vm.form.store, null) > -1
+                                          : _vm.form.store,
+                                      },
+                                      on: {
+                                        change: [
+                                          function ($event) {
+                                            var $$a = _vm.form.store,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = null,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "store",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "store",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(_vm.form, "store", $$c)
+                                            }
+                                          },
+                                          function ($event) {
+                                            _vm.form.store = [1, 3]
+                                          },
+                                        ],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "store-all" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.lang.select_all_u) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row card-body" }, [
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.store,
+                                        expression: "form.store",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "store-show",
+                                      type: "checkbox",
+                                      name: "store",
+                                      value: "1",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.store)
+                                        ? _vm._i(_vm.form.store, "1") > -1
+                                        : _vm.form.store,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.store,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "1",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "store",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "store",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "store", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "store-show" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.show_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.store,
+                                        expression: "form.store",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "store-edit",
+                                      type: "checkbox",
+                                      name: "store",
+                                      value: "3",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.store)
+                                        ? _vm._i(_vm.form.store, "3") > -1
+                                        : _vm.form.store,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.store,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "3",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "store",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "store",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "store", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "store-edit" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.edit_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card row history-box mb-2" },
+                            [
+                              _c(
+                                "h6",
+                                { staticClass: "card-header bold p-3" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.lang.black_box_sett) +
+                                      "\n\n                                    "
+                                  ),
+                                  _c("div", { class: _vm.getFloatPosition() }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.history,
+                                          expression: "form.history",
+                                        },
+                                      ],
+                                      attrs: {
+                                        id: "history-show",
+                                        type: "checkbox",
+                                        name: "history",
+                                        value: "1",
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(_vm.form.history)
+                                          ? _vm._i(_vm.form.history, "1") > -1
+                                          : _vm.form.history,
+                                      },
+                                      on: {
+                                        change: function ($event) {
+                                          var $$a = _vm.form.history,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = "1",
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.form,
+                                                  "history",
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.form,
+                                                  "history",
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(_vm.form, "history", $$c)
+                                          }
+                                        },
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "history-show" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.lang.select_all_u) +
+                                            "\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row card-body" }, [
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.history,
+                                        expression: "form.history",
+                                      },
+                                    ],
+                                    attrs: {
+                                      id: "history-show",
+                                      type: "checkbox",
+                                      name: "history",
+                                      value: "1",
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(_vm.form.history)
+                                        ? _vm._i(_vm.form.history, "1") > -1
+                                        : _vm.form.history,
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        var $$a = _vm.form.history,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = "1",
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "history",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "history",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "history", $$c)
+                                        }
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "history-show" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(_vm.lang.show_u) +
+                                          "\n                                        "
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card row menu-box mb-2" }, [
+                            _c("h6", { staticClass: "card-header bold p-3" }, [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm.lang.menu_sett) +
+                                  "\n\n                                    "
+                              ),
+                              _c("div", { class: _vm.getFloatPosition() }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.menu,
+                                      expression: "form.menu",
+                                    },
+                                  ],
+                                  attrs: {
+                                    id: "menu-all",
+                                    type: "checkbox",
+                                    name: "menu",
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(_vm.form.menu)
+                                      ? _vm._i(_vm.form.menu, null) > -1
+                                      : _vm.form.menu,
+                                  },
+                                  on: {
+                                    change: [
+                                      function ($event) {
+                                        var $$a = _vm.form.menu,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "menu",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "menu",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(_vm.form, "menu", $$c)
+                                        }
+                                      },
+                                      function ($event) {
+                                        _vm.form.menu = [1, 3]
+                                      },
+                                    ],
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("label", { attrs: { for: "menu-all" } }, [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(_vm.lang.select_all_u) +
+                                      "\n                                        "
+                                  ),
+                                ]),
+                              ]),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row card-body" }, [
+                              _c("div", { staticClass: "col-md-3" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.menu,
+                                      expression: "form.menu",
+                                    },
+                                  ],
+                                  attrs: {
+                                    id: "menu-show",
+                                    type: "checkbox",
+                                    name: "menu",
+                                    value: "1",
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(_vm.form.menu)
+                                      ? _vm._i(_vm.form.menu, "1") > -1
+                                      : _vm.form.menu,
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      var $$a = _vm.form.menu,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = "1",
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "menu",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "menu",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.form, "menu", $$c)
+                                      }
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("label", { attrs: { for: "menu-show" } }, [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(_vm.lang.show_u) +
+                                      "\n                                        "
+                                  ),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-3" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.menu,
+                                      expression: "form.menu",
+                                    },
+                                  ],
+                                  attrs: {
+                                    id: "menu-edit",
+                                    type: "checkbox",
+                                    name: "menu",
+                                    value: "3",
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(_vm.form.menu)
+                                      ? _vm._i(_vm.form.menu, "3") > -1
+                                      : _vm.form.menu,
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      var $$a = _vm.form.menu,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = "3",
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "menu",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "menu",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.form, "menu", $$c)
+                                      }
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("label", { attrs: { for: "menu-edit" } }, [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(_vm.lang.edit_u) +
+                                      "\n                                        "
+                                  ),
+                                ]),
+                              ]),
+                            ]),
+                          ]),
+                        ]),
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "float-end mt-2" }, [
@@ -41476,15 +44498,29 @@ var render = function () {
                               attrs: { role: "status", hidden: !_vm.form.busy },
                             }),
                             _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fas fa-plus mt-2 ml-2",
-                              attrs: { hidden: _vm.form.busy },
-                            }),
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(_vm.lang.add_member) +
-                                "\n                        "
-                            ),
+                            _vm.form.member_id
+                              ? _c("span", [
+                                  _c("i", {
+                                    staticClass: "fas fa-edit mt-2 ml-2",
+                                    attrs: { hidden: _vm.form.busy },
+                                  }),
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.edit_member) +
+                                      "\n                            "
+                                  ),
+                                ])
+                              : _c("span", [
+                                  _c("i", {
+                                    staticClass: "fas fa-plus mt-2 ml-2",
+                                    attrs: { hidden: _vm.form.busy },
+                                  }),
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.add_member) +
+                                      "\n                            "
+                                  ),
+                                ]),
                           ]
                         ),
                         _vm._v(" "),
@@ -41568,9 +44604,13 @@ var render = function () {
                               [
                                 _c("td", [_vm._v(_vm._s(index + 1))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(member.name))]),
+                                _c("td", [
+                                  _vm._v(_vm._s(member.getmember.name)),
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(member.email))]),
+                                _c("td", [
+                                  _vm._v(_vm._s(member.getmember.email)),
+                                ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   member.position == 0
@@ -41593,7 +44633,7 @@ var render = function () {
                                   _vm._v(" "),
                                   member.position == 3
                                     ? _c("span", [
-                                        _vm._v(_vm._s(_vm.lang.admin)),
+                                        _vm._v(_vm._s(_vm.lang.supervisor)),
                                       ])
                                     : _vm._e(),
                                 ]),
@@ -41605,7 +44645,9 @@ var render = function () {
                                       "router-link",
                                       {
                                         attrs: {
-                                          to: "?edit_member_id=" + member.id,
+                                          to:
+                                            "?edit_member_id=" +
+                                            member.getmember.id,
                                         },
                                       },
                                       [
@@ -41626,7 +44668,9 @@ var render = function () {
                                       attrs: { href: "#" },
                                       on: {
                                         click: function ($event) {
-                                          return _vm.handleClick(member.id)
+                                          return _vm.handleClick(
+                                            member.getmember.id
+                                          )
                                         },
                                       },
                                     },
@@ -63141,7 +66185,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","E:\\\\xampp\\\\htdocs\\\
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","welcome":" مرحبا بكم","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الأقتراح","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","edit_info":" تعديل معلوماتك الأساسية ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","create":" إنشاء ","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_address":" عنوان المتجر ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" اللون ","des":" الوصف ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتج ","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","admin":" مشرف ","cancel":" الغاء ","position":" المركز ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مهزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العنواوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود"}');
+module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","welcome":" مرحبا بكم","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الأقتراح","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","edit_info":" تعديل معلوماتك الأساسية ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","create":" إنشاء ","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_address":" عنوان المتجر ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" اللون ","des":" الوصف ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتج ","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","edit_member":" تعديل العضو ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","supervisor":" مشرف ","cancel":" الغاء ","position":" المركز ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مهزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العنواوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود","success":" نجاح ","error":" خطأ ","select_all_u":" تحديد الكل  ","show_u":" عرض ","edit_u":" تعديل ","add_u":" إضافة ","delete_u":" حذف ","user_permissions":" أذونات العضو ","invoice_sett":"اعدادات الفواتير ","section_sett":" أعدادات الأقسام ","product_sett":" أعدادات المنتجات ","store_sett":" أعدادات المتجر ","member_sett":" إعدادات الأعضاء","table_sett":" إعدادات الطاولات ","menu_sett":"إعدادات المنيو ","black_box_sett":" إعدادات الصندوق الأسود","member_add_succ":" تم إضافةالعضو بنجاح ","verify_data":" تحقق من صحة البريد الإلكتروني وصحة البيانات ","data_modified":" تم تعديل البيانات بنجاح ","employee_deleted":" تم حذف موظف بنجاح ","erroring_member_delete":" خطأ في حذف العضو ","warning":" تحذير ","update_error":" خطأ في تحديث البيانات  ","product_add_succ":" تم إضافة المنتج بنجاح ","product_update_succ":" تم تعديل المنتج بنجاح ","product_update_error":" خطأ في تحديث بيانات المنتج","section_add_succ":" تم إضافة القسم بنجاح ","section_update_succ":" تم تعديل القسم بنجاح ","section_update_error":" خطأ في حذف القسم ","add_success":" تم الإضافة بنجاح  ","delete_suucess":" تم الحذف بنجاح","edit_success":" تم التعديل بنجاح  ","there_seems_problem":"لم تتم إضافة البيانات ، يبدو أن هناك مشكلة","deleted_there_problem":"لم يتم حذفه ، قد تكون هناك مشكلة","went_wrong":"حدث خطأ تحقق من البيانات ","data_has_sent":"تم إرسال البيانات","please_check_the_data":"توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى","select_the_table":"حدد الطاولة أو نوع الدفع أولاً"}');
 
 /***/ }),
 
@@ -63152,7 +66196,7 @@ module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","welcom
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":" Welcome ","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","choose_plane":"Choose the right one for you","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","edit_info":"Edit Your Main Information","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_des":"Store Descreption","store_phone":"Store Phone","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"Color","des":" Description ","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","daily_invoice":"Daily Invoices","edit_members":"Edit Members","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","admin":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box"}');
+module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":" Welcome ","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","choose_plane":"Choose the right one for you","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","edit_info":"Edit Your Main Information","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_des":"Store Descreption","store_phone":"Store Phone","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"Color","des":" Description ","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","daily_invoice":"Daily Invoices","edit_members":"Edit Members","edit_member":"Edit Member","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","supervisor":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box","success":" Success message ","error":"Error Message","select_all_u":"Select All","show_u":"SHOW","edit_u":"EDIT","add_u":"ADD","delete_u":"DELETE","user_permissions":"User Permissions","invoice_sett":"Billing settings","section_sett":"Section settings","product_sett":"Product settings","store_sett":"Store settings","member_sett":"Member settings","table_sett":"Table settings","menu_sett":"Menu settings","black_box_sett":"Black Box settings","member_add_succ":"Member added successfully","verify_data":"Verify that the e-mail is correct and the data is correct","data_modified":"The data has been modified successfully","employee_deleted":"An employee has been successfully deleted","erroring_member_delete":"Erroring To Deleted Member","warning":"Warning","delete_suucess":"Deleted successfully","update_error":"Product update error","product_add_succ":"Product added successfully","product_update_succ":"Product Updated Successfully","product_update_error":"Error To Update Product","section_add_succ":"Section added successfully","section_update_succ":"Section Updated Successfully","section_update_error":"Error To Update Section","add_success":" Added successfully ","delete_success":" Deleted successfully ","edit_success":" Edited successfully ","there_seems_problem":"The data is not added, there seems to be a problem","deleted_there_problem":"Not deleted, there may be a problem","went_wrong":"Something went wrong Check the data ","data_has_sent":"Data has been sent","please_check_the_data":"There is a problem, please check the data and try again","select_the_table":"Select the table or type of payment first"}');
 
 /***/ })
 

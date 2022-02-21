@@ -17,7 +17,16 @@ class CreatePositionsTable extends Migration
             $table->id();
             $table->integer('store_id');
             $table->integer('member_id');
-            $table->integer('poristion')->default(0); // [0] => Manager || [1] => Casher || [2] => Restaurant || [3] => Admin
+            $table->integer('position')->default(0); // [0] => Manager || [1] => Casher || [2] => Restaurant || [3] => Admin
+            $table->string('invoice')->default(0);
+            $table->string('section')->default(0);
+            $table->string('member')->default(0);
+            $table->string('product')->default(0);
+            $table->string('table')->default(0);
+            $table->string('box')->default(0);
+            $table->string('store')->default(0);
+            $table->string('history')->default(0);
+            $table->string('menu')->default(0);
             $table->timestamps();
         });
     }

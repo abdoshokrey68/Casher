@@ -56,9 +56,9 @@
                                         <i class="fas fa-store mr-1 ml-1"></i> @lang('site.your_store')
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
+                                        {{-- @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
                                             <li><a class="dropdown-item mt-1 ml-1" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
-                                        @endforeach
+                                        @endforeach --}}
                                     </ul>
                                 </div>
                             @endempty

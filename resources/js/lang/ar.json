@@ -299,6 +299,7 @@
     "edit_products"         : " تعديل المنتج ",
     "daily_invoice"         : " الفواتير اليومية",
     "edit_members"      :" تعديل الأعضاء ",
+    "edit_member"      :" تعديل العضو ",
     "store_settings"        :" اعدادات المتجر ",
     "table_manage"      :"إدارة الطاولات ",
     "box"       :"الصندوق ",
@@ -327,7 +328,7 @@
     "manager"       :" مدير ",
     "casher"        :" كاشير ",
     "restaurant"        : " مطعم ",
-    "admin"         : " مشرف ",
+    "supervisor"         : " مشرف ",
     "cancel"        : " الغاء ",
     "position"      : " المركز ",
     "en_member_email"       : "أدخل البريد الإلكتروني للعضو ",
@@ -383,6 +384,51 @@
     "latest_offer"      : "لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك",
     "whatsapp_number"       : " أدخل رقم الواتس اب الخاص بك ",
     "join_now"      : " إنضم الأن ",
-    "dark_box": " الصندوق الأسود"
+    "dark_box": " الصندوق الأسود",
+
+
+    "success": " نجاح ",
+    "error" : " خطأ ",
+    "select_all_u" : " تحديد الكل  ",
+    "show_u"    : " عرض ",
+    "edit_u"    : " تعديل ",
+    "add_u"     : " إضافة ",
+    "delete_u"  : " حذف ",
+    "user_permissions" : " أذونات العضو ",
+    "invoice_sett"  : "اعدادات الفواتير ",
+    "section_sett"  : " أعدادات الأقسام ",
+    "product_sett"  : " أعدادات المنتجات ",
+    "store_sett"    : " أعدادات المتجر ",
+    "member_sett"   : " إعدادات الأعضاء",
+    "table_sett"    : " إعدادات الطاولات ",
+    "menu_sett"     : "إعدادات المنيو ",
+    "black_box_sett"     : " إعدادات الصندوق الأسود",
+
+    "member_add_succ"        : " تم إضافةالعضو بنجاح ",
+    "verify_data"   : " تحقق من صحة البريد الإلكتروني وصحة البيانات ",
+    "data_modified" : " تم تعديل البيانات بنجاح ",
+    "employee_deleted" : " تم حذف موظف بنجاح ",
+    "erroring_member_delete" : " خطأ في حذف العضو ",
+
+
+    "warning" : " تحذير ",
+    "update_error" : " خطأ في تحديث البيانات  ",
+    "product_add_succ" : " تم إضافة المنتج بنجاح ",
+    "product_update_succ" : " تم تعديل المنتج بنجاح ",
+    "product_update_error" : " خطأ في تحديث بيانات المنتج",
+    "section_add_succ" : " تم إضافة القسم بنجاح ",
+    "section_update_succ" : " تم تعديل القسم بنجاح ",
+    "section_update_error" : " خطأ في حذف القسم ",
+    "add_success"   : " تم الإضافة بنجاح  ",
+    "delete_suucess" : " تم الحذف بنجاح",
+    "edit_success"   : " تم التعديل بنجاح  ",
+    "there_seems_problem" : "لم تتم إضافة البيانات ، يبدو أن هناك مشكلة",
+    "deleted_there_problem" : "لم يتم حذفه ، قد تكون هناك مشكلة",
+    "went_wrong"        : "حدث خطأ تحقق من البيانات ",
+    "data_has_sent"     : "تم إرسال البيانات",
+    "please_check_the_data"  : "توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى",
+    "select_the_table"  : "حدد الطاولة أو نوع الدفع أولاً"
+
+
 
 }

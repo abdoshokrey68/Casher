@@ -304,10 +304,12 @@ export default {
                 discount: 0,
                 store_id: this.$parent.store_id,
             }),
+            locale: "",
         };
     },
     mounted() {
         this.getStoreInfo();
+        this.locale = this.getLocale();
     },
     watch: {
         storeinfo: function () {
@@ -338,17 +340,17 @@ export default {
                 .then((res) => {
                     console.log(res.data);
                     this.notification(
-                        "success",
-                        "Success",
-                        "The data has been modified successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.data_modified
                     );
                     this.getStoreInfo();
                 })
                 .catch((err) => {
                     this.notification(
-                        "error",
-                        "Error",
-                        "The data is not updated, there seems to be a problem"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.please_check_the_data
                     );
                 });
         },
@@ -405,6 +407,13 @@ export default {
         onCoverInput(event) {
             const data = URL.createObjectURL(event.target.files[0]);
             this.my_cover = data;
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
+            }
         },
     },
 };

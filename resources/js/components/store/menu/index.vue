@@ -68,7 +68,7 @@
                                     class="fas fa-plus mt-2 ml-2"
                                     :hidden="form.busy"
                                 ></i>
-                                {{lang.join_us}}
+                                {{ lang.join_us }}
                             </button>
                         </div>
                         <form
@@ -87,7 +87,7 @@
                                 <i
                                     class="fas fa-bell text-warning bold mr-2 ml-2"
                                 ></i>
-                                {{lang.latest_offers}}
+                                {{ lang.latest_offers }}
                             </label>
                             <input
                                 v-model="form.phone"
@@ -117,7 +117,7 @@
                                         class="fas fa-plus mt-2 ml-2"
                                         :hidden="form.busy"
                                     ></i>
-                                    {{lang.join_now}}
+                                    {{ lang.join_now }}
                                 </button>
                                 <button
                                     type="submit"
@@ -125,7 +125,7 @@
                                     @click="joinForm = !joinForm"
                                 >
                                     <i class="fas fa-times mt-2 ml-2"></i>
-                                    {{lang.cancel}}
+                                    {{ lang.cancel }}
                                 </button>
                             </div>
                         </form>
@@ -257,12 +257,15 @@ export default {
                 store_id: this.store_id,
                 phone: null,
             }),
+            locale: "",
+            lang: this.getLang(),
         };
     },
     mounted() {
         this.getdetails(this.store_id);
         this.getStoreMenu();
         this.getDate();
+        this.locale = this.getLocale();
     },
     methods: {
         getNewProducts: function (date) {
@@ -277,9 +280,9 @@ export default {
                 .get("/api/store/addaudience")
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "Data has been sent"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.data_has_sent
                     );
                     // console.log(res.data);
                     this.form.reset();
@@ -287,9 +290,9 @@ export default {
                 })
                 .catch((err) => {
                     this.notification(
-                        "error",
-                        "Error",
-                        "Something went wrong Check the data"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.went_wrong
                     );
                     // console.log(err);
                 });
@@ -335,6 +338,13 @@ export default {
                 title: title,
                 text: text,
             });
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
+            }
         },
     },
 };

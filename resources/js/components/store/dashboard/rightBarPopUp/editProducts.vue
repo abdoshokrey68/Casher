@@ -383,12 +383,14 @@ export default {
             product: {},
             product_image: null,
             lang: this.$parent.lang,
+            locale: "",
         };
     },
     mounted() {
         this.getProducts();
         this.getSections();
         this.urlReplace();
+        this.locale = this.getLocale();
     },
     watch: {
         $route: function () {
@@ -423,9 +425,9 @@ export default {
                 .post("/api/addnewproduct")
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "Section added successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.product_add_succ
                     );
                     this.formEmpty();
                     this.urlReplace();
@@ -441,9 +443,9 @@ export default {
                 .post("/api/updateproduct")
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "Section Updated Successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.product_update_succ
                     );
                     this.formEmpty();
                     this.urlReplace();
@@ -452,9 +454,9 @@ export default {
                 })
                 .catch((err) => {
                     this.notification(
-                        "warn",
-                        "Warning",
-                        "Warning To Updated Product"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.product_update_error
                     );
                     console.log(err);
                 });
@@ -502,9 +504,9 @@ export default {
                     // console.log(res);
                     this.getProducts();
                     this.notification(
-                        "success",
-                        "Success",
-                        "Deleted successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.delete_suucess
                     );
                 })
                 .catch((err) => {
@@ -554,6 +556,13 @@ export default {
         onImageInput(event) {
             const data = URL.createObjectURL(event.target.files[0]);
             this.product_image = data;
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
+            }
         },
     },
 };

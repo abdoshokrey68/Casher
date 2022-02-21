@@ -110,10 +110,12 @@ export default {
                 status: 0,
                 password: null,
             }),
+            locale: "",
         };
     },
     mounted() {
         this.getBoxInfo();
+        this.locale = this.getLocale();
     },
     watch: {
         box: function () {
@@ -129,9 +131,9 @@ export default {
                 .post("/api/store/addtobox")
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "Data has been sent"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.data_has_Sent
                     );
                     console.log(res.data);
                     this.form.reset();
@@ -140,9 +142,9 @@ export default {
                 })
                 .catch((err) => {
                     this.notification(
-                        "error",
-                        "Error",
-                        "Something went wrong Check the data"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.went_wrong
                     );
                 });
         },
@@ -157,9 +159,9 @@ export default {
                 })
                 .catch((err) => {
                     this.notification(
-                        "error",
-                        "Error",
-                        "Something went wrong Check the data"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.went_wrong
                     );
                 });
         },
@@ -200,6 +202,13 @@ export default {
                 return "btn btn-secondary col-md-12 p-2 mt-2";
             } else {
                 return "btn btn-secondary col-md-12 p-2 mt-2 disabled";
+            }
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
             }
         },
     },

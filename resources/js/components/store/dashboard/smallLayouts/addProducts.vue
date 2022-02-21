@@ -82,6 +82,7 @@ export default {
             }),
             lang: this.$parent.lang,
             time: 0,
+            locale: "",
         };
     },
     mounted() {
@@ -93,12 +94,13 @@ export default {
             this.$parent.addProductsComponent =
                 !this.$parent.addProductsComponent;
             this.notification(
-                "error",
-                "Error Message",
-                "Select the table or type of payment first"
+                this.getType("error"),
+                this.lang.error,
+                this.lang.select_the_table
             );
         }
         this.time = new Date().getTime();
+        this.locale = this.getLocale();
     },
     methods: {
         addProductsToggle() {
@@ -172,6 +174,13 @@ export default {
                     },
                 })
                 .catch(() => {});
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
+            }
         },
     },
 };

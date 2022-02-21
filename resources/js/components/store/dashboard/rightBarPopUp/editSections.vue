@@ -471,11 +471,13 @@ export default {
             section: {},
             currentPath: null,
             lang: this.$parent.lang,
+            locale: "",
         };
     },
     mounted() {
         this.getSections();
         this.currentPath = this.$route.path;
+        this.locale = this.getLocale();
     },
     watch: {
         $route: function () {
@@ -503,9 +505,9 @@ export default {
                 .post("/api/createnewsection")
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "Section added successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.section_add_succ
                     );
                     this.form.reset();
                     this.NewSectionFrom = !this.NewSectionFrom;
@@ -520,9 +522,9 @@ export default {
                 .post("/api/updatesection")
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "Section Updated Successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.section_update_succ
                     );
                     console.log(res);
                     this.form.reset();
@@ -534,9 +536,9 @@ export default {
                 })
                 .catch((err) => {
                     this.notification(
-                        "warn",
-                        "Warning",
-                        "Warning To Updated Sections"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.section_update_error
                     );
                     console.log(err);
                 });
@@ -594,9 +596,9 @@ export default {
                 .get(`/api/deletesection?section_id=${section_id}`)
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "Section has been deleted successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.delete_suucess
                     );
                     this.getSections();
                 });
@@ -616,6 +618,13 @@ export default {
                         path: this.$route.path,
                     })
                     .catch(() => {});
+            }
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
             }
         },
     },

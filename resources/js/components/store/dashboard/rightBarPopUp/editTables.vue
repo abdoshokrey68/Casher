@@ -173,11 +173,13 @@ export default {
                 table_id: null,
                 store_id: this.$parent.store_id,
             }),
+            locale: "",
         };
     },
     mounted() {
         this.getTables();
         this.urlReplace();
+        this.locale = this.getLocale();
     },
     watch: {
         $route: function () {
@@ -214,9 +216,9 @@ export default {
                 .then((res) => {
                     console.log(res.data);
                     this.notification(
-                        "success",
-                        "Success",
-                        "Added successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.add_success
                     );
                     this.tableForm = !this.tableForm;
                     this.buttonloading = !this.buttonloading;
@@ -227,9 +229,9 @@ export default {
                 .catch((err) => {
                     this.buttonloading = !this.buttonloading;
                     this.notification(
-                        "error",
-                        "Error",
-                        "The data is not added, there seems to be a problem"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.there_seems_problem
                     );
                 });
         },
@@ -239,9 +241,9 @@ export default {
                 .post("/api/updatetable")
                 .then((res) => {
                     this.notification(
-                        "success",
-                        "Success",
-                        "The data has been modified successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.data_modified
                     );
                     this.tableForm = !this.tableForm;
                     this.formEmpty();
@@ -252,9 +254,9 @@ export default {
                 .catch((err) => {
                     this.buttonloading = !this.buttonloading;
                     this.notification(
-                        "error",
-                        "Error",
-                        "The data is not updated, there seems to be a problem"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.there_seems_problem
                     );
                 });
         },
@@ -280,18 +282,18 @@ export default {
                 .then((res) => {
                     console.log(res.data);
                     this.notification(
-                        "success",
-                        "Success",
-                        "Deleted successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.delete_success
                     );
                     this.getTables();
                 })
                 .catch((err) => {
                     console.log(err);
                     this.notification(
-                        "error",
-                        "Error",
-                        "Not deleted, there may be a problem"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.deleted_there_problem
                     );
                 });
         },
@@ -328,6 +330,13 @@ export default {
                         path: this.$route.path,
                     })
                     .catch(() => {});
+            }
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
             }
         },
     },
