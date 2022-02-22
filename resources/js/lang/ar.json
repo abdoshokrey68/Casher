@@ -429,12 +429,17 @@
     "currency_code": " رمز عملة المتجر ",
     "store_discount" : " خصم المتجر ",
     "store_location" : " موقع المتجر ",
-    "Store_audience" : "جمهور المتجر ",
+    "store_audience" : "جمهور المتجر ",
     "receive_phone_numbers" : "يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب",
     "store_cover"   : " صورة غلاف المتجر ",
     "edit_info"     : " تعديل البيانات  ",
     "currency_like": " مثل : USD, EUR, EGP, SAR",
-    "latest_offers" : " أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا "
+    "latest_offers" : " أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا ",
+
+    "delete_all"    : " حذف الكل ",
+    "no_audience"   : "لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر",
+    "before_discount" : " قبل الخصم ",
+    "after_discount" : " بعد الخصم "
 
 
 }

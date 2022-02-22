@@ -29,7 +29,7 @@
     }
 </style>
 <body>
-    {{-- <div class="row qr-page" style="background-image: url('{{asset("image/menu/QR/border2.jpg")}}')"> --}}
+    <div class="row qr-page" style="background-image: url('{{asset("image/menu/QR/border2.jpg")}}')">
         <div class="">
             <div class="card text-center">
                 <h2 class="h2 bold"> {{$store->name}} </h2>
@@ -38,10 +38,9 @@
                 <h4 class="h4 bold"> here </h4>
                 <img src="https://via.placeholder.com/150" >
                 <img src="{{$url}}" >
-
             </div>
         </div>
-    {{-- </div> --}}
+    </div>
 
 </body>
 </html>

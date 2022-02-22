@@ -442,13 +442,17 @@
     "currency_code": "Store Currency Code",
     "store_discount" : "Store Discount",
     "store_location" : "Store Location",
-    "Store_audience" : "Store Audience",
+    "store_audience" : "Store Audience",
     "receive_phone_numbers" : "You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group",
     "store_cover"   : "Store Cover Image",
     "edit_info"     : "Edit Information",
     "currency_like": "Like: USD, EUR, EGP, SAR",
-    "latest_offers" : "Enter your WhatsApp number to receive all our offers and discounts"
+    "latest_offers" : "Enter your WhatsApp number to receive all our offers and discounts",
 
+    "delete_all"    : "Delete All ",
+    "no_audience"   : "There is no audience yet. Please activate the audience feature by going to the store settings",
+    "before_discount" : "Before Discount",
+    "after_discount" : " After Discount"
 
 
 }

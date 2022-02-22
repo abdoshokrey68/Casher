@@ -33,6 +33,7 @@ Vue.component('edit-tables', require('./components/store/dashboard/rightBarPopUp
 Vue.component('store-box', require('./components/store/dashboard/rightBarPopUp/storeBox.vue').default);
 Vue.component('store-history', require('./components/store/dashboard/rightBarPopUp/storeHistory.vue').default);
 Vue.component('edit-menu', require('./components/store/dashboard/rightBarPopUp/storeMenu.vue').default);
+Vue.component('store-audience', require('./components/store/dashboard/rightBarPopUp/storeAudience.vue').default);
 
 // ===================== Store Compoentn ======================
 Vue.component('dashboard-store', require('./components/store/dashboard/index.vue').default);

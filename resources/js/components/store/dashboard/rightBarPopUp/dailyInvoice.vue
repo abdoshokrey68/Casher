@@ -105,8 +105,13 @@
                             <thead>
                                 <tr class="text-center">
                                     <th scope="col">{{ lang.invoice_no }}</th>
-                                    <th scope="col">{{ lang.total }}</th>
+                                    <th scope="col">
+                                        {{ lang.before_discount }}
+                                    </th>
                                     <th scope="col">{{ lang.discount }}</th>
+                                    <th scope="col">
+                                        {{ lang.after_discount }}
+                                    </th>
                                     <th scope="col">{{ lang.table_no }}</th>
                                     <th scope="col">{{ lang.date }}</th>
                                     <th scope="col">{{ lang.delete }}</th>
@@ -118,9 +123,10 @@
                                     v-for="(invoice, index) in invoices"
                                     :key="index"
                                 >
-                                    <td>{{ invoice.create_id }}</td>
+                                    <td>{{ invoice.id }}</td>
                                     <td>{{ invoice.total }}</td>
                                     <td>{{ invoice.discount }}</td>
+                                    <td>{{ invoice.f_discount }}</td>
                                     <td>
                                         <span v-if="invoice.table_id">
                                             {{ invoice.table_id }}
@@ -258,7 +264,7 @@ export default {
                     `/api/dailyinvoice?store_id=${this.store_id}&getfrom=${this.from}&getto=${this.to}`
                 )
                 .then((res) => {
-                    // console.log(res);
+                    console.log(res);
                     this.invoices = res.data.invoices;
                     this.total = res.data.invoicetotal;
                 })

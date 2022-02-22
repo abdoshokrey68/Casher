@@ -11,42 +11,27 @@ use App\Http\Controllers\API\menuApi;
 use App\Http\Controllers\API\sectionApi;
 use App\Http\Controllers\API\productApi;
 use App\Http\Controllers\API\tableApi;
+use App\Http\Controllers\audienceApi;
 use App\Http\Controllers\historyApi;
 use App\Http\Controllers\HomeController;
 use App\Models\menu;
 use App\Models\position;
 use App\Models\store;
 use App\Models\User;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Hash;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Symfony\Component\ErrorHandler\Error\FatalError;
 
 Route::get('test', function () {
-    $positions = position::first();
-
-
-    return abort(404);
-
-    return position::select('career')->first()->career;
-    $url = route('store.menu', 2);
-    // return (new UsersExport)->download('users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
-    return $qrcode = QrCode::size(300)->generate($url);
-    return view('qrCode', compact('qrcode'));
 });
 
-Route::get('pdf/{store_id}', function ($store_id) {
-    $menu = menu::where('store_id', $store_id)->first();
-    $store = store::find($store_id);
-    $url =  url(public_path('image\menu\QR\border2.jpg'));
-    return view('store.menu.qrcode.qrcode', compact('menu', 'store', 'url'));
-    $pdf = PDF::loadView('store.menu.qrcode.qrcode', compact('menu', 'store', 'url'));
-    return $pdf->download('QrCode.pdf');
-    $pdf = PDF::loadView('store.menu.qrcode.qrcode', compact('menu', 'store', 'url'))->stream();
-    return $pdf;
-})->middleware('checkmember');
+Route::get('/pdf/view/{store_id}', [HomeController::class, 'pdfView']);
+Route::get('/pdf/download', [HomeController::class, 'download'])->name('download');
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () { //...
     Auth::routes();
@@ -67,7 +52,6 @@ Route::group(['middleware' => ['checkMemberPosition']], function () { //...
     Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
     Route::get('api/store_d',           [storeApi::class, 'store_d']);
     Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
-    Route::get('api/store/addaudience', [storeApi::class, 'addaudience']);
     Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
 
     // ================================================================
@@ -139,8 +123,15 @@ Route::group(['middleware' => ['checkMemberPosition']], function () { //...
 
 
     // ================================================================
-    // ========================== Store HISTORY API ==========================
+    // ========================== Store HISTORY API ===================
     // ================================================================
     Route::get('api/gethistory',  [historyApi::class, 'index']);
     // Route::post('api/store/addtobox',   [historyApi::class, 'addtobox']);
+
+    // ================================================================
+    // ========================== Store Audience API ==================
+    // ================================================================
+    Route::get('api/audience/get',      [audienceApi::class, 'index']);
+    Route::get('api/audience/add',      [audienceApi::class, 'add']);
+    Route::get('api/audience/delete',   [audienceApi::class, 'delete']);
 });

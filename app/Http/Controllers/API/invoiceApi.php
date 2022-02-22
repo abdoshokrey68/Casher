@@ -29,14 +29,11 @@ class invoiceApi extends Controller
 
         if ($store) {
             if ($store->manager_id == Auth::id()) {
-                $invoices = invoice::where('store_id', $store_id)->where('created_at', '>=', $request->getfrom)->where('created_at', '<=', $request->getto)->with('invoicedets')->orderby('created_at', 'DESC')->get();
+                $invoices = invoice::where('store_id', $store_id)->where('paid', '!=', NULL)->where('created_at', '>=', $request->getfrom)->where('created_at', '<=', $request->getto)->with('invoicedets')->orderby('created_at', 'DESC')->get();
                 $invoiceTotal = 0;
                 foreach ($invoices as $invoice) {
                     $invoice->date = $invoice->created_at->diffForHumans();
-                    if ($invoice->discount && $invoice->discount < 0)
-                        $invoiceTotal = $invoiceTotal + ($invoice->total - ($invoice->total * ($invoice->discount / 100)));
-                    else
-                        $invoiceTotal =  $invoiceTotal + $invoice->total;
+                    $invoiceTotal = $invoiceTotal + $invoice->f_discount;
                 }
                 return [
                     'invoices' => $invoices,

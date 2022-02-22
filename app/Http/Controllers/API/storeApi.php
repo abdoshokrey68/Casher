@@ -130,27 +130,6 @@ class storeApi extends Controller
         }
     }
 
-    public function addaudience(Request $request)
-    {
-        $this->validate($request, [
-            'store_id'  => 'required',
-            'phone'     => 'required'
-        ]);
-        $store = store::find($request->store_id);
-        if ($store) {
-            $audience = new audience();
-            $audience->store_id = $request->store_id;
-            $audience->phone = $request->phone;
-            if (Auth::id()) {
-                $audience->member_id = Auth::id();
-            }
-            $audience->save();
-            return $audience;
-        } else {
-            return 'false';
-        }
-    }
-
     public function addNewStore(Request $request)
     {
         $this->validate($request, [

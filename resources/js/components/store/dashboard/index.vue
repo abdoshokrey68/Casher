@@ -106,6 +106,16 @@
                 <!-- End Of Edit Members Component -->
 
                 <div
+                    id="store-audience"
+                    class="row store-audience"
+                    @click.self="storeaudience = !storeaudience"
+                    v-if="storeaudience"
+                >
+                    <store-audience> </store-audience>
+                </div>
+                <!-- End Of Edit Members Component -->
+
+                <div
                     id="store-settings"
                     class="row store-settings"
                     @click.self="storesettings = !storesettings"
@@ -176,13 +186,14 @@ export default {
             deleteinvoice: false,
             editsections: false,
             editproducts: false,
-            dailyinvoice: false,
+            dailyinvoice: true,
             editmembers: false,
             storesettings: false,
             edittables: false,
             storebox: false,
             storehistory: false,
             storemenu: false,
+            storeaudience: false,
             time: "",
             locale: "",
             lang: this.getLang(),

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\invoice;
 use App\Models\section;
 use App\Models\store;
+use App\Models\User;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -51,9 +53,13 @@ class HomeController extends Controller
         }
     }
 
-    public function downloadQrCode($store_id)
+    public function pdfView($store_id)
     {
-        $pdf = PDF::loadView('store.menu.qrcode.qrcode');
-        return $pdf->download('invoice.pdf');
+        $users = User::get();
+        return view('pdf', compact('users'));
+    }
+    public function download($store_id)
+    {
+        return view('pdf');
     }
 }

@@ -65,14 +65,7 @@ export default {
         };
     },
     mounted() {
-        var url = this.$route.path.split("/");
-        var filter = url.filter((e) => e == "en");
-        var length = url.filter((e) => e == "en").length;
-        if (length == 1) {
-            this.locale = "en";
-        } else {
-            this.locale = "ar";
-        }
+        this.locale = this.getLocale();
         this.getHistory(this.store_id, this.locale);
     },
     methods: {

@@ -93,6 +93,13 @@
                 {{ lang.edit_members }}
             </button>
             <button
+                @click="storeAudienceToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-users mr-2 ml-2"></i>
+                {{ lang.store_audience }}
+            </button>
+            <button
                 @click="storesettingsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -202,6 +209,9 @@ export default {
         },
         editmembersToggle: function () {
             this.$parent.editmembers = !this.$parent.editmembers;
+        },
+        storeAudienceToggle: function () {
+            this.$parent.storeaudience = !this.$parent.storeaudience;
         },
         storesettingsToggle: function () {
             this.$parent.storesettings = !this.$parent.storesettings;

@@ -31,6 +31,9 @@ $app->singleton(
     App\Http\Kernel::class
 );
 
+// $app->configure('dompdf');
+
+
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class

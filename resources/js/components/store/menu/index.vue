@@ -277,7 +277,7 @@ export default {
         },
         async addaudience() {
             const response = await this.form
-                .get("/api/store/addaudience")
+                .get("/api/audience/add")
                 .then((res) => {
                     this.notification(
                         this.getType("success"),
@@ -341,9 +341,9 @@ export default {
         },
         getFloat: function () {
             if (this.locale == "ar") {
-                return "h6 pt-2 float-start bold";
+                return "h6  float-start bold";
             } else {
-                return "h6 pt-2 float-end bold";
+                return "h6  float-end bold";
             }
         },
         getType: function (type) {

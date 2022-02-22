@@ -202,7 +202,7 @@
                             <label
                                 class="form-check-label p-1"
                                 for="store-audience"
-                                >{{ lang.Store_audience }}</label
+                                >{{ lang.store_audience }}</label
                             >
                             <div class="clear"></div>
                             <small class="text-primary bold">
