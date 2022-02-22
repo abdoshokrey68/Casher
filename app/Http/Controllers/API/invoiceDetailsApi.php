@@ -20,7 +20,8 @@ class invoiceDetailsApi extends Controller
     public function invoicedetails(Request $request)
     {
         $this->validate($request, [
-            'invoice_id' => 'required|numeric'
+            'invoice_id' => 'required|numeric',
+            'store_id' => 'required'
         ]);
         $invoice_id = $request->invoice_id;
         if ($request->invoice_id == '0') {
@@ -62,7 +63,11 @@ class invoiceDetailsApi extends Controller
                         // return $store;
                         $invoice = $this->createInvoice($store, $request->table_id);
                         $invoice_id =  $invoice->id;
-                        $table = $this->updateTable($request->table_id, $invoice_id);
+                        if ($request->table_id != 0) {
+                            $table = $this->updateTable($request->table_id, $invoice_id);
+                        } else {
+                            $table = "";
+                        }
                     } else {
                         $invoice = invoice::find($request->invoice_id);
                         if ($invoice) {
@@ -73,7 +78,6 @@ class invoiceDetailsApi extends Controller
                     }
                     $details = invoicedet::where('invoice_id', $invoice_id)->where('product_id', $request->product_id)->first();
                     if ($details) {
-                        return 'test1';
                         $details->quantity = $details->quantity + $request->quantity;
                         $details->save();
                         return $details;

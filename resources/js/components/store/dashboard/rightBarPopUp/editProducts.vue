@@ -74,7 +74,11 @@
                             name="store_id"
                         />
 
+                        <label for="product-name" class="mt-2">
+                            {{ lang.product_name }}
+                        </label>
                         <input
+                            id="product-name"
                             v-model="form.name"
                             type="text"
                             name="name"
@@ -87,7 +91,11 @@
                             v-html="form.errors.get('name')"
                         />
 
+                        <label for="product-des" class="mt-2">
+                            {{ lang.product_des }}
+                        </label>
                         <textarea
+                            id="product-des"
                             v-model="form.description"
                             name="description"
                             class="form-control mt-2 mb-2"
@@ -99,7 +107,11 @@
                             v-html="form.errors.get('description')"
                         />
 
+                        <label for="product-price" class="mt-2">
+                            {{ lang.product_price }}
+                        </label>
                         <input
+                            id="product-price"
                             v-model="form.price"
                             type="number"
                             name="price"
@@ -447,6 +459,7 @@ export default {
                         this.lang.success,
                         this.lang.product_update_succ
                     );
+                    console.log(res.data);
                     this.formEmpty();
                     this.urlReplace();
                     this.addProductForm = !this.addProductForm;

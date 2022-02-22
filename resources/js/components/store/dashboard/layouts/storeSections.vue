@@ -1,7 +1,7 @@
 <template>
     <div id="store-sections">
         <div class="col-md-12 p-1 bg-d-blue text-light">
-            <h5 class="text-center p-2 m-0 bold">Sections</h5>
+            <h5 class="text-center p-3 m-0 bold">Sections</h5>
         </div>
         <!-- End Store Section Header -->
         <div class="col-md-12 p-1">
@@ -17,7 +17,7 @@
                     }"
                     :class="getClass(0)"
                 >
-                    All Products
+                    {{ lang.all_prudacts }}
                 </router-link>
                 <div v-for="(section, index) in sections" :key="index">
                     <router-link
@@ -51,6 +51,7 @@ export default {
             sectionSelected: null,
             time: 0,
             fullPath: this.$route.path,
+            lang: this.$parent.lang,
         };
     },
     watch: {

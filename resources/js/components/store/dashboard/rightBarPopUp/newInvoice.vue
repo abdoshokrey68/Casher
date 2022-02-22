@@ -41,13 +41,14 @@
                         </router-link>
                     </div>
                     <div class="col-md-4 mt-1 mb-1">
-                        <a
-                            href="#"
+                        <router-link
                             class="p-3 btn btn-danger bold col-12 action"
+                            :to="'?table_id=0&invoice_id=0&time=' + time"
+                            tag="a"
                         >
                             <i class="fas fa-money-bill-wave"></i>
-                            {{ lang.cash }}</a
-                        >
+                            {{ lang.cash }}
+                        </router-link>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
         <div class="col-md-12 bg-new-warning bold p-2">
             <div class="row">
                 <div class="col-md-4 p-0">
-                    <h5 class="pt-2">{{ lang.prudacts }}</h5>
+                    <h5 class="p-2">{{ lang.prudacts }}</h5>
                 </div>
                 <div class="col-md-8">
                     <input
@@ -35,7 +35,7 @@
                 {{ lang.no_items_yet }}
             </h4>
             <div class="clear"></div>
-            <div class="row">
+            <div class="row p-2">
                 <div
                     v-for="(product, index) in products"
                     :key="index"

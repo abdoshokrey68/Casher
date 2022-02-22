@@ -72,13 +72,15 @@ export default {
     watch: {
         $route: function () {
             if (this.$route.query.table_id) {
-                if (this.$route.query.table_id != this.table_id) {
-                    this.newinvoiceToggle();
-                }
+                this.$parent.newinvoice = false;
                 this.table_id = this.$route.query.table_id;
+            } else {
+                this.table_id = 0;
             }
             if (this.$route.query.invoice_id) {
                 this.invoice_id = this.$route.query.invoice_id;
+            } else {
+                this.invoice_id = 0;
             }
         },
     },

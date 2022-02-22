@@ -430,10 +430,24 @@
     "went_wrong"        : "Something went wrong Check the data ",
     "data_has_sent"     : "Data has been sent",
     "please_check_the_data"  : "There is a problem, please check the data and try again",
-    "select_the_table"  : "Select the table or type of payment first"
+    "select_the_table"  : "Select the table or type of payment first",
 
-
-
+    "store_des" :"Store Descreption",
+    "store_email" : "Store E-mail",
+    "store_password"    : "Store Password",
+    "pass_must_not" : "Password must not be less than 8 characters",
+    "pass_must_contain" : "Password must contain letters [a,Z]",
+    "pass_symbols": "The password must contain symbols [?=.*!$#%]",
+    "leave_field" : "Leave the field blank if you do not want to change the password",
+    "currency_code": "Store Currency Code",
+    "store_discount" : "Store Discount",
+    "store_location" : "Store Location",
+    "Store_audience" : "Store Audience",
+    "receive_phone_numbers" : "You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group",
+    "store_cover"   : "Store Cover Image",
+    "edit_info"     : "Edit Information",
+    "currency_like": "Like: USD, EUR, EGP, SAR",
+    "latest_offers" : "Enter your WhatsApp number to receive all our offers and discounts"
 
 
 

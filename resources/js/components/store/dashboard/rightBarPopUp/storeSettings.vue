@@ -9,7 +9,7 @@
                     <i class="fas fa-times"></i>
                 </button>
                 <h2 class="h4 text-center bg-d-blue text-light m-0 p-3">
-                    <i class="fas fa-store"></i> Store Information
+                    <i class="fas fa-store"></i> {{ lang.store_info }}
                 </h2>
             </div>
             <!-- End Edit Store Settings Header -->
@@ -29,14 +29,15 @@
                             name="store_id"
                         />
 
-                        <label for="store-name"> Store Name</label>
+                        <div class="clear"></div>
+                        <label for="store-name"> {{ lang.store_name }} </label>
                         <input
                             id="store-name"
                             v-model="form.name"
                             type="text"
                             name="name"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Name"
+                            :placeholder="lang.store_name"
                         />
                         <div
                             class="text-danger bold"
@@ -44,15 +45,16 @@
                             v-html="form.errors.get('name')"
                         />
 
+                        <div class="clear"></div>
                         <label for="store-description">
-                            Store Description</label
+                            {{ lang.store_des }}</label
                         >
                         <textarea
                             v-model="form.description"
                             id="store-description"
                             name="description"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Description"
+                            :placeholder="lang.store_des"
                             rows="4"
                             cols="50"
                         ></textarea>
@@ -62,14 +64,15 @@
                             v-html="form.errors.get('description')"
                         />
 
-                        <label for="store-email"> Store Email</label>
+                        <div class="clear"></div>
+                        <label for="store-email"> {{ lang.store_email }}</label>
                         <input
                             id="store-email"
                             v-model="form.email"
                             type="email"
                             name="email"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Email"
+                            :placeholder="lang.store_email"
                         />
                         <div
                             class="text-danger bold"
@@ -77,14 +80,17 @@
                             v-html="form.errors.get('email')"
                         />
 
-                        <label for="store-password"> Store Password</label>
+                        <div class="clear"></div>
+                        <label for="store-password">
+                            {{ lang.store_password }}</label
+                        >
                         <input
                             id="store-password"
                             v-model="form.password"
                             type="password"
                             name="password"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Password"
+                            :placeholder="lang.store_password"
                             autocomplete="new-password"
                         />
                         <div
@@ -97,34 +103,33 @@
                                 <i
                                     class="fas fa-check text-primary bold mr-2 ml-2"
                                 ></i>
-                                Password must not be less than 8 characters
+                                {{ lang.pass_must_not }}
                             </li>
                             <li class="">
                                 <i
                                     class="fas fa-check text-primary bold mr-2 ml-2"
                                 ></i>
-                                Password must contain letters [a,Z]
+                                {{ lang.pass_must_contain }}
                             </li>
                             <li class="">
                                 <i
                                     class="fas fa-check text-primary bold mr-2 ml-2"
                                 ></i>
-                                The password must contain symbols [?=.*!$#%]
+                                {{ lang.pass_symbols }}
                             </li>
                         </ul>
                         <small v-if="!form.password" class="text-primary bold">
-                            Leave the field blank if you do not want to change
-                            the password
+                            {{ lang.leave_field }}
                         </small>
                         <div class="clear"></div>
-                        <label for="store-phone"> Store Phone</label>
+                        <label for="store-phone"> {{ lang.store_phone }}</label>
                         <input
                             id="store-phone"
                             v-model="form.phone"
                             type="text"
                             name="phone"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Phone"
+                            :placeholder="lang.store_phone"
                         />
                         <div
                             class="text-danger bold"
@@ -132,8 +137,9 @@
                             v-html="form.errors.get('phone')"
                         />
 
+                        <div class="clear"></div>
                         <label for="store-currency">
-                            Store Currency Code
+                            {{ lang.currency_code }}
                         </label>
                         <input
                             id="store-currency"
@@ -141,22 +147,26 @@
                             type="text"
                             name="currency"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Currency Code "
+                            :placeholder="lang.currency_code"
                         />
+                        <small> {{ lang.currency_like }} </small>
                         <div
                             class="text-danger bold"
                             v-if="form.errors.has('currency')"
                             v-html="form.errors.get('currency')"
                         />
+                        <div class="clear"></div>
 
-                        <label for="store-discount"> Store Discount </label>
+                        <label for="store-discount">
+                            {{ lang.store_discount }}
+                        </label>
                         <input
                             id="store-discount"
                             v-model="form.discount"
                             type="text"
                             name="discount"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Discount"
+                            :placeholder="lang.store_discount"
                         />
                         <div
                             class="text-danger bold"
@@ -164,14 +174,17 @@
                             v-html="form.errors.get('discount')"
                         />
 
-                        <label for="store-location"> Store Location </label>
+                        <div class="clear"></div>
+                        <label for="store-location">
+                            {{ lang.store_location }}
+                        </label>
                         <input
                             id="store-location"
                             v-model="form.location"
                             type="text"
                             name="location"
                             class="form-control mt-2 mb-2"
-                            placeholder="Store Location"
+                            :placeholder="lang.store_location"
                         />
                         <div
                             class="text-danger bold"
@@ -189,13 +202,11 @@
                             <label
                                 class="form-check-label p-1"
                                 for="store-audience"
-                                >Store Audience</label
+                                >{{ lang.Store_audience }}</label
                             >
                             <div class="clear"></div>
                             <small class="text-primary bold">
-                                You can receive the phone numbers of store
-                                visitors to follow up on all the new offers and
-                                products through the WhatsApp group
+                                {{ lang.receive_phone_numbers }}
                             </small>
                         </div>
                         <div
@@ -204,7 +215,10 @@
                             v-html="form.errors.get('audience')"
                         />
 
-                        <label for="store-image">Store Image : </label>
+                        <div class="clear"></div>
+                        <label for="store-image"
+                            >{{ lang.store_image }} :
+                        </label>
                         <input
                             type="file"
                             name="image"
@@ -223,7 +237,10 @@
                             v-html="form.errors.get('image')"
                         />
 
-                        <label for="store-cover">Store Cover : </label>
+                        <div class="clear"></div>
+                        <label for="store-cover"
+                            >{{ lang.store_cover }} :
+                        </label>
                         <input
                             id="store-cover"
                             type="file"
@@ -259,14 +276,15 @@
                                     class="fas fa-plus mt-2 ml-2"
                                     :hidden="form.busy"
                                 ></i>
-                                Edit Information
+                                {{ lang.edit_info }}
                             </button>
 
                             <button
                                 @click.prevent="storesettingsToggle()"
                                 class="btn btn-light text-danger bold"
                             >
-                                <i class="fas fa-times mt-2 ml-2"></i> Cancel
+                                <i class="fas fa-times mt-2 ml-2"></i>
+                                {{ lang.cancel }}
                             </button>
                         </div>
                     </form>
@@ -305,6 +323,7 @@ export default {
                 store_id: this.$parent.store_id,
             }),
             locale: "",
+            lang: this.$parent.lang,
         };
     },
     mounted() {

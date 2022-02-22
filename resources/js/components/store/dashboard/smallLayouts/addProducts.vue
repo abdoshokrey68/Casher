@@ -128,7 +128,7 @@ export default {
                         !this.$parent.addProductsComponent;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getProductDetails: function () {
@@ -139,7 +139,7 @@ export default {
                     this.product = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         notification: function (type, title, text) {
@@ -155,10 +155,10 @@ export default {
             axios
                 .get(`/api/addproducttoinvoice?product_id=${product_id}`)
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         updateUrl: function (invoice_id) {

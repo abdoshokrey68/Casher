@@ -35,6 +35,8 @@
                         name="paidamount"
                         id="paidamount"
                         min="0"
+                        required
+                        autofocus
                         class="form-control h5 border-primary text-center"
                         v-model="paidamount"
                         placeholder="Enter the amount"
@@ -98,7 +100,7 @@ export default {
             invoice_id: null,
             lang: this.$parent.lang,
             invoice: {},
-            paidamount: 0.0,
+            paidamount: "",
             remaining: 0.0,
             pay_btn: true,
             form: new Form({
@@ -107,6 +109,7 @@ export default {
                 table_id: null,
             }),
             locale: "",
+            store_id: this.$parent.store_id,
         };
     },
     watch: {
@@ -123,21 +126,26 @@ export default {
     mounted() {
         if (this.$route.query.invoice_id) {
             this.invoice_id = parseInt(this.$route.query.invoice_id);
-            this.getInvoiceDetails(this.invoice_id);
+            this.getInvoiceDetails(this.invoice_id, this.store_id);
             this.form.invoice_id = this.invoice_id;
             this.form.table_id = parseInt(this.$route.query.table_id);
         } else {
             this.payinvoiceToggle();
         }
         this.locale = this.getLocale();
+        var paidamount = document.getElementsByName("paidamount");
+        paidamount[0].focus();
+        console.log(paidamount);
     },
     methods: {
         payinvoiceToggle: function () {
             this.$parent.payinvoice = !this.$parent.payinvoice;
         },
-        getInvoiceDetails: function (invoice_id) {
+        getInvoiceDetails: function (invoice_id, store_id) {
             axios
-                .get(`/api/invoicedetails?invoice_id=${invoice_id}`)
+                .get(
+                    `/api/invoicedetails?invoice_id=${invoice_id}&store_id=${store_id}`
+                )
                 .then((res) => {
                     // console.log(res.data);
                     this.invoice = res.data;

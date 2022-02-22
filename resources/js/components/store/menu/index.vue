@@ -154,13 +154,13 @@
                                         '!important'
                                     "
                                 >
-                                    {{ section.name }}
+                                    <span class="mr-2 ml-2">
+                                        {{ section.name }}
+                                    </span>
+
                                     <i
                                         v-if="section.icon"
-                                        :class="
-                                            section.icon +
-                                            ' float-end mr-2 ml-2'
-                                        "
+                                        :class="section.icon + ' float-end'"
                                         :style="
                                             'color:' +
                                             menu.icon_co +
@@ -184,15 +184,15 @@
                                             menu.price_co +
                                             '!important'
                                         "
-                                        class="h6 pt-2 float-end bold"
+                                        :class="getFloat()"
                                     >
                                         {{ product.price }}
                                         <i
                                             class="fas fa-coin text-warning mr-1 ml-1"
                                         ></i>
                                     </h6>
-                                    <h5
-                                        class="h5"
+                                    <h6
+                                        class="h6"
                                         :style="
                                             'color:' +
                                             menu.text_co +
@@ -211,7 +211,7 @@
                                         >
                                             New
                                         </p> -->
-                                    </h5>
+                                    </h6>
                                     <h6
                                         v-if="product.description"
                                         :style="
@@ -338,6 +338,13 @@ export default {
                 title: title,
                 text: text,
             });
+        },
+        getFloat: function () {
+            if (this.locale == "ar") {
+                return "h6 pt-2 float-start bold";
+            } else {
+                return "h6 pt-2 float-end bold";
+            }
         },
         getType: function (type) {
             if (this.locale == "ar") {

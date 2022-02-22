@@ -1,6 +1,5 @@
 {
     "invo_det": "تفاصيل الفاتورة",
-    "welcome"           : " مرحبا ",
     "home"              : " الرئيسية ",
     "about"             : " حول الشركة ",
     "contact"           : " اتصل بنا ",
@@ -28,7 +27,6 @@
     "will_financier"    : "  سأكون ممول للمشروع ",
     "inveset_project"   : " سأستثمر المشروع ",
     "update"            : " تحديث ",
-    "edit_info"         : " تعديل معلوماتك الأساسية ",
     "select_image"      : " أختر صورة جديدة ",
     "full_name"         : " الأسم كامل ",
     "bio"               : " نبذة مختصرة ",
@@ -51,7 +49,6 @@
 
     "new_project"       : " مشروع جديد",
     "min_price"         : " أقل سعر",
-    "create"            : " إنشاء ",
     "small_overview"    : " نظرة عامة صغيرة عن المشروع : ",
     "proposals"         : " أقتراحات",
 
@@ -79,7 +76,6 @@
     "be_financier"      : " أستطيع تمويل المشروع",
     "best_candidate"    : " ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ",
     "submit_suggestion" : " إرسال أقتراج ",
-    "edit_suggestion"   : " تعديل الأقتراح",
     "delete_suggestion" : " حذف الأقتراح",
 
 
@@ -94,7 +90,6 @@
     "buy_years"         : " مقابل 105 عملة بدلا من 120 عملة",
     "months"            : " دفع شهري",
     "buy_months"        : " مقابل 10 عملات ",
-    "choose_plane"      : " قم بتحديد الخطة المناسبة لك ",
     "renew_your_plan"   : " جدد إشتراكك الأن ",
 
     "login"             : " تسجيل دخول ",
@@ -165,14 +160,12 @@
     "pay"               : " أدفع الان ",
     "count"             : " العدد ",
     "color"             : " أللون ",
-    "des"               : " التفاصيل ",
     "c_shopping"        : " متابعة التسوق ",
     "total"             : " الإجمالي ",
     "cart_is_empty"     : " عربة التسوق فارغة ",
     "control"           : " التحكم ",
     "delete"            : " حذف ",
     "edit"              : " تعديل ",
-    "color"             : " اللون ",
     "size"              : " الحجم ",
     "recipient"         : " مستلم ",
     "demand"            : " تحت الطلب ",
@@ -244,8 +237,6 @@
     "quantity_is_out" : " نفذت الكمية ",
     "store_image"   : " صورة المتجر ",
     "image"         : " أختيار صورة ",
-    "size"          : " الحجم ",
-    "color"         : " اللون ",
     "select_color"  : " تحديد لون العنصر ",
     "select_category" : " حدد قسم العنصر ",
     "item_name"       : " اسم العنصر ",
@@ -257,7 +248,6 @@
     "been_completed"        : " تم الانتهاء ",
     "customer_waiting"      : " العميل في الانتظار ",
     "is_over"               : " انتهي ",
-    "demand"                : " تحت الطلب ",
     "edit_store_info"       : " تعديل بيانات المتجر ",
     "best_seller"           : " الأكثر مبيعا ",
     "other_items"           : " عناصر أخري ",
@@ -338,7 +328,7 @@
     "product_section"       : " قسم المنتج ",
     "product_des"       : " وصف المنتج ",
     "ch_product_category"       :  " اختر قسم المنتج ",
-    "product_stock"         : " مهزون المنتج ",
+    "product_stock"         : " مخزون المنتج ",
     "not_avilable"      : " غير متوفر",
     "avilable"      : " متوفر ",
     "limited_quantity"      :" كمية محدودة ",
@@ -427,8 +417,24 @@
     "went_wrong"        : "حدث خطأ تحقق من البيانات ",
     "data_has_sent"     : "تم إرسال البيانات",
     "please_check_the_data"  : "توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى",
-    "select_the_table"  : "حدد الطاولة أو نوع الدفع أولاً"
+    "select_the_table"  : "حدد الطاولة أو نوع الدفع أولاً",
 
+
+    "store_email" : " البريد الإلكتروني للمتجر ",
+    "store_password"    : " الرقم السري للمتجر ",
+    "pass_must_not" : " يجب ألا تقل كلمة المرور عن 8 أحرف ",
+    "pass_must_contain" : " يجب أن تحتوي كلمة المرور على أحرف [a ، Z] ",
+    "pass_symbols": " يجب أن تحتوي كلمة المرور على رموز [؟ =. *! $ #٪] ",
+    "leave_field" : " اترك الحقل فارغًا إذا كنت لا تريد تغيير كلمة المرور ",
+    "currency_code": " رمز عملة المتجر ",
+    "store_discount" : " خصم المتجر ",
+    "store_location" : " موقع المتجر ",
+    "Store_audience" : "جمهور المتجر ",
+    "receive_phone_numbers" : "يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب",
+    "store_cover"   : " صورة غلاف المتجر ",
+    "edit_info"     : " تعديل البيانات  ",
+    "currency_like": " مثل : USD, EUR, EGP, SAR",
+    "latest_offers" : " أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا "
 
 
 }

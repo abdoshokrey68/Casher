@@ -71,13 +71,17 @@
 }
 
 /* Products Section Style */
-
+#products-section .products-details {
+    overflow: auto;
+    max-height: 85vh;
+}
 .product a img.product-image {
     width: 100%;
     min-height: 100px;
 }
 .invoice-table.invoice-details-table {
     overflow: auto;
+    max-height: 60vh;
 }
 
 /* all-right-bar-popup */

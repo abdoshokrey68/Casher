@@ -1,7 +1,7 @@
 <template>
     <div id="invoice-details" class="">
         <div class="col-md-12 p-1 bg-d-blue text-light">
-            <h5 class="text-center p-2 m-0 bold">{{ lang.invo_det }}</h5>
+            <h5 class="text-center p-3 m-0 bold">{{ lang.invo_det }}</h5>
         </div>
         <!-- End invoice details Header -->
         <div class="invoice-table invoice-details-table">
@@ -12,10 +12,10 @@
                         <th scope="col">{{ lang.price }}</th>
                         <th scope="col">{{ lang.quantity }}</th>
                         <th scope="col">{{ lang.total }}</th>
-                        <th scope="col"></th>
+                        <th scope="col"><i class="fas fa-trash-alt"></i></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="invoiceDetails.invoicedets">
                     <tr
                         class="text-center"
                         v-for="(details, index) in invoiceDetails.invoicedets"
@@ -83,6 +83,9 @@ export default {
             ) {
                 this.invoice_id = this.$route.query.invoice_id;
                 this.getInvoiceDetails();
+            } else {
+                this.invoiceDetails = {};
+                this.store_id = 0;
             }
         },
     },
@@ -104,13 +107,15 @@ export default {
         },
         getInvoiceDetails: function () {
             axios
-                .get(`/api/invoicedetails?invoice_id=${this.invoice_id}`)
+                .get(
+                    `/api/invoicedetails?invoice_id=${this.invoice_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     // console.log(res.data);
-                    this.invoiceDetails = res.data.invoiceDetails;
+                    this.invoiceDetails = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         deleteDetails: function (details_id) {
@@ -121,7 +126,7 @@ export default {
                     this.getInvoiceDetails();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getInvoiceValue: function (total, discount) {

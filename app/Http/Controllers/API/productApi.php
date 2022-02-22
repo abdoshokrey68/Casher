@@ -115,10 +115,11 @@ class productApi extends Controller
 
     public function updateproduct(Request $request)
     {
+        // return $request;
         $this->validate($request, [
             'name' => 'required|max:255',
             'description' => 'max:255',
-            'price' => 'required|decimal',
+            'price' => 'required',
             'stock' => 'required|integer',
             'section_id' => 'required|integer',
             'store_id' => 'required',

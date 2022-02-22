@@ -7,19 +7,6 @@ import VueConfirmDialog from 'vue-confirm-dialog'
 import Form from 'vform';
 import axios from 'axios';
 
-
-// import i18n from './i18n.js';
-
-// Vue.config.productionTip = false;
-
-
-// =====================================
-// ========= Set Language Settings =====
-// =====================================
-// localStorage.setItem('lang', 'ar');
-// window.location.reload();
-
-
 import Notifications from 'vue-notification';
 Vue.use(Notifications)
 
@@ -33,9 +20,7 @@ Vue.component('store-sections', require('./components/store/dashboard/layouts/st
 Vue.component('invoice-details', require('./components/store/dashboard/layouts/invoiceDetails.vue').default);
 Vue.component('products-section', require('./components/store/dashboard/layouts/productsSection.vue').default);
 
-
 // ===================== Store Right Bar POP UP ======================
-
 Vue.component('new-invoice', require('./components/store/dashboard/rightBarPopUp/newInvoice.vue').default);
 Vue.component('pay-invoice', require('./components/store/dashboard/rightBarPopUp/payInvoice.vue').default);
 Vue.component('delete-invoice', require('./components/store/dashboard/rightBarPopUp/deleteInvoice.vue').default);
@@ -49,18 +34,12 @@ Vue.component('store-box', require('./components/store/dashboard/rightBarPopUp/s
 Vue.component('store-history', require('./components/store/dashboard/rightBarPopUp/storeHistory.vue').default);
 Vue.component('edit-menu', require('./components/store/dashboard/rightBarPopUp/storeMenu.vue').default);
 
-// ===================== IMPORT SMALL LAYOUTS  ======================
-
-
 // ===================== Store Compoentn ======================
 Vue.component('dashboard-store', require('./components/store/dashboard/index.vue').default);
 Vue.component('store-menu', require('./components/store/menu/index.vue').default);
 Vue.component('main-footer', require('./components/store/layouts/mainFooter.vue').default);
 
-// ============================================================
 // ===================== Home Components ======================
-// ============================================================
-
 Vue.component('home-component', require('./components/home/homeComponent.vue').default);
 Vue.component('create-store', require('./components/home/createStore.vue').default);
 Vue.component('casher-program', require('./components/home/casherProgram.vue').default);
@@ -98,7 +77,6 @@ Vue.prototype.getLang = function getLang(lang = def_lang) {
 const app = new Vue({
     el: '#app',
     router,
-    // i18n,
     mounted() {
     }
 });

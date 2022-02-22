@@ -351,7 +351,7 @@
                                         class="fas fa-edit mt-2 ml-2"
                                         :hidden="form.busy"
                                     ></i>
-                                    {{ lang_edit_section }}</span
+                                    {{ lang.edit_section }}</span
                                 >
                                 <span v-else>
                                     <i
