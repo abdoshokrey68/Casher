@@ -186,7 +186,7 @@ export default {
             deleteinvoice: false,
             editsections: false,
             editproducts: false,
-            dailyinvoice: true,
+            dailyinvoice: false,
             editmembers: false,
             storesettings: false,
             edittables: false,

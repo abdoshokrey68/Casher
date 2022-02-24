@@ -86,6 +86,7 @@ class menuApi extends Controller
         $url = route('store.menu', $store_id);
         $qrcode = QrCode::size(300)->generate($url);
         $qrcodeName = Time() . rand(1, 500) . '-' . $store_id . '.svg';
+        // eyeColor(0, 255, 255, 255, 0, 0, 0)
         file_put_contents("image/menu/QR/$qrcodeName", $qrcode);
         return $qrcodeName;
     }

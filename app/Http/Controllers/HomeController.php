@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\invoice;
+use App\Models\menu;
 use App\Models\section;
 use App\Models\store;
 use App\Models\User;
-use Barryvdh\DomPDF\PDF;
+// use Barryvdh\DomPDF\PDF;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -56,10 +58,22 @@ class HomeController extends Controller
     public function pdfView($store_id)
     {
         $users = User::get();
-        return view('pdf', compact('users'));
+        $menu = menu::where('store_id', 2)->first();
+        // $path = public_path('image\menu\QR\border2.jpg');
+        $store = store::find($store_id);
+        // $encodedSVG = \rawurlencode(\str_replace(["\r", "\n"], ' ', \file_get_contents($path)));
+
+        return view('store.menu.qrcode.qrcode', compact('menu', 'store'));
     }
-    public function download($store_id)
+
+    public function download()
     {
-        return view('pdf');
+        // ini_set('max_execution_time', -1);
+        // ini_set("memory_limit", -1);
+        $users = User::get();
+        // $store = store::find(2);
+        // $menu = menu::where('store_id', 2)->first();
+        return $pdf = PDF::loadView('pdf', compact('users'))->stream();
+        return $pdf->download('invoice.pdf');
     }
 }

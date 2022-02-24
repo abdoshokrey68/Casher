@@ -30,6 +30,10 @@ use Symfony\Component\ErrorHandler\Error\FatalError;
 Route::get('test', function () {
 });
 
+
+
+
+
 Route::get('/pdf/view/{store_id}', [HomeController::class, 'pdfView']);
 Route::get('/pdf/download', [HomeController::class, 'download'])->name('download');
 

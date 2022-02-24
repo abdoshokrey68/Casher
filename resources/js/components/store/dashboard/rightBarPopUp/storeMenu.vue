@@ -279,10 +279,10 @@ export default {
             this.form.des_co = this.menu.des_co;
             this.form.icon_co = this.menu.icon_co;
             this.form.price_co = this.menu.price_co;
-            this.base64SvgToBase64Png(
-                require(`/image/menu/QR/${this.menu.qrcode_name}`),
-                300
-            );
+            // this.base64SvgToBase64Png(
+            //     require(`/image/menu/QR/${this.menu.qrcode_name}`),
+            //     300
+            // );
         },
     },
     methods: {
@@ -329,32 +329,32 @@ export default {
                 text: text,
             });
         },
-        base64SvgToBase64Png: function (originalBase64, width) {
-            return new Promise((resolve) => {
-                let img = document.createElement("img");
-                img.onload = function () {
-                    document.body.appendChild(img);
-                    let canvas = document.createElement("canvas");
-                    let ratio = img.clientWidth / img.clientHeight || 1;
-                    document.body.removeChild(img);
-                    canvas.width = width;
-                    canvas.height = width / ratio;
-                    let ctx = canvas.getContext("2d");
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    try {
-                        let data = canvas.toDataURL("image/png");
-                        resolve(data);
-                    } catch (e) {
-                        resolve(null);
-                    }
-                };
-                img.src = originalBase64;
-                var btn = document.getElementById("downloadQr");
-                // btn.href = originalBase64.default;
-                console.log(btn.getAttribute("href"));
-                btn.setAttribute("href", "originalBase64.default");
-            });
-        },
+        // base64SvgToBase64Png: function (originalBase64, width) {
+        //     return new Promise((resolve) => {
+        //         let img = document.createElement("img");
+        //         img.onload = function () {
+        //             document.body.appendChild(img);
+        //             let canvas = document.createElement("canvas");
+        //             let ratio = img.clientWidth / img.clientHeight || 1;
+        //             document.body.removeChild(img);
+        //             canvas.width = width;
+        //             canvas.height = width / ratio;
+        //             let ctx = canvas.getContext("2d");
+        //             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        //             try {
+        //                 let data = canvas.toDataURL("image/png");
+        //                 resolve(data);
+        //             } catch (e) {
+        //                 resolve(null);
+        //             }
+        //         };
+        //         img.src = originalBase64;
+        //         var btn = document.getElementById("downloadQr");
+        //         // btn.href = originalBase64.default;
+        //         console.log(btn.getAttribute("href"));
+        //         btn.setAttribute("href", "originalBase64.default");
+        //     });
+        // },
         getType: function (type) {
             if (this.locale == "ar") {
                 return `${type} text-end`;
