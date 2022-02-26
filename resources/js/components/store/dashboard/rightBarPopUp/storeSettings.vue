@@ -296,6 +296,7 @@
 
 <script>
 import Form from "vform";
+import axios from "axios";
 
 export default {
     name: "storeSettings",

@@ -65,6 +65,7 @@
 
 <script>
 import Form from "vform";
+import axios from "axios";
 export default {
     name: "addProduct",
     props: ["product_id"],
@@ -133,7 +134,9 @@ export default {
         },
         getProductDetails: function () {
             axios
-                .get(`/api/productdetails?product_id=${this.product_id}`)
+                .get(
+                    `/api/productdetails?product_id=${this.product_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     // console.log(res.data);
                     this.product = res.data;
@@ -153,7 +156,9 @@ export default {
         },
         addProductToInvoice: function (product_id) {
             axios
-                .get(`/api/addproducttoinvoice?product_id=${product_id}`)
+                .get(
+                    `/api/addproducttoinvoice?product_id=${product_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     // console.log(res);
                 })

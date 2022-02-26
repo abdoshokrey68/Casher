@@ -559,7 +559,9 @@ export default {
         },
         getSection(section_id) {
             axios
-                .get(`/api/getsection?section_id=${section_id}`)
+                .get(
+                    `/api/getsection?section_id=${section_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     // console.log(res.data);
                     this.section = res.data;
@@ -593,7 +595,9 @@ export default {
         },
         deleteSection: function (section_id) {
             axios
-                .get(`/api/deletesection?section_id=${section_id}`)
+                .get(
+                    `/api/deletesection?section_id=${section_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     this.notification(
                         this.getType("success"),

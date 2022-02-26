@@ -181,6 +181,7 @@ return [
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        LaravelDaily\Invoices\InvoiceServiceProvider::class,
     ],
 
     /*
@@ -237,9 +238,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => Barryvdh\DomPDF\Facades::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-
+        'Invoice' => LaravelDaily\Invoices\Facades\Invoice::class
     ],
 
 ];

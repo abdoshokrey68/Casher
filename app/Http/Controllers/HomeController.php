@@ -12,6 +12,8 @@ use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class HomeController extends Controller
 {
@@ -70,10 +72,32 @@ class HomeController extends Controller
     {
         // ini_set('max_execution_time', -1);
         // ini_set("memory_limit", -1);
+        return view('pdf');
         $users = User::get();
-        // $store = store::find(2);
-        // $menu = menu::where('store_id', 2)->first();
-        return $pdf = PDF::loadView('pdf', compact('users'))->stream();
+        $store = store::find(2);
+        $menu = menu::where('store_id', 2)->first();
+        return $pdf = PDF::loadView('store.menu.qrcode.qrcode', compact('users', 'menu', 'store'))->stream();
         return $pdf->download('invoice.pdf');
+    }
+
+    public function invoice()
+    {
+        $customer = new Buyer([
+            'name'          => 'John Doe',
+            'custom_fields' => [
+                'email' => 'test@example.com',
+            ],
+        ]);
+
+        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
+
+        $invoice = Invoice::make()
+            ->buyer($customer)
+            ->discountByPercent(10)
+            ->taxRate(15)
+            ->shipping(1.99)
+            ->addItem($item);
+
+        return $invoice->stream();
     }
 }

@@ -272,7 +272,9 @@ export default {
         },
         deleteInvoice: function (invoice_id) {
             axios
-                .get(`/api/deleteinvoice?invoice_id=${invoice_id}`)
+                .get(
+                    `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     console.log(res);
                     this.getDailyInvoice();

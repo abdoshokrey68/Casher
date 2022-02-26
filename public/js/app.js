@@ -6561,7 +6561,7 @@ __webpack_require__.r(__webpack_exports__);
         },
         callback: function callback(confirm) {
           if (confirm) {
-            _this.deleteDetails(details_id);
+            _this.deleteDetails(details_id, _this.store_id);
           }
         }
       });
@@ -6575,10 +6575,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {// console.log(err);
       });
     },
-    deleteDetails: function deleteDetails(details_id) {
+    deleteDetails: function deleteDetails(details_id, store_id) {
       var _this3 = this;
 
-      axios.get("/api/deletedetails?invoice_details_id=".concat(details_id)).then(function (res) {
+      axios.get("/api/deletedetails?invoice_details_id=".concat(details_id, "&store_id=").concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this3.getInvoiceDetails();
       })["catch"](function (err) {// console.log(err);
@@ -7536,7 +7536,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteInvoice: function deleteInvoice(invoice_id) {
       var _this2 = this;
 
-      axios.get("/api/deleteinvoice?invoice_id=".concat(invoice_id)).then(function (res) {
+      axios.get("/api/deleteinvoice?invoice_id=".concat(invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
         console.log(res);
 
         _this2.getDailyInvoice();
@@ -9173,7 +9173,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getProduct: function getProduct(product_id) {
       var _this4 = this;
 
-      axios.get("/api/getproduct?edit_product_id=".concat(product_id)).then(function (res) {
+      axios.get("/api/getproduct?edit_product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this4.product = res.data;
       })["catch"](function (err) {
@@ -9193,7 +9193,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteProduct: function deleteProduct(product_id) {
       var _this6 = this;
 
-      axios.get("/api/deleteproduct?product_id=".concat(product_id)).then(function (res) {
+      axios.get("/api/deleteproduct?product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res);
         _this6.getProducts();
 
@@ -9868,7 +9868,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getSection: function getSection(section_id) {
       var _this4 = this;
 
-      axios.get("/api/getsection?section_id=".concat(section_id)).then(function (res) {
+      axios.get("/api/getsection?section_id=".concat(section_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this4.section = res.data;
       })["catch"](function (err) {
@@ -9904,7 +9904,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteSection: function deleteSection(section_id) {
       var _this6 = this;
 
-      axios.get("/api/deletesection?section_id=".concat(section_id)).then(function (res) {
+      axios.get("/api/deletesection?section_id=".concat(section_id, "&store_id=").concat(this.store_id)).then(function (res) {
         _this6.notification(_this6.getType("success"), _this6.lang.success, _this6.lang.delete_suucess);
 
         _this6.getSections();
@@ -10261,7 +10261,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getTable: function getTable(table_id) {
       var _this4 = this;
 
-      axios.get("/api/gettable?table_id=".concat(table_id)).then(function (res) {
+      axios.get("/api/gettable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
         _this4.table = res.data;
       })["catch"](function (err) {
         return console.log(err);
@@ -10270,7 +10270,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteTable: function deleteTable(table_id) {
       var _this5 = this;
 
-      axios.get("/api/deletetable?table_id=".concat(table_id)).then(function (res) {
+      axios.get("/api/deletetable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
         console.log(res.data);
 
         _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.delete_success);
@@ -11200,6 +11200,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -11449,6 +11451,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "StoreMenu",
   components: {},
@@ -11499,7 +11502,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getStoreMenu: function getStoreMenu() {
       var _this = this;
 
-      axios.get("/api/store/menu?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/store/menu?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this.menu = res.data;
       })["catch"](function (err) {
@@ -11603,6 +11606,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -11905,6 +11910,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "storeSettings",
@@ -11997,7 +12003,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getStoreInfo: function getStoreInfo() {
       var _this2 = this;
 
-      axios.get("/api/storeinfo?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/storeinfo?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.storeinfo = res.data;
       })["catch"](function (err) {
@@ -12077,6 +12083,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -12148,6 +12156,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "addProduct",
@@ -12236,7 +12245,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getProductDetails: function getProductDetails() {
       var _this2 = this;
 
-      axios.get("/api/productdetails?product_id=".concat(this.product_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/productdetails?product_id=".concat(this.product_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.product = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -12253,7 +12262,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     addProductToInvoice: function addProductToInvoice(product_id) {
-      axios.get("/api/addproducttoinvoice?product_id=".concat(product_id)).then(function (res) {// console.log(res);
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/addproducttoinvoice?product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {// console.log(res);
       })["catch"](function (err) {// console.log(err);
       });
     },

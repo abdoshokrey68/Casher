@@ -492,7 +492,9 @@ export default {
         },
         getProduct: function (product_id) {
             axios
-                .get(`/api/getproduct?edit_product_id=${product_id}`)
+                .get(
+                    `/api/getproduct?edit_product_id=${product_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     // console.log(res.data);
                     this.product = res.data;
@@ -512,7 +514,9 @@ export default {
         },
         deleteProduct: function (product_id) {
             axios
-                .get(`/api/deleteproduct?product_id=${product_id}`)
+                .get(
+                    `/api/deleteproduct?product_id=${product_id}&store_id=${this.store_id}`
+                )
                 .then((res) => {
                     // console.log(res);
                     this.getProducts();

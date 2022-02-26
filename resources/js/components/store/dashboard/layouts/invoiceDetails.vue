@@ -100,7 +100,7 @@ export default {
                 },
                 callback: (confirm) => {
                     if (confirm) {
-                        this.deleteDetails(details_id);
+                        this.deleteDetails(details_id, this.store_id);
                     }
                 },
             });
@@ -118,9 +118,11 @@ export default {
                     // console.log(err);
                 });
         },
-        deleteDetails: function (details_id) {
+        deleteDetails: function (details_id, store_id) {
             axios
-                .get(`/api/deletedetails?invoice_details_id=${details_id}`)
+                .get(
+                    `/api/deletedetails?invoice_details_id=${details_id}&store_id=${store_id}`
+                )
                 .then((res) => {
                     // console.log(res.data);
                     this.getInvoiceDetails();
