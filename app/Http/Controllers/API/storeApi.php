@@ -28,11 +28,7 @@ class storeApi extends Controller
         ]);
         $store = store::find($store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                return store::with('sections', 'sections.products')->find($store_id);
-            } else {
-                return 'false';
-            }
+            return store::with('sections', 'sections.products')->find($store_id);
         } else {
             return 'false';
         }
@@ -43,11 +39,7 @@ class storeApi extends Controller
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                return store::find($store_id);
-            } else {
-                return 'false';
-            }
+            return store::find($store_id);
         } else {
             return 'false';
         }
@@ -62,7 +54,6 @@ class storeApi extends Controller
             "phone"         =>  "required",
             "email"         =>  "required|email:rfc,dns",
             "currency"      =>  "required|max:4",
-            "manager_id"    =>  "required|integer",
             "store_id"      =>  "required|integer",
             "discount"      =>  "required|integer",
             "audience"      =>  "required",
@@ -70,61 +61,56 @@ class storeApi extends Controller
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                $store->name = $request->name;
-                $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
-                $store->description = $request->description;
-                $store->location = $request->location;
-                $store->phone = $request->phone;
-                $store->email = $request->email;
-                $store->currency = $request->currency;
-                $store->discount = $request->discount;
-                $store->manager_id = $request->manager_id;
-                if ($request->audience == false) {
-                    $store->audience = 0;
-                } else {
-                    $store->audience = 1;
-                }
-                if ($request->password) {
-                    $request->validate([
-                        'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
-                    ]);
-                    $store->password = Hash::make($request->password);
-                }
-                if ($request->image) {
-                    $request->validate([
-                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-                    ]);
-                    $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
-                    $request->image->move(public_path('/image/stores/image'), $imageName);
-                    if (file_exists(public_path("/image/stores/image/$store->image"))) {
-                        unlink(public_path("/image/stores/image/$store->image"));
-                    }
-                    $store->image = $imageName;
-                }
-                if ($request->cover) {
-                    $request->validate([
-                        'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-                    ]);
-                    $coverName = time() . rand(1, 9000) . '.' . $request->cover->extension();
-                    $request->cover->move(public_path('/image/stores/cover'), $coverName);
-                    if (file_exists(public_path("/image/stores/cover/$store->cover"))) {
-                        unlink(public_path("/image/stores/cover/$store->cover"));
-                    }
-                    $store->cover = $coverName;
-                }
-
-
-                $historyApi = new historyApi;
-                $des_ar = " تم تعديل بيانات المتجر ";
-                $des_en = " Store information has been modified ";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-
-                $store->save();
-                return $store;
+            $store->name = $request->name;
+            $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
+            $store->description = $request->description;
+            $store->location = $request->location;
+            $store->phone = $request->phone;
+            $store->email = $request->email;
+            $store->currency = $request->currency;
+            $store->discount = $request->discount;
+            if ($request->audience == false) {
+                $store->audience = 0;
             } else {
-                return 'false';
+                $store->audience = 1;
             }
+            if ($request->password) {
+                $request->validate([
+                    'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
+                ]);
+                $store->password = Hash::make($request->password);
+            }
+            if ($request->image) {
+                $request->validate([
+                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                ]);
+                $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+                $request->image->move(public_path('/image/stores/image'), $imageName);
+                if (file_exists(public_path("/image/stores/image/$store->image"))) {
+                    unlink(public_path("/image/stores/image/$store->image"));
+                }
+                $store->image = $imageName;
+            }
+            if ($request->cover) {
+                $request->validate([
+                    'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                ]);
+                $coverName = time() . rand(1, 9000) . '.' . $request->cover->extension();
+                $request->cover->move(public_path('/image/stores/cover'), $coverName);
+                if (file_exists(public_path("/image/stores/cover/$store->cover"))) {
+                    unlink(public_path("/image/stores/cover/$store->cover"));
+                }
+                $store->cover = $coverName;
+            }
+
+
+            $historyApi = new historyApi;
+            $des_ar = " تم تعديل بيانات المتجر ";
+            $des_en = " Store information has been modified ";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+
+            $store->save();
+            return $store;
         } else {
             return 'false';
         }
@@ -148,9 +134,10 @@ class storeApi extends Controller
         $store->phone = $request->phone;
         $store->location = $request->location;
         $store->currency = $request->currency;
-        $store->manager_id = 2; // Will Delete Soon
+        $store->manager_id = Auth::id();
         $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
         $store->save();
+
         $value = $this->createPosition($store->id, Auth::id());
 
         $historyApi = new historyApi;
@@ -166,9 +153,17 @@ class storeApi extends Controller
     protected function createPosition($store_id, $user_id)
     {
         $position = new position();
-        $position->poristion = 0;
+        $position->position = 0;
         $position->store_id = $store_id;
         $position->member_id = $user_id;
+        $position->invoice   = "0,1,2,3,4";
+        $position->section   = "0,1,2,3,4";
+        $position->product   = "0,1,2,3,4";
+        $position->table     = "0,1,2,3,4";
+        $position->member    = "0,1,2,3,4";
+        $position->store     = "0,1,3";
+        $position->history   = "0,1";
+        $position->menu      = "0,1,3";
         $position->save();
         return $position;
     }

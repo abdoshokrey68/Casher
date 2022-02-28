@@ -28,22 +28,17 @@ class invoiceApi extends Controller
         $store = store::find($store_id);
 
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                $invoices = invoice::where('store_id', $store_id)->where('paid', '!=', NULL)->where('created_at', '>=', $request->getfrom)->where('created_at', '<=', $request->getto)->with('invoicedets')->orderby('created_at', 'DESC')->get();
-                $invoiceTotal = 0;
-                foreach ($invoices as $invoice) {
-                    $invoice->date = $invoice->created_at->diffForHumans();
-                    $invoiceTotal = $invoiceTotal + $invoice->f_discount;
-                }
-                return [
-                    'invoices' => $invoices,
-                    'invoicetotal' => $invoiceTotal
-                ];
-            } else {
-                return 'false';
+            $invoices = invoice::where('store_id', $store_id)->where('paid', '!=', NULL)->where('created_at', '>=', $request->getfrom)->where('created_at', '<=', $request->getto)->with('invoicedets')->orderby('created_at', 'DESC')->get();
+            $invoiceTotal = 0;
+            foreach ($invoices as $invoice) {
+                $invoice->date = $invoice->created_at->diffForHumans();
+                $invoiceTotal = $invoiceTotal + $invoice->f_discount;
             }
+            return [
+                'invoices' => $invoices,
+                'invoicetotal' => $invoiceTotal
+            ];
         } else {
-
             return 'false';
         }
     }
@@ -53,16 +48,12 @@ class invoiceApi extends Controller
         $invoice = invoice::find($request->invoice_id);
         $store = store::find($invoice->store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                $historyApi = new historyApi;
-                $des_ar = " تم حذف الفاتورة رقم $invoice->id ";
-                $des_en = " Invoice No. $invoice->id has been deleted ";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                $invoice->delete();
-                return "Deleted successfully";
-            } else {
-                return 'false';
-            }
+            $historyApi = new historyApi;
+            $des_ar = " تم حذف الفاتورة رقم $invoice->id ";
+            $des_en = " Invoice No. $invoice->id has been deleted ";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+            $invoice->delete();
+            return "Deleted successfully";
         } else {
             return 'false';
         }
@@ -80,16 +71,12 @@ class invoiceApi extends Controller
         $table = table::find($request->table_id);
         if ($invoice->store_id == $table->store_id) {
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    if ($request->paidamount >= $invoice->f_discount) {
-                        $table->status = 0;
-                        $table->save();
-                        $invoice->paid = $request->paidamount;
-                        $invoice->save();
-                        return 'Invoice Completed';
-                    } else {
-                        return 'false';
-                    }
+                if ($request->paidamount >= $invoice->f_discount) {
+                    $table->status = 0;
+                    $table->save();
+                    $invoice->paid = $request->paidamount;
+                    $invoice->save();
+                    return 'Invoice Completed';
                 } else {
                     return 'false';
                 }

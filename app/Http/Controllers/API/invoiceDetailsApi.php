@@ -31,12 +31,8 @@ class invoiceDetailsApi extends Controller
             if ($invoice) {
                 $store = store::find($invoice->store_id);
                 if ($store) {
-                    if ($store->manager_id == Auth::id()) {
-                        $invoiceDetails = $this->updateInvoiceTotal($invoice_id);
-                        return $invoiceDetails;
-                    } else {
-                        return 'false1';
-                    }
+                    $invoiceDetails = $this->updateInvoiceTotal($invoice_id);
+                    return $invoiceDetails;
                 } else {
                     return 'false2';
                 }
@@ -58,42 +54,38 @@ class invoiceDetailsApi extends Controller
         if ($product) {
             $store = store::find($product->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    if ($request->invoice_id == 0) {
-                        // return $store;
-                        $invoice = $this->createInvoice($store, $request->table_id);
-                        $invoice_id =  $invoice->id;
-                        if ($request->table_id != 0) {
-                            $table = $this->updateTable($request->table_id, $invoice_id);
-                        } else {
-                            $table = "";
-                        }
+                if ($request->invoice_id == 0) {
+                    // return $store;
+                    $invoice = $this->createInvoice($store, $request->table_id);
+                    $invoice_id =  $invoice->id;
+                    if ($request->table_id != 0) {
+                        $table = $this->updateTable($request->table_id, $invoice_id);
                     } else {
-                        $invoice = invoice::find($request->invoice_id);
-                        if ($invoice) {
-                            $invoice_id = $request->invoice_id;
-                        } else {
-                            return 'false2';
-                        }
-                    }
-                    $details = invoicedet::where('invoice_id', $invoice_id)->where('product_id', $request->product_id)->first();
-                    if ($details) {
-                        $details->quantity = $details->quantity + $request->quantity;
-                        $details->save();
-                        return $details;
-                    } else {
-
-                        return $details = $this->createDetails($product, $request, $store->id, $invoice_id);
-
-                        return [
-                            'invoice_id'    => $invoice_id,
-                            'table'         => $table,
-                            'details'       => $details
-                        ];
-                        // return 'Item has been added successfully';
+                        $table = "";
                     }
                 } else {
-                    return 'false3';
+                    $invoice = invoice::find($request->invoice_id);
+                    if ($invoice) {
+                        $invoice_id = $request->invoice_id;
+                    } else {
+                        return 'false2';
+                    }
+                }
+                $details = invoicedet::where('invoice_id', $invoice_id)->where('product_id', $request->product_id)->first();
+                if ($details) {
+                    $details->quantity = $details->quantity + $request->quantity;
+                    $details->save();
+                    return $details;
+                } else {
+
+                    return $details = $this->createDetails($product, $request, $store->id, $invoice_id);
+
+                    return [
+                        'invoice_id'    => $invoice_id,
+                        'table'         => $table,
+                        'details'       => $details
+                    ];
+                    // return 'Item has been added successfully';
                 }
             } else {
                 return 'false3';
@@ -110,18 +102,14 @@ class invoiceDetailsApi extends Controller
         if ($details) {
             $store = store::find($details->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    $invoice = invoice::with('invoicedets')->find($details->invoice_id);
-                    if (!$invoice->invoicedets) {
-                        $invoice->total = 0;
-                        $invoice->save();
-                    }
-                    $details->delete();
-                    // $details->save();
-                    return "Deleted successfully";
-                } else {
-                    return 'false1';
+                $invoice = invoice::with('invoicedets')->find($details->invoice_id);
+                if (!$invoice->invoicedets) {
+                    $invoice->total = 0;
+                    $invoice->save();
                 }
+                $details->delete();
+                // $details->save();
+                return "Deleted successfully";
             } else {
                 return 'false2';
             }

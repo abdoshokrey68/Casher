@@ -27,6 +27,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function error()
+    {
+        return view('errors.illustrated-layout');
+    }
+
     public function casherProgram()
     {
         return view('home.casher');

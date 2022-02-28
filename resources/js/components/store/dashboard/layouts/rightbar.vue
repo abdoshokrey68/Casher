@@ -44,6 +44,7 @@
 
         <div class="list-group p-2">
             <button
+                v-if="position.invoice.includes('2')"
                 @click="newInvoiceToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -51,6 +52,7 @@
                 {{ lang.new_invoice }}
             </button>
             <button
+                v-if="position.invoice.includes('2')"
                 @click="payInvoiceToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
                 :disabled="!invoice_btn"
@@ -69,7 +71,7 @@
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
                 <i class="fas fa-list mr-2 ml-2"></i>
-                {{ lang.edit_section }}
+                {{ lang.edit_sections }}
             </button>
             <button
                 @click="editproductsToggle()"
@@ -165,14 +167,17 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "RightBar",
     props: ["store", "menu_link"],
     data: function () {
         return {
+            store_id: this.$parent.store_id,
             invoice_id: null,
             invoice_btn: false,
             lang: this.$parent.lang,
+            position: {},
         };
     },
     watch: {
@@ -185,8 +190,10 @@ export default {
                     this.invoice_btn = false;
                 }
             }
-            // else this.invoice_id = null;
         },
+    },
+    mounted() {
+        this.getPositions();
     },
     methods: {
         newInvoiceToggle: function () {
@@ -231,6 +238,37 @@ export default {
         logout: function () {
             document.getElementById("logout-form").submit();
         },
+        getPositions: function () {
+            axios
+                .get(`/api/member/position?store_id=${this.store_id}`)
+                .then((res) => {
+                    this.position = res.data.position;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+
+        // getPermission: function (control, permission) {
+        //     if (control == "newinvoice") {
+        //         var position = this.position.invoice.filter(function (
+        //             permission = 2
+        //         ) {
+        //             return this.position.invoice.includes(permission);
+        //         });
+        //         console.log(position);
+        //         // return true;
+        //     } else if (control == "editsections") {
+        //         return true;
+        //     }
+        // },
+        // x() {
+        //     var filter = this.position.invoice.filter((e) => e == "1");
+        //     var length = this.position.invoice.filter((e) => e == "1").length;
+        //     if (length == 1) {
+        //         return true;
+        //     }
+        // },
     },
 };
 </script>

@@ -21,11 +21,7 @@ class tableApi extends Controller
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                return table::where('store_id', $store_id)->get();
-            } else {
-                return 'false';
-            }
+            return table::where('store_id', $store_id)->get();
         } else {
             return 'false';
         }
@@ -38,11 +34,7 @@ class tableApi extends Controller
         if ($table) {
             $store = store::find($table->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    return $table;
-                } else {
-                    return 'false';
-                }
+                return $table;
             } else {
                 return 'false';
             }
@@ -58,27 +50,19 @@ class tableApi extends Controller
             'store_id'  => 'required|integer',
         ]);
         $table_id = $request->table_id;
-        // return 'test1';
         $store = store::find($request->store_id);
         if ($store) {
-            // return 'test2';
-            if ($store->manager_id == Auth::id()) {
-                // return 'test3';
-                $table = new table();
-                $table->name = $request->name;
-                $table->store_id = $request->store_id;
-                $table->status = 0;
-                $table->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
-                $table->save();
-
-                $historyApi = new historyApi;
-                $des_ar = " تم إنشاء طاولة جديدة ' $table->name ' ";
-                $des_en = " A new table '$table->name' has been created";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                return "Added successfully";
-            } else {
-                return 'false';
-            }
+            $table = new table();
+            $table->name = $request->name;
+            $table->store_id = $request->store_id;
+            $table->status = 0;
+            $table->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
+            $table->save();
+            $historyApi = new historyApi;
+            $des_ar = " تم إنشاء طاولة جديدة ' $table->name ' ";
+            $des_en = " A new table '$table->name' has been created";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+            return "Added successfully";
         } else {
             return 'false';
         }
@@ -97,18 +81,14 @@ class tableApi extends Controller
         if ($table) {
             $store = store::find($table->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    $table->name = $request->name;
-                    $table->save();
+                $table->name = $request->name;
+                $table->save();
 
-                    $historyApi = new historyApi;
-                    $des_ar = " تم تعديل الطاولة' $table->name ' ";
-                    $des_en = " The table has been modified '$table->name'";
-                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                    return "Edited successfully";
-                } else {
-                    return 'false';
-                }
+                $historyApi = new historyApi;
+                $des_ar = " تم تعديل الطاولة' $table->name ' ";
+                $des_en = " The table has been modified '$table->name'";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return "Edited successfully";
             } else {
                 return 'false';
             }
@@ -124,18 +104,14 @@ class tableApi extends Controller
         if ($table) {
             $store = store::find($table->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    $table_old_name = $table->name;
-                    $table->delete();
+                $table_old_name = $table->name;
+                $table->delete();
 
-                    $historyApi = new historyApi;
-                    $des_ar = " تم حذف  الطاولة' $table_old_name ' ";
-                    $des_en = " Table '$table_old_name' has been deleted.";
-                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                    return "Deleted successfully";
-                } else {
-                    return 'false';
-                }
+                $historyApi = new historyApi;
+                $des_ar = " تم حذف  الطاولة' $table_old_name ' ";
+                $des_en = " Table '$table_old_name' has been deleted.";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return "Deleted successfully";
             } else {
                 return 'false';
             }

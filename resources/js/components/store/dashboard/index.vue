@@ -12,21 +12,23 @@
             <!-- End right bar -->
             <div class="col-md-10 p-0">
                 <div>
-                    <navigation-bar> </navigation-bar>
+                    <navigation-bar :store_id="store_id"> </navigation-bar>
                     <!-- End navigation bar -->
                 </div>
                 <!-- End Navigation Bar -->
                 <div class="col-md-12 row">
                     <div class="col-md-5 p-0 card">
-                        <invoice-details> </invoice-details>
+                        <invoice-details :store_id="store_id">
+                        </invoice-details>
                         <!-- End invoice details -->
                     </div>
                     <div class="col-md-5 p-0 card">
-                        <products-section> </products-section>
+                        <products-section :store_id="store_id">
+                        </products-section>
                     </div>
                     <!-- End prodacts Section -->
                     <div class="col-md-2 p-0 card">
-                        <store-sections> </store-sections>
+                        <store-sections :store_id="store_id"> </store-sections>
                         <!-- End store sections -->
                     </div>
                     <!-- End store sections -->
@@ -41,7 +43,7 @@
                     @click.self="newinvoice = !newinvoice"
                     v-if="newinvoice"
                 >
-                    <new-invoice> </new-invoice>
+                    <new-invoice :store_id="store_id"> </new-invoice>
                 </div>
                 <!-- End Of New Invoice Component -->
 
@@ -51,7 +53,7 @@
                     @click.self="payinvoice = !payinvoice"
                     v-if="payinvoice"
                 >
-                    <pay-invoice> </pay-invoice>
+                    <pay-invoice :store_id="store_id"> </pay-invoice>
                 </div>
                 <!-- End Of Pay Invoice Component -->
 
@@ -61,7 +63,7 @@
                     @click.self="deleteinvoice = !deleteinvoice"
                     v-if="deleteinvoice"
                 >
-                    <delete-invoice> </delete-invoice>
+                    <delete-invoice :store_id="store_id"> </delete-invoice>
                 </div>
                 <!-- End Of Pay Invoice Component -->
 
@@ -71,7 +73,7 @@
                     @click.self="editsections = !editsections"
                     v-if="editsections"
                 >
-                    <edit-sections> </edit-sections>
+                    <edit-sections :store_id="store_id"> </edit-sections>
                 </div>
                 <!-- End Of Edit Sections Component -->
 
@@ -81,7 +83,7 @@
                     @click.self="editproducts = !editproducts"
                     v-if="editproducts"
                 >
-                    <edit-products> </edit-products>
+                    <edit-products :store_id="store_id"> </edit-products>
                 </div>
                 <!-- End Of Edit Products Component -->
 
@@ -91,7 +93,7 @@
                     @click.self="dailyinvoice = !dailyinvoice"
                     v-if="dailyinvoice"
                 >
-                    <daily-invoice> </daily-invoice>
+                    <daily-invoice :store_id="store_id"> </daily-invoice>
                 </div>
                 <!-- End Of Edit Products Component -->
 
@@ -101,7 +103,7 @@
                     @click.self="editmembers = !editmembers"
                     v-if="editmembers"
                 >
-                    <edit-members> </edit-members>
+                    <edit-members :store_id="store_id"> </edit-members>
                 </div>
                 <!-- End Of Edit Members Component -->
 
@@ -111,7 +113,7 @@
                     @click.self="storeaudience = !storeaudience"
                     v-if="storeaudience"
                 >
-                    <store-audience> </store-audience>
+                    <store-audience :store_id="store_id"> </store-audience>
                 </div>
                 <!-- End Of Edit Members Component -->
 
@@ -121,7 +123,7 @@
                     @click.self="storesettings = !storesettings"
                     v-if="storesettings"
                 >
-                    <store-settings> </store-settings>
+                    <store-settings :store_id="store_id"> </store-settings>
                 </div>
                 <!-- End Of Edit Store Settings Component -->
 
@@ -131,7 +133,7 @@
                     @click.self="edittables = !edittables"
                     v-if="edittables"
                 >
-                    <edit-tables> </edit-tables>
+                    <edit-tables :store_id="store_id"> </edit-tables>
                 </div>
                 <!-- End Of Edit Store Talbes Component -->
 
@@ -141,7 +143,7 @@
                     @click.self="storebox = !storebox"
                     v-if="storebox"
                 >
-                    <store-box> </store-box>
+                    <store-box :store_id="store_id"> </store-box>
                 </div>
                 <!-- End Of Edit Store Box Component -->
 
@@ -151,7 +153,7 @@
                     @click.self="storehistory = !storehistory"
                     v-if="storehistory"
                 >
-                    <store-history> </store-history>
+                    <store-history :store_id="store_id"> </store-history>
                 </div>
                 <!-- End Of Edit Store History Component -->
 
@@ -161,7 +163,7 @@
                     @click.self="storemenu = !storemenu"
                     v-if="storemenu"
                 >
-                    <edit-menu> </edit-menu>
+                    <edit-menu :store_id="store_id"> </edit-menu>
                 </div>
                 <!-- End Of Edit Store Menu Component -->
             </div>
@@ -200,34 +202,24 @@ export default {
         };
     },
     mounted() {
-        this.getStoreInfo();
+        this.getStoreInfo(this.store_id);
         this.time = new Date().getTime();
         this.urlReplace();
-        // var url = this.$route.path.split("/");
-        // var filter = url.filter((e) => e == "en");
-        // var length = url.filter((e) => e == "en").length;
-        // if (length == 1) {
-        //     this.lang = this.getLang("en");
-        // } else {
-        //     this.lang = this.getLang("ar");
-        // }
     },
-    watch: {
-        $route: function () {
-            // console.log(this.$route.query);
-            // console.log(this.$route);
-        },
-    },
+    watch: {},
     methods: {
-        getStoreInfo: function () {
+        getStoreInfo: function (store_id) {
             axios
-                .get(`/api/storeinfo?store_id=${this.store_id}`)
+                .get(`/api/storeinfo?store_id=${store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.storeINFO = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    console.log(err);
+                });
         },
+
         urlReplace: function () {
             if (this.$route.query) {
                 this.$router
@@ -239,7 +231,7 @@ export default {
         },
         getTextAlign: function () {
             var locale = this.getLocale();
-            console.log(locale);
+            // console.log(locale);
             if (locale == "ar") return "text-right";
             else return "text-left";
         },

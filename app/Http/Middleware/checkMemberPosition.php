@@ -27,10 +27,10 @@ class checkMemberPosition
             if ($position) {
                 return $next($request);
             } else {
-                return redirect()->route('home');
+                return redirect()->route('error');
             }
         } else {
-            return redirect()->route('home');
+            return redirect()->route('error');
         }
     }
 }

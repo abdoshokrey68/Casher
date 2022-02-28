@@ -289,7 +289,10 @@ return [
     'get_coins2'            => ' أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ',
 
     // Casher Site
+    'your_store'            => "متاجرك",
 
-    'your_store'        => "متاجرك",
+    // Store Errors
+    "unauthorized"          => "غير مصرح",
+    "Not Found"         => " غير موجود ",
 
 ];

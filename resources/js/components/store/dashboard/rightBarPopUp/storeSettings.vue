@@ -319,7 +319,6 @@ export default {
                 email: "",
                 password: "",
                 currency: "EGP",
-                manager_id: "",
                 discount: 0,
                 store_id: this.$parent.store_id,
             }),
@@ -340,7 +339,6 @@ export default {
             this.form.phone = this.storeinfo.phone;
             this.form.email = this.storeinfo.email;
             this.form.currency = this.storeinfo.currency;
-            this.form.manager_id = this.storeinfo.manager_id;
             this.form.discount = this.storeinfo.discount;
             this.form.store_id = this.storeinfo.id;
             if (this.storeinfo.audience == 0) {

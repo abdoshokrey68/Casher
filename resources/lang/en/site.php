@@ -292,6 +292,11 @@ return [
     'next_sub'              => 'Next subscription renewal date',
 
     // Casher Site
-    'your_store'        => "Your Stores",
+    'your_store'            => "Your Stores",
 
+    // ===================================
+    // =========== Store Errors ==========
+    // ===================================
+    "unauthorized"          => "Unauthorized",
+    "Not Found"         => "Not Found",
 ];

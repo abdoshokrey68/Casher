@@ -17,7 +17,7 @@ class CreatePositionsTable extends Migration
             $table->id();
             $table->integer('store_id');
             $table->integer('member_id');
-            $table->integer('position')->default(0); // [0] => Manager || [1] => Casher || [2] => Restaurant || [3] => Admin
+            $table->integer('position')->default(0); // [0] => Manager || [1] => Casher || [2] => Restaurant || [3] => Supervisor
             $table->string('invoice')->default(0);
             $table->string('section')->default(0);
             $table->string('member')->default(0);

@@ -134,39 +134,18 @@
                                 />
                             </div>
 
-                            <!-- <div class="store-description">
-                                <label for="store-description">
-                                    Store Descreption :</label
-                                >
-                                <textarea
-                                    v-model="form.description"
-                                    name="description"
-                                    id="store-description"
-                                    placeholder="Enter Store Description"
-                                    class="form-control mt-2 mb-2"
-                                    cols="30"
-                                    rows="10"
-                                ></textarea>
-                                <div
-                                    class="text-danger bold"
-                                    v-if="form.errors.has('description')"
-                                    v-html="form.errors.get('description')"
-                                />
-                            </div> -->
-
                             <div class="float-end mt-2">
                                 <a
                                     v-if="route"
                                     :href="route"
                                     class="btn btn-primary mb-2"
-                                    target="_blank"
                                 >
                                     <i class="fas fa-store m-2"></i>
                                     Go to your store
                                 </a>
                                 <button
                                     type="submit"
-                                    class="btn btn-dark"
+                                    class="btn btn-dark mb-2"
                                     :disabled="form.busy"
                                 >
                                     <span
@@ -214,6 +193,7 @@ export default {
             const response = await this.form
                 .post("/api/add-new-store")
                 .then((res) => {
+                    // console.log(res.data);
                     this.notification(
                         "success",
                         "Success",
@@ -221,11 +201,10 @@ export default {
                     );
                     this.storeName = res.data.storeName;
                     this.route = res.data.route;
-                    // console.log(res.data);
                     this.form.reset();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                     this.notification(
                         "error",
                         "Error",

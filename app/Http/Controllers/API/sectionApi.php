@@ -21,7 +21,7 @@ class sectionApi extends Controller
         $store_id = $request->store_id;
         $section_id = $request->section_id;
         $store = store::find($store_id);
-        if ($store->manager_id == Auth::id()) {
+        if ($store) {
             if ($store_id && $section_id && $section_id != 0) {
                 return section::where('store_id', $store_id)->where('id', $section_id)->with('products')->first();
             } elseif ($store_id && $section_id == 0) {
@@ -39,11 +39,7 @@ class sectionApi extends Controller
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                return section::where('store_id', $store_id)->get();
-            } else {
-                return 'false';
-            }
+            return section::where('store_id', $store_id)->get();
         } else {
             return 'false';
         }
@@ -56,11 +52,7 @@ class sectionApi extends Controller
         if ($section) {
             $store = store::find($section->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    return $section;
-                } else {
-                    return 'false';
-                }
+                return $section;
             } else {
                 return 'false';
             }
@@ -78,7 +70,7 @@ class sectionApi extends Controller
         ]);
         $sectionIcon = null;
         $store = store::find($request->store_id);
-        if ($store->manager_id == Auth::id()) {
+        if ($store) {
             $section = new section();
             $section->name = $request->name;
             $section->description = $request->description;
@@ -115,7 +107,7 @@ class sectionApi extends Controller
         ]);
 
         $store = store::find($request->store_id);
-        if ($store->manager_id == Auth::id()) {
+        if ($store) {
             $section = section::find($request->section_id);
             if ($section) {
                 $section->name = $request->name;
@@ -149,18 +141,13 @@ class sectionApi extends Controller
         if ($section) {
             $store = store::find($section->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    $setion_old_name = $section->name;
-                    $section->delete();
-
-                    $historyApi = new historyApi;
-                    $des_ar = " تم حذف القسم '$setion_old_name'";
-                    $des_en = " Section '$setion_old_name' has been removed ";
-                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                    return "Deleted successfully";
-                } else {
-                    return 'false';
-                }
+                $setion_old_name = $section->name;
+                $section->delete();
+                $historyApi = new historyApi;
+                $des_ar = " تم حذف القسم '$setion_old_name'";
+                $des_en = " Section '$setion_old_name' has been removed ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return "Deleted successfully";
             } else {
                 return 'false';
             }

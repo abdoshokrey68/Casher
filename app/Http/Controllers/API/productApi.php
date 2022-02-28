@@ -23,11 +23,7 @@ class productApi extends Controller
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                return product::where('store_id', $store_id)->with('section')->get();
-            } else {
-                return 'false';
-            }
+            return product::where('store_id', $store_id)->with('section')->get();
         } else {
             return 'false';
         }
@@ -39,11 +35,7 @@ class productApi extends Controller
         if ($product) {
             $store = store::find($product->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    return $product;
-                } else {
-                    return 'false';
-                }
+                return $product;
             } else {
                 return 'false';
             }
@@ -58,11 +50,7 @@ class productApi extends Controller
         $product = product::find($product_id);
         if ($product) {
             $store = store::find($product->store_id);
-            if ($store->manager_id == Auth::id()) {
-                return $product;
-            } else {
-                return 'false';
-            }
+            return $product;
         } else {
             return 'false';
         }
@@ -88,26 +76,22 @@ class productApi extends Controller
         }
         $store = store::find($request->store_id);
         if ($store) {
-            if ($store->manager_id == Auth::id()) {
-                $product = product::create([
-                    'name' => $request->name,
-                    'description' => $request->description,
-                    'price' => $request->price,
-                    'stock' => $request->stock,
-                    'section_id' => $request->section_id,
-                    'store_id' => $request->store_id,
-                    'image'     => $imageName,
-                ]);
+            $product = product::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'stock' => $request->stock,
+                'section_id' => $request->section_id,
+                'store_id' => $request->store_id,
+                'image'     => $imageName,
+            ]);
 
-                $historyApi = new historyApi;
-                $des_ar = " تمت إضافة عنصر يسمى '$product->name' ";
-                $des_en = " An item called ' $product->name ' has been added. ";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+            $historyApi = new historyApi;
+            $des_ar = " تمت إضافة عنصر يسمى '$product->name' ";
+            $des_en = " An item called ' $product->name ' has been added. ";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
 
-                return "Added successfully";
-            } else {
-                return 'false';
-            }
+            return "Added successfully";
         } else {
             return 'false';
         }
@@ -137,24 +121,20 @@ class productApi extends Controller
         if ($product) {
             $store = store::find($product->store_id);
             if ($store) {
-                if ($store->manager_id == Auth::id()) {
-                    $product->name          = $request->name;
-                    $product->description   = $request->description;
-                    $product->price         = $request->price;
-                    $product->stock         = $request->stock;
-                    $product->section_id    = $request->section_id;
-                    $product->store_id      = $request->store_id;
-                    $product->image         = $imageName;
-                    $product->save();
+                $product->name          = $request->name;
+                $product->description   = $request->description;
+                $product->price         = $request->price;
+                $product->stock         = $request->stock;
+                $product->section_id    = $request->section_id;
+                $product->store_id      = $request->store_id;
+                $product->image         = $imageName;
+                $product->save();
 
-                    $historyApi = new historyApi;
-                    $des_ar = " تمت تعديل العنصر  '$product->name' ";
-                    $des_en = " The item '$product->name' has been modified ";
-                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                    return "Added successfully";
-                } else {
-                    return 'false';
-                }
+                $historyApi = new historyApi;
+                $des_ar = " تمت تعديل العنصر  '$product->name' ";
+                $des_en = " The item '$product->name' has been modified ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return "Added successfully";
             } else {
                 return 'false';
             }
@@ -169,18 +149,14 @@ class productApi extends Controller
         $product = product::find($product_id);
         if ($product) {
             $store = store::find($product->store_id);
-            if ($store->manager_id == Auth::id()) {
-                $old_product_name = $product->name;
-                $product->delete();
+            $old_product_name = $product->name;
+            $product->delete();
 
-                $historyApi = new historyApi;
-                $des_ar = " تم حذف العنصر '$old_product_name' ";
-                $des_en = " The item '$old_product_name' has been removed. ";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                return "Deleted successfully";
-            } else {
-                return 'false';
-            }
+            $historyApi = new historyApi;
+            $des_ar = " تم حذف العنصر '$old_product_name' ";
+            $des_en = " The item '$old_product_name' has been removed. ";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+            return "Deleted successfully";
         } else {
             return 'false';
         }

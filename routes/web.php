@@ -27,8 +27,7 @@ use Illuminate\Support\Facades\Hash;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Symfony\Component\ErrorHandler\Error\FatalError;
 
-Route::get('test', function () {
-});
+
 
 
 
@@ -46,7 +45,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
     Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
     Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
+    Route::get('error',                 [HomeController::class, 'error'])->name('error');
 });
+
+Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
 
 Route::group(['middleware' => ['checkMemberPosition']], function () { //...
 
@@ -56,7 +58,6 @@ Route::group(['middleware' => ['checkMemberPosition']], function () { //...
     Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
     Route::get('api/store_d',           [storeApi::class, 'store_d']);
     Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
-    Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
 
     // ================================================================
     // ========================== INVOICES API ========================
@@ -102,6 +103,7 @@ Route::group(['middleware' => ['checkMemberPosition']], function () { //...
     Route::post('api/addnewmember',     [membersApi::class, 'add']);
     Route::post('api/editmember',       [membersApi::class, 'edit']);
     Route::get('api/deletemember',      [membersApi::class, 'delete']);
+    Route::get('api/member/position',   [membersApi::class, 'position']);
 
     // ================================================================
     // ========================== TABLES API ==========================
