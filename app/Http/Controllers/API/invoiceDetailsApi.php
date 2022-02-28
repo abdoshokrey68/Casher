@@ -140,7 +140,7 @@ class invoiceDetailsApi extends Controller
 
     protected function updateInvoiceTotal($invoice_id)
     {
-        $invoiceDetails = invoice::where('id', $invoice_id)->with('invoicedets')->first();
+        $invoiceDetails = invoice::where('id', $invoice_id)->with('invoicedets', 'user')->first();
         $invoiceDetails->f_discount = 0;
         $invoiceDetails->total = 0;
         if ($invoiceDetails->discount != 0) {

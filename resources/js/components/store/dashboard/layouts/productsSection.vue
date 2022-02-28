@@ -11,6 +11,7 @@
                         class="form-control"
                         name="search-products"
                         id="search-products"
+                        autocomplete="true"
                         :placeholder="lang.search_products"
                     />
                 </div>

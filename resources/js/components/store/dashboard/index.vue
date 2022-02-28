@@ -128,6 +128,16 @@
                 <!-- End Of Edit Store Settings Component -->
 
                 <div
+                    id="invoice-settings"
+                    class="row invoice-settings"
+                    @click.self="invoicesettings = !invoicesettings"
+                    v-if="invoicesettings"
+                >
+                    <invoice-settings :store_id="store_id"> </invoice-settings>
+                </div>
+                <!-- End Of Edit Store Settings Component -->
+
+                <div
                     id="edit-tables"
                     class="row edit-tables"
                     @click.self="edittables = !edittables"
@@ -191,6 +201,7 @@ export default {
             dailyinvoice: false,
             editmembers: false,
             storesettings: false,
+            invoicesettings: true,
             edittables: false,
             storebox: false,
             storehistory: false,

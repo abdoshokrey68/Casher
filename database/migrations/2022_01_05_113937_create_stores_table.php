@@ -23,6 +23,8 @@ class CreateStoresTable extends Migration
             $table->string('description')->nullable();
             $table->string('location')->nullable();
             $table->string('phone')->nullable();
+            $table->string('phone2')->nullable();
+            $table->string('fb')->nullable();
             $table->string('email')->nullable();
             $table->string('audience')->default(0);
             $table->string('currency')->nullable();

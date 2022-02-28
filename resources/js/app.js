@@ -34,9 +34,11 @@ Vue.component('store-box', require('./components/store/dashboard/rightBarPopUp/s
 Vue.component('store-history', require('./components/store/dashboard/rightBarPopUp/storeHistory.vue').default);
 Vue.component('edit-menu', require('./components/store/dashboard/rightBarPopUp/storeMenu.vue').default);
 Vue.component('store-audience', require('./components/store/dashboard/rightBarPopUp/storeAudience.vue').default);
+Vue.component('invoice-settings', require('./components/store/dashboard/rightBarPopUp/invoiceSettings.vue').default);
 
 // ===================== Store Compoentn ======================
 Vue.component('dashboard-store', require('./components/store/dashboard/index.vue').default);
+Vue.component('print-invoice', require('./components/store/dashboard/printInvoice.vue').default);
 Vue.component('store-menu', require('./components/store/menu/index.vue').default);
 Vue.component('main-footer', require('./components/store/layouts/mainFooter.vue').default);
 

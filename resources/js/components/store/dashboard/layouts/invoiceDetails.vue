@@ -10,7 +10,7 @@
                     <tr class="text-center">
                         <th scope="col">{{ lang.name }}</th>
                         <th scope="col">{{ lang.price }}</th>
-                        <th scope="col">{{ lang.quantity }}</th>
+                        <th scope="col">{{ lang.qty }}</th>
                         <th scope="col">{{ lang.total }}</th>
                         <th scope="col"><i class="fas fa-trash-alt"></i></th>
                     </tr>

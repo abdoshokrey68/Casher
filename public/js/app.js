@@ -6361,6 +6361,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "storeDashboard",
   props: ["logout", "store_id", "menu_link"],
@@ -6375,6 +6385,7 @@ __webpack_require__.r(__webpack_exports__);
       dailyinvoice: false,
       editmembers: false,
       storesettings: false,
+      invoicesettings: true,
       edittables: false,
       storebox: false,
       storehistory: false,
@@ -6804,6 +6815,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -7042,6 +7054,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RightBar",
@@ -7098,6 +7117,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     storesettingsToggle: function storesettingsToggle() {
       this.$parent.storesettings = !this.$parent.storesettings;
+    },
+    invoiceSettingsToggle: function invoiceSettingsToggle() {
+      this.$parent.invoicesettings = !this.$parent.invoicesettings;
     },
     edittablesToggle: function edittablesToggle() {
       this.$parent.edittables = !this.$parent.edittables;
@@ -7253,6 +7275,271 @@ __webpack_require__.r(__webpack_exports__);
           path: this.$route.path
         })["catch"](function () {});
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "PrintInvoice",
+  props: ['store_id', 'invoice_id'],
+  data: function data() {
+    return {
+      lang: this.getLang(),
+      locale: this.getLocale(),
+      store: {},
+      invoice: {},
+      invoice_s: {}
+    };
+  },
+  mounted: function mounted() {
+    this.getStoreInfo(this.store_id);
+    this.getInvoiceDetails();
+    this.getInvoiceSettings(this.store_id, this.locale);
+  },
+  methods: {
+    getStoreInfo: function getStoreInfo(store_id) {
+      var _this = this;
+
+      axios.get("/api/storeinfo?store_id=".concat(store_id)).then(function (res) {
+        // console.log(res.data);
+        _this.store = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getInvoiceDetails: function getInvoiceDetails() {
+      var _this2 = this;
+
+      axios.get("/api/invoicedetails?invoice_id=".concat(this.invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
+        // console.log(res.data);
+        _this2.invoice = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getInvoiceSettings: function getInvoiceSettings(store_id, locale) {
+      var _this3 = this;
+
+      axios.get("/api/invoice/settings?store_id=".concat(this.store_id, "&locale=").concat(locale)).then(function (res) {
+        // console.log(res.data);
+        _this3.invoice_s = res.data;
+      })["catch"](function (err) {
+        // console.log(err);
+        _this3.notification(_this3.getType("error"), _this3.lang.error, _this3.lang.please_check_the_data);
+      });
     }
   }
 });
@@ -10337,6 +10624,391 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "storeSettings",
+  components: {},
+  data: function data() {
+    return {
+      store_id: this.$parent.store_id,
+      invoice: {},
+      form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
+        tax: 0,
+        product_rtn: null,
+        message_en: null,
+        message_ar: null,
+        store_id: null
+      }),
+      locale: null,
+      lang: this.$parent.lang
+    };
+  },
+  mounted: function mounted() {
+    this.getInvoiceSettings();
+    this.locale = this.getLocale();
+  },
+  watch: {
+    invoice: function invoice() {
+      this.form.autotax = this.invoice.autotax;
+      this.form.tax_record = this.invoice.tax_record;
+      this.form.tax_card = this.invoice.tax_card;
+      this.form.file_no = this.invoice.file_no;
+      this.form.tax = this.invoice.tax;
+      this.form.product_rtn = this.invoice.product_rtn;
+      this.form.message_en = this.invoice.message_en;
+      this.form.message_ar = this.invoice.message_ar;
+      this.form.store_id = this.store_id;
+    }
+  },
+  methods: {
+    invoicesettingsToggle: function invoicesettingsToggle() {
+      this.$parent.invoicesettings = !this.$parent.invoicesettings;
+    },
+    editInvoiceSettings: function editInvoiceSettings() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.form.post("/api/invoice/settings/edit").then(function (res) {
+                  // console.log(res.data);
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_modified);
+
+                  _this.getInvoiceSettings();
+                })["catch"](function (err) {
+                  _this.notification(_this.getType("error"), _this.lang.error, _this.lang.please_check_the_data);
+                });
+
+              case 2:
+                response = _context.sent;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getInvoiceSettings: function getInvoiceSettings() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/invoice/settings?store_id=".concat(this.store_id)).then(function (res) {
+        // console.log(res.data);
+        _this2.invoice = res.data;
+      })["catch"](function (err) {
+        // console.log(err);
+        _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.please_check_the_data);
+      });
+    },
+    notification: function notification(type, title, text) {
+      this.$notify({
+        group: "dashboard",
+        speed: 1500,
+        type: type,
+        // error , warn, success
+        title: title,
+        text: text
+      });
+    },
+    handleClick: function handleClick() {
+      var _this3 = this;
+
+      this.$confirm({
+        auth: true,
+        message: "Are you sure?",
+        button: {
+          no: "No",
+          yes: "Yes"
+        },
+        callback: function callback(confirm, password) {
+          if (confirm && password == "1234") {
+            _this3.editInvoiceSettings();
+          }
+        }
+      });
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/newInvoice.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/newInvoice.vue?vue&type=script&lang=js& ***!
@@ -11917,6 +12589,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -11925,25 +12641,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       store_id: this.$parent.store_id,
-      storeinfo: "",
+      storeinfo: {},
       my_photo: null,
       my_cover: null,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
-        name: "",
-        slug: "",
-        description: "",
+        name: null,
+        slug: null,
+        description: null,
         image: null,
         cover: null,
-        location: "",
-        phone: "",
+        location: null,
+        phone: null,
+        phone2: null,
+        fb: null,
         audience: false,
-        email: "",
-        password: "",
+        email: null,
+        password: null,
         currency: "EGP",
         discount: 0,
         store_id: this.$parent.store_id
       }),
-      locale: "",
+      locale: null,
       lang: this.$parent.lang
     };
   },
@@ -11958,6 +12676,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.description = this.storeinfo.description;
       this.form.location = this.storeinfo.location;
       this.form.phone = this.storeinfo.phone;
+      this.form.phone2 = this.storeinfo.phone2;
+      this.form.fb = this.storeinfo.fb;
       this.form.email = this.storeinfo.email;
       this.form.currency = this.storeinfo.currency;
       this.form.discount = this.storeinfo.discount;
@@ -12792,9 +13512,11 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('edit-tables', (__webpack_
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('store-box', (__webpack_require__(/*! ./components/store/dashboard/rightBarPopUp/storeBox.vue */ "./resources/js/components/store/dashboard/rightBarPopUp/storeBox.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('store-history', (__webpack_require__(/*! ./components/store/dashboard/rightBarPopUp/storeHistory.vue */ "./resources/js/components/store/dashboard/rightBarPopUp/storeHistory.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('edit-menu', (__webpack_require__(/*! ./components/store/dashboard/rightBarPopUp/storeMenu.vue */ "./resources/js/components/store/dashboard/rightBarPopUp/storeMenu.vue")["default"]));
-vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('store-audience', (__webpack_require__(/*! ./components/store/dashboard/rightBarPopUp/storeAudience.vue */ "./resources/js/components/store/dashboard/rightBarPopUp/storeAudience.vue")["default"])); // ===================== Store Compoentn ======================
+vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('store-audience', (__webpack_require__(/*! ./components/store/dashboard/rightBarPopUp/storeAudience.vue */ "./resources/js/components/store/dashboard/rightBarPopUp/storeAudience.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('invoice-settings', (__webpack_require__(/*! ./components/store/dashboard/rightBarPopUp/invoiceSettings.vue */ "./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue")["default"])); // ===================== Store Compoentn ======================
 
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('dashboard-store', (__webpack_require__(/*! ./components/store/dashboard/index.vue */ "./resources/js/components/store/dashboard/index.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('print-invoice', (__webpack_require__(/*! ./components/store/dashboard/printInvoice.vue */ "./resources/js/components/store/dashboard/printInvoice.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('store-menu', (__webpack_require__(/*! ./components/store/menu/index.vue */ "./resources/js/components/store/menu/index.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('main-footer', (__webpack_require__(/*! ./components/store/layouts/mainFooter.vue */ "./resources/js/components/store/layouts/mainFooter.vue")["default"])); // ===================== Home Components ======================
 
@@ -17992,6 +18714,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-1a831b70] {\n    cursor: pointer;\n}\n.slide-enter-active[data-v-1a831b70] {\n    transition-duration: 0.3s;\n    transition-timing-function: ease-in;\n}\n.slide-leave-active[data-v-1a831b70] {\n    transition-duration: 0.3s;\n    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);\n}\n.slide-enter-to[data-v-1a831b70],\n.slide-leave[data-v-1a831b70] {\n    max-height: 100px;\n    overflow: hidden;\n}\n.slide-enter[data-v-1a831b70],\n.slide-leave-to[data-v-1a831b70] {\n    overflow: hidden;\n    max-height: 0;\n}\n.slide .child .text-justify[data-v-1a831b70] {\n    text-align: justify !important;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n#invoice-POS[data-v-3f11a4d8] {\n  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);\n  padding: 2mm;\n  margin: 0 auto;\n  width: 44mm;\n  background: #fff;\n}\n.contact-info[data-v-3f11a4d8] {\n    font-size: 0.5em !important;\n}\n.h4[data-v-3f11a4d8] {\n        font-size: 0.5em;\n}\n[data-v-3f11a4d8]::-moz-selection {\n    background: #f31544;\n    color: #fff;\n}\n[data-v-3f11a4d8]::selection {\n    background: #f31544;\n    color: #fff;\n}\n[data-v-3f11a4d8]::moz-selection {\n    background: #f31544;\n    color: #fff;\n}\nh1[data-v-3f11a4d8] {\n    font-size: 1.5em;\n    color: #222;\n}\nh2[data-v-3f11a4d8] {\n    font-size: 0.9em;\n}\nh3[data-v-3f11a4d8] {\n    font-size: 1.2em;\n    font-weight: 300;\n    line-height: 2em;\n}\np[data-v-3f11a4d8] {\n    font-size: 0.7em;\n    color: #666;\n    line-height: 1.5em;\n    margin-bottom: 8px !important;\n}\n#top[data-v-3f11a4d8],\n  #mid[data-v-3f11a4d8],\n  #bot[data-v-3f11a4d8] {\n    /* Targets all id with 'col-' */\n    border-bottom: 1px solid #eee;\n}\n#top[data-v-3f11a4d8] {\n    min-height: 100px;\n}\n#mid[data-v-3f11a4d8] {\n    min-height: 80px;\n}\n#bot[data-v-3f11a4d8] {\n    min-height: 50px;\n}\n#top .logo[data-v-3f11a4d8] {\n    /* //float: left; */\n    height: 60px;\n    width: 60px;\n    background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;\n    background-size: 60px 60px;\n}\n.clientlogo[data-v-3f11a4d8] {\n    float: left;\n    height: 60px;\n    width: 60px;\n    background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;\n    background-size: 60px 60px;\n    border-radius: 50px;\n}\n.info[data-v-3f11a4d8] {\n    display: block;\n    /* //float:left; */\n    margin-left: 0;\n}\n.title[data-v-3f11a4d8] {\n    float: right;\n}\n.title p[data-v-3f11a4d8] {\n    text-align: right;\n}\ntable[data-v-3f11a4d8] {\n    width: 100%;\n    border-collapse: collapse;\n}\ntd[data-v-3f11a4d8] {\n    /* //padding: 5px 0 5px 15px;\n    //border: 1px solid #EEE */\n}\n.tabletitle[data-v-3f11a4d8] {\n    /* //padding: 5px; */\n    font-size: 0.5em;\n    background: #eee;\n}\n.service[data-v-3f11a4d8] {\n    border-bottom: 1px solid #eee;\n}\n.item[data-v-3f11a4d8] {\n    width: 24mm;\n}\n.itemtext[data-v-3f11a4d8] {\n    font-size: 0.5em;\n}\n#legalcopy[data-v-3f11a4d8] {\n    margin-top: 5mm;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36317,6 +37063,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_style_index_0_id_3f11a4d8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_style_index_0_id_3f11a4d8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_style_index_0_id_3f11a4d8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -37817,6 +38593,47 @@ component.options.__file = "resources/js/components/store/dashboard/layouts/stor
 
 /***/ }),
 
+/***/ "./resources/js/components/store/dashboard/printInvoice.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/store/dashboard/printInvoice.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _printInvoice_vue_vue_type_template_id_3f11a4d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true& */ "./resources/js/components/store/dashboard/printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true&");
+/* harmony import */ var _printInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./printInvoice.vue?vue&type=script&lang=js& */ "./resources/js/components/store/dashboard/printInvoice.vue?vue&type=script&lang=js&");
+/* harmony import */ var _printInvoice_vue_vue_type_style_index_0_id_3f11a4d8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css& */ "./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _printInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _printInvoice_vue_vue_type_template_id_3f11a4d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _printInvoice_vue_vue_type_template_id_3f11a4d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "3f11a4d8",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/store/dashboard/printInvoice.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/store/dashboard/rightBarPopUp/dailyInvoice.vue":
 /*!********************************************************************************!*\
   !*** ./resources/js/components/store/dashboard/rightBarPopUp/dailyInvoice.vue ***!
@@ -38047,6 +38864,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/store/dashboard/rightBarPopUp/editTables.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _invoiceSettings_vue_vue_type_template_id_00036ef2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./invoiceSettings.vue?vue&type=template&id=00036ef2& */ "./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=template&id=00036ef2&");
+/* harmony import */ var _invoiceSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./invoiceSettings.vue?vue&type=script&lang=js& */ "./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _invoiceSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _invoiceSettings_vue_vue_type_template_id_00036ef2___WEBPACK_IMPORTED_MODULE_0__.render,
+  _invoiceSettings_vue_vue_type_template_id_00036ef2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -38601,6 +39457,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/store/dashboard/printInvoice.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/store/dashboard/printInvoice.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./printInvoice.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/store/dashboard/rightBarPopUp/dailyInvoice.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************!*\
   !*** ./resources/js/components/store/dashboard/rightBarPopUp/dailyInvoice.vue?vue&type=script&lang=js& ***!
@@ -38694,6 +39566,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_editTables_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./editTables.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/editTables.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_editTables_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_invoiceSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./invoiceSettings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_invoiceSettings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -38883,6 +39771,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_style_index_0_id_3f11a4d8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=style&index=0&id=3f11a4d8&scoped=true&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/home/casherProgram.vue?vue&type=template&id=4776859f&scoped=true&":
 /*!***************************************************************************************************!*\
   !*** ./resources/js/components/home/casherProgram.vue?vue&type=template&id=4776859f&scoped=true& ***!
@@ -39053,6 +39954,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/store/dashboard/printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/store/dashboard/printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true& ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_template_id_3f11a4d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_template_id_3f11a4d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_printInvoice_vue_vue_type_template_id_3f11a4d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/store/dashboard/rightBarPopUp/dailyInvoice.vue?vue&type=template&id=771811c2&":
 /*!***************************************************************************************************************!*\
   !*** ./resources/js/components/store/dashboard/rightBarPopUp/dailyInvoice.vue?vue&type=template&id=771811c2& ***!
@@ -39151,6 +40069,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editTables_vue_vue_type_template_id_2774e3fd___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editTables_vue_vue_type_template_id_2774e3fd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./editTables.vue?vue&type=template&id=2774e3fd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/editTables.vue?vue&type=template&id=2774e3fd&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=template&id=00036ef2&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=template&id=00036ef2& ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_invoiceSettings_vue_vue_type_template_id_00036ef2___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_invoiceSettings_vue_vue_type_template_id_00036ef2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_invoiceSettings_vue_vue_type_template_id_00036ef2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./invoiceSettings.vue?vue&type=template&id=00036ef2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=template&id=00036ef2&");
 
 
 /***/ }),
@@ -40696,6 +41631,30 @@ var render = function () {
                 )
               : _vm._e(),
             _vm._v(" "),
+            _vm.invoicesettings
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "row invoice-settings",
+                    attrs: { id: "invoice-settings" },
+                    on: {
+                      click: function ($event) {
+                        if ($event.target !== $event.currentTarget) {
+                          return null
+                        }
+                        _vm.invoicesettings = !_vm.invoicesettings
+                      },
+                    },
+                  },
+                  [
+                    _c("invoice-settings", {
+                      attrs: { store_id: _vm.store_id },
+                    }),
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _vm.edittables
               ? _c(
                   "div",
@@ -40832,7 +41791,7 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("th", { attrs: { scope: "col" } }, [
-              _vm._v(_vm._s(_vm.lang.quantity)),
+              _vm._v(_vm._s(_vm.lang.qty)),
             ]),
             _vm._v(" "),
             _c("th", { attrs: { scope: "col" } }, [
@@ -41060,6 +42019,7 @@ var render = function () {
               type: "text",
               name: "search-products",
               id: "search-products",
+              autocomplete: "true",
               placeholder: _vm.lang.search_products,
             },
           }),
@@ -41416,6 +42376,25 @@ var render = function () {
             "list-group-item list-group-item-action text-center mb-2 action",
           on: {
             click: function ($event) {
+              return _vm.invoiceSettingsToggle()
+            },
+          },
+        },
+        [
+          _c("i", { staticClass: "fas fa-receipt mr-2 ml-2" }),
+          _vm._v(
+            "\n            " + _vm._s(_vm.lang.invoice_settings) + "\n        "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "list-group-item list-group-item-action text-center mb-2 action",
+          on: {
+            click: function ($event) {
               return _vm.edittablesToggle()
             },
           },
@@ -41610,6 +42589,231 @@ var staticRenderFns = [
     ])
   },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/printInvoice.vue?vue&type=template&id=3f11a4d8&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { attrs: { id: "invoice-POS" } },
+    [
+      _c("center", { attrs: { id: "top" } }, [
+        _c("div", { staticClass: "logo" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "info mt-2" }, [
+          _c("h2", { staticClass: "bold " }, [
+            _vm._v(" " + _vm._s(_vm.store.name) + " "),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "mid" } }, [
+        _c("div", { staticClass: "info" }, [
+          _c("h4", { staticClass: "h4 mt-2" }, [
+            _vm._v(" " + _vm._s(_vm.lang.contact_info) + " "),
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "contact-info" }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.lang.location) +
+                " :  " +
+                _vm._s(_vm.store.location) +
+                " "
+            ),
+            _c("br"),
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.lang.email) +
+                "   :  " +
+                _vm._s(_vm.store.email) +
+                " "
+            ),
+            _c("br"),
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.lang.phone) +
+                "   :  " +
+                _vm._s(_vm.store.phone) +
+                " "
+            ),
+            _c("br"),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "bot" } }, [
+        _c("div", { attrs: { id: "table" } }, [
+          _c(
+            "table",
+            [
+              _c("tr", { staticClass: "tabletitle" }, [
+                _c("td", { staticClass: "item" }, [
+                  _c("h2", [_vm._v(" " + _vm._s(_vm.lang.item) + " ")]),
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "Hours text-center" }, [
+                  _c("h2", [_vm._v(_vm._s(_vm.lang.qty))]),
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "Rate text-center" }, [
+                  _c("h2", [_vm._v(" " + _vm._s(_vm.lang.sub_total) + " ")]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.invoice.invoicedets, function (details, index) {
+                return _c("tr", { key: index, staticClass: "service" }, [
+                  _c("td", { staticClass: "tableitem" }, [
+                    _c("p", { staticClass: "itemtext" }, [
+                      _vm._v(" " + _vm._s(details.name) + " "),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "tableitem" }, [
+                    _c("p", { staticClass: "itemtext text-center" }, [
+                      _vm._v(" " + _vm._s(details.quantity) + " "),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "tableitem" }, [
+                    _c("p", { staticClass: "itemtext text-center" }, [
+                      _vm._v(" " + _vm._s(details.price) + " "),
+                    ]),
+                  ]),
+                ])
+              }),
+              _vm._v(" "),
+              _vm.invoice_s.tax
+                ? _c("tr", { staticClass: "tabletitle" }, [
+                    _c("td", { staticClass: "Rate text-center" }, [
+                      _c("h2", [_vm._v(" " + _vm._s(_vm.lang.tax) + " ")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "payment text-center" }, [
+                      _c("h2", [_vm._v(" " + _vm._s(_vm.invoice_s.tax) + " ")]),
+                    ]),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.invoice.discount
+                ? _c("tr", { staticClass: "tabletitle" }, [
+                    _c("td", { staticClass: "Rate text-center" }, [
+                      _c("h2", [
+                        _vm._v(" " + _vm._s(_vm.lang.total_be_discount) + " "),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "payment text-center" }, [
+                      _c("h2", [_vm._v(" " + _vm._s(_vm.invoice.total) + " ")]),
+                    ]),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.invoice.discount
+                ? _c("tr", { staticClass: "tabletitle" }, [
+                    _c("td", { staticClass: "Rate text-center" }, [
+                      _c("h2", [
+                        _vm._v(" " + _vm._s(_vm.lang.discount) + " %"),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "payment text-center" }, [
+                      _c("h2", [
+                        _vm._v(" " + _vm._s(_vm.invoice.discount) + "% "),
+                      ]),
+                    ]),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("tr", { staticClass: "tabletitle" }, [
+                _c("td", { staticClass: "Rate text-center" }, [
+                  _c("h2", [_vm._v(" " + _vm._s(_vm.lang.total) + " ")]),
+                ]),
+                _vm._v(" "),
+                _c("td"),
+                _vm._v(" "),
+                _c("td", { staticClass: "payment text-center" }, [
+                  _c("h2", [
+                    _vm._v(
+                      " " +
+                        _vm._s(_vm.invoice.paid) +
+                        " " +
+                        _vm._s(_vm.store.currency) +
+                        " "
+                    ),
+                  ]),
+                ]),
+              ]),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _vm.invoice.user.name
+          ? _c("div", { attrs: { id: "mt-3" } }, [
+              _c("h4", { staticClass: "h4 p-1 m-0" }, [
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.lang.casher) +
+                    " " +
+                    _vm._s(_vm.invoice.user.name) +
+                    "\n            "
+                ),
+              ]),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "mt-3" } }, [
+          _c("h4", { staticClass: "h4 p-1 m-0" }, [
+            _vm._v(" " + _vm._s(_vm.invoice_s.message) + "\n            "),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("hr", { staticClass: "m-0 mt-1" }),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "mt-3" } }, [
+          _c("h4", { staticClass: "h4 p-1 m-0" }, [
+            _vm._v(" " + _vm._s(_vm.store.fb) + "\n            "),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("hr", { staticClass: "m-0 mt-1" }),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "mt-3" } }, [
+          _c("h4", { staticClass: "h4 p-1 m-0" }, [
+            _vm._v(" " + _vm._s(_vm.invoice.created_at) + "\n            "),
+          ]),
+        ]),
+      ]),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47337,6 +48541,615 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=template&id=00036ef2&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/invoiceSettings.vue?vue&type=template&id=00036ef2& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "col-md-5 m-auto", attrs: { id: "edit-store-info" } },
+    [
+      _c(
+        "div",
+        { staticClass: "card justify-center border-warning border-2" },
+        [
+          _c("div", { staticClass: "edit-store-info-header" }, [
+            _c(
+              "button",
+              {
+                staticClass: "float-end btn btn-light m-1 mt-2",
+                on: {
+                  click: function ($event) {
+                    return _vm.invoicesettingsToggle()
+                  },
+                },
+              },
+              [_c("i", { staticClass: "fas fa-times" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "h2",
+              { staticClass: "h4 text-center bg-d-blue text-light m-0 p-3" },
+              [
+                _c("i", { staticClass: "fas fa-receipt" }),
+                _vm._v(
+                  " " + _vm._s(_vm.lang.invoice_settings) + "\n            "
+                ),
+              ]
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "edit-store-info content p-2" }, [
+            _c("div", [
+              _c(
+                "form",
+                {
+                  staticClass: "form-horizontal",
+                  attrs: { enctype: "multipart/form-data", role: "form" },
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.handleClick()
+                    },
+                    keydown: function ($event) {
+                      return _vm.form.onKeydown($event)
+                    },
+                  },
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.store_id,
+                        expression: "form.store_id",
+                      },
+                    ],
+                    attrs: { hidden: "", type: "text", name: "store_id" },
+                    domProps: { value: _vm.form.store_id },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "store_id", $event.target.value)
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "auto-tax" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.autotax,
+                          expression: "form.autotax",
+                        },
+                      ],
+                      staticClass: "form-check-input mt-2 mb-2",
+                      attrs: {
+                        id: "auto-tax",
+                        type: "checkbox",
+                        name: "autotax",
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.form.autotax)
+                          ? _vm._i(_vm.form.autotax, null) > -1
+                          : _vm.form.autotax,
+                      },
+                      on: {
+                        change: function ($event) {
+                          var $$a = _vm.form.autotax,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(_vm.form, "autotax", $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.form,
+                                  "autotax",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.form, "autotax", $$c)
+                          }
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label p-1",
+                        attrs: { for: "auto-tax" },
+                      },
+                      [_vm._v(_vm._s(_vm.lang.auto_tax))]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "clear" }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("autotax")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.form.errors.get("autotax")),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "tax-record" }, [
+                    _c("label", { attrs: { for: "tax-record" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.tax_record) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.tax_record,
+                          expression: "form.tax_record",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "tax-record",
+                        type: "number",
+                        name: "tax_record",
+                        placeholder: _vm.lang.tax_record,
+                        min: "0",
+                      },
+                      domProps: { value: _vm.form.tax_record },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "tax_record", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("tax_record")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.form.errors.get("tax_record")
+                            ),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "tax-card" }, [
+                    _c("label", { attrs: { for: "tax-card" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.tax_card) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.tax_card,
+                          expression: "form.tax_card",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "tax-card",
+                        type: "text",
+                        name: "tax_card",
+                        placeholder: _vm.lang.tax_card,
+                        min: "0",
+                      },
+                      domProps: { value: _vm.form.tax_card },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "tax_card", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("tax_card")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.form.errors.get("tax_card")),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "file-no" }, [
+                    _c("label", { attrs: { for: "file-no" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.file_no) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.file_no,
+                          expression: "form.file_no",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "file-no",
+                        type: "text",
+                        name: "file_no",
+                        placeholder: _vm.lang.file_no,
+                        min: "0",
+                      },
+                      domProps: { value: _vm.form.file_no },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "file_no", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("file_no")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.form.errors.get("file_no")),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invoice-tax" }, [
+                    _c("label", { attrs: { for: "invoice-tax" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.tax_on_invoice) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.tax,
+                          expression: "form.tax",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "invoice-tax",
+                        type: "number",
+                        name: "tax",
+                        placeholder: _vm.lang.tax_on_invoice,
+                        min: "0",
+                      },
+                      domProps: { value: _vm.form.tax },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "tax", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("tax")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.form.errors.get("tax")),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "product_rtn" }, [
+                    _c("label", { attrs: { for: "product_rtn" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.product_rtn) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.product_rtn,
+                          expression: "form.product_rtn",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "product_rtn",
+                        type: "text",
+                        name: "product_rtn",
+                        placeholder: _vm.lang.product_rtn,
+                      },
+                      domProps: { value: _vm.form.product_rtn },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "product_rtn", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("product_rtn")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.form.errors.get("product_rtn")
+                            ),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "message_ar" }, [
+                    _c("label", { attrs: { for: "message_ar" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.message_ar) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.message_ar,
+                          expression: "form.message_ar",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "message_ar",
+                        type: "text",
+                        name: "message_ar",
+                        placeholder: _vm.lang.invoice_message_ar,
+                      },
+                      domProps: { value: _vm.form.message_ar },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "message_ar", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("message_ar")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.form.errors.get("message_ar")
+                            ),
+                          },
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-warning bold" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.message_confirm) +
+                          "\n                        "
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "message_en" }, [
+                    _c("label", { attrs: { for: "message_en" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.message_en) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.message_en,
+                          expression: "form.message_en",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "message_en",
+                        type: "text",
+                        name: "message_en",
+                        placeholder: _vm.lang.invoice_message_en,
+                      },
+                      domProps: { value: _vm.form.message_en },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "message_en", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("message_en")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.form.errors.get("message_en")
+                            ),
+                          },
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-warning bold" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.message_confirm) +
+                          "\n                        "
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "text-primary bold" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.lang.invoice_mes_po) +
+                        "\n                    "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "float-end mt-3" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit", disabled: _vm.form.busy },
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "spinner-border spinner-border-sm",
+                          attrs: { role: "status", hidden: !_vm.form.busy },
+                        }),
+                        _vm._v(" "),
+                        _c("i", {
+                          staticClass: "fas fa-plus mt-2 ml-2",
+                          attrs: { hidden: _vm.form.busy },
+                        }),
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.lang.edit_info) +
+                            "\n                        "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-light text-danger bold",
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.invoicesettingsToggle()
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-times mt-2 ml-2" }),
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.lang.cancel) +
+                            "\n                        "
+                        ),
+                      ]
+                    ),
+                  ]),
+                ]
+              ),
+            ]),
+          ]),
+        ]
+      ),
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/newInvoice.vue?vue&type=template&id=0cb1395b&":
 /*!****************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/store/dashboard/rightBarPopUp/newInvoice.vue?vue&type=template&id=0cb1395b& ***!
@@ -49062,45 +50875,147 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "clear" }),
                   _vm._v(" "),
-                  _c("label", { attrs: { for: "store-phone" } }, [
-                    _vm._v(" " + _vm._s(_vm.lang.store_phone)),
+                  _c("div", { staticClass: "store-phone" }, [
+                    _c("label", { attrs: { for: "store-phone" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.store_phone)
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.phone,
+                          expression: "form.phone",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "store-phone",
+                        type: "text",
+                        name: "phone",
+                        placeholder: _vm.lang.store_phone,
+                      },
+                      domProps: { value: _vm.form.phone },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "phone", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("phone")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.form.errors.get("phone")),
+                          },
+                        })
+                      : _vm._e(),
                   ]),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.phone,
-                        expression: "form.phone",
-                      },
-                    ],
-                    staticClass: "form-control mt-2 mb-2",
-                    attrs: {
-                      id: "store-phone",
-                      type: "text",
-                      name: "phone",
-                      placeholder: _vm.lang.store_phone,
-                    },
-                    domProps: { value: _vm.form.phone },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "phone", $event.target.value)
-                      },
-                    },
-                  }),
+                  _c("div", { staticClass: "clear" }),
                   _vm._v(" "),
-                  _vm.form.errors.has("phone")
-                    ? _c("div", {
-                        staticClass: "text-danger bold",
-                        domProps: {
-                          innerHTML: _vm._s(_vm.form.errors.get("phone")),
+                  _c("div", { staticClass: "store-phone2" }, [
+                    _c("label", { attrs: { for: "store-phone2" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.store_phone2)
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.phone2,
+                          expression: "form.phone2",
                         },
-                      })
-                    : _vm._e(),
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "store-phone2",
+                        type: "text",
+                        name: "phone2",
+                        placeholder: _vm.lang.store_phone2,
+                      },
+                      domProps: { value: _vm.form.phone2 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "phone2", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("phone2")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.form.errors.get("phone2")),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clear" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "fb" }, [
+                    _c("label", { attrs: { for: "fb" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.lang.fb) +
+                          " " +
+                          _vm._s(_vm.lang.optional) +
+                          "\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.fb,
+                          expression: "form.fb",
+                        },
+                      ],
+                      staticClass: "form-control mt-2 mb-2",
+                      attrs: {
+                        id: "fb",
+                        type: "url",
+                        name: "fb",
+                        placeholder: _vm.lang.fb,
+                      },
+                      domProps: { value: _vm.form.fb },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "fb", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.form.errors.has("fb")
+                      ? _c("div", {
+                          staticClass: "text-danger bold",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.form.errors.get("fb")),
+                          },
+                        })
+                      : _vm._e(),
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "clear" }),
                   _vm._v(" "),
@@ -66605,7 +68520,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","E:\\\\xampp\\\\htdocs\\\
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الاقتراح ","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_address":" عنوان المتجر ","create":" إنشاء ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","welcome":" مرحبا بكم","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" أللون ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","des":" الوصف ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتجات ","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","edit_member":" تعديل العضو ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","supervisor":" مشرف ","cancel":" الغاء ","position":" المركز ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مخزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العناوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود","success":" نجاح ","error":" خطأ ","select_all_u":" تحديد الكل  ","show_u":" عرض ","edit_u":" تعديل ","add_u":" إضافة ","delete_u":" حذف ","user_permissions":" أذونات العضو ","invoice_sett":"اعدادات الفواتير ","section_sett":" أعدادات الأقسام ","product_sett":" أعدادات المنتجات ","store_sett":" أعدادات المتجر ","member_sett":" إعدادات الأعضاء","table_sett":" إعدادات الطاولات ","menu_sett":"إعدادات المنيو ","black_box_sett":" إعدادات الصندوق الأسود","member_add_succ":" تم إضافةالعضو بنجاح ","verify_data":" تحقق من صحة البريد الإلكتروني وصحة البيانات ","data_modified":" تم تعديل البيانات بنجاح ","employee_deleted":" تم حذف موظف بنجاح ","erroring_member_delete":" خطأ في حذف العضو ","warning":" تحذير ","update_error":" خطأ في تحديث البيانات  ","product_add_succ":" تم إضافة المنتج بنجاح ","product_update_succ":" تم تعديل المنتج بنجاح ","product_update_error":" خطأ في تحديث بيانات المنتج","section_add_succ":" تم إضافة القسم بنجاح ","section_update_succ":" تم تعديل القسم بنجاح ","section_update_error":" خطأ في حذف القسم ","add_success":" تم الإضافة بنجاح  ","delete_suucess":" تم الحذف بنجاح","edit_success":" تم التعديل بنجاح  ","there_seems_problem":"لم تتم إضافة البيانات ، يبدو أن هناك مشكلة","deleted_there_problem":"لم يتم حذفه ، قد تكون هناك مشكلة","went_wrong":"حدث خطأ تحقق من البيانات ","data_has_sent":"تم إرسال البيانات","please_check_the_data":"توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى","select_the_table":"حدد الطاولة أو نوع الدفع أولاً","store_email":" البريد الإلكتروني للمتجر ","store_password":" الرقم السري للمتجر ","pass_must_not":" يجب ألا تقل كلمة المرور عن 8 أحرف ","pass_must_contain":" يجب أن تحتوي كلمة المرور على أحرف [a ، Z] ","pass_symbols":" يجب أن تحتوي كلمة المرور على رموز [؟ =. *! $ #٪] ","leave_field":" اترك الحقل فارغًا إذا كنت لا تريد تغيير كلمة المرور ","currency_code":" رمز عملة المتجر ","store_discount":" خصم المتجر ","store_location":" موقع المتجر ","store_audience":"جمهور المتجر ","receive_phone_numbers":"يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب","store_cover":" صورة غلاف المتجر ","edit_info":" تعديل البيانات  ","currency_like":" مثل : USD, EUR, EGP, SAR","latest_offers":" أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا ","delete_all":" حذف الكل ","no_audience":"لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر","before_discount":" قبل الخصم ","after_discount":" بعد الخصم "}');
+module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الاقتراح ","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_phone2":" رقم هاتف اخر ","store_address":" عنوان المتجر ","create":" إنشاء ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","welcome":" مرحبا بكم","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" أللون ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","des":" الوصف ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتجات ","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","edit_member":" تعديل العضو ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","supervisor":" مشرف ","cancel":" الغاء ","position":" المركز ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مخزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العناوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود","success":" نجاح ","error":" خطأ ","select_all_u":" تحديد الكل  ","show_u":" عرض ","edit_u":" تعديل ","add_u":" إضافة ","delete_u":" حذف ","user_permissions":" أذونات العضو ","invoice_sett":"اعدادات الفواتير ","section_sett":" أعدادات الأقسام ","product_sett":" أعدادات المنتجات ","store_sett":" أعدادات المتجر ","member_sett":" إعدادات الأعضاء","table_sett":" إعدادات الطاولات ","menu_sett":"إعدادات المنيو ","black_box_sett":" إعدادات الصندوق الأسود","member_add_succ":" تم إضافةالعضو بنجاح ","verify_data":" تحقق من صحة البريد الإلكتروني وصحة البيانات ","data_modified":" تم تعديل البيانات بنجاح ","employee_deleted":" تم حذف موظف بنجاح ","erroring_member_delete":" خطأ في حذف العضو ","warning":" تحذير ","update_error":" خطأ في تحديث البيانات  ","product_add_succ":" تم إضافة المنتج بنجاح ","product_update_succ":" تم تعديل المنتج بنجاح ","product_update_error":" خطأ في تحديث بيانات المنتج","section_add_succ":" تم إضافة القسم بنجاح ","section_update_succ":" تم تعديل القسم بنجاح ","section_update_error":" خطأ في حذف القسم ","add_success":" تم الإضافة بنجاح  ","delete_suucess":" تم الحذف بنجاح","edit_success":" تم التعديل بنجاح  ","there_seems_problem":"لم تتم إضافة البيانات ، يبدو أن هناك مشكلة","deleted_there_problem":"لم يتم حذفه ، قد تكون هناك مشكلة","went_wrong":"حدث خطأ تحقق من البيانات ","data_has_sent":"تم إرسال البيانات","please_check_the_data":"توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى","select_the_table":"حدد الطاولة أو نوع الدفع أولاً","store_email":" البريد الإلكتروني للمتجر ","store_password":" الرقم السري للمتجر ","pass_must_not":" يجب ألا تقل كلمة المرور عن 8 أحرف ","pass_must_contain":" يجب أن تحتوي كلمة المرور على أحرف [a ، Z] ","pass_symbols":" يجب أن تحتوي كلمة المرور على رموز [؟ =. *! $ #٪] ","leave_field":" اترك الحقل فارغًا إذا كنت لا تريد تغيير كلمة المرور ","currency_code":" رمز عملة المتجر ","store_discount":" خصم المتجر ","store_location":" موقع المتجر ","store_audience":"جمهور المتجر ","receive_phone_numbers":"يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب","store_cover":" صورة غلاف المتجر ","edit_info":" تعديل البيانات  ","currency_like":" مثل : USD, EUR, EGP, SAR","latest_offers":" أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا ","delete_all":" حذف الكل ","no_audience":"لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر","before_discount":" قبل الخصم ","after_discount":" بعد الخصم ","contact_info":" معلومات الاتصال ","qty":"كمية","sub_total":"إجمالي فرعي","tax":"ضريبة","fb":" رابط فيسبوك","optional":" (أختياري) ","invoice_settings":" أعدادات الفاتورة ","tax_on_invoice":"ضريبة علي الفاتورة","leave_field_blank":" يمكنك ترك الحقل فارغا","product_rtn":"فترة إرجاع المنتج ","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","invoice_message_en":" LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","message_en":"الرسالة بالانجليزية","message_ar":"الرسالة بالعربية","invoice_mes_po":" تظهر هذه الرسالة في الجزء السفلي من الفاتورة ","message_confirm":"تأكد من أن الرسالة متشابهة في اللغتين لأنها ستتغير بناءً على اللغة التي ستُطبع بها الفاتورة"}');
 
 /***/ }),
 
@@ -66616,7 +68531,7 @@ module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":" Welcome ","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","choose_plane":"Choose the right one for you","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","edit_info":"Edit Information","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_des":"Store Descreption","store_phone":"Store Phone","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"Color","des":" Description ","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","daily_invoice":"Daily Invoices","edit_members":"Edit Members","edit_member":"Edit Member","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","supervisor":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box","success":" Success message ","error":"Error Message","select_all_u":"Select All","show_u":"SHOW","edit_u":"EDIT","add_u":"ADD","delete_u":"DELETE","user_permissions":"User Permissions","invoice_sett":"Billing settings","section_sett":"Section settings","product_sett":"Product settings","store_sett":"Store settings","member_sett":"Member settings","table_sett":"Table settings","menu_sett":"Menu settings","black_box_sett":"Black Box settings","member_add_succ":"Member added successfully","verify_data":"Verify that the e-mail is correct and the data is correct","data_modified":"The data has been modified successfully","employee_deleted":"An employee has been successfully deleted","erroring_member_delete":"Erroring To Deleted Member","warning":"Warning","delete_suucess":"Deleted successfully","update_error":"Product update error","product_add_succ":"Product added successfully","product_update_succ":"Product Updated Successfully","product_update_error":"Error To Update Product","section_add_succ":"Section added successfully","section_update_succ":"Section Updated Successfully","section_update_error":"Error To Update Section","add_success":" Added successfully ","delete_success":" Deleted successfully ","edit_success":" Edited successfully ","there_seems_problem":"The data is not added, there seems to be a problem","deleted_there_problem":"Not deleted, there may be a problem","went_wrong":"Something went wrong Check the data ","data_has_sent":"Data has been sent","please_check_the_data":"There is a problem, please check the data and try again","select_the_table":"Select the table or type of payment first","store_email":"Store E-mail","store_password":"Store Password","pass_must_not":"Password must not be less than 8 characters","pass_must_contain":"Password must contain letters [a,Z]","pass_symbols":"The password must contain symbols [?=.*!$#%]","leave_field":"Leave the field blank if you do not want to change the password","currency_code":"Store Currency Code","store_discount":"Store Discount","store_location":"Store Location","store_audience":"Store Audience","receive_phone_numbers":"You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group","store_cover":"Store Cover Image","currency_like":"Like: USD, EUR, EGP, SAR","latest_offers":"Enter your WhatsApp number to receive all our offers and discounts","delete_all":"Delete All ","no_audience":"There is no audience yet. Please activate the audience feature by going to the store settings","before_discount":"Before Discount","after_discount":" After Discount"}');
+module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":" Welcome ","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","choose_plane":"Choose the right one for you","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","edit_info":"Edit Information","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_des":"Store Descreption","store_phone":"Store Phone","store_phone2":"Another Phone Number","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"Color","des":" Description ","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","daily_invoice":"Daily Invoices","edit_members":"Edit Members","edit_member":"Edit Member","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","supervisor":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box","success":" Success message ","error":"Error Message","select_all_u":"Select All","show_u":"SHOW","edit_u":"EDIT","add_u":"ADD","delete_u":"DELETE","user_permissions":"User Permissions","invoice_sett":"Billing settings","section_sett":"Section settings","product_sett":"Product settings","store_sett":"Store settings","member_sett":"Member settings","table_sett":"Table settings","menu_sett":"Menu settings","black_box_sett":"Black Box settings","member_add_succ":"Member added successfully","verify_data":"Verify that the e-mail is correct and the data is correct","data_modified":"The data has been modified successfully","employee_deleted":"An employee has been successfully deleted","erroring_member_delete":"Erroring To Deleted Member","warning":"Warning","delete_suucess":"Deleted successfully","update_error":"Product update error","product_add_succ":"Product added successfully","product_update_succ":"Product Updated Successfully","product_update_error":"Error To Update Product","section_add_succ":"Section added successfully","section_update_succ":"Section Updated Successfully","section_update_error":"Error To Update Section","add_success":" Added successfully ","delete_success":" Deleted successfully ","edit_success":" Edited successfully ","there_seems_problem":"The data is not added, there seems to be a problem","deleted_there_problem":"Not deleted, there may be a problem","went_wrong":"Something went wrong Check the data ","data_has_sent":"Data has been sent","please_check_the_data":"There is a problem, please check the data and try again","select_the_table":"Select the table or type of payment first","store_email":"Store E-mail","store_password":"Store Password","pass_must_not":"Password must not be less than 8 characters","pass_must_contain":"Password must contain letters [a,Z]","pass_symbols":"The password must contain symbols [?=.*!$#%]","leave_field":"Leave the field blank if you do not want to change the password","currency_code":"Store Currency Code","store_discount":"Store Discount","store_location":"Store Location","store_audience":"Store Audience","receive_phone_numbers":"You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group","store_cover":"Store Cover Image","currency_like":"Like: USD, EUR, EGP, SAR","latest_offers":"Enter your WhatsApp number to receive all our offers and discounts","delete_all":"Delete All ","no_audience":"There is no audience yet. Please activate the audience feature by going to the store settings","before_discount":"Before Discount","after_discount":" After Discount","contact_info":"Contact Info","qty":"Qty","sub_total":"Sub Total","tax":"tax","fb":"Facebook URL","optional":"(Optional)","invoice_settings":"Invoice Settings","tax_on_invoice":"tax on Invoice","leave_field_blank":"You can leave the field blank","product_rtn":"Product return period","invoice_message_en":"LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","message_en":"English message","message_ar":"Arabic message","invoice_mes_po":"This message appears at the bottom of the invoice","message_confirm":"Make sure that the message is similar in the two languages because it will change based on the language in which the invoice will be printed"}');
 
 /***/ })
 

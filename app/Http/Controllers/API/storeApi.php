@@ -7,12 +7,15 @@ use App\Http\Controllers\historyApi;
 use App\Models\audience;
 use App\Models\invoice;
 use App\Models\invoicedet;
+use App\Models\invoicesett;
+use App\Models\menu;
 use App\Models\position;
 use App\Models\product;
 use App\Models\section;
 use App\Models\store;
 use App\Models\table;
 use App\Models\User;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +39,9 @@ class storeApi extends Controller
 
     public function storeinfo(Request $request)
     {
+        $this->validate($request, [
+            'store_id'      => "required"
+        ]);
         $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
@@ -66,6 +72,8 @@ class storeApi extends Controller
             $store->description = $request->description;
             $store->location = $request->location;
             $store->phone = $request->phone;
+            $store->phone2 = $request->phone2;
+            $store->fb = $request->fb;
             $store->email = $request->email;
             $store->currency = $request->currency;
             $store->discount = $request->discount;
@@ -138,8 +146,9 @@ class storeApi extends Controller
         $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
         $store->save();
 
-        $value = $this->createPosition($store->id, Auth::id());
-
+        $this->createPosition($store->id, Auth::id());
+        $this->createInvoiceSettings($store->id);
+        $this->createMenu($store->id);
         $historyApi = new historyApi;
         $des_ar = " تم إنشاء المتجر نتمني لك كل التوفيق ";
         $des_en = " The store has been created, we wish you all the best ";
@@ -166,5 +175,32 @@ class storeApi extends Controller
         $position->menu      = "0,1,3";
         $position->save();
         return $position;
+    }
+
+    protected function createInvoiceSettings($store_id)
+    {
+        $inv_sett = new invoicesett();
+        $inv_sett->store_id = $store_id;
+        $inv_sett->save();
+    }
+
+    protected function createMenu($store_id)
+    {
+        $qrcodeName = $this->CreateMenuQr($store_id);
+        $menu = new menu();
+        $menu->store_id = $store_id;
+        $menu->qrcode_name = $qrcodeName;
+        $menu->save();
+        return $menu;
+    }
+
+    protected function CreateMenuQr($store_id)
+    {
+        $url = route('store.menu', $store_id);
+        $qrcode = QrCode::size(300)->generate($url);
+        $qrcodeName = Time() . rand(1, 500) . '-' . $store_id . '.svg';
+        // eyeColor(0, 255, 255, 255, 0, 0, 0)
+        file_put_contents("image/menu/QR/$qrcodeName", $qrcode);
+        return $qrcodeName;
     }
 }

@@ -84,6 +84,7 @@
     "store_name"        : " أسم المتجر ",
     "store_des"         : " نبذة عن المتجر ",
     "store_phone"       : " هاتف المتجر ",
+    "store_phone2"      : " رقم هاتف اخر ",
     "store_address"     : " عنوان المتجر ",
     "create"            : " إنشاء ",
     "years"             : " دفع سنوي",
@@ -439,7 +440,23 @@
     "delete_all"    : " حذف الكل ",
     "no_audience"   : "لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر",
     "before_discount" : " قبل الخصم ",
-    "after_discount" : " بعد الخصم "
+    "after_discount" : " بعد الخصم ",
 
+    "contact_info"  : " معلومات الاتصال ",
+    "qty"           : "كمية",
+    "sub_total"     : "إجمالي فرعي",
+    "tax"           : "ضريبة",
+    "fb"            : " رابط فيسبوك",
+    "optional"      : " (أختياري) ",
+    "invoice_settings" : " أعدادات الفاتورة ",
+    "tax_on_invoice"    : "ضريبة علي الفاتورة",
+    "leave_field_blank"       : " يمكنك ترك الحقل فارغا",
+    "product_rtn"       : "فترة إرجاع المنتج ",
+    "invoice_message_ar"   : " مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا",
+    "invoice_message_en"   : " LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon",
+    "message_en"        : "الرسالة بالانجليزية",
+    "message_ar"        : "الرسالة بالعربية",
+    "invoice_mes_po"    : " تظهر هذه الرسالة في الجزء السفلي من الفاتورة ",
+    "message_confirm"   : "تأكد من أن الرسالة متشابهة في اللغتين لأنها ستتغير بناءً على اللغة التي ستُطبع بها الفاتورة"
 
 }

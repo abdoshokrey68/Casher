@@ -24,6 +24,8 @@ class store extends Model
         'audience',
         'location',
         'phone',
+        'phone2',
+        'fb',
         'email',
         'currency',
         'manager_id'

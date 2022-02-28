@@ -105,4 +105,18 @@ class HomeController extends Controller
 
         return $invoice->stream();
     }
+
+    public function printInvoice($store_id, $invoice_id)
+    {
+        $store = store::find($store_id);
+        $invoice = invoice::find($invoice_id);
+        if ($store && $invoice) {
+            if ($invoice->paid)
+                return view('store.dashboard.printinvoice', compact('store_id', 'invoice_id'),);
+            else
+                return abort(401);
+        } else {
+            return abort(404);
+        }
+    }
 }

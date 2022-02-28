@@ -122,20 +122,64 @@
                             {{ lang.leave_field }}
                         </small>
                         <div class="clear"></div>
-                        <label for="store-phone"> {{ lang.store_phone }}</label>
-                        <input
-                            id="store-phone"
-                            v-model="form.phone"
-                            type="text"
-                            name="phone"
-                            class="form-control mt-2 mb-2"
-                            :placeholder="lang.store_phone"
-                        />
-                        <div
-                            class="text-danger bold"
-                            v-if="form.errors.has('phone')"
-                            v-html="form.errors.get('phone')"
-                        />
+                        <div class="store-phone">
+                            <label for="store-phone">
+                                {{ lang.store_phone }}</label
+                            >
+                            <input
+                                id="store-phone"
+                                v-model="form.phone"
+                                type="text"
+                                name="phone"
+                                class="form-control mt-2 mb-2"
+                                :placeholder="lang.store_phone"
+                            />
+                            <div
+                                class="text-danger bold"
+                                v-if="form.errors.has('phone')"
+                                v-html="form.errors.get('phone')"
+                            />
+                        </div>
+
+                        <div class="clear"></div>
+                        <div class="store-phone2">
+                            <label for="store-phone2">
+                                {{ lang.store_phone2 }}</label
+                            >
+                            <input
+                                id="store-phone2"
+                                v-model="form.phone2"
+                                type="text"
+                                name="phone2"
+                                class="form-control mt-2 mb-2"
+                                :placeholder="lang.store_phone2"
+                            />
+                            <div
+                                class="text-danger bold"
+                                v-if="form.errors.has('phone2')"
+                                v-html="form.errors.get('phone2')"
+                            />
+                        </div>
+
+                        <div class="clear"></div>
+                        <div class="fb">
+                            <label for="fb">
+                                {{ lang.fb }} {{ lang.optional }}
+                            </label>
+                            <input
+                                id="fb"
+                                v-model="form.fb"
+                                type="url"
+                                name="fb"
+                                class="form-control mt-2 mb-2"
+                                :placeholder="lang.fb"
+                            />
+                            <div
+                                class="text-danger bold"
+                                v-if="form.errors.has('fb')"
+                                v-html="form.errors.get('fb')"
+                            />
+                        </div>
 
                         <div class="clear"></div>
                         <label for="store-currency">
@@ -304,25 +348,27 @@ export default {
     data: function () {
         return {
             store_id: this.$parent.store_id,
-            storeinfo: "",
+            storeinfo: {},
             my_photo: null,
             my_cover: null,
             form: new Form({
-                name: "",
-                slug: "",
-                description: "",
+                name: null,
+                slug: null,
+                description: null,
                 image: null,
                 cover: null,
-                location: "",
-                phone: "",
+                location: null,
+                phone: null,
+                phone2: null,
+                fb: null,
                 audience: false,
-                email: "",
-                password: "",
+                email: null,
+                password: null,
                 currency: "EGP",
                 discount: 0,
                 store_id: this.$parent.store_id,
             }),
-            locale: "",
+            locale: null,
             lang: this.$parent.lang,
         };
     },
@@ -337,6 +383,8 @@ export default {
             this.form.description = this.storeinfo.description;
             this.form.location = this.storeinfo.location;
             this.form.phone = this.storeinfo.phone;
+            this.form.phone2 = this.storeinfo.phone2;
+            this.form.fb = this.storeinfo.fb;
             this.form.email = this.storeinfo.email;
             this.form.currency = this.storeinfo.currency;
             this.form.discount = this.storeinfo.discount;

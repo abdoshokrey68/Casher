@@ -8,7 +8,6 @@ use App\Models\menu;
 use App\Models\store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class menuApi extends Controller
 {
@@ -20,9 +19,6 @@ class menuApi extends Controller
         $store = store::find($request->store_id);
         if ($store) {
             $menu = menu::where('store_id', $store->id)->first();
-            if (!$menu) {
-                $menu = $this->createMenu($store->id);
-            }
             return $menu;
         } else {
             return 'fasle';
@@ -66,28 +62,5 @@ class menuApi extends Controller
         } else {
             return 'false';
         }
-    }
-
-    // ================================================================
-    // ===================== Protected Functions ======================
-    // ================================================================
-    protected function createMenu($store_id)
-    {
-        $qrcodeName = $this->CreateMenuQr($store_id);
-        $menu = new menu();
-        $menu->store_id = $store_id;
-        $menu->qrcode_name = $qrcodeName;
-        $menu->save();
-        return $menu;
-    }
-
-    protected function CreateMenuQr($store_id)
-    {
-        $url = route('store.menu', $store_id);
-        $qrcode = QrCode::size(300)->generate($url);
-        $qrcodeName = Time() . rand(1, 500) . '-' . $store_id . '.svg';
-        // eyeColor(0, 255, 255, 255, 0, 0, 0)
-        file_put_contents("image/menu/QR/$qrcodeName", $qrcode);
-        return $qrcodeName;
     }
 }

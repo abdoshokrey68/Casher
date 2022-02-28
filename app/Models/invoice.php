@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,11 @@ class invoice extends Model
     public function invoicedets()
     {
         return $this->hasMany(invoicedet::class, 'invoice_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'member_id');
     }
 
     public function getInvoice($store_id, $getfrom, $getto)

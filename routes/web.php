@@ -44,6 +44,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
     Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
     Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
+    Route::get('store/{store_id}/invoice/{invoice_id}', [HomeController::class, 'printInvoice'])->name('invoice.print')->middleware('checkmember');
     Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
     Route::get('error',                 [HomeController::class, 'error'])->name('error');
 });
@@ -65,6 +66,8 @@ Route::group(['middleware' => ['checkMemberPosition']], function () { //...
     Route::get('api/dailyinvoice',      [invoiceApi::class, 'dailyinvoice']);
     Route::get('api/deleteinvoice',     [invoiceApi::class, 'deleteinvoice']);
     Route::post('api/payinvoice',        [invoiceApi::class, 'payInvoice']);
+    Route::get('api/invoice/settings',    [invoiceApi::class, 'settings']);
+    Route::post('api/invoice/settings/edit',    [invoiceApi::class, 'settingsEdit']);
     Route::get('api/invoice/export',    [invoiceApi::class, 'export']);
 
     // ================================================================

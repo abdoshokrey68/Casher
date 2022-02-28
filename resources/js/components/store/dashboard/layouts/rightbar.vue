@@ -109,6 +109,13 @@
                 {{ lang.store_settings }}
             </button>
             <button
+                @click="invoiceSettingsToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-receipt mr-2 ml-2"></i>
+                {{ lang.invoice_settings }}
+            </button>
+            <button
                 @click="edittablesToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -222,6 +229,9 @@ export default {
         },
         storesettingsToggle: function () {
             this.$parent.storesettings = !this.$parent.storesettings;
+        },
+        invoiceSettingsToggle: function () {
+            this.$parent.invoicesettings = !this.$parent.invoicesettings;
         },
         edittablesToggle: function () {
             this.$parent.edittables = !this.$parent.edittables;
