@@ -14,7 +14,10 @@
             </div>
             <!-- End Edit Members Header -->
             <div class="edit-members content p-2">
-                <div class="add-new-member mt-2 mb-2">
+                <div
+                    v-if="position.member_add"
+                    class="add-new-member mt-2 mb-2"
+                >
                     <button
                         v-if="!newMemberForm"
                         @click="newMemberForm = !newMemberForm"
@@ -30,26 +33,12 @@
                         v-if="newMemberForm"
                     >
                         <input
-                            v-if="form.member_id"
-                            hidden
-                            v-model="form.member_id"
-                            type="text"
-                            name="member_id"
-                        />
-
-                        <input
-                            hidden
-                            v-model="form.store_id"
-                            type="text"
-                            name="store_id"
-                        />
-
-                        <input
                             v-model="form.email"
                             type="email"
                             name="email"
                             class="form-control mt-2 mb-2"
                             :placeholder="lang.en_member_email"
+                            :disabled="form.member_id"
                         />
                         <small class="text-danger bold">
                             {{ lang.the_email_that }}
@@ -90,10 +79,7 @@
                                                 id="invoice-all"
                                                 type="checkbox"
                                                 name="invoice"
-                                                v-model="form.invoice"
-                                                @change="
-                                                    form.invoice = [1, 2, 3, 4]
-                                                "
+                                                @change="selectAll($event)"
                                             />
                                             <label for="invoice-all">
                                                 {{ lang.select_all_u }}
@@ -101,23 +87,12 @@
                                         </div>
                                     </h6>
                                     <div class="row card-body">
-                                        <!-- <input
-                                                id="invoice-show"
-                                                type="checkbox"
-                                                name="invoice"
-                                                value="0"
-                                                v-model="form.invoice"
-                                                checked
-                                                hidden
-                                            /> -->
-
                                         <div class="col-md-3">
                                             <input
                                                 id="invoice-show"
                                                 type="checkbox"
                                                 name="invoice"
-                                                value="1"
-                                                v-model="form.invoice"
+                                                v-model="form.invoice_show"
                                             />
                                             <label for="invoice-show">
                                                 {{ lang.show_u }}
@@ -128,8 +103,7 @@
                                                 id="invoice-add"
                                                 type="checkbox"
                                                 name="invoice"
-                                                value="2"
-                                                v-model="form.invoice"
+                                                v-model="form.invoice_add"
                                             />
                                             <label for="invoice-add">
                                                 {{ lang.add_u }}
@@ -140,8 +114,7 @@
                                                 id="invoice-edit"
                                                 type="checkbox"
                                                 name="invoice"
-                                                value="3"
-                                                v-model="form.invoice"
+                                                v-model="form.invoice_edit"
                                             />
                                             <label for="invoice-edit">
                                                 {{ lang.edit_u }}
@@ -152,8 +125,7 @@
                                                 id="invoice-delete"
                                                 type="checkbox"
                                                 name="invoice"
-                                                value="4"
-                                                v-model="form.invoice"
+                                                v-model="form.invoice_delete"
                                             />
                                             <label for="invoice-delete">
                                                 {{ lang.delete_u }}
@@ -172,10 +144,7 @@
                                                 id="section-all"
                                                 type="checkbox"
                                                 name="section"
-                                                v-model="form.section"
-                                                @change="
-                                                    form.section = [1, 2, 3, 4]
-                                                "
+                                                @change="selectAll($event)"
                                             />
                                             <label for="section-all">
                                                 {{ lang.select_all_u }}
@@ -188,8 +157,7 @@
                                                 id="section-show"
                                                 type="checkbox"
                                                 name="section"
-                                                value="1"
-                                                v-model="form.section"
+                                                v-model="form.section_show"
                                             />
                                             <label for="section-show">
                                                 {{ lang.show_u }}
@@ -200,8 +168,7 @@
                                                 id="section-add"
                                                 type="checkbox"
                                                 name="section"
-                                                value="2"
-                                                v-model="form.section"
+                                                v-model="form.section_add"
                                             />
                                             <label for="section-add">
                                                 {{ lang.add_u }}
@@ -212,8 +179,7 @@
                                                 id="section-edit"
                                                 type="checkbox"
                                                 name="section"
-                                                value="3"
-                                                v-model="form.section"
+                                                v-model="form.section_edit"
                                             />
                                             <label for="section-edit">
                                                 {{ lang.edit_u }}
@@ -224,8 +190,7 @@
                                                 id="section-delete"
                                                 type="checkbox"
                                                 name="section"
-                                                value="4"
-                                                v-model="form.section"
+                                                v-model="form.section_delete"
                                             />
                                             <label for="section-delete">
                                                 {{ lang.delete_u }}
@@ -244,10 +209,7 @@
                                                 id="product-all"
                                                 type="checkbox"
                                                 name="product"
-                                                v-model="form.product"
-                                                @change="
-                                                    form.product = [1, 2, 3, 4]
-                                                "
+                                                @change="selectAll($event)"
                                             />
                                             <label for="product-all">
                                                 {{ lang.select_all_u }}
@@ -260,8 +222,7 @@
                                                 id="product-show"
                                                 type="checkbox"
                                                 name="product"
-                                                value="1"
-                                                v-model="form.product"
+                                                v-model="form.product_show"
                                             />
                                             <label for="product-show">
                                                 {{ lang.show_u }}
@@ -272,8 +233,7 @@
                                                 id="product-add"
                                                 type="checkbox"
                                                 name="product"
-                                                value="2"
-                                                v-model="form.product"
+                                                v-model="form.product_add"
                                             />
                                             <label for="product-add">
                                                 {{ lang.add_u }}
@@ -284,8 +244,7 @@
                                                 id="product-edit"
                                                 type="checkbox"
                                                 name="product"
-                                                value="3"
-                                                v-model="form.product"
+                                                v-model="form.product_edit"
                                             />
                                             <label for="product-edit">
                                                 {{ lang.edit_u }}
@@ -296,8 +255,7 @@
                                                 id="product-delete"
                                                 type="checkbox"
                                                 name="product"
-                                                value="4"
-                                                v-model="form.product"
+                                                v-model="form.product_delete"
                                             />
                                             <label for="product-delete">
                                                 {{ lang.delete_u }}
@@ -316,10 +274,7 @@
                                                 id="table-all"
                                                 type="checkbox"
                                                 name="table"
-                                                v-model="form.table"
-                                                @change="
-                                                    form.table = [1, 2, 3, 4]
-                                                "
+                                                @change="selectAll($event)"
                                             />
                                             <label for="table-all">
                                                 {{ lang.select_all_u }}
@@ -332,8 +287,7 @@
                                                 id="table-show"
                                                 type="checkbox"
                                                 name="table"
-                                                value="1"
-                                                v-model="form.table"
+                                                v-model="form.table_show"
                                             />
                                             <label for="table-show">
                                                 {{ lang.show_u }}
@@ -344,8 +298,7 @@
                                                 id="table-add"
                                                 type="checkbox"
                                                 name="table"
-                                                value="2"
-                                                v-model="form.table"
+                                                v-model="form.table_add"
                                             />
                                             <label for="table-add">
                                                 {{ lang.add_u }}
@@ -356,8 +309,7 @@
                                                 id="table-edit"
                                                 type="checkbox"
                                                 name="table"
-                                                value="3"
-                                                v-model="form.table"
+                                                v-model="form.table_edit"
                                             />
                                             <label for="table-edit">
                                                 {{ lang.edit_u }}
@@ -368,8 +320,7 @@
                                                 id="table-delete"
                                                 type="checkbox"
                                                 name="table"
-                                                value="4"
-                                                v-model="form.table"
+                                                v-model="form.table_delete"
                                             />
                                             <label for="table-delete">
                                                 {{ lang.delete_u }}
@@ -388,10 +339,7 @@
                                                 id="member-all"
                                                 type="checkbox"
                                                 name="member"
-                                                v-model="form.member"
-                                                @change="
-                                                    form.member = [1, 2, 3, 4]
-                                                "
+                                                @change="selectAll($event)"
                                             />
                                             <label for="member-all">
                                                 {{ lang.select_all_u }}
@@ -404,8 +352,7 @@
                                                 id="member-show"
                                                 type="checkbox"
                                                 name="member"
-                                                value="1"
-                                                v-model="form.member"
+                                                v-model="form.member_show"
                                             />
                                             <label for="member-show">
                                                 {{ lang.show_u }}
@@ -416,8 +363,7 @@
                                                 id="member-add"
                                                 type="checkbox"
                                                 name="member"
-                                                value="2"
-                                                v-model="form.member"
+                                                v-model="form.member_add"
                                             />
                                             <label for="member-add">
                                                 {{ lang.add_u }}
@@ -428,8 +374,7 @@
                                                 id="member-edit"
                                                 type="checkbox"
                                                 name="member"
-                                                value="3"
-                                                v-model="form.member"
+                                                v-model="form.member_edit"
                                             />
                                             <label for="member-edit">
                                                 {{ lang.edit_u }}
@@ -440,8 +385,7 @@
                                                 id="member-delete"
                                                 type="checkbox"
                                                 name="member"
-                                                value="4"
-                                                v-model="form.member"
+                                                v-model="form.member_delete"
                                             />
                                             <label for="member-delete">
                                                 {{ lang.delete_u }}
@@ -460,8 +404,7 @@
                                                 id="store-all"
                                                 type="checkbox"
                                                 name="store"
-                                                v-model="form.store"
-                                                @change="form.store = [1, 3]"
+                                                @change="selectAll($event)"
                                             />
                                             <label for="store-all">
                                                 {{ lang.select_all_u }}
@@ -471,23 +414,10 @@
                                     <div class="row card-body">
                                         <div class="col-md-3">
                                             <input
-                                                id="store-show"
-                                                type="checkbox"
-                                                name="store"
-                                                value="1"
-                                                v-model="form.store"
-                                            />
-                                            <label for="store-show">
-                                                {{ lang.show_u }}
-                                            </label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input
                                                 id="store-edit"
                                                 type="checkbox"
                                                 name="store"
-                                                value="3"
-                                                v-model="form.store"
+                                                v-model="form.store_edit"
                                             />
                                             <label for="store-edit">
                                                 {{ lang.edit_u }}
@@ -506,8 +436,7 @@
                                                 id="history-show"
                                                 type="checkbox"
                                                 name="history"
-                                                value="1"
-                                                v-model="form.history"
+                                                @change="selectAll($event)"
                                             />
                                             <label for="history-show">
                                                 {{ lang.select_all_u }}
@@ -520,11 +449,21 @@
                                                 id="history-show"
                                                 type="checkbox"
                                                 name="history"
-                                                value="1"
-                                                v-model="form.history"
+                                                v-model="form.history_show"
                                             />
                                             <label for="history-show">
                                                 {{ lang.show_u }}
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input
+                                                id="history-delete"
+                                                type="checkbox"
+                                                name="history"
+                                                v-model="form.history_delete"
+                                            />
+                                            <label for="history-delete">
+                                                {{ lang.delete_u }}
                                             </label>
                                         </div>
                                     </div>
@@ -540,8 +479,7 @@
                                                 id="menu-all"
                                                 type="checkbox"
                                                 name="menu"
-                                                v-model="form.menu"
-                                                @change="form.menu = [1, 3]"
+                                                @change="selectAll($event)"
                                             />
                                             <label for="menu-all">
                                                 {{ lang.select_all_u }}
@@ -551,23 +489,10 @@
                                     <div class="row card-body">
                                         <div class="col-md-3">
                                             <input
-                                                id="menu-show"
-                                                type="checkbox"
-                                                name="menu"
-                                                value="1"
-                                                v-model="form.menu"
-                                            />
-                                            <label for="menu-show">
-                                                {{ lang.show_u }}
-                                            </label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input
                                                 id="menu-edit"
                                                 type="checkbox"
                                                 name="menu"
-                                                value="3"
-                                                v-model="form.menu"
+                                                v-model="form.menu_edit"
                                             />
                                             <label for="menu-edit">
                                                 {{ lang.edit_u }}
@@ -576,6 +501,38 @@
                                     </div>
                                 </div>
                                 <!-- End CHECKBOX Menu Box  -->
+
+                                <div class="card row store-box mb-2">
+                                    <h6 class="card-header bold p-3">
+                                        {{ lang.box_sett }}
+
+                                        <div :class="getFloatPosition()">
+                                            <input
+                                                id="box-all"
+                                                type="checkbox"
+                                                name="box"
+                                                @change="selectAll($event)"
+                                            />
+                                            <label for="box-all">
+                                                {{ lang.select_all_u }}
+                                            </label>
+                                        </div>
+                                    </h6>
+                                    <div class="row card-body">
+                                        <div class="col-md-3">
+                                            <input
+                                                id="box-add"
+                                                type="checkbox"
+                                                name="box"
+                                                v-model="form.box_add"
+                                            />
+                                            <label for="box-add">
+                                                {{ lang.show_u }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End CHECKBOX Store Box  -->
                             </div>
                         </div>
 
@@ -618,73 +575,85 @@
                 </div>
                 <div class="clear"></div>
                 <!-- End Form Add New Member -->
-                <div
-                    style="max-height: 400px; overflow: auto"
-                    class="curret-members-table mt-2"
-                    v-if="!newMemberForm"
-                >
-                    <table class="table table-hover table-striped table-dark">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col">#</th>
-                                <th scope="col">{{ lang.name }}</th>
-                                <th scope="col">{{ lang.email }}</th>
-                                <th scope="col">{{ lang.position }}</th>
-                                <th scope="col">{{ lang.edit }}</th>
-                                <th scope="col">{{ lang.delete }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr
-                                class="text-center"
-                                v-for="(member, index) in members"
-                                :key="index"
-                            >
-                                <td>{{ index + 1 }}</td>
-                                <td>{{ member.getmember.name }}</td>
-                                <td>{{ member.getmember.email }}</td>
-                                <td>
-                                    <span v-if="member.position == 0">{{
-                                        lang.manager
-                                    }}</span>
-                                    <span v-if="member.position == 1">{{
-                                        lang.casher
-                                    }}</span>
-                                    <span v-if="member.position == 2">{{
-                                        lang.restaurant
-                                    }}</span>
-                                    <span v-if="member.position == 3">{{
-                                        lang.supervisor
-                                    }}</span>
-                                </td>
-                                <td>
-                                    <router-link
-                                        :to="
-                                            '?edit_member_id=' +
-                                            member.getmember.id
-                                        "
+                <div v-if="position.member_show" class="show-member-box">
+                    <div
+                        style="max-height: 400px; overflow: auto"
+                        class="curret-members-table mt-2"
+                        v-if="!newMemberForm"
+                    >
+                        <table
+                            class="table table-hover table-striped table-dark"
+                        >
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">#</th>
+                                    <th scope="col">{{ lang.name }}</th>
+                                    <th scope="col">{{ lang.email }}</th>
+                                    <th scope="col">{{ lang.position }}</th>
+                                    <th v-if="position.member_edit" scope="col">
+                                        {{ lang.edit }}
+                                    </th>
+                                    <th
+                                        v-if="position.member_delete"
+                                        scope="col"
                                     >
-                                        <i
-                                            class="fas fa-edit btn btn-success"
-                                        ></i
-                                    ></router-link>
-                                </td>
-                                <td>
-                                    <a
-                                        href="#"
-                                        @click="
-                                            handleClick(member.getmember.id)
-                                        "
-                                    >
-                                        <i
-                                            class="fas fa-trash-alt btn btn-danger"
-                                        ></i
-                                    ></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        {{ lang.delete }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    class="text-center"
+                                    v-for="(member, index) in members"
+                                    :key="index"
+                                >
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ member.getmember.name }}</td>
+                                    <td>{{ member.getmember.email }}</td>
+                                    <td>
+                                        <span v-if="member.position == 0">{{
+                                            lang.manager
+                                        }}</span>
+                                        <span v-if="member.position == 1">{{
+                                            lang.casher
+                                        }}</span>
+                                        <span v-if="member.position == 2">{{
+                                            lang.restaurant
+                                        }}</span>
+                                        <span v-if="member.position == 3">{{
+                                            lang.supervisor
+                                        }}</span>
+                                    </td>
+                                    <td v-if="position.member_edit">
+                                        <router-link
+                                            :to="
+                                                '?edit_member_id=' +
+                                                member.getmember.id
+                                            "
+                                        >
+                                            <i
+                                                class="fas fa-edit btn btn-success"
+                                            ></i
+                                        ></router-link>
+                                    </td>
+                                    <td v-if="position.member_delete">
+                                        <a
+                                            href="#"
+                                            @click="
+                                                handleClick(member.getmember.id)
+                                            "
+                                        >
+                                            <i
+                                                class="fas fa-trash-alt btn btn-danger"
+                                            ></i
+                                        ></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!-- End show member box -->
             </div>
         </div>
     </div>
@@ -703,24 +672,42 @@ export default {
             member: {},
             lang: this.$parent.lang,
             form: new Form({
-                invoice: [],
-                section: [],
-                member: [],
-                product: [],
-                box: [],
-                table: [],
-                store: [],
-                history: [],
-                menu: [],
+                invoice_show: 0,
+                invoice_add: 0,
+                invoice_edit: 0,
+                invoice_delete: 0,
+                section_show: 0,
+                section_add: 0,
+                section_edit: 0,
+                section_delete: 0,
+                member_show: 0,
+                member_add: 0,
+                member_edit: 0,
+                member_delete: 0,
+                product_show: 0,
+                product_add: 0,
+                product_edit: 0,
+                product_delete: 0,
+                table_show: 0,
+                table_add: 0,
+                table_edit: 0,
+                table_delete: 0,
+                history_show: 0,
+                history_delete: 0,
+                menu_edit: 0,
+                store_edit: 0,
+                box_add: 0,
                 email: "",
                 member_id: null,
                 position: 3,
                 store_id: this.$parent.store_id,
             }),
             locale: "",
+            position: {},
         };
     },
     mounted() {
+        this.getPositions();
         this.getmembers();
         this.formEmpty();
         this.urlReplace();
@@ -737,16 +724,32 @@ export default {
         member: function () {
             this.form.email = this.member.getmember.email;
             this.form.position = this.member.position;
-            this.form.store_id = this.member.store_id;
-            this.form.invoice = this.member.invoice;
-            this.form.section = this.member.section;
-            this.form.product = this.member.product;
-            this.form.table = this.member.table;
-            this.form.member = this.member.member;
-            this.form.store = this.member.store;
-            this.form.menu = this.member.menu;
-            this.form.history = this.member.history;
-            this.form.box = this.member.box;
+            this.form.store_id = this.store_id;
+            this.form.invoice_show = this.member.invoice_show;
+            this.form.invoice_add = this.member.invoice_add;
+            this.form.invoice_edit = this.member.invoice_edit;
+            this.form.invoice_delete = this.member.invoice_delete;
+            this.form.section_show = this.member.section_show;
+            this.form.section_add = this.member.section_add;
+            this.form.section_edit = this.member.section_edit;
+            this.form.section_delete = this.member.section_delete;
+            this.form.member_show = this.member.member_show;
+            this.form.member_add = this.member.member_add;
+            this.form.member_edit = this.member.member_edit;
+            this.form.member_delete = this.member.member_delete;
+            this.form.product_show = this.member.product_show;
+            this.form.product_add = this.member.product_add;
+            this.form.product_edit = this.member.product_edit;
+            this.form.product_delete = this.member.product_delete;
+            this.form.table_show = this.member.table_show;
+            this.form.table_add = this.member.table_add;
+            this.form.table_edit = this.member.table_edit;
+            this.form.table_delete = this.member.table_delete;
+            this.form.history_show = this.member.history_show;
+            this.form.history_delete = this.member.history_delete;
+            this.form.menu_edit = this.member.menu_edit;
+            this.form.store_edit = this.member.store_edit;
+            this.form.box_add = this.member.box_add;
         },
     },
     methods: {
@@ -755,7 +758,7 @@ export default {
         },
         getFormMethod: function () {
             if (this.$route.query.edit_member_id)
-                this.updateMember(this.$route.query.edit_member_id);
+                this.updateMember(this.member.member_id);
             else this.addNewMember();
         },
         cancelMethod: function () {
@@ -791,12 +794,12 @@ export default {
             const response = await this.form
                 .post("/api/editmember")
                 .then((res) => {
+                    console.log(res.data);
                     this.notification(
-                        getType("success"),
+                        this.getType("success"),
                         this.lang.success,
                         this.lang.data_modified
                     );
-                    // console.log(res.data);
                     this.formEmpty();
                     this.urlReplace();
                     this.newMemberForm = !this.newMemberForm;
@@ -899,6 +902,31 @@ export default {
             } else {
                 return "float-end";
             }
+        },
+        selectAll: function (e) {
+            if (e.target.checked == true) {
+                let el = document.getElementsByName(e.target.name);
+                for (let i = 1; i < el.length; i++) {
+                    console.log(el[i]);
+                    this.form.invoice + "_show" == false;
+                    el[i].checked = true;
+                }
+            } else {
+                let el = document.getElementsByName(e.target.name);
+                for (let i = 1; i < el.length; i++) {
+                    el[i].checked = false;
+                }
+            }
+        },
+        getPositions: function () {
+            axios
+                .get(`/api/member/position?store_id=${this.store_id}`)
+                .then((res) => {
+                    this.position = res.data.position;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         },
         getType: function (type) {
             if (this.locale == "ar") {

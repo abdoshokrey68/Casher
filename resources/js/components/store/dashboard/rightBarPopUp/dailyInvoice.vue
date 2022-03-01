@@ -114,7 +114,12 @@
                                     </th>
                                     <th scope="col">{{ lang.table_no }}</th>
                                     <th scope="col">{{ lang.date }}</th>
-                                    <th scope="col">{{ lang.delete }}</th>
+                                    <th
+                                        v-if="position.invoice_delete"
+                                        scope="col"
+                                    >
+                                        {{ lang.delete }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -134,7 +139,7 @@
                                         <span v-else>N/A</span>
                                     </td>
                                     <td>{{ invoice.date }}</td>
-                                    <td>
+                                    <td v-if="position.invoice_delete">
                                         <a
                                             href="#"
                                             @click="handleClick(invoice.id)"
@@ -237,10 +242,11 @@ export default {
             total: 0,
             lang: this.$parent.lang,
             locale: "",
+            position: {},
         };
     },
     mounted() {
-        // this.getDailyInvoice();
+        this.getPositions();
         this.getDate();
         this.locale = this.getLocale();
     },
@@ -316,6 +322,16 @@ export default {
                 title: title,
                 text: text,
             });
+        },
+        getPositions: function () {
+            axios
+                .get(`/api/member/position?store_id=${this.store_id}`)
+                .then((res) => {
+                    this.position = res.data.position;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         },
         getType: function (type) {
             if (this.locale == "ar") {

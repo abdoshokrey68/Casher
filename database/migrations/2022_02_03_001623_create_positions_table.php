@@ -18,15 +18,42 @@ class CreatePositionsTable extends Migration
             $table->integer('store_id');
             $table->integer('member_id');
             $table->integer('position')->default(0); // [0] => Manager || [1] => Casher || [2] => Restaurant || [3] => Supervisor
-            $table->string('invoice')->default(0);
-            $table->string('section')->default(0);
-            $table->string('member')->default(0);
-            $table->string('product')->default(0);
-            $table->string('table')->default(0);
-            $table->string('box')->default(0);
-            $table->string('store')->default(0);
-            $table->string('history')->default(0);
-            $table->string('menu')->default(0);
+
+            $table->boolean('invoice_show')->default(0);
+            $table->boolean('invoice_add')->default(0);
+            $table->boolean('invoice_edit')->default(0);
+            $table->boolean('invoice_delete')->default(0);
+
+            $table->boolean('section_show')->default(0);
+            $table->boolean('section_add')->default(0);
+            $table->boolean('section_edit')->default(0);
+            $table->boolean('section_delete')->default(0);
+
+            $table->boolean('member_show')->default(0);
+            $table->boolean('member_add')->default(0);
+            $table->boolean('member_edit')->default(0);
+            $table->boolean('member_delete')->default(0);
+
+            $table->boolean('product_show')->default(0);
+            $table->boolean('product_add')->default(0);
+            $table->boolean('product_edit')->default(0);
+            $table->boolean('product_delete')->default(0);
+
+            $table->boolean('table_show')->default(0);
+            $table->boolean('table_add')->default(0);
+            $table->boolean('table_edit')->default(0);
+            $table->boolean('table_delete')->default(0);
+
+            $table->boolean('history_show')->default(0);
+            $table->boolean('history_delete')->default(0);
+
+            $table->boolean('menu_edit')->default(0);
+
+            $table->boolean('store_edit')->default(0);
+
+            $table->boolean('box_add')->default(0);
+            // $table->boolean('box_edit')->default(0);
+
             $table->timestamps();
         });
     }

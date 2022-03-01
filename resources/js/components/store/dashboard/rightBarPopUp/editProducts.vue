@@ -45,12 +45,16 @@
                 </div> -->
                 <!-- End Of " Export To "   -->
 
-                <div class="add-new-product mt-2 mb-2 card p-2">
+                <div
+                    v-if="position.product_add"
+                    class="add-new-product mt-2 mb-2"
+                >
                     <button
                         v-if="!addProductForm"
                         @click="addProductForm = !addProductForm"
-                        class="btn btn-dark text-center mb-2"
+                        class="btn btn-primary bold text-center m-auto col-md-6"
                     >
+                        <i class="fas fa-plus"></i>
                         {{ lang.add_new_product }}
                     </button>
 
@@ -233,137 +237,163 @@
                 <div class="clear"></div>
                 <!-- End Form Add New Member -->
 
-                <div class="old-products" v-if="!addProductForm">
-                    <div class="row">
-                        <div class="col-md-2 p-0 pt-2">
-                            <label for="new-product bold">{{
-                                lang.current_products
-                            }}</label>
+                <div v-if="position.product_show" class="show-prducts">
+                    <div class="old-products" v-if="!addProductForm">
+                        <div class="row">
+                            <div class="col-md-2 p-0 pt-2">
+                                <label for="new-product bold">{{
+                                    lang.current_products
+                                }}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input
+                                    type="text"
+                                    v-model="productsearch"
+                                    id="new-product"
+                                    class="form-control"
+                                    :placeholder="lang.search_products"
+                                />
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            <input
-                                type="text"
-                                v-model="productsearch"
-                                id="new-product"
-                                class="form-control"
-                                :placeholder="lang.search_products"
-                            />
-                        </div>
-                    </div>
-                    <div
-                        style="max-height: 400px; overflow: auto"
-                        class="curret-section-table mt-2"
-                    >
-                        <table
-                            class="table table-hover table-striped table-dark"
-                        >
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">{{ lang.product_name }}</th>
-                                    <th scope="col">
-                                        {{ lang.product_section }}
-                                    </th>
-                                    <th scope="col">{{ lang.price }}</th>
-                                    <th scope="col">
-                                        {{ lang.product_stock }}
-                                    </th>
-                                    <th scope="col">{{ lang.image }}</th>
-                                    <th scope="col">{{ lang.edit }}</th>
-                                    <th scope="col">{{ lang.delete }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    class="text-center"
-                                    v-for="(product, index) in products"
-                                    :key="index"
-                                >
-                                    <td class="pt-4">
-                                        {{ product.name }}
-                                    </td>
-                                    <td class="pt-4">
-                                        <span v-if="product.section">
-                                            {{ product.section.name }}
-                                        </span>
-                                        <span v-else> N/A </span>
-                                    </td>
-                                    <td class="pt-4">{{ product.price }}</td>
-                                    <td class="bold pt-4">
-                                        <span v-if="product.stock == 0">
-                                            {{ lang.not_avilable }}
-                                        </span>
-                                        <span v-else-if="product.stock == 1">
-                                            {{ lang.avilable }}
-                                        </span>
-                                        <span v-else>
-                                            {{ lang.limited_quantity }}
-                                        </span>
-                                    </td>
-                                    <td class="bold text-danger">
-                                        <div>
-                                            <img
-                                                v-if="product.image"
-                                                :src="
-                                                    '/image/products/' +
-                                                    product.image
-                                                "
-                                                class="rounded"
-                                                alt="product image"
-                                                style="
-                                                    max-width: 90px;
-                                                    max-height: 90px;
-                                                "
-                                            />
-                                            <img
-                                                v-else
-                                                src="/image/products/newproduct.png"
-                                                alt="product image"
-                                                style="
-                                                    max-width: 90px;
-                                                    max-height: 90px;
-                                                "
-                                            />
-                                        </div>
-                                    </td>
-                                    <td class="bold">
-                                        <router-link
-                                            :to="
-                                                '?edit_product_id=' + product.id
-                                            "
-                                        >
-                                            <i
-                                                class="fas fa-edit btn btn-success"
-                                            ></i
-                                        ></router-link>
-                                    </td>
-                                    <td class="bold">
-                                        <a
-                                            href="#"
-                                            @click="handleClick(product.id)"
-                                        >
-                                            <i
-                                                class="fas fa-trash-alt btn btn-danger"
-                                            ></i
-                                        ></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                         <div
-                            class="text-center text-danger"
-                            v-if="products.length < 1"
+                            style="max-height: 400px; overflow: auto"
+                            class="curret-section-table mt-2"
                         >
-                            <h4 class="h4">
-                                <span v-if="productsearch.length >= 1">
-                                    {{ lang.no_products }}
-                                </span>
-                                <span v-else>
-                                    {{ lang.no_products_add_one }}
-                                </span>
-                            </h4>
+                            <table
+                                class="table table-hover table-striped table-dark"
+                            >
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">
+                                            {{ lang.product_name }}
+                                        </th>
+                                        <th scope="col">
+                                            {{ lang.product_section }}
+                                        </th>
+                                        <th scope="col">{{ lang.price }}</th>
+                                        <th scope="col">
+                                            {{ lang.product_stock }}
+                                        </th>
+                                        <th scope="col">{{ lang.image }}</th>
+                                        <th
+                                            v-if="position.product_edit"
+                                            scope="col"
+                                        >
+                                            {{ lang.edit }}
+                                        </th>
+                                        <th
+                                            v-if="position.product_delete"
+                                            scope="col"
+                                        >
+                                            {{ lang.delete }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        class="text-center"
+                                        v-for="(product, index) in products"
+                                        :key="index"
+                                    >
+                                        <td class="pt-4">
+                                            {{ product.name }}
+                                        </td>
+                                        <td class="pt-4">
+                                            <span v-if="product.section">
+                                                {{ product.section.name }}
+                                            </span>
+                                            <span v-else> N/A </span>
+                                        </td>
+                                        <td class="pt-4">
+                                            {{ product.price }}
+                                        </td>
+                                        <td class="bold pt-4">
+                                            <span v-if="product.stock == 0">
+                                                {{ lang.not_avilable }}
+                                            </span>
+                                            <span
+                                                v-else-if="product.stock == 1"
+                                            >
+                                                {{ lang.avilable }}
+                                            </span>
+                                            <span v-else>
+                                                {{ lang.limited_quantity }}
+                                            </span>
+                                        </td>
+                                        <td class="bold text-danger">
+                                            <div>
+                                                <img
+                                                    v-if="product.image"
+                                                    :src="
+                                                        '/image/products/' +
+                                                        product.image
+                                                    "
+                                                    class="rounded"
+                                                    alt="product image"
+                                                    style="
+                                                        max-width: 90px;
+                                                        max-height: 90px;
+                                                    "
+                                                />
+                                                <img
+                                                    v-else
+                                                    src="/image/products/newproduct.png"
+                                                    alt="product image"
+                                                    style="
+                                                        max-width: 90px;
+                                                        max-height: 90px;
+                                                    "
+                                                />
+                                            </div>
+                                        </td>
+                                        <td
+                                            v-if="position.product_edit"
+                                            class="bold"
+                                        >
+                                            <router-link
+                                                :to="
+                                                    '?edit_product_id=' +
+                                                    product.id
+                                                "
+                                            >
+                                                <i
+                                                    class="fas fa-edit btn btn-success"
+                                                ></i
+                                            ></router-link>
+                                        </td>
+                                        <td
+                                            v-if="position.product_delete"
+                                            class="bold"
+                                        >
+                                            <a
+                                                href="#"
+                                                @click="handleClick(product.id)"
+                                            >
+                                                <i
+                                                    class="fas fa-trash-alt btn btn-danger"
+                                                ></i
+                                            ></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div
+                                class="text-center text-danger"
+                                v-if="products.length < 1"
+                            >
+                                <h4 class="h4">
+                                    <span v-if="productsearch.length >= 1">
+                                        {{ lang.no_products }}
+                                    </span>
+                                    <span v-else>
+                                        {{ lang.no_products_add_one }}
+                                    </span>
+                                </h4>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- End Show Product Section -->
             </div>
         </div>
     </div>
@@ -396,9 +426,11 @@ export default {
             product_image: null,
             lang: this.$parent.lang,
             locale: "",
+            position: {},
         };
     },
     mounted() {
+        this.getPositions();
         this.getProducts();
         this.getSections();
         this.urlReplace();
@@ -569,6 +601,16 @@ export default {
             const file = e.target.files[0];
             this.form.image = file;
             this.onImageInput(e);
+        },
+        getPositions: function () {
+            axios
+                .get(`/api/member/position?store_id=${this.store_id}`)
+                .then((res) => {
+                    this.position = res.data.position;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         },
         onImageInput(event) {
             const data = URL.createObjectURL(event.target.files[0]);

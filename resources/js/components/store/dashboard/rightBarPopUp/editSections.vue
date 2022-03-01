@@ -12,437 +12,468 @@
                     {{ lang.store_sections }}
                 </h2>
             </div>
-            <!-- End Edit Secitons Header -->
-            <div class="edit-section content p-2">
+            <!-- End Secitons Edit && Add && Show && Delete  Header -->
+            <div class="section-control content p-2">
                 <div>
-                    <button
-                        v-if="!NewSectionFrom"
-                        @click="NewSectionFrom = !NewSectionFrom"
-                        class="btn btn-primary col-md-5 mb-2 mt-2"
-                    >
-                        <i class="fas fa-plus mr-2 ml-2"></i>
-                        {{ lang.add_new_section }}
-                    </button>
-                    <form
-                        @submit.prevent="getFormMethod(form.section_id)"
-                        @keydown="form.onKeydown($event)"
-                        v-if="NewSectionFrom"
-                    >
-                        <input
-                            v-if="form.section_id"
-                            hidden
-                            v-model="form.section_id"
-                            type="text"
-                            name="section_id"
-                        />
+                    <div v-if="position.section_add" id="add-new-section">
+                        <button
+                            v-if="!NewSectionFrom"
+                            @click="NewSectionFrom = !NewSectionFrom"
+                            class="btn btn-primary col-md-5 mb-2 mt-2"
+                        >
+                            <i class="fas fa-plus mr-2 ml-2"></i>
+                            {{ lang.add_new_section }}
+                        </button>
+                        <form
+                            @submit.prevent="getFormMethod(form.section_id)"
+                            @keydown="form.onKeydown($event)"
+                            v-if="NewSectionFrom"
+                        >
+                            <input
+                                v-if="form.section_id"
+                                hidden
+                                v-model="form.section_id"
+                                type="text"
+                                name="section_id"
+                            />
 
-                        <input
-                            hidden
-                            v-model="form.store_id"
-                            type="text"
-                            name="store_id"
-                        />
+                            <input
+                                hidden
+                                v-model="form.store_id"
+                                type="text"
+                                name="store_id"
+                            />
 
-                        <input
-                            v-model="form.name"
-                            type="text"
-                            name="name"
-                            class="form-control mt-2 mb-2"
-                            :placeholder="lang.name"
-                        />
-                        <div
-                            class="text-danger bold"
-                            v-if="form.errors.has('name')"
-                            v-html="form.errors.get('name')"
-                        />
+                            <input
+                                v-model="form.name"
+                                type="text"
+                                name="name"
+                                class="form-control mt-2 mb-2"
+                                :placeholder="lang.name"
+                            />
+                            <div
+                                class="text-danger bold"
+                                v-if="form.errors.has('name')"
+                                v-html="form.errors.get('name')"
+                            />
 
-                        <textarea
-                            v-model="form.description"
-                            name="description"
-                            class="form-control mt-2 mb-2"
-                            :placeholder="lang.des"
-                        ></textarea>
-                        <div
-                            class="text-danger bold"
-                            v-if="form.errors.has('description')"
-                            v-html="form.errors.get('description')"
-                        />
+                            <textarea
+                                v-model="form.description"
+                                name="description"
+                                class="form-control mt-2 mb-2"
+                                :placeholder="lang.des"
+                            ></textarea>
+                            <div
+                                class="text-danger bold"
+                                v-if="form.errors.has('description')"
+                                v-html="form.errors.get('description')"
+                            />
 
-                        <div class="section-icon">
-                            <label for="">{{ lang.section_icon_op }} </label>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-utensils"
-                                        v-model="form.icon"
-                                        id="fa-utensils"
-                                    />
-                                    <label for="fa-utensils"
-                                        ><i
-                                            class="fas fa-utensils fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-hamburger"
-                                        v-model="form.icon"
-                                        id="fa-hamburger"
-                                    />
-                                    <label for="fa-hamburger"
-                                        ><i
-                                            class="fas fa-hamburger fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
+                            <div class="section-icon">
+                                <label for=""
+                                    >{{ lang.section_icon_op }}
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-utensils"
+                                            v-model="form.icon"
+                                            id="fa-utensils"
+                                        />
+                                        <label for="fa-utensils"
+                                            ><i
+                                                class="fas fa-utensils fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-hamburger"
+                                            v-model="form.icon"
+                                            id="fa-hamburger"
+                                        />
+                                        <label for="fa-hamburger"
+                                            ><i
+                                                class="fas fa-hamburger fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
 
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-pizza-slice"
-                                        v-model="form.icon"
-                                        id="fa-pizza-slice"
-                                    />
-                                    <label for="fa-pizza-slice"
-                                        ><i
-                                            class="fas fa-pizza-slice fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-pizza-slice"
+                                            v-model="form.icon"
+                                            id="fa-pizza-slice"
+                                        />
+                                        <label for="fa-pizza-slice"
+                                            ><i
+                                                class="fas fa-pizza-slice fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-ice-cream"
+                                            v-model="form.icon"
+                                            id="fa-ice-cream"
+                                        />
+                                        <label for="fa-ice-cream"
+                                            ><i
+                                                class="fas fa-ice-cream fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-hotdog"
+                                            v-model="form.icon"
+                                            id="fa-hotdog"
+                                        />
+                                        <label for="fa-hotdog"
+                                            ><i
+                                                class="fas fa-hotdog fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-fish"
+                                            v-model="form.icon"
+                                            id="fa-fish"
+                                        />
+                                        <label for="fa-fish"
+                                            ><i
+                                                class="fas fa-fish fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-cheese"
+                                            v-model="form.icon"
+                                            id="fa-cheese"
+                                        />
+                                        <label for="fa-cheese"
+                                            ><i
+                                                class="fas fa-cheese fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-drumstick-bite"
+                                            v-model="form.icon"
+                                            id="fa-drumstick-bite"
+                                        />
+                                        <label for="fa-drumstick-bite"
+                                            ><i
+                                                class="fas fa-drumstick-bite fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-mug-hot"
+                                            v-model="form.icon"
+                                            id="fa-mug-hot"
+                                        />
+                                        <label for="fa-mug-hot"
+                                            ><i
+                                                class="fas fa-mug-hot fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-coffee"
+                                            v-model="form.icon"
+                                            id="fa-coffee"
+                                        />
+                                        <label for="fa-coffee"
+                                            ><i
+                                                class="fas fa-coffee fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-cocktail"
+                                            v-model="form.icon"
+                                            id="fa-cocktail"
+                                        />
+                                        <label for="fa-cocktail"
+                                            ><i
+                                                class="fas fa-cocktail fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-beer"
+                                            v-model="form.icon"
+                                            id="fa-beer"
+                                        />
+                                        <label for="fa-beer"
+                                            ><i
+                                                class="fas fa-beer fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-tshirt"
+                                            v-model="form.icon"
+                                            id="fa-tshirt"
+                                        />
+                                        <label for="fa-tshirt"
+                                            ><i
+                                                class="fas fa-tshirt fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-mitten"
+                                            v-model="form.icon"
+                                            id="fa-mitten"
+                                        />
+                                        <label for="fa-mitten"
+                                            ><i
+                                                class="fas fa-mitten fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-socks"
+                                            v-model="form.icon"
+                                            id="fa-socks"
+                                        />
+                                        <label for="fa-socks"
+                                            ><i
+                                                class="fas fa-socks fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-user-tie"
+                                            v-model="form.icon"
+                                            id="fa-user-tie"
+                                        />
+                                        <label for="fa-user-tie"
+                                            ><i
+                                                class="fas fa-user-tie fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-hat-cowboy-side"
+                                            v-model="form.icon"
+                                            id="fa-hat-cowboy-side"
+                                        />
+                                        <label for="fa-hat-cowboy-side"
+                                            ><i
+                                                class="fas fa-hat-cowboy-side fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-hat-cowboy"
+                                            v-model="form.icon"
+                                            id="fa-hat-cowboy"
+                                        />
+                                        <label for="fa-hat-cowboy"
+                                            ><i
+                                                class="fas fa-hat-cowboy fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-ice-cream"
-                                        v-model="form.icon"
-                                        id="fa-ice-cream"
-                                    />
-                                    <label for="fa-ice-cream"
-                                        ><i
-                                            class="fas fa-ice-cream fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-hotdog"
-                                        v-model="form.icon"
-                                        id="fa-hotdog"
-                                    />
-                                    <label for="fa-hotdog"
-                                        ><i
-                                            class="fas fa-hotdog fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-fish"
-                                        v-model="form.icon"
-                                        id="fa-fish"
-                                    />
-                                    <label for="fa-fish"
-                                        ><i
-                                            class="fas fa-fish fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-cheese"
-                                        v-model="form.icon"
-                                        id="fa-cheese"
-                                    />
-                                    <label for="fa-cheese"
-                                        ><i
-                                            class="fas fa-cheese fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-drumstick-bite"
-                                        v-model="form.icon"
-                                        id="fa-drumstick-bite"
-                                    />
-                                    <label for="fa-drumstick-bite"
-                                        ><i
-                                            class="fas fa-drumstick-bite fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-mug-hot"
-                                        v-model="form.icon"
-                                        id="fa-mug-hot"
-                                    />
-                                    <label for="fa-mug-hot"
-                                        ><i
-                                            class="fas fa-mug-hot fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-coffee"
-                                        v-model="form.icon"
-                                        id="fa-coffee"
-                                    />
-                                    <label for="fa-coffee"
-                                        ><i
-                                            class="fas fa-coffee fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-cocktail"
-                                        v-model="form.icon"
-                                        id="fa-cocktail"
-                                    />
-                                    <label for="fa-cocktail"
-                                        ><i
-                                            class="fas fa-cocktail fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-beer"
-                                        v-model="form.icon"
-                                        id="fa-beer"
-                                    />
-                                    <label for="fa-beer"
-                                        ><i
-                                            class="fas fa-beer fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-tshirt"
-                                        v-model="form.icon"
-                                        id="fa-tshirt"
-                                    />
-                                    <label for="fa-tshirt"
-                                        ><i
-                                            class="fas fa-tshirt fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-mitten"
-                                        v-model="form.icon"
-                                        id="fa-mitten"
-                                    />
-                                    <label for="fa-mitten"
-                                        ><i
-                                            class="fas fa-mitten fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-socks"
-                                        v-model="form.icon"
-                                        id="fa-socks"
-                                    />
-                                    <label for="fa-socks"
-                                        ><i
-                                            class="fas fa-socks fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-user-tie"
-                                        v-model="form.icon"
-                                        id="fa-user-tie"
-                                    />
-                                    <label for="fa-user-tie"
-                                        ><i
-                                            class="fas fa-user-tie fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-hat-cowboy-side"
-                                        v-model="form.icon"
-                                        id="fa-hat-cowboy-side"
-                                    />
-                                    <label for="fa-hat-cowboy-side"
-                                        ><i
-                                            class="fas fa-hat-cowboy-side fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
-                                <div class="col-md-3">
-                                    <input
-                                        type="radio"
-                                        name="icon"
-                                        value="fas fa-hat-cowboy"
-                                        v-model="form.icon"
-                                        id="fa-hat-cowboy"
-                                    />
-                                    <label for="fa-hat-cowboy"
-                                        ><i
-                                            class="fas fa-hat-cowboy fa-2x mr-2 ml-2"
-                                        ></i
-                                    ></label>
-                                </div>
+                                <small class="text-primary bold">
+                                    {{ lang.this_icon_menu }}</small
+                                >
                             </div>
-                            <small class="text-primary bold">
-                                {{ lang.this_icon_menu }}</small
-                            >
-                        </div>
-                        <div
-                            class="text-danger bold"
-                            v-if="form.errors.has('icon')"
-                            v-html="form.errors.get('icon')"
-                        />
+                            <div
+                                class="text-danger bold"
+                                v-if="form.errors.has('icon')"
+                                v-html="form.errors.get('icon')"
+                            />
 
-                        <div class="float-end">
-                            <button
-                                type="submit"
-                                class="btn btn-primary"
-                                :disabled="form.busy"
-                            >
-                                <span
-                                    class="spinner-border spinner-border-sm"
-                                    role="status"
-                                    :hidden="!form.busy"
-                                ></span>
-                                <span v-if="form.section_id">
-                                    <i
-                                        class="fas fa-edit mt-2 ml-2"
-                                        :hidden="form.busy"
-                                    ></i>
-                                    {{ lang.edit_section }}</span
+                            <div class="float-end">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    :disabled="form.busy"
                                 >
-                                <span v-else>
-                                    <i
-                                        class="fas fa-plus mt-2 ml-2"
-                                        :hidden="form.busy"
-                                    ></i>
-                                    {{ lang.add_section }}</span
-                                >
-                            </button>
+                                    <span
+                                        class="spinner-border spinner-border-sm"
+                                        role="status"
+                                        :hidden="!form.busy"
+                                    ></span>
+                                    <span v-if="form.section_id">
+                                        <i
+                                            class="fas fa-edit mt-2 ml-2"
+                                            :hidden="form.busy"
+                                        ></i>
+                                        {{ lang.edit_section }}</span
+                                    >
+                                    <span v-else>
+                                        <i
+                                            class="fas fa-plus mt-2 ml-2"
+                                            :hidden="form.busy"
+                                        ></i>
+                                        {{ lang.add_section }}</span
+                                    >
+                                </button>
 
-                            <button
-                                @click.prevent="cancelMethod()"
-                                class="btn btn-light text-danger bold"
-                            >
-                                <i class="fas fa-times mt-2 ml-2"></i>
-                                {{ lang.cancel }}
-                            </button>
-                        </div>
-                    </form>
+                                <button
+                                    @click.prevent="cancelMethod()"
+                                    class="btn btn-light text-danger bold"
+                                >
+                                    <i class="fas fa-times mt-2 ml-2"></i>
+                                    {{ lang.cancel }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End Section Add New Section -->
                     <div class="clear"></div>
                     <!-- End Form Add new section -->
-                    <div class="old-sections" v-if="!NewSectionFrom">
-                        <label for="search-sections">{{
-                            lang.search_section
-                        }}</label>
-                        <input
-                            type="text"
-                            name="search-sections"
-                            id="search-sections"
-                            class="form-control"
-                            v-model="sectionSearch"
-                        />
-                        <div
-                            style="max-height: 400px; overflow: auto"
-                            class="curret-section-table mt-2"
-                        >
-                            <table
-                                class="table table-hover table-striped table-dark"
+                    <div v-if="position.section_show" class="show-sections">
+                        <div class="old-sections" v-if="!NewSectionFrom">
+                            <label for="search-sections">{{
+                                lang.search_section
+                            }}</label>
+                            <input
+                                type="text"
+                                name="search-sections"
+                                id="search-sections"
+                                class="form-control"
+                                v-model="sectionSearch"
+                            />
+                            <div
+                                style="max-height: 400px; overflow: auto"
+                                class="curret-section-table mt-2"
                             >
-                                <thead>
-                                    <tr class="text-center">
-                                        <th scope="col">{{ lang.name }}</th>
-                                        <th scope="col">{{ lang.icon }}</th>
-                                        <th scope="col">{{ lang.edit }}</th>
-                                        <th scope="col">{{ lang.delete }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <template
-                                        v-for="(section, index) in sections"
-                                    >
-                                        <tr :key="index" class="text-center">
-                                            <td>{{ section.name }}</td>
-                                            <td>
-                                                <i
-                                                    :class="
-                                                        section.icon +
-                                                        ' fa-2x text-light'
-                                                    "
-                                                ></i>
-                                            </td>
-                                            <td class="bold">
-                                                <router-link
-                                                    :to="
-                                                        '?edit_section_id=' +
-                                                        section.id
-                                                    "
-                                                >
-                                                    <i
-                                                        class="fas fa-edit btn btn-success"
-                                                    ></i>
-                                                </router-link>
-                                            </td>
-                                            <td class="bold">
-                                                <a
-                                                    href="#"
-                                                    @click="
-                                                        handleClick(section.id)
-                                                    "
-                                                >
-                                                    <i
-                                                        class="fas fa-trash-alt btn btn-danger"
-                                                    ></i>
-                                                </a>
-                                            </td>
+                                <table
+                                    class="table table-hover table-striped table-dark"
+                                >
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">{{ lang.name }}</th>
+                                            <th scope="col">{{ lang.icon }}</th>
+                                            <th
+                                                v-if="position.section_edit"
+                                                scope="col"
+                                            >
+                                                {{ lang.edit }}
+                                            </th>
+                                            <th
+                                                v-if="position.section_delete"
+                                                scope="col"
+                                            >
+                                                {{ lang.delete }}
+                                            </th>
                                         </tr>
-                                    </template>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <template
+                                            v-for="(section, index) in sections"
+                                        >
+                                            <tr
+                                                :key="index"
+                                                class="text-center"
+                                            >
+                                                <td>{{ section.name }}</td>
+                                                <td>
+                                                    <i
+                                                        :class="
+                                                            section.icon +
+                                                            ' fa-2x text-light'
+                                                        "
+                                                    ></i>
+                                                </td>
+                                                <td
+                                                    v-if="position.section_edit"
+                                                    class="bold"
+                                                >
+                                                    <router-link
+                                                        :to="
+                                                            '?edit_section_id=' +
+                                                            section.id
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fas fa-edit btn btn-success"
+                                                        ></i>
+                                                    </router-link>
+                                                </td>
+                                                <td
+                                                    v-if="
+                                                        position.section_delete
+                                                    "
+                                                    class="bold"
+                                                >
+                                                    <a
+                                                        href="#"
+                                                        @click="
+                                                            handleClick(
+                                                                section.id
+                                                            )
+                                                        "
+                                                    >
+                                                        <i
+                                                            class="fas fa-trash-alt btn btn-danger"
+                                                        ></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <!-- End Show Section Box -->
                 </div>
             </div>
         </div>
@@ -472,9 +503,11 @@ export default {
             currentPath: null,
             lang: this.$parent.lang,
             locale: "",
+            position: {},
         };
     },
     mounted() {
+        this.getPositions();
         this.getSections();
         this.currentPath = this.$route.path;
         this.locale = this.getLocale();
@@ -623,6 +656,16 @@ export default {
                     })
                     .catch(() => {});
             }
+        },
+        getPositions: function () {
+            axios
+                .get(`/api/member/position?store_id=${this.store_id}`)
+                .then((res) => {
+                    this.position = res.data.position;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         },
         getType: function (type) {
             if (this.locale == "ar") {

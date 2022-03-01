@@ -1,5 +1,5 @@
 <template>
-    <div id="new-members" class="col-md-7 m-auto">
+    <div id="new-members" class="col-md-9 m-auto">
         <div class="card justify-center border-warning border-2">
             <div class="new-members-header">
                 <button

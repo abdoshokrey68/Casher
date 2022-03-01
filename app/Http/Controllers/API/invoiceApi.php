@@ -60,10 +60,19 @@ class invoiceApi extends Controller
         ]);
         $invoice_s = invoicesett::where('store_id', $request->store_id)->first();
         $invoice_s->tax = $request->tax;
+        $invoice_s->autotax     = $request->autotax;
+        $invoice_s->tax_record  = $request->tax_record;
+        $invoice_s->tax_card    = $request->tax_card;
+        $invoice_s->file_no     = $request->file_no;
         $invoice_s->product_rtn = $request->product_rtn;
         $invoice_s->message_en = $request->message_en;
         $invoice_s->message_ar = $request->message_ar;
         $invoice_s->save();
+
+        $historyApi = new historyApi;
+        $des_ar = " تم تعديل اعدادات الفواتير الخاصة بالمتجر";
+        $des_en = " Store billing settings have been modified";
+        $history = $historyApi->createHistory($des_ar, $des_en, $request->store_id, Auth::id());
         return 'done';
     }
 

@@ -1,7 +1,7 @@
 <template>
     <div id="store-dashboard" class="store-dashboard">
         <div class="row">
-            <div class="col-md-2 col-sm-12 p-0 h-100">
+            <div class="col-md-2 col-sm-12 p-0 right-bar-container">
                 <right-bar
                     :store="storeINFO"
                     :logout="logout"
@@ -201,7 +201,7 @@ export default {
             dailyinvoice: false,
             editmembers: false,
             storesettings: false,
-            invoicesettings: true,
+            invoicesettings: false,
             edittables: false,
             storebox: false,
             storehistory: false,
@@ -210,12 +210,14 @@ export default {
             time: "",
             locale: "",
             lang: this.getLang(),
+            position: {},
         };
     },
     mounted() {
         this.getStoreInfo(this.store_id);
         this.time = new Date().getTime();
         this.urlReplace();
+        this.getPositions();
     },
     watch: {},
     methods: {
@@ -230,7 +232,14 @@ export default {
                     console.log(err);
                 });
         },
-
+        getPositions: function () {
+            axios
+                .get(`/api/member/position?store_id=${this.store_id}`)
+                .then((res) => {
+                    this.position = res.data.position;
+                })
+                .catch((err) => {});
+        },
         urlReplace: function () {
             if (this.$route.query) {
                 this.$router

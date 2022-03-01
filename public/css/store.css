@@ -83,7 +83,14 @@
     overflow: auto;
     max-height: 60vh;
 }
-
+/* Right bar  */
+.right-bar-container {
+    min-height: 95vh;
+    overflow: hidden;
+}
+.right-bar-container > div {
+    height: inherit;
+}
 /* all-right-bar-popup */
 .all-right-bar-popup > div,
 .add-product-layout-box > div {

@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-d-blue col-md-12 p-0">
+    <div class="bg-d-blue col-md-12 p-0 h-100">
         <div class="col-md-12 pt-3 m-auto hover-zoom">
             <img
                 v-if="store.image"
@@ -22,29 +22,30 @@
             <h1 id="store-name" class="text-center text-light p-2 h4 mt-2">
                 {{ store.name }}
             </h1>
-            <!-- <h6
+            <h6
                 id="store-email"
                 v-if="store.email"
                 class="text-center text-light p-2 small m-0"
             >
                 <i class="fas fa-envelope-open-text mr-1 ml-1"></i>
                 {{ store.email }}
-            </h6> -->
+            </h6>
 
-            <!-- <h6
+            <h6
                 id="store-phone"
                 v-if="store.phone"
                 class="text-center text-light p-2 small m-0"
             >
                 <i class="fas fa-headphones-alt mr-1 ml-1"></i>
                 {{ store.phone }}
-            </h6> -->
+            </h6>
         </div>
         <!-- End Store Info -->
 
         <div class="list-group p-2">
+            <!-- v-if="position.invoice.includes('2')" -->
             <button
-                v-if="position.invoice.includes('2')"
+                v-if="position.invoice_add"
                 @click="newInvoiceToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -52,7 +53,7 @@
                 {{ lang.new_invoice }}
             </button>
             <button
-                v-if="position.invoice.includes('2')"
+                v-if="position.invoice_add"
                 @click="payInvoiceToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
                 :disabled="!invoice_btn"
@@ -67,6 +68,12 @@
                 Delete Invoice
             </button> -->
             <button
+                v-if="
+                    position.section_show ||
+                    position.section_add ||
+                    position.section_edit ||
+                    position.section_delete
+                "
                 @click="editsectionsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -74,6 +81,12 @@
                 {{ lang.edit_sections }}
             </button>
             <button
+                v-if="
+                    position.product_show ||
+                    position.product_add ||
+                    position.product_edit ||
+                    position.product_delete
+                "
                 @click="editproductsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -81,6 +94,7 @@
                 {{ lang.edit_products }}
             </button>
             <button
+                v-if="position.invoice_show"
                 @click="daliyinvoiceTogle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -88,6 +102,12 @@
                 {{ lang.daily_invoice }}
             </button>
             <button
+                v-if="
+                    position.member_show ||
+                    position.member_add ||
+                    position.member_edit ||
+                    position.member_delete
+                "
                 @click="editmembersToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -102,6 +122,7 @@
                 {{ lang.store_audience }}
             </button>
             <button
+                v-if="position.store_show || position.store_edit"
                 @click="storesettingsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -109,6 +130,7 @@
                 {{ lang.store_settings }}
             </button>
             <button
+                v-if="position.invoice_edit"
                 @click="invoiceSettingsToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -116,6 +138,12 @@
                 {{ lang.invoice_settings }}
             </button>
             <button
+                v-if="
+                    position.talbe_show ||
+                    position.talbe_add ||
+                    position.talbe_edit ||
+                    position.talbe_delete
+                "
                 @click="edittablesToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -124,6 +152,7 @@
                 {{ lang.table_manage }}
             </button>
             <button
+                v-if="position.box_add"
                 @click="storeBoxToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -131,6 +160,7 @@
                 {{ lang.box }}
             </button>
             <button
+                v-if="position.history_show"
                 @click="storeHistoryToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -138,6 +168,7 @@
                 {{ lang.dark_box }}
             </button>
             <button
+                v-if="position.menu_edit"
                 @click="storeMenuToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
             >
@@ -258,27 +289,6 @@ export default {
                     console.log(err);
                 });
         },
-
-        // getPermission: function (control, permission) {
-        //     if (control == "newinvoice") {
-        //         var position = this.position.invoice.filter(function (
-        //             permission = 2
-        //         ) {
-        //             return this.position.invoice.includes(permission);
-        //         });
-        //         console.log(position);
-        //         // return true;
-        //     } else if (control == "editsections") {
-        //         return true;
-        //     }
-        // },
-        // x() {
-        //     var filter = this.position.invoice.filter((e) => e == "1");
-        //     var length = this.position.invoice.filter((e) => e == "1").length;
-        //     if (length == 1) {
-        //         return true;
-        //     }
-        // },
     },
 };
 </script>

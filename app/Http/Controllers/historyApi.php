@@ -19,7 +19,7 @@ class historyApi extends Controller
         if ($store) {
             if ($store->member_id = Auth::id()) {
                 $locale = app()->getLocale();
-                $histories = history::where('store_id', $request->store_id)->select("des_$request->locale as des", "member_id", "created_at")->with('member')->get();
+                $histories = history::where('store_id', $request->store_id)->select("des_$request->locale as des", "member_id", "created_at")->with('member')->orderby('created_at', 'DESC')->get();
                 foreach ($histories as $key => $history) {
                     $history->from = $history->created_at->diffForHumans();
                 }

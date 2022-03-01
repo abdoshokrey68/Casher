@@ -14,15 +14,31 @@ class position extends Model
         'position',
         'store_id',
         'member_id',
-        'invoice',  // [ 0 ] || [ 1 ] || [ 2 ] || [ 3 ] || [ 4 ]
-        'section',  // [ 0 ] || [ 1 ] || [ 2 ] || [ 3 ] || [ 4 ]
-        'product',  // [ 0 ] || [ 1 ] || [ 2 ] || [ 3 ] || [ 4 ]
-        'table',    // [ 0 ] || [ 1 ] || [ 2 ] || [ 3 ] || [ 4 ]
-        'member',   // [ 0 ] || [ 1 ] || [ 2 ] || [ 3 ] || [ 4 ]
-        'store',    // [ 0 ] || [ 1 ] || [ 3 ]
-        'history',  // [ 0 ] || [ 1 ]
-        'menu',     // [ 0 ] || [ 1 ] || [ 3 ]
-        // 'box',      // [ 0 ] || || [ 3 ]
+        'invoice_show',
+        'invoice_add',
+        'invoice_edit',
+        'invoice_delete',
+        'section_show',
+        'section_add',
+        'section_edit',
+        'section_delete',
+        'member_show',
+        'member_add',
+        'member_edit',
+        'member_delete',
+        'product_show',
+        'product_add',
+        'product_edit',
+        'product_delete',
+        'table_show',
+        'table_add',
+        'table_edit',
+        'table_delete',
+        'history_show',
+        'history_delete',
+        'menu_edit',
+        'store_edit',
+        'box_add',
     ];
 
     /**

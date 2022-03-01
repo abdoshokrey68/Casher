@@ -21,11 +21,7 @@ class membersApi extends Controller
     {
         $store_id = $request->store_id;
         $store = store::find($store_id);
-        if ($store) {
-            return position::where('store_id', $request->store_id)->with('getmember')->get();
-        } else {
-            return 'false';
-        }
+        return position::where('store_id', $request->store_id)->with('getmember')->get();
     }
 
     public function getmember(Request $request)
@@ -34,24 +30,11 @@ class membersApi extends Controller
         $user = User::find($member_id);
         if ($user) {
             $store = store::find($request->store_id);
-            if ($store) {
-                $position = position::where('member_id', $member_id)->where('store_id', $request->store_id)->with('getmember')->first();
-                if ($position) {
-                    $position->invoice      = explode(',', $position->invoice);
-                    $position->section      = explode(',', $position->section);
-                    $position->product      = explode(',', $position->product);
-                    $position->table      = explode(',', $position->table);
-                    $position->member      = explode(',', $position->member);
-                    $position->store      = explode(',', $position->store);
-                    $position->menu      = explode(',', $position->menu);
-                    $position->history      = explode(',', $position->history);
-                    $position->box      = explode(',', $position->box);
-                    return $position;
-                } else {
-                    return 'false2';
-                }
+            $position = position::where('member_id', $member_id)->where('store_id', $request->store_id)->with('getmember')->first();
+            if ($position) {
+                return $position;
             } else {
-                return 'false3';
+                return 'false2';
             }
         } else {
             return 'false4';
@@ -60,25 +43,47 @@ class membersApi extends Controller
 
     public function add(Request $request)
     {
+
         $this->validate($request, [
-            'email'     => 'required|email:rfc,dns',
-            'position'  => 'required',
-            'store_id'  => 'required',
+            'email'             => 'required|email:rfc,dns',
+            'position'          => 'required',
+            'store_id'          => 'required',
+            'invoice_show'      => 'required',
+            'invoice_add'       => 'required',
+            'invoice_edit'      => 'required',
+            'invoice_delete'    => 'required',
+            'section_show'      => 'required',
+            'section_add'       => 'required',
+            'section_edit'      => 'required',
+            'section_delete'    => 'required',
+            'member_show'       => 'required',
+            'member_add'        => 'required',
+            'member_edit'       => 'required',
+            'member_delete'     => 'required',
+            'product_show'      => 'required',
+            'product_add'       => 'required',
+            'product_edit'      => 'required',
+            'product_delete'    => 'required',
+            'table_show'        => 'required',
+            'table_add'         => 'required',
+            'table_edit'        => 'required',
+            'table_delete'      => 'required',
+            'history_show'      => 'required',
+            'history_delete'    => 'required',
+            'menu_edit'         => 'required',
+            'store_edit'        => 'required',
+            'box_add'           => 'required',
         ]);
         $store_id = $request->store_id;
         $store = store::find($store_id);
         $user = User::where('email', $request->email)->first();
         if ($user) {
-            if ($store) {
-                return $this->createPosition($user->id, $store->id, $request);
-                $historyApi = new historyApi;
-                $des_ar = " تم إضافة عميل جديد للمتجر ";
-                $des_en = " A new customer has been added to the store ";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                return 'An employee has been added successfully';
-            } else {
-                return abort(422);
-            }
+            $this->createPosition($user->id, $store->id, $request);
+            $historyApi = new historyApi;
+            $des_ar = " تم إضافة عميل جديد للمتجر ";
+            $des_en = " A new customer has been added to the store ";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+            return 'An employee has been added successfully';
         } else {
             return abort(505);
         }
@@ -86,23 +91,47 @@ class membersApi extends Controller
     public function edit(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|email:rfc,dns',
-            'member_id' => 'required',
-            'position' => 'required',
-            'store_id' => 'required',
+            'email'             => 'required|email:rfc,dns',
+            'member_id'         => 'required',
+            'position'          => 'required',
+            'store_id'          => 'required',
+            'invoice_show'      => 'required',
+            'invoice_add'       => 'required',
+            'invoice_edit'      => 'required',
+            'invoice_delete'    => 'required',
+            'section_show'      => 'required',
+            'section_add'       => 'required',
+            'section_edit'      => 'required',
+            'section_delete'    => 'required',
+            'member_show'       => 'required',
+            'member_add'        => 'required',
+            'member_edit'       => 'required',
+            'member_delete'     => 'required',
+            'product_show'      => 'required',
+            'product_add'       => 'required',
+            'product_edit'      => 'required',
+            'product_delete'    => 'required',
+            'table_show'        => 'required',
+            'table_add'         => 'required',
+            'table_edit'        => 'required',
+            'table_delete'      => 'required',
+            'history_show'      => 'required',
+            'history_delete'    => 'required',
+            'menu_edit'         => 'required',
+            'store_edit'        => 'required',
+            'box_add'           => 'required',
         ]);
-        $store_id = $request->store_id;
-        $user = User::find($request->member_id);
-        $store = store::find($store_id);
+        // return $request;
+        $store = store::find($request->store_id);
+        $user = User::where('email', $request->email)->first();
         if ($user) {
-            if ($store) {
-                $user = User::where('email', $request->email)->first();
-                $position = $this->editPosition($request->member_id, $request->store_id, $request);
+            $position = position::where('member_id', $user->id)->where('store_id', $store->id)->first();
+            if ($position) {
+                $this->editPosition($position, $user->id, $request->store_id, $request);
                 $historyApi = new historyApi;
                 $des_ar = " تم تعديل بيانات العميل '$user->email' ";
                 $des_en = " '$user->email' customer data has been modified ";
                 $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                return $position;
                 return 'An employee has been added successfully';
             } else {
                 return 'false';
@@ -121,16 +150,12 @@ class membersApi extends Controller
         $user = User::find($request->member_id);
         $store = store::find($user->store_id);
         if ($user) {
-            if ($store) {
-                $this->deletePosition($request->member_id, $request->store_id);
-                $historyApi = new historyApi;
-                $des_ar = " تم حذف العميل '$user->email' من المتجر ";
-                $des_en = " Customer '$user->email' has been removed from the store ";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                return 'An employee has been successfully deleted';
-            } else {
-                return 'false';
-            }
+            $this->deletePosition($request->member_id, $request->store_id);
+            $historyApi = new historyApi;
+            $des_ar = " تم حذف العميل '$user->email' من المتجر ";
+            $des_en = " Customer '$user->email' has been removed from the store ";
+            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+            return 'An employee has been successfully deleted';
         } else {
             return 'false';
         }
@@ -144,14 +169,6 @@ class membersApi extends Controller
         $store = store::find($request->store_id);
         if ($store) {
             $position = position::where('store_id', $store->id)->where('member_id', Auth::id())->first();
-            $position->invoice   = explode(',', $position->invoice);
-            $position->section   = explode(',', $position->section);
-            $position->product   = explode(',', $position->product);
-            $position->table     = explode(',', $position->table);
-            $position->member    = explode(',', $position->member);
-            $position->store     = explode(',', $position->store);
-            $position->history   = explode(',', $position->history);
-            $position->menu      = explode(',', $position->menu);
             return [
                 'position'  => $position
             ];
@@ -170,68 +187,65 @@ class membersApi extends Controller
             $position->member_id    = $member_id;
             $position->store_id     = $store_id;
             $position->position         = $request->position;
-            if ($request->invoice) {
-                $position->invoice      = implode(',', $request->invoice);
-            }
-            if ($request->section) {
-                $position->section      = implode(',', $request->section);
-            }
-            if ($request->product) {
-                $position->product      = implode(',', $request->product);
-            }
-            if ($request->table) {
-                $position->table      = implode(',', $request->table);
-            }
-            if ($request->member) {
-                $position->member      = implode(',', $request->member);
-            }
-            if ($request->store) {
-                $position->store      = implode(',', $request->store);
-            }
-            if ($request->menu) {
-                $position->menu      = implode(',', $request->menu);
-            }
-            if ($request->history) {
-                $position->history      = implode(',', $request->history);
-            }
-            if ($request->box) {
-                $position->box      = implode(',', $request->box);
-            }
+
+            $position->invoice_show     = $request->invoice_show;
+            $position->invoice_add  = $request->invoice_add;
+            $position->invoice_edit     = $request->invoice_edit;
+            $position->invoice_delete   = $request->invoice_delete;
+            $position->section_show     = $request->section_show;
+            $position->section_add  = $request->section_add;
+            $position->section_edit     = $request->section_edit;
+            $position->section_delete   = $request->section_delete;
+            $position->member_show  = $request->member_show;
+            $position->member_add   = $request->member_add;
+            $position->member_edit  = $request->member_edit;
+            $position->member_delete    = $request->member_delete;
+            $position->product_show     = $request->product_show;
+            $position->product_add  = $request->product_add;
+            $position->product_edit     = $request->product_edit;
+            $position->product_delete   = $request->product_delete;
+            $position->table_show   = $request->table_show;
+            $position->table_add    = $request->table_add;
+            $position->table_edit   = $request->table_edit;
+            $position->table_delete     = $request->table_delete;
+            $position->history_show     = $request->history_show;
+            $position->history_delete   = $request->history_delete;
+            $position->menu_edit    = $request->menu_edit;
+            $position->store_edit   = $request->store_edit;
+            $position->box_add  = $request->box_add;
             $position->save();
         }
     }
 
-    protected function editPosition($member_id, $store_id, $request)
+    protected function editPosition($position, $member_id, $store_id, $request)
     {
-        $position = position::where('member_id', $member_id)->where('store_id', $store_id)->first();
-        $position->position = $request->position;
-        if ($request->invoice) {
-            $position->invoice      = implode(',', $request->invoice);
-        }
-        if ($request->section) {
-            $position->section      = implode(',', $request->section);
-        }
-        if ($request->product) {
-            $position->product      = implode(',', $request->product);
-        }
-        if ($request->table) {
-            $position->table      = implode(',', $request->table);
-        }
-        if ($request->member) {
-            $position->member      = implode(',', $request->member);
-        }
-        if ($request->store) {
-            $position->store      = implode(',', $request->store);
-        }
-        if ($request->menu) {
-            $position->menu      = implode(',', $request->menu);
-        }
-        if ($request->history) {
-            $position->history      = implode(',', $request->history);
-        }
-        if ($request->box) {
-            $position->box      = implode(',', $request->box);
-        }
+        $position->member_id        = $member_id;
+        $position->position         = $request->position;
+        $position->invoice_show     = $request->invoice_show;
+        $position->invoice_add      = $request->invoice_add;
+        $position->invoice_edit     = $request->invoice_edit;
+        $position->invoice_delete   = $request->invoice_delete;
+        $position->section_show     = $request->section_show;
+        $position->section_add      = $request->section_add;
+        $position->section_edit     = $request->section_edit;
+        $position->section_delete   = $request->section_delete;
+        $position->member_show      = $request->member_show;
+        $position->member_add       = $request->member_add;
+        $position->member_edit      = $request->member_edit;
+        $position->member_delete    = $request->member_delete;
+        $position->product_show     = $request->product_show;
+        $position->product_add      = $request->product_add;
+        $position->product_edit     = $request->product_edit;
+        $position->product_delete   = $request->product_delete;
+        $position->table_show       = $request->table_show;
+        $position->table_add        = $request->table_add;
+        $position->table_edit       = $request->table_edit;
+        $position->table_delete     = $request->table_delete;
+        $position->history_show     = $request->history_show;
+        $position->history_delete   = $request->history_delete;
+        $position->menu_edit        = $request->menu_edit;
+        $position->store_edit       = $request->store_edit;
+        $position->box_add          = $request->box_add;
         $position->save();
     }
 

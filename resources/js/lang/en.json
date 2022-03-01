@@ -467,5 +467,13 @@
     "message_en"        : "English message",
     "message_ar"        : "Arabic message",
     "invoice_mes_po"    : "This message appears at the bottom of the invoice",
-    "message_confirm"   : "Make sure that the message is similar in the two languages because it will change based on the language in which the invoice will be printed"
+    "message_confirm"   : "Make sure that the message is similar in the two languages because it will change based on the language in which the invoice will be printed",
+    "auto_tax"          : "Prices include value added tax",
+    "tax_record"        : "Tax Registration Number",
+    "tax_card"          : "Tax Card Number",
+    "file_no"           : "File No.",
+    "icon"              : "Icon"
+
+
+
 }
