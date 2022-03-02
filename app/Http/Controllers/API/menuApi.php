@@ -38,8 +38,12 @@ class menuApi extends Controller
             'icon_co'       => 'required',
             'price_co'      => 'required',
         ]);
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'menu_edit');
+
         $store = store::find($request->store_id);
-        if ($store) {
+        if ($check) {
             $menu = menu::where('store_id', $store->id)->first();
             if ($menu) {
                 $menu->design_no = $request->design_no;
@@ -49,7 +53,6 @@ class menuApi extends Controller
                 $menu->des_co = $request->des_co;
                 $menu->icon_co = $request->icon_co;
                 $menu->price_co = $request->price_co;
-
                 $historyApi = new historyApi;
                 $des_ar = " تم تعديل منيو المتجر ";
                 $des_en = " Store menu has been modified ";
@@ -57,10 +60,10 @@ class menuApi extends Controller
                 $menu->save();
                 return $menu;
             } else {
-                return 'false';
+                return abort(404);
             }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 }

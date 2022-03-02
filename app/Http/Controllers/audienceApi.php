@@ -68,24 +68,20 @@ class audienceApi extends Controller
         $user = User::find(Auth::id());
         $store = store::find($request->store_id);
         if ($store) {
-            if ($store->manager_id == $user->id) {
-                if ($request->audience_id == 0) {
-                    $audiences = audience::where('store_id', $request->store_id)->get();
-                    foreach ($audiences as $key => $audience) {
-                        $audience->delete();
-                    }
+            if ($request->audience_id == 0) {
+                $audiences = audience::where('store_id', $request->store_id)->get();
+                foreach ($audiences as $key => $audience) {
+                    $audience->delete();
+                }
+                return ' Deleted Successfuly ';
+            } else {
+                $audience = audience::find($request->audience_id);
+                if ($audience) {
+                    $audience->delete();
                     return ' Deleted Successfuly ';
                 } else {
-                    $audience = audience::find($request->audience_id);
-                    if ($audience) {
-                        $audience->delete();
-                        return ' Deleted Successfuly ';
-                    } else {
-                        return 'false';
-                    }
+                    return abort(404);
                 }
-            } else {
-                return 'false';
             }
         } else {
             return 'false';

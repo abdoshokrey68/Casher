@@ -18,10 +18,4 @@ class MyController extends Controller
     {
         return Excel::download(new UsersExport, 'users.xlsx');
     }
-
-    // public function import()
-    // {
-    //     Excel::import(new UsersImport, request()->file('file'));
-    //     return back();
-    // }
 }

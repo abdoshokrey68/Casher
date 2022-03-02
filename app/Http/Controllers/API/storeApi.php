@@ -53,20 +53,21 @@ class storeApi extends Controller
 
     public function updateinfo(Request $request)
     {
-        $this->validate($request, [
-            "name"          =>  "required|max:100",
-            "description"   =>  "max:255",
-            "location"      =>  "required|max:200",
-            "phone"         =>  "required",
-            "email"         =>  "required|email:rfc,dns",
-            "currency"      =>  "required|max:4",
-            "store_id"      =>  "required|integer",
-            "discount"      =>  "required|integer",
-            "audience"      =>  "required",
-        ]);
-        $store_id = $request->store_id;
-        $store = store::find($store_id);
-        if ($store) {
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'store_edit');
+        if ($check) {
+            $this->validate($request, [
+                "name"          =>  "required|max:100",
+                "description"   =>  "max:255",
+                "location"      =>  "required|max:200",
+                "phone"         =>  "required",
+                "email"         =>  "required|email:rfc,dns",
+                "currency"      =>  "required|max:4",
+                "store_id"      =>  "required|integer",
+                "discount"      =>  "required|integer",
+                "audience"      =>  "required",
+            ]);
+            $store = store::find($request->store_id);
             $store->name = $request->name;
             $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
             $store->description = $request->description;
@@ -110,17 +111,14 @@ class storeApi extends Controller
                 }
                 $store->cover = $coverName;
             }
-
-
+            $store->save();
             $historyApi = new historyApi;
             $des_ar = " تم تعديل بيانات المتجر ";
             $des_en = " Store information has been modified ";
             $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-
-            $store->save();
             return $store;
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
@@ -217,7 +215,6 @@ class storeApi extends Controller
         $url = route('store.menu', $store_id);
         $qrcode = QrCode::size(300)->generate($url);
         $qrcodeName = Time() . rand(1, 500) . '-' . $store_id . '.svg';
-        // eyeColor(0, 255, 255, 255, 0, 0, 0)
         file_put_contents("image/menu/QR/$qrcodeName", $qrcode);
         return $qrcodeName;
     }

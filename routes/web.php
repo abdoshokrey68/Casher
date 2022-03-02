@@ -14,6 +14,7 @@ use App\Http\Controllers\API\tableApi;
 use App\Http\Controllers\audienceApi;
 use App\Http\Controllers\historyApi;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\API\positionApi;
 use App\Models\menu;
 use App\Models\position;
 use App\Models\store;
@@ -28,6 +29,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Symfony\Component\ErrorHandler\Error\FatalError;
 
 
+Route::get('test/{store_id}/{member_id}/{position}', [positionApi::class, 'checkPositionRoute']);
 
 
 

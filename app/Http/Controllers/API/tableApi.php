@@ -23,7 +23,7 @@ class tableApi extends Controller
         if ($store) {
             return table::where('store_id', $store_id)->get();
         } else {
-            return 'false';
+            return abort(404);
         }
     }
 
@@ -47,11 +47,15 @@ class tableApi extends Controller
     {
         $this->validate($request, [
             'name'      => 'required',
-            'store_id'  => 'required|integer',
+            'store_id'  => 'required',
         ]);
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'table_add');
+
         $table_id = $request->table_id;
         $store = store::find($request->store_id);
-        if ($store) {
+        if ($check) {
             $table = new table();
             $table->name = $request->name;
             $table->store_id = $request->store_id;
@@ -64,7 +68,7 @@ class tableApi extends Controller
             $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
             return "Added successfully";
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
@@ -75,15 +79,15 @@ class tableApi extends Controller
             'table_id'  => 'required',
             'store_id'  => 'required',
         ]);
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'table_edit');
 
-        $table_id = $request->table_id;
-        $table = table::find($table_id);
-        if ($table) {
+        if ($check) {
+            $table = table::find($request->table_id);
             $store = store::find($table->store_id);
-            if ($store) {
+            if ($table) {
                 $table->name = $request->name;
                 $table->save();
-
                 $historyApi = new historyApi;
                 $des_ar = " تم تعديل الطاولة' $table->name ' ";
                 $des_en = " The table has been modified '$table->name'";
@@ -99,11 +103,18 @@ class tableApi extends Controller
 
     public function deletetable(Request $request)
     {
-        $table_id = $request->table_id;
-        $table = table::find($table_id);
-        if ($table) {
-            $store = store::find($table->store_id);
-            if ($store) {
+        $this->validate($request, [
+            'store_id'      => 'required',
+            'table_id'      => 'required'
+        ]);
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'table_delete');
+
+        $table = table::find($request->table_id);
+        if ($check) {
+            if ($table) {
+                $store = store::find($table->store_id);
                 $table_old_name = $table->name;
                 $table->delete();
 
@@ -113,10 +124,10 @@ class tableApi extends Controller
                 $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 return "Deleted successfully";
             } else {
-                return 'false';
+                return abort(404);
             }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 }

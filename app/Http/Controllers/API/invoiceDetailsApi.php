@@ -50,12 +50,15 @@ class invoiceDetailsApi extends Controller
             'table_id' => 'required|numeric',
             'product_id' => 'required|numeric',
         ]);
-        $product = product::find($request->product_id);
-        if ($product) {
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_add');
+
+        if ($check) {
+            $product = product::find($request->product_id);
             $store = store::find($product->store_id);
-            if ($store) {
+            if ($product) {
                 if ($request->invoice_id == 0) {
-                    // return $store;
                     $invoice = $this->createInvoice($store, $request->table_id);
                     $invoice_id =  $invoice->id;
                     if ($request->table_id != 0) {
@@ -77,21 +80,18 @@ class invoiceDetailsApi extends Controller
                     $details->save();
                     return $details;
                 } else {
-
-                    return $details = $this->createDetails($product, $request, $store->id, $invoice_id);
-
+                    $details = $this->createDetails($product, $request, $store->id, $invoice_id);
                     return [
                         'invoice_id'    => $invoice_id,
                         'table'         => $table,
                         'details'       => $details
                     ];
-                    // return 'Item has been added successfully';
                 }
             } else {
-                return 'false3';
+                return abort(404);
             }
         } else {
-            return 'false1';
+            return abort(401);
         }
     }
 

@@ -74,18 +74,26 @@ class membersApi extends Controller
             'store_edit'        => 'required',
             'box_add'           => 'required',
         ]);
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'member_add');
+
         $store_id = $request->store_id;
         $store = store::find($store_id);
         $user = User::where('email', $request->email)->first();
-        if ($user) {
-            $this->createPosition($user->id, $store->id, $request);
-            $historyApi = new historyApi;
-            $des_ar = " تم إضافة عميل جديد للمتجر ";
-            $des_en = " A new customer has been added to the store ";
-            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-            return 'An employee has been added successfully';
+        if ($check) {
+            if ($user) {
+                $this->createPosition($user->id, $store->id, $request);
+                $historyApi = new historyApi;
+                $des_ar = " تم إضافة عميل جديد للمتجر ";
+                $des_en = " A new customer has been added to the store ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return 'An employee has been added successfully';
+            } else {
+                return abort(404);
+            }
         } else {
-            return abort(505);
+            return abort(401);
         }
     }
     public function edit(Request $request)
@@ -121,23 +129,29 @@ class membersApi extends Controller
             'store_edit'        => 'required',
             'box_add'           => 'required',
         ]);
-        // return $request;
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'member_edit');
         $store = store::find($request->store_id);
         $user = User::where('email', $request->email)->first();
-        if ($user) {
-            $position = position::where('member_id', $user->id)->where('store_id', $store->id)->first();
-            if ($position) {
-                $this->editPosition($position, $user->id, $request->store_id, $request);
-                $historyApi = new historyApi;
-                $des_ar = " تم تعديل بيانات العميل '$user->email' ";
-                $des_en = " '$user->email' customer data has been modified ";
-                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                return 'An employee has been added successfully';
+        if ($check) {
+            if ($user) {
+                $position = position::where('member_id', $user->id)->where('store_id', $store->id)->first();
+                if ($position) {
+                    $this->editPosition($position, $user->id, $request->store_id, $request);
+                    $historyApi = new historyApi;
+                    $des_ar = " تم تعديل بيانات العميل '$user->email' ";
+                    $des_en = " '$user->email' customer data has been modified ";
+                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                    return 'An employee has been added successfully';
+                } else {
+                    return abort(404);
+                }
             } else {
-                return 'false';
+                return abort(404);
             }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
@@ -147,17 +161,25 @@ class membersApi extends Controller
             'member_id' => 'required',
             'store_id' => 'required',
         ]);
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'member_delete');
+
         $user = User::find($request->member_id);
         $store = store::find($user->store_id);
-        if ($user) {
-            $this->deletePosition($request->member_id, $request->store_id);
-            $historyApi = new historyApi;
-            $des_ar = " تم حذف العميل '$user->email' من المتجر ";
-            $des_en = " Customer '$user->email' has been removed from the store ";
-            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-            return 'An employee has been successfully deleted';
+        if ($check) {
+            if ($user) {
+                $this->deletePosition($request->member_id, $request->store_id);
+                $historyApi = new historyApi;
+                $des_ar = " تم حذف العميل '$user->email' من المتجر ";
+                $des_en = " Customer '$user->email' has been removed from the store ";
+                $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return 'An employee has been successfully deleted';
+            } else {
+                return abort(404);
+            }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
@@ -167,14 +189,10 @@ class membersApi extends Controller
             'store_id'      => 'required'
         ]);
         $store = store::find($request->store_id);
-        if ($store) {
-            $position = position::where('store_id', $store->id)->where('member_id', Auth::id())->first();
-            return [
-                'position'  => $position
-            ];
-        } else {
-            return 'false';
-        }
+        $position = position::where('store_id', $store->id)->where('member_id', Auth::id())->first();
+        return [
+            'position'  => $position
+        ];
     }
 
     protected function createPosition($member_id, $store_id, $request)

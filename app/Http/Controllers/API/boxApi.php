@@ -15,9 +15,6 @@ class boxApi extends Controller
 {
     public function getboxinfo(Request $request)
     {
-        // $user = User::find(Auth::id());
-        // $user->password =  Hash::make($user->password);
-        // $user->save();
         $this->validate($request, [
             'store_id'      => 'required',
         ]);
@@ -42,16 +39,18 @@ class boxApi extends Controller
             'status'        => 'required',
             // 'password'      => 'required',
         ]);
-        // if ($request->password == Auth::user()->password) {
-        $store = store::find($request->store_id);
-        if ($store) {
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'box_add');
+
+        if ($check) {
+            $store = store::find($request->store_id);
             $box = new box();
             $box->amount = $request->amount;
             $box->store_id = $request->store_id;
             $box->member_id = Auth::id();
             $box->status = $request->status == 0 ? 1 : 0;
             $box->save();
-
             $historyApi = new historyApi;
             if ($request->status == 0) {
                 $des_ar = ' تم إستلام الصندوق ';
@@ -61,12 +60,9 @@ class boxApi extends Controller
                 $des_en = 'The box has been delivered';
             }
             $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-            return $box;
+            return 'done';
         } else {
-            return 'false';
+            return abort(401);
         }
-        // } else {
-        //     return 'false';
-        // }
     }
 }

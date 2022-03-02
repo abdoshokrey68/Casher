@@ -68,9 +68,13 @@ class sectionApi extends Controller
             'store_id'      => 'required|integer',
             'description'   => 'max:255',
         ]);
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'section_add');
+
         $sectionIcon = null;
         $store = store::find($request->store_id);
-        if ($store) {
+        if ($check) {
             $section = new section();
             $section->name = $request->name;
             $section->description = $request->description;
@@ -91,7 +95,7 @@ class sectionApi extends Controller
             $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
             return "Added successfully";
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
@@ -105,9 +109,11 @@ class sectionApi extends Controller
             'section_id' => 'required|integer',
             'description' => 'max:255',
         ]);
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'section_edit');
 
         $store = store::find($request->store_id);
-        if ($store) {
+        if ($check) {
             $section = section::find($request->section_id);
             if ($section) {
                 $section->name = $request->name;
@@ -127,20 +133,23 @@ class sectionApi extends Controller
                 $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 return "Updated successfully";
             } else {
-                return 'false';
+                return abort(404);
             }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
     public function deletesection(Request $request)
     {
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'section_delete');
+
         $section_id = $request->section_id;
         $section = section::find($section_id);
-        if ($section) {
+        if ($check) {
             $store = store::find($section->store_id);
-            if ($store) {
+            if ($section) {
                 $setion_old_name = $section->name;
                 $section->delete();
                 $historyApi = new historyApi;
@@ -149,10 +158,10 @@ class sectionApi extends Controller
                 $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 return "Deleted successfully";
             } else {
-                return 'false';
+                return abort(404);
             }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 }

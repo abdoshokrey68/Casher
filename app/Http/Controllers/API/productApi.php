@@ -66,16 +66,19 @@ class productApi extends Controller
             'section_id' => 'required',
             'store_id' => 'required',
         ]);
-        $imageName = null;
-        if ($request->image) {
-            $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-            ]);
-            $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
-            $request->image->move(public_path('/image/products'), $imageName);
-        }
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'product_add');
+
         $store = store::find($request->store_id);
-        if ($store) {
+        if ($check) {
+            $imageName = null;
+            if ($request->image) {
+                $request->validate([
+                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                ]);
+                $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+                $request->image->move(public_path('/image/products'), $imageName);
+            }
             $product = product::create([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -93,7 +96,7 @@ class productApi extends Controller
 
             return "Added successfully";
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
@@ -109,18 +112,20 @@ class productApi extends Controller
             'store_id' => 'required',
             'edit_product_id' => 'required'
         ]);
-        $imageName = null;
-        if ($request->image) {
-            $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-            ]);
-            $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
-            $request->image->move(public_path('/image/products'), $imageName);
-        }
-        $product = product::find($request->edit_product_id);
-        if ($product) {
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'product_edit');
+        if ($check) {
+            $imageName = null;
+            if ($request->image) {
+                $request->validate([
+                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                ]);
+                $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+                $request->image->move(public_path('/image/products'), $imageName);
+            }
+            $product = product::find($request->edit_product_id);
             $store = store::find($product->store_id);
-            if ($store) {
+            if ($product) {
                 $product->name          = $request->name;
                 $product->description   = $request->description;
                 $product->price         = $request->price;
@@ -136,10 +141,10 @@ class productApi extends Controller
                 $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
                 return "Added successfully";
             } else {
-                return 'false';
+                return abort(404);
             }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
@@ -147,18 +152,25 @@ class productApi extends Controller
     {
         $product_id = $request->product_id;
         $product = product::find($product_id);
-        if ($product) {
-            $store = store::find($product->store_id);
-            $old_product_name = $product->name;
-            $product->delete();
 
-            $historyApi = new historyApi;
-            $des_ar = " تم حذف العنصر '$old_product_name' ";
-            $des_en = " The item '$old_product_name' has been removed. ";
-            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-            return "Deleted successfully";
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'product_delete');
+        if ($check) {
+            if ($product) {
+                $store = store::find($product->store_id);
+                $old_product_name = $product->name;
+                $product->delete();
+
+                $historyApi = new historyApi;
+                $des_ar = " تم حذف العنصر '$old_product_name' ";
+                $des_en = " The item '$old_product_name' has been removed. ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return "Deleted successfully";
+            } else {
+                return abort(404);
+            }
         } else {
-            return 'false';
+            return abort(401);
         }
     }
 
