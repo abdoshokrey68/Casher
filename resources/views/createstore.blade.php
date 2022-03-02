@@ -1,6 +1,6 @@
-@extends('layouts.home-layout')
+@extends('layouts.app')
 
-@section('homecontent')
+@section('content')
     <div class="container">
         <div class="card-body p-0">
             <create-store />

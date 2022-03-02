@@ -84,17 +84,11 @@ export default {
             }
         },
     },
-    mounted() {
-        // url = this.$route;
-        // var url = this.$route.path.split("/");
-        // console.log(url.filter((e) => e == "en").length);
-        // console.log(this.$route.path);
-    },
     methods: {
         newinvoiceToggle: function () {
             this.$parent.newinvoice = !this.$parent.newinvoice;
         },
-        getDate() {
+        getDate: function () {
             const months = [
                 "January",
                 "February",
@@ -116,7 +110,7 @@ export default {
             var day = date.getDay();
             this.date = day + "-" + month + "-" + year;
         },
-        getTime() {
+        getTime: function () {
             var time = new Date();
             var hour = time.getHours();
             var ampm = "AM";

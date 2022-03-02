@@ -1,6 +1,6 @@
-@extends('layouts.home-layout')
+@extends('layouts.app')
 
-@section('homecontent')
+@section('content')
     <div>
         <div>
             <casher-program home="{{route('home')}}" />

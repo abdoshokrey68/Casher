@@ -1,6 +1,6 @@
-@extends('layouts.home-layout')
+@extends('layouts.app')
 
-@section('homecontent')
+@section('content')
     <div>
         <div>
             <home-component casher_route="{{route('casher.program')}}" />

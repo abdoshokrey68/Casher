@@ -31,7 +31,9 @@ use Symfony\Component\ErrorHandler\Error\FatalError;
 
 Route::get('test/{store_id}/{member_id}/{position}', [positionApi::class, 'checkPositionRoute']);
 
-
+Route::get('/t', function () {
+    return Route::currentRouteName();
+})->name('teasd');
 
 Route::get('/pdf/view/{store_id}', [HomeController::class, 'pdfView']);
 Route::get('/pdf/download', [HomeController::class, 'download'])->name('download');

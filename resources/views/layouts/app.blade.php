@@ -26,11 +26,12 @@
 </head>
 <body class="bg-body" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <div id="app">
-        @if (Route::currentRouteName() == 'login' || Route::currentRouteName() == 'register')
+        @if (Route::currentRouteName() != 'store' && Route::currentRouteName() != 'store.menu')
         <nav class="navbar navbar-expand-md  navbar-dark bg-dark  shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
+                    {{-- {{Route::currentRouteName()}} --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -58,6 +59,19 @@
                                 </li>
                             @endif
                         @else
+                            @empty (!Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions)
+                                <div class="dropdown">
+                                    <button class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-store mr-1 ml-1"></i> @lang('site.your_store')
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        {{-- @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
+                                            <li><a class="dropdown-item mt-1 ml-1" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
+                                        @endforeach --}}
+                                    </ul>
+                                </div>
+                            @endempty
+
                             <li class="nav-item mr-2 ml-2">
                                 <a class="nav-link text-light" href="{{ route('home.create-store') }}"> <i class="fas fa-shop mr-1 ml-"></i> Create Store</a>
                             </li>
@@ -107,6 +121,35 @@
             </ul>
         </div>
         {{-- End Language Box --}}
+
+        <div>
+            <footer>
+                <div
+                    class="col-md-12 d-fixed bottom-0 bg-d-blue text-light text-center p-3 row"
+                >
+                    <div class="col-md-4 p-0">
+                        &copy; Copyright 2022, S K o K r e Y Platform
+                    </div>
+                    <div class="col-md-8 p-0">
+                        <div class="row">
+                            <div class="col-md-4">Contact The Company :</div>
+                            <div class="col-md-4">
+                                <a
+                                    href="mailto:abdoshokrey68@gmail.com"
+                                    class="text-light link"
+                                    >abdoshokrey68@gmail.com</a
+                                >
+                            </div>
+                            <div class="col-md-4">
+                                <a href="tel:+201129899520" class="text-light link"
+                                    >+201129899520</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
     <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

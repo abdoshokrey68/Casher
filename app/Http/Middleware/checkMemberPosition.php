@@ -24,11 +24,11 @@ class checkMemberPosition
         $store = store::findOrFail($request->store_id);
         if ($store) {
             $position = position::where('store_id', $store->id)->where('member_id', $member_id)->first();
-            if ($position) {
-                return $next($request);
-            } else {
-                return redirect()->route('error');
-            }
+            // if ($position) {
+            return $next($request);
+            // } else {
+            //     return redirect()->route('error');
+            // }
         } else {
             return redirect()->route('error');
         }

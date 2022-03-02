@@ -20,7 +20,7 @@
                                 style="border-bottom: 2px solid #514da2"
                             >
                                 <i class="fas fa-store mr-2 ml-2"></i>
-                                Create New Store
+                                {{ lang.create_new_store }}
                             </h4>
                         </div>
                         <form
@@ -31,15 +31,15 @@
                             <div class="store-name">
                                 <label for="store-name">
                                     <i class="fas fa-signature mr-1 ml-1"></i>
-                                    Store Name :</label
-                                >
+                                    {{ lang.store_name }}
+                                </label>
                                 <input
                                     id="store-name"
                                     v-model="form.name"
                                     type="name"
                                     name="name"
                                     class="form-control mt-2 mb-2"
-                                    placeholder="Enter Store Name"
+                                    :placeholder="lang.store_name"
                                 />
                                 <div
                                     class="text-danger bold"
@@ -53,15 +53,15 @@
                                     <i
                                         class="fas fa-envelope-open-text mr-1 ml-1"
                                     ></i>
-                                    Store E-mail :</label
-                                >
+                                    {{ lang.store_email }}
+                                </label>
                                 <input
                                     id="store-email"
                                     v-model="form.email"
                                     type="email"
                                     name="email"
                                     class="form-control mt-2 mb-2"
-                                    placeholder="Enter Store E-mail"
+                                    :placeholder="lang.store_email"
                                 />
                                 <div
                                     class="text-danger bold"
@@ -73,15 +73,15 @@
                             <div class="store-phone">
                                 <label for="store-phone">
                                     <i class="fas fa-mobile-alt mr-1 ml-1"></i>
-                                    Store Phone :</label
-                                >
+                                    {{ lang.store_phone }}
+                                </label>
                                 <input
                                     id="store-phone"
                                     v-model="form.phone"
                                     type="text"
                                     name="phone"
                                     class="form-control mt-2 mb-2"
-                                    placeholder="Enter Store Phone"
+                                    :placeholder="lang.store_phone"
                                 />
                                 <div
                                     class="text-danger bold"
@@ -95,7 +95,7 @@
                                     <i
                                         class="fas fa-map-marker-alt mr-1 ml-1"
                                     ></i>
-                                    Store Location :</label
+                                    {{ lang.store_location }} :</label
                                 >
                                 <input
                                     id="store-location"
@@ -103,7 +103,7 @@
                                     type="map"
                                     name="location"
                                     class="form-control mt-2 mb-2"
-                                    placeholder="Enter Store Location"
+                                    :placeholder="lang.store_location"
                                 />
                                 <div
                                     class="text-danger bold"
@@ -117,15 +117,15 @@
                                     <i
                                         class="fas fa-map-marker-alt mr-1 ml-1"
                                     ></i>
-                                    Store Currency :</label
-                                >
+                                    {{ lang.currency_code }}
+                                </label>
                                 <input
                                     id="store-currency"
                                     v-model="form.currency"
                                     type="map"
                                     name="currency"
                                     class="form-control mt-2 mb-2"
-                                    placeholder="Like: USD, EUR, EGP, SAR"
+                                    :placeholder="lang.currency_like"
                                 />
                                 <div
                                     class="text-danger bold"
@@ -141,7 +141,7 @@
                                     class="btn btn-primary mb-2"
                                 >
                                     <i class="fas fa-store m-2"></i>
-                                    Go to your store
+                                    {{ lang.go_to_y_store }}
                                 </a>
                                 <button
                                     type="submit"
@@ -157,7 +157,7 @@
                                         class="fas fa-plus m-2"
                                         :hidden="form.busy"
                                     ></i>
-                                    Add New Store
+                                    {{ lang.create_new_store }}
                                 </button>
                             </div>
                         </form>
@@ -186,6 +186,8 @@ export default {
                 location: null,
                 currency: null,
             }),
+            locale: this.getLocale(),
+            lang: this.getLang(),
         };
     },
     methods: {
@@ -195,9 +197,9 @@ export default {
                 .then((res) => {
                     // console.log(res.data);
                     this.notification(
-                        "success",
-                        "Success",
-                        "Store created successfully"
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.store_create_success
                     );
                     this.storeName = res.data.storeName;
                     this.route = res.data.route;
@@ -206,9 +208,9 @@ export default {
                 .catch((err) => {
                     // console.log(err);
                     this.notification(
-                        "error",
-                        "Error",
-                        "Make sure the data is correct"
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.went_wrong
                     );
                 });
         },
@@ -220,6 +222,13 @@ export default {
                 title: title,
                 text: text,
             });
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
+            }
         },
     },
 };

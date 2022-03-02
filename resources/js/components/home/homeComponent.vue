@@ -2,8 +2,10 @@
     <div id="home-compo">
         <div class="home-header">
             <div class="header-text col-md-4">
-                <h1 class="h2">Why you should use our software</h1>
-                <a href="#" class="btn btn-warning col-md-12"> Learn more </a>
+                <h1 class="h2">{{ lang.why_out_software }}</h1>
+                <a href="#" class="btn btn-warning col-md-12">
+                    {{ lang.learn_more }}
+                </a>
             </div>
         </div>
         <div id="key-features" class="bg-dark">
@@ -14,35 +16,35 @@
                     >
                         <i class="fas fa-clock fa-3x text-warning m-3"></i>
                         <h3 class="h3">24/7</h3>
-                        <h3 class="h3">Support</h3>
+                        <h3 class="h3">{{ lang.support }}</h3>
                     </div>
                     <div
                         class="col-md-3 mt-2 mb-2 p-3 text-center text-light bold"
                     >
                         <i class="fas fa-handshake fa-3x text-warning m-3"></i>
                         <h3 class="h3">96%</h3>
-                        <h3 class="h3">Customer Retention</h3>
+                        <h3 class="h3">{{ lang.customer_retention }}</h3>
                     </div>
                     <div
                         class="col-md-3 mt-2 mb-2 p-3 text-center text-light bold"
                     >
                         <i class="fas fa-star fa-3x text-warning m-3"></i>
                         <h3 class="h3">+10</h3>
-                        <h3 class="h3">Feature</h3>
+                        <h3 class="h3">{{ lang.feature }}</h3>
                     </div>
                     <div
                         class="col-md-3 mt-2 mb-2 p-3 text-center text-light bold"
                     >
                         <i class="fas fa-shield fa-3x text-warning m-3"></i>
                         <h3 class="h3">100%</h3>
-                        <h3 class="h3">Security</h3>
+                        <h3 class="h3">{{ lang.security }}</h3>
                     </div>
                 </div>
             </div>
         </div>
         <div class="our-programs container">
             <div class="heading">
-                <h3 class="h3">Our Programs</h3>
+                <h3 class="h3">{{ lang.our_programs }}</h3>
             </div>
             <div class="programs-info">
                 <div class="row mb-3">
@@ -51,11 +53,10 @@
                             <div class="prog-info">
                                 <h1 class="h4 bold text-d-blue p-2">
                                     <i class="fas fa-utensils mr-2 ml-2"></i>
-                                    <span> Restaurants Program </span>
+                                    <span> {{ lang.res_pro }} </span>
                                 </h1>
                                 <p>
-                                    The program works on managing restaurants
-                                    and cafes
+                                    {{ lang.res_des }}
                                 </p>
                             </div>
                             <div class="prog-img">
@@ -72,10 +73,10 @@
                             <div class="prog-info">
                                 <h1 class="h4 bold text-d-blue p-2">
                                     <i class="fas fa-utensils mr-2 ml-2"></i>
-                                    <span> Digital Menu </span>
+                                    <span> {{ lang.dig_men }} </span>
                                 </h1>
                                 <p>
-                                    Easy-to-scan restaurant menu for customers
+                                    {{ lang.dig_des }}
                                 </p>
                             </div>
                             <div class="prog-img">
@@ -95,9 +96,9 @@
                                     <i
                                         class="fas fa-face-surprise mr-2 ml-2"
                                     ></i>
-                                    <span> Soon </span>
+                                    <span> {{ lang.soon }} </span>
                                 </h1>
-                                <p>New Program</p>
+                                <p>{{ lang.new_program }}</p>
                             </div>
                             <div class="prog-img">
                                 <img
@@ -116,9 +117,9 @@
                                     <i
                                         class="fas fa-face-surprise mr-2 ml-2"
                                     ></i>
-                                    <span> Soon </span>
+                                    <span> {{ lang.soon }} </span>
                                 </h1>
-                                <p>New Program</p>
+                                <p>{{ lang.new_program }}</p>
                             </div>
                             <div class="prog-img">
                                 <img
@@ -143,11 +144,9 @@
                         />
                     </div>
                     <div class="col-md-6 p-2">
-                        <h2 class="h3 p-2">Why Choose Us ?</h2>
+                        <h2 class="h3 p-2">{{ lang.why_us }}</h2>
                         <p class="h4 line-60">
-                            The primary purpose and objective of our programs is
-                            to revolutionize how businesses are run easily and
-                            perfectly.
+                            {{ lang.the_primary_purpose }}
                         </p>
                     </div>
                 </div>
@@ -161,7 +160,10 @@ export default {
     name: "HomeCompoentn",
     props: ["casher_route", "locale"],
     data: function () {
-        return {};
+        return {
+            locale: this.getLocale(),
+            lang: this.getLang(),
+        };
     },
     mounted() {
         // console.log();
