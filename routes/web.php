@@ -45,6 +45,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/',                     [HomeController::class, 'index'])->name('home');
     Route::get('/home',                 [HomeController::class, 'index'])->name('home');
     Route::get('/casher-program',       [HomeController::class, 'casherProgram'])->name('casher.program');
+    Route::get('/digital-menu',         [HomeController::class, 'digitalMenu'])->name('digital.menu');
     Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
     Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
     Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');

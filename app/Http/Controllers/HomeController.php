@@ -38,6 +38,10 @@ class HomeController extends Controller
         return view('home.casher');
     }
 
+    public function digitalMenu()
+    {
+        return view('home.digitalmenu');
+    }
     public function createStore()
     {
         return view('createstore');

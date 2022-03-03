@@ -69,7 +69,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12 p-1 mt-2 mb-2">
-                        <a href="#" class="link-unstyled">
+                        <a :href="digital_menu" class="link-unstyled">
                             <div class="prog-info">
                                 <h1 class="h4 bold text-d-blue p-2">
                                     <i class="fas fa-utensils mr-2 ml-2"></i>
@@ -158,7 +158,7 @@
 <script>
 export default {
     name: "HomeCompoentn",
-    props: ["casher_route", "locale"],
+    props: ["casher_route", "locale", "digital_menu"],
     data: function () {
         return {
             lang: this.getLang(),

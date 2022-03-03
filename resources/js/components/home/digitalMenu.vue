@@ -1,6 +1,9 @@
 <template>
     <div id="casher-program-compo">
-        <div class="casher-program-header">
+        <div
+            class="casher-program-header"
+            style="background-image: url('/image/home/qr-degital-menu.jpg')"
+        >
             <div class="header-text col-md-4">
                 <h1 class="h2">
                     {{ lang.luxurious_experience }}
@@ -13,62 +16,52 @@
         <div class="the-benefits">
             <div class="heading">
                 <h3 class="h3">
-                    {{ lang.restaurant_and_café_management_software }}
+                    {{ lang.dig_men }}
                 </h3>
+                <h6 class="col-5 m-auto h5 line-40">
+                    {{ lang.Give_your_customers_a_safe }}
+                </h6>
             </div>
 
-            <div id="the-benefits-content" class="row">
+            <div id="the-benefits-content" class="row mt-5">
                 <div class="col-md-12">
                     <div class="row b-0">
-                        <div class="col-md-3 p-1 mt-2 mb-2 text-center bold">
+                        <div class="col-md-4 p-1 mt-2 mb-2 text-center bold">
                             <div class="bg-light p-5">
                                 <i
-                                    class="fas fa-lightbulb fa-4x text-warning m-3"
+                                    class="fas fa-hand-sparkles fa-4x text-warning m-3"
                                 ></i>
                                 <h3 class="h3 bold text-header text-warning">
-                                    {{ lang.smart }}
+                                    {{ lang.clean_and_safe }}
                                 </h3>
                                 <h4 class="h4 line-40">
-                                    {{ lang.it_has_smart_revenue }}
+                                    {{ lang.They_are_digital_to_ensure }}
                                 </h4>
                             </div>
                         </div>
-                        <div class="col-md-3 p-1 mt-2 mb-2 text-center bold">
+                        <div class="col-md-4 p-1 mt-2 mb-2 text-center bold">
                             <div class="bg-light p-5">
                                 <i
-                                    class="fas fa-gear fa-4x text-warning m-3"
+                                    class="fas fa-minimize fa-4x text-warning m-3"
                                 ></i>
                                 <h3 class="h3 bold text-header text-warning">
-                                    {{ lang.conforms_to_user_needs }}
+                                    {{ lang.Compatible_with_all_mobile_phones }}
                                 </h3>
                                 <h4 class="h4 line-40">
-                                    {{ lang.contains_hundreds_of_POS }}
+                                    {{ lang.Responsive_and_clear_menu }}
                                 </h4>
                             </div>
                         </div>
-                        <div class="col-md-3 p-1 mt-2 mb-2 text-center bold">
+                        <div class="col-md-4 p-1 mt-2 mb-2 text-center bold">
                             <div class="bg-light p-5">
                                 <i
-                                    class="fas fa-hand-point-up fa-4x text-warning m-3"
+                                    class="fas fa-hand-holding-dollar fa-4x text-warning m-3"
                                 ></i>
                                 <h3 class="h3 bold text-header text-warning">
-                                    {{ lang.ease_of_use }}
+                                    {{ lang.Cost_effective }}
                                 </h3>
                                 <h4 class="h4 line-40">
-                                    {{ lang.includes_easy_to_use }}
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="col-md-3 p-1 mt-2 mb-2 text-center bold">
-                            <div class="bg-light p-5">
-                                <i
-                                    class="fas fa-lock fa-4x text-warning m-3"
-                                ></i>
-                                <h3 class="h3 bold text-header text-warning">
-                                    {{ lang.very_safe }}
-                                </h3>
-                                <h4 class="h4 line-40">
-                                    {{ lang.it_is_immune_to_hacking }}
+                                    {{ lang.Being_connected_to_the_store }}
                                 </h4>
                             </div>
                         </div>
@@ -77,122 +70,6 @@
             </div>
         </div>
 
-        <!-- <div class="casher-program-advantages">
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button
-                                class="btn btn-light"
-                                data-toggle="collapse"
-                                data-target="#collapseOne"
-                                aria-expanded="true"
-                                aria-controls="collapseOne"
-                            >
-                                Collapsible Group Item #1
-                            </button>
-                        </h5>
-                    </div>
-
-                    <div
-                        id="collapseOne"
-                        class="collapse show"
-                        aria-labelledby="headingOne"
-                        data-parent="#accordion"
-                    >
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3
-                            wolf moon officia aute, non cupidatat skateboard
-                            dolor brunch. Food truck quinoa nesciunt laborum
-                            eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put
-                            a bird on it squid single-origin coffee nulla
-                            assumenda shoreditch et. Nihil anim keffiyeh
-                            helvetica, craft beer labore wes anderson cred
-                            nesciunt sapiente ea proident. Ad vegan excepteur
-                            butcher vice lomo. Leggings occaecat craft beer
-                            farm-to-table, raw denim aesthetic synth nesciunt
-                            you probably haven't heard of them accusamus labore
-                            sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button
-                                class="btn btn-light collapsed"
-                                data-toggle="collapse"
-                                data-target="#collapseTwo"
-                                aria-expanded="false"
-                                aria-controls="collapseTwo"
-                            >
-                                Collapsible Group Item #2
-                            </button>
-                        </h5>
-                    </div>
-                    <div
-                        id="collapseTwo"
-                        class="collapse"
-                        aria-labelledby="headingTwo"
-                        data-parent="#accordion"
-                    >
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3
-                            wolf moon officia aute, non cupidatat skateboard
-                            dolor brunch. Food truck quinoa nesciunt laborum
-                            eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put
-                            a bird on it squid single-origin coffee nulla
-                            assumenda shoreditch et. Nihil anim keffiyeh
-                            helvetica, craft beer labore wes anderson cred
-                            nesciunt sapiente ea proident. Ad vegan excepteur
-                            butcher vice lomo. Leggings occaecat craft beer
-                            farm-to-table, raw denim aesthetic synth nesciunt
-                            you probably haven't heard of them accusamus labore
-                            sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                            <button
-                                class="btn btn-light collapsed"
-                                data-toggle="collapse"
-                                data-target="#collapseThree"
-                                aria-expanded="false"
-                                aria-controls="collapseThree"
-                            >
-                                Collapsible Group Item #3
-                            </button>
-                        </h5>
-                    </div>
-                    <div
-                        id="collapseThree"
-                        class="collapse"
-                        aria-labelledby="headingThree"
-                        data-parent="#accordion"
-                    >
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod
-                            high life accusamus terry richardson ad squid. 3
-                            wolf moon officia aute, non cupidatat skateboard
-                            dolor brunch. Food truck quinoa nesciunt laborum
-                            eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put
-                            a bird on it squid single-origin coffee nulla
-                            assumenda shoreditch et. Nihil anim keffiyeh
-                            helvetica, craft beer labore wes anderson cred
-                            nesciunt sapiente ea proident. Ad vegan excepteur
-                            butcher vice lomo. Leggings occaecat craft beer
-                            farm-to-table, raw denim aesthetic synth nesciunt
-                            you probably haven't heard of them accusamus labore
-                            sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="the-benefits">
             <div class="heading">
                 <h3 class="h4">{{ lang.Features_Available_In_The_App }}</h3>

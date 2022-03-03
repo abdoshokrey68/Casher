@@ -495,7 +495,62 @@
     "very_safe" : "Very Safe",
     "it_is_immune_to_hacking" : "It is immune to hacking and has a unhackable black box",
     "Features_Available_In_The_App" : "Features Available In The App",
-    "Upcoming_releases" : "Upcoming releases"
+    "Upcoming_releases" : "Upcoming releases : 2.1.0",
+
+    "The_black_box" : "The black box",
+    "We_understand_the_importance" : "We understand the importance of maintaining security in every facility and minimizing risks that may arise. So our system puts an end to your concerns by installing the black box feature. Similar to the black box function in aircraft, this system can track any modification such as listing a new product, changing the price of a commodity, changing the password, or canceling an item and all the tasks that occur within the system.",
+    "multilanguage": "multilanguage",
+    "It_is_a_multi_language_program" : "It is a multi-language program and can be adapted to each user or restaurant, making it easy to use. And reduce inconveniences that may arise in a multinational work environment, so that all employees can use it.",
+    "synchronous_asynchronous" : "synchronous/asynchronous",
+    "The_restaurant_management_system" : "The restaurant management system synchronizes the online data immediately after every operation that occurs in the store, including deleting, adding or modifying the data related to the store. Unlike other solutions, you will not face any problem in the event of a sudden power outage.",
+    "give_roles" : "give roles",
+    "The_store_manager_can_grant" : "The store manager can grant the appropriate permissions to each customer in the store who can delete, add or modify (products, sections and many other permissions), granting the permission only according to your location in the store.",
+    "Possibility_to_review_all_previous_checks" : "Possibility to review all previous checks",
+    "Through_the_open_button" : "Through the open button, you can review all the previous (open) checks in the journal and reopen them again to make any adjustments to them.",
+    "Store_employees" : "Store employees",
+    "Through_the_Users_and_Permissions" : "Through the Users and Permissions screen, it is possible to create an unlimited number of users and define the functionality and permissions of each user.",
+    "Possibility_to_delete" : "Possibility to delete items from the invoice",
+    "Items_can_be_deleted" : "Items can be deleted from the invoice, if it has, and the item can be deleted.",
+    "Possibility_to_delete_the_entire" : "Possibility to delete the entire invoice",
+    "The_user_can_also_delete" : "The user can also delete the entire bill from the daily bills, if he has the authority to delete the invoice, and this matter (deletion) is related to the powers granted to each user.",
+    "Complaint_Management" : "Complaint Management",
+    "Are_you_having_trouble" : "Are you having trouble receiving your customers' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers. For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention.",
+    "Monitoring_the_working_hours" : "Monitoring the working hours and attendance of employees",
+    "Managing_employee_time_and": "Managing employee time and attendance can take up a lot of your time and allow human mistakes to cost you your work. Therefore, this feature provides you with an organized and successful schedule for tracking employee details and calculating salaries. You can combine your employees' work time and attendance with their scheduled breaks, and connect them to a mini payroll system that does the job for you. Thus, you can monitor the efficiency of your employees and pay their salaries according to the quality of their performance, without making any effort on your part.",
+    "daily_plate" : "daily plate",
+    "One_of_the_most_difficult" : "One of the most difficult tasks that restaurants with a multi-choice menu face is changing their special dishes daily, weekly, and even monthly. Our restaurant point of sale software automatically informs your employees of the meals or specials that the chef will serve that day. With the click of a button, you can send your weekly, monthly and quarterly menu to your customers via email or SMS.",
+    "Order_Tracking" : "Order Tracking",
+    "Allow_your_customers_to_track" : "Allow your customers to track their orders as soon as the order is placed. Through this unique feature, an alert is sent to them as soon as the restaurant receives their order until the delivery driver leaves the restaurant, without downloading any application. Customers can also track the delivery driver on the map, with the ability to communicate with him.",
+    "Increase_sales_automatically" : "Increase sales automatically",
+    "This_smart_feature_is_a_source" : "This smart feature is a source of income as waiters, cashiers and phone operators for the delivery service have an effective tool that contributes to increasing sales automatically. This smart feature memorizes customers' buying patterns and targets others by suggesting similar products to increase sales as a side product, appetizer or drink, or even to modify them based on what others have requested. No need to remind your employees to suggest products to increase their sales or even update your dishes. This feature does it for you and ensures increased revenue.",
+    "Customer_preferences" : "Customer preferences",
+    "The_program_determines" : "The program determines the customer's preferences and saves them automatically. The smart library learns about his purchasing patterns and his own preferences, so that the system immediately suggests if he wants any additions to his regular order. Thus, this easy-to-use feature preserves the customer's choices, making them feel important and cared for.",
+    "monitoring_of_stock_and_prescription" : "Real-time monitoring of stock and prescription runs out",
+    "What_is_the_benefit_of" : "What is the benefit of a point of sale system if it does not include the feature of tracking stock levels, especially in real time? It's an effective way to see how much ingredients and recipes are available and track their availability in real time for reorders, making the audit process easier. During the inventory process, it becomes easy to detect product/commodity theft or mismanagement. This unique feature helps auditors and operations managers complete a quick preview of inventory contents without having to stop businesses to perform physical counts.",
+    "Customers_can_reserve_tables" : "Customers can reserve tables in advance",
+    "It_is_possible_to_reserve" : "It is possible to reserve a specific table or more than one table and write the date of the reservation. Once the reserved table is selected again, a warning message appears stating that the table has been reserved.",
+    "Possibility_to_issue_an_invoice" : "Possibility to issue an invoice in more than one currency",
+    "The_restaurant_and_cafe_management" : "The restaurant and cafe management program is characterized by dealing with more than one currency, so that the invoice can be issued in any currency, and the amounts can be collected in another currency.",
+    "Possibility_to_pay_with_a_visa" : "Possibility to pay with a visa",
+    "The_advantage_of_paying_in_cash" : "The advantage of paying in cash, paying by Visa card, or by more than one payment method.",
+    "current_version": "The Current Version: 1.1.0",
+    "Features_coming_soon" : "Features coming soon",
+    "Give_your_customers_a_safe": "Give your customers a safe experience by scanning a QR code to check your restaurant menu, on their smartphone and without installing any app. It also works on all types of devices, regardless of the brand of the device.",
+
+    "clean_and_safe" : "clean and safe",
+    "They_are_digital_to_ensure " : "They are digital to ensure the safety of each user. Your customers can browse the menu on their smartphones without contact.",
+    "Compatible_with_all_mobile_phones" : "Compatible with all mobile phones",
+    "Responsive_and_clear_menu": "Responsive and clear menu. Displays a clear, wide-angle image on all mobile phones, without installing any app.",
+    "Cost_effective": "Cost-effective",
+    "Being_connected_to_the_store" :"Being connected to the store, your list will stay updated and you won't have to outlay the costs of printing paper lists."
+
+
+
+
+
+
+
+
 
 
 

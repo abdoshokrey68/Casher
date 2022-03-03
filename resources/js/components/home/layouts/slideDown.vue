@@ -1,22 +1,19 @@
 <template>
     <div class="col-md-12">
         <div id="root" @click="isShow = !isShow">
-            <div>
+            <div style="background: #ebebeb">
                 <i
                     id="icon-slide-up"
                     :style="'transform:rotate(' + turn + 'turn)'"
-                    class="fas fa-chevron-down fa-2x text-light p-2 float-end"
+                    class="fas fa-chevron-down p-3 float-end"
                 ></i>
-                <h3
-                    class="h3 text-center p-2 bg-secondary text-light bold text-uppercase"
-                >
+                <h5 class="h5 text-center p-3 bold text-uppercase">
                     {{ heading }}
-                </h3>
+                </h5>
             </div>
-
             <transition name="slide">
-                <div class="child" v-if="isShow">
-                    <p class="lead text-initial text-uppercase">
+                <div class="child bg-light" v-if="isShow">
+                    <p class="lead text-initial text-uppercase p-2">
                         {{ msg }}
                     </p>
                 </div>
