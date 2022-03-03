@@ -1,92 +1,101 @@
 <template>
+    <div class="invoice-print-area">
+        <div id="invoice-pos">
+            <center id="top">
+                <div class="logo"></div>
+                <div class="info mt-2">
+                    <h2 class="bold " v-if="store.name"> {{store.name}} </h2>
+                </div><!--End Info-->
+            </center><!--End InvoiceTop-->
 
-    <div id="invoice-POS">
+            <div id="mid">
+                <div class="info">
+                    <h4 class="h4 mt-2"> {{lang.contact_info}} </h4>
+                    <p class="contact-info">
+                        {{lang.location}} :  {{store.location}} </br>
+                        {{lang.email}}   :  {{store.email}} </br>
+                        {{lang.phone}}   :  {{store.phone}} </br>
+                    </p>
+                </div>
+            </div><!--End Invoice Mid-->
 
-        <center id="top">
-            <div class="logo"></div>
-            <div class="info mt-2">
-                <h2 class="bold "> {{store.name}} </h2>
-            </div><!--End Info-->
-        </center><!--End InvoiceTop-->
+            <div id="bot">
+                <div id="table">
+                    <table >
+                        <tr class="tabletitle">
+                            <td class="item"><h2> {{lang.item}} </h2></td>
+                            <td class="Hours text-center"><h2>{{lang.qty}}</h2></td>
+                            <td class="Rate text-center"><h2> {{lang.sub_total}} </h2></td>
+                        </tr>
 
-        <div id="mid">
-            <div class="info">
-                <h4 class="h4 mt-2"> {{lang.contact_info}} </h4>
-                <p class="contact-info">
-                    {{lang.location}} :  {{store.location}} </br>
-                    {{lang.email}}   :  {{store.email}} </br>
-                    {{lang.phone}}   :  {{store.phone}} </br>
-                </p>
-            </div>
-        </div><!--End Invoice Mid-->
+                        <tr class="service" v-for="(details, index) in invoice.invoicedets" :key="index">
+                            <td v-if="details.name" class="tableitem"><p  class="itemtext"> {{details.name}} </p></td>
+                            <td class="tableitem"><p class="itemtext text-center"> {{details.quantity}} </p></td>
+                            <td class="tableitem"><p class="itemtext text-center"> {{details.price}} </p></td>
+                        </tr>
 
-        <div id="bot">
-            <div id="table">
-                <table>
-                    <tr class="tabletitle">
-                        <td class="item"><h2> {{lang.item}} </h2></td>
-                        <td class="Hours text-center"><h2>{{lang.qty}}</h2></td>
-                        <td class="Rate text-center"><h2> {{lang.sub_total}} </h2></td>
-                    </tr>
+                        <tr  v-if="invoice_s.tax" class="tabletitle">
+                            <td class="Rate text-center"><h2> {{lang.tax}} </h2></td>
+                            <td></td>
+                            <td class="payment text-center"><h2> {{invoice_s.tax}} </h2></td>
+                        </tr>
+                        <tr v-if="invoice.discount" class="tabletitle">
+                            <td class="Rate text-center"><h2> {{lang.total_be_discount}} </h2></td>
+                            <td></td>
+                            <td class="payment text-center"><h2> {{invoice.total}} </h2></td>
+                        </tr>
+                        <tr v-if="invoice.discount" class="tabletitle">
+                            <td class="Rate text-center"><h2> {{lang.discount}} %</h2></td>
+                            <td></td>
+                            <td class="payment text-center"><h2> {{invoice.discount}}% </h2></td>
+                        </tr>
 
-                    <tr class="service" v-for="(details, index) in invoice.invoicedets" :key="index">
-                        <td class="tableitem"><p class="itemtext"> {{details.name}} </p></td>
-                        <td class="tableitem"><p class="itemtext text-center"> {{details.quantity}} </p></td>
-                        <td class="tableitem"><p class="itemtext text-center"> {{details.price}} </p></td>
-                    </tr>
+                        <tr class="tabletitle">
+                            <td class="Rate text-center"><h2> {{lang.total}} </h2></td>
+                            <td></td>
+                            <td class="payment text-center"><h2> {{invoice.paid}} {{store.currency}} </h2></td>
+                        </tr>
 
-                    <tr  v-if="invoice_s.tax" class="tabletitle">
-                        <td class="Rate text-center"><h2> {{lang.tax}} </h2></td>
-                        <td></td>
-                        <td class="payment text-center"><h2> {{invoice_s.tax}} </h2></td>
-                    </tr>
-                    <tr v-if="invoice.discount" class="tabletitle">
-                        <td class="Rate text-center"><h2> {{lang.total_be_discount}} </h2></td>
-                        <td></td>
-                        <td class="payment text-center"><h2> {{invoice.total}} </h2></td>
-                    </tr>
-                    <tr v-if="invoice.discount" class="tabletitle">
-                        <td class="Rate text-center"><h2> {{lang.discount}} %</h2></td>
-                        <td></td>
-                        <td class="payment text-center"><h2> {{invoice.discount}}% </h2></td>
-                    </tr>
+                    </table>
+                </div><!--End Table-->
 
-                    <tr class="tabletitle">
-                        <td class="Rate text-center"><h2> {{lang.total}} </h2></td>
-                        <td></td>
-                        <td class="payment text-center"><h2> {{invoice.paid}} {{store.currency}} </h2></td>
-                    </tr>
+                <!-- <div id="mt-3" class="text-center" v-if="invoice.user.name">
+                    <h4 class="h4 p-1 m-0"> {{lang.casher}} {{invoice.user.name}}
+                    </h4>
+                </div> -->
 
-                </table>
-            </div><!--End Table-->
+                <div id="mt-3">
+                    <h4 class="h4 p-1 m-0"> {{invoice_s.message}}
+                    </h4>
+                </div>
+                <hr class="m-0 mt-1">
+                <div id="mt-3">
+                    <h4 class="h4 p-1 m-0"> {{store.fb}}
+                    </h4>
+                </div>
+                <hr class="m-0 mt-1">
+                <div id="mt-3">
+                    <h4 class="h4 p-1 m-0"> {{invoice.created_at}}
+                    </h4>
+                </div>
 
-            <div id="mt-3" v-if="invoice.user.name">
-                <h4 class="h4 p-1 m-0"> {{lang.casher}} {{invoice.user.name}}
-                </h4>
-            </div>
-
-            <div id="mt-3">
-                <h4 class="h4 p-1 m-0"> {{invoice_s.message}}
-                </h4>
-            </div>
-            <hr class="m-0 mt-1">
-            <div id="mt-3">
-                <h4 class="h4 p-1 m-0"> {{store.fb}}
-                </h4>
-            </div>
-            <hr class="m-0 mt-1">
-            <div id="mt-3">
-                <h4 class="h4 p-1 m-0"> {{invoice.created_at}}
-                </h4>
-            </div>
-
-        </div><!--End InvoiceBot-->
-    </div><!--End Invoice-->
-
+            </div><!--End InvoiceBot-->
+        </div><!--End Invoice-->
+    </div>
 </template>
 
 <style scoped>
-#invoice-POS {
+/* @media print {
+   * { display:none !important; }
+   #invoice-pos * { display:block !important; }
+} */
+
+/* @media print {
+   #app {position:relative !important; padding:0 !important; height:1px !important; overflow:visible !important;}
+   #invoice-print-area {position:absolute !important; width:100% !important; top:0 !important; left: 0 !important; padding:0 !important; margin:-1px !important;}
+} */
+
+#invoice-pos {
   box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
   padding: 2mm;
   margin: 0 auto;
@@ -214,7 +223,7 @@ export default {
     mounted() {
         this.getStoreInfo(this.store_id);
         this.getInvoiceDetails();
-        this.getInvoiceSettings(this.store_id, this.locale)
+        this.getInvoiceSettings(this.store_id, this.locale);
     },
     methods: {
         getStoreInfo: function (store_id) {

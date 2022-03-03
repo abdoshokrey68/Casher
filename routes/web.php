@@ -48,15 +48,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
     Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
     Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
-    Route::get('store/{store_id}/invoice/{invoice_id}', [HomeController::class, 'printInvoice'])->name('invoice.print')->middleware('checkmember');
+    Route::get('store/{store_id}/invoice/print/{invoice_id}', [HomeController::class, 'printInvoice'])->name('invoice.print')->middleware('checkmember');
     Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
     Route::get('error',                 [HomeController::class, 'error'])->name('error');
 });
 
 Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
 
-Route::group(['middleware' => ['checkMemberPosition']], function () { //...
-
+Route::group(['middleware' => []], function () {
+    // Route::group(['middleware' => ['checkMemberPosition']], function () {
     // ================================================================
     // ========================== Store API ===========================
     // ================================================================

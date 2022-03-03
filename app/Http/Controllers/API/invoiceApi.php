@@ -109,6 +109,7 @@ class invoiceApi extends Controller
 
         $positionApi = new positionApi();
         $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_add');
+
         if ($check) {
             $invoice = invoice::find($request->invoice_id);
             $store = store::find($invoice->store_id);

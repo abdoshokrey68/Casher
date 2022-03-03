@@ -5610,6 +5610,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5619,6 +5680,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "CasherProgram",
   data: function data() {
     return {
+      lang: this.getLang(),
       isShow: false
     };
   }
@@ -6067,7 +6129,6 @@ __webpack_require__.r(__webpack_exports__);
   props: ["casher_route", "locale"],
   data: function data() {
     return {
-      locale: this.getLocale(),
       lang: this.getLang()
     };
   },
@@ -7316,6 +7377,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11381,12 +11451,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PayInvoice",
   components: {},
   data: function data() {
     return {
+      store_id: this.$parent.store_id,
       invoice_id: null,
       lang: this.$parent.lang,
       invoice: {},
@@ -11399,7 +11486,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         table_id: null
       }),
       locale: "",
-      store_id: this.$parent.store_id
+      invoice_printing: null
     };
   },
   watch: {
@@ -11427,7 +11514,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.locale = this.getLocale();
     var paidamount = document.getElementsByName("paidamount");
     paidamount[0].focus();
-    console.log(paidamount);
   },
   methods: {
     payinvoiceToggle: function payinvoiceToggle() {
@@ -11476,6 +11562,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    printExternal: function printExternal(url) {
+      var printWindow = window.open(url, "Print", "left=200, top=200, width=950, height=500, toolbar=0, resizable=0");
+      printWindow.addEventListener("load", function () {
+        if (Boolean(printWindow.chrome)) {
+          this.setTimeout(function () {
+            printWindow.print(); // setTimeout(function () {
+            //     printWindow.close();
+            // }, 500);
+          }, 2000);
+        } else {
+          this.setTimeout(function () {
+            printWindow.print();
+            printWindow.close();
+          }, 2000);
+        }
+      }, true);
     },
     notification: function notification(type, title, text) {
       this.$notify({
@@ -18889,7 +18992,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#invoice-POS[data-v-3f11a4d8] {\n  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);\n  padding: 2mm;\n  margin: 0 auto;\n  width: 44mm;\n  background: #fff;\n}\n.contact-info[data-v-3f11a4d8] {\n    font-size: 0.5em !important;\n}\n.h4[data-v-3f11a4d8] {\n        font-size: 0.5em;\n}\n[data-v-3f11a4d8]::-moz-selection {\n    background: #f31544;\n    color: #fff;\n}\n[data-v-3f11a4d8]::selection {\n    background: #f31544;\n    color: #fff;\n}\n[data-v-3f11a4d8]::moz-selection {\n    background: #f31544;\n    color: #fff;\n}\nh1[data-v-3f11a4d8] {\n    font-size: 1.5em;\n    color: #222;\n}\nh2[data-v-3f11a4d8] {\n    font-size: 0.9em;\n}\nh3[data-v-3f11a4d8] {\n    font-size: 1.2em;\n    font-weight: 300;\n    line-height: 2em;\n}\np[data-v-3f11a4d8] {\n    font-size: 0.7em;\n    color: #666;\n    line-height: 1.5em;\n    margin-bottom: 8px !important;\n}\n#top[data-v-3f11a4d8],\n  #mid[data-v-3f11a4d8],\n  #bot[data-v-3f11a4d8] {\n    /* Targets all id with 'col-' */\n    border-bottom: 1px solid #eee;\n}\n#top[data-v-3f11a4d8] {\n    min-height: 100px;\n}\n#mid[data-v-3f11a4d8] {\n    min-height: 80px;\n}\n#bot[data-v-3f11a4d8] {\n    min-height: 50px;\n}\n#top .logo[data-v-3f11a4d8] {\n    /* //float: left; */\n    height: 60px;\n    width: 60px;\n    background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;\n    background-size: 60px 60px;\n}\n.clientlogo[data-v-3f11a4d8] {\n    float: left;\n    height: 60px;\n    width: 60px;\n    background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;\n    background-size: 60px 60px;\n    border-radius: 50px;\n}\n.info[data-v-3f11a4d8] {\n    display: block;\n    /* //float:left; */\n    margin-left: 0;\n}\n.title[data-v-3f11a4d8] {\n    float: right;\n}\n.title p[data-v-3f11a4d8] {\n    text-align: right;\n}\ntable[data-v-3f11a4d8] {\n    width: 100%;\n    border-collapse: collapse;\n}\ntd[data-v-3f11a4d8] {\n    /* //padding: 5px 0 5px 15px;\n    //border: 1px solid #EEE */\n}\n.tabletitle[data-v-3f11a4d8] {\n    /* //padding: 5px; */\n    font-size: 0.5em;\n    background: #eee;\n}\n.service[data-v-3f11a4d8] {\n    border-bottom: 1px solid #eee;\n}\n.item[data-v-3f11a4d8] {\n    width: 24mm;\n}\n.itemtext[data-v-3f11a4d8] {\n    font-size: 0.5em;\n}\n#legalcopy[data-v-3f11a4d8] {\n    margin-top: 5mm;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* @media print {\n   * { display:none !important; }\n   #invoice-pos * { display:block !important; }\n} */\n\n/* @media print {\n   #app {position:relative !important; padding:0 !important; height:1px !important; overflow:visible !important;}\n   #invoice-print-area {position:absolute !important; width:100% !important; top:0 !important; left: 0 !important; padding:0 !important; margin:-1px !important;}\n} */\n#invoice-pos[data-v-3f11a4d8] {\n  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);\n  padding: 2mm;\n  margin: 0 auto;\n  width: 44mm;\n  background: #fff;\n}\n.contact-info[data-v-3f11a4d8] {\n    font-size: 0.5em !important;\n}\n.h4[data-v-3f11a4d8] {\n        font-size: 0.5em;\n}\n[data-v-3f11a4d8]::-moz-selection {\n    background: #f31544;\n    color: #fff;\n}\n[data-v-3f11a4d8]::selection {\n    background: #f31544;\n    color: #fff;\n}\n[data-v-3f11a4d8]::moz-selection {\n    background: #f31544;\n    color: #fff;\n}\nh1[data-v-3f11a4d8] {\n    font-size: 1.5em;\n    color: #222;\n}\nh2[data-v-3f11a4d8] {\n    font-size: 0.9em;\n}\nh3[data-v-3f11a4d8] {\n    font-size: 1.2em;\n    font-weight: 300;\n    line-height: 2em;\n}\np[data-v-3f11a4d8] {\n    font-size: 0.7em;\n    color: #666;\n    line-height: 1.5em;\n    margin-bottom: 8px !important;\n}\n#top[data-v-3f11a4d8],\n  #mid[data-v-3f11a4d8],\n  #bot[data-v-3f11a4d8] {\n    /* Targets all id with 'col-' */\n    border-bottom: 1px solid #eee;\n}\n#top[data-v-3f11a4d8] {\n    min-height: 100px;\n}\n#mid[data-v-3f11a4d8] {\n    min-height: 80px;\n}\n#bot[data-v-3f11a4d8] {\n    min-height: 50px;\n}\n#top .logo[data-v-3f11a4d8] {\n    /* //float: left; */\n    height: 60px;\n    width: 60px;\n    background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;\n    background-size: 60px 60px;\n}\n.clientlogo[data-v-3f11a4d8] {\n    float: left;\n    height: 60px;\n    width: 60px;\n    background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;\n    background-size: 60px 60px;\n    border-radius: 50px;\n}\n.info[data-v-3f11a4d8] {\n    display: block;\n    /* //float:left; */\n    margin-left: 0;\n}\n.title[data-v-3f11a4d8] {\n    float: right;\n}\n.title p[data-v-3f11a4d8] {\n    text-align: right;\n}\ntable[data-v-3f11a4d8] {\n    width: 100%;\n    border-collapse: collapse;\n}\ntd[data-v-3f11a4d8] {\n    /* //padding: 5px 0 5px 15px;\n    //border: 1px solid #EEE */\n}\n.tabletitle[data-v-3f11a4d8] {\n    /* //padding: 5px; */\n    font-size: 0.5em;\n    background: #eee;\n}\n.service[data-v-3f11a4d8] {\n    border-bottom: 1px solid #eee;\n}\n.item[data-v-3f11a4d8] {\n    width: 24mm;\n}\n.itemtext[data-v-3f11a4d8] {\n    font-size: 0.5em;\n}\n#legalcopy[data-v-3f11a4d8] {\n    margin-top: 5mm;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -40429,29 +40532,185 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "casher-program-compo" } }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "casher-program-header" }, [
+      _c("div", { staticClass: "header-text col-md-4" }, [
+        _c("h1", { staticClass: "h2" }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.lang.luxurious_experience) +
+              "\n            "
+          ),
+        ]),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "btn btn-warning col-md-12", attrs: { href: "#" } },
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.lang.learn_more) +
+                "\n            "
+            ),
+          ]
+        ),
+      ]),
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "the-benefits" }, [
-      _vm._m(2),
+      _c("div", { staticClass: "heading" }, [
+        _c("h3", { staticClass: "h3" }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.lang.restaurant_and_café_management_software) +
+              "\n            "
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row", attrs: { id: "the-benefits-content" } }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "row b-0" }, [
+            _c(
+              "div",
+              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
+              [
+                _c("div", { staticClass: "bg-light p-5" }, [
+                  _c("i", {
+                    staticClass: "fas fa-lightbulb fa-4x text-warning m-3",
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "h3",
+                    { staticClass: "h3 bold text-header text-warning" },
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.lang.smart) +
+                          "\n                            "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "h4 line-40" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.lang.it_has_smart_revenue) +
+                        "\n                            "
+                    ),
+                  ]),
+                ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
+              [
+                _c("div", { staticClass: "bg-light p-5" }, [
+                  _c("i", {
+                    staticClass: "fas fa-gear fa-4x text-warning m-3",
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "h3",
+                    { staticClass: "h3 bold text-header text-warning" },
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.lang.conforms_to_user_needs) +
+                          "\n                            "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "h4 line-40" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.lang.contains_hundreds_of_POS) +
+                        "\n                            "
+                    ),
+                  ]),
+                ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
+              [
+                _c("div", { staticClass: "bg-light p-5" }, [
+                  _c("i", {
+                    staticClass: "fas fa-hand-point-up fa-4x text-warning m-3",
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "h3",
+                    { staticClass: "h3 bold text-header text-warning" },
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.lang.ease_of_use) +
+                          "\n                            "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "h4 line-40" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.lang.includes_easy_to_use) +
+                        "\n                            "
+                    ),
+                  ]),
+                ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
+              [
+                _c("div", { staticClass: "bg-light p-5" }, [
+                  _c("i", {
+                    staticClass: "fas fa-lock fa-4x text-warning m-3",
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "h3",
+                    { staticClass: "h3 bold text-header text-warning" },
+                    [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.lang.very_safe) +
+                          "\n                            "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "h4 line-40" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.lang.it_is_immune_to_hacking) +
+                        "\n                            "
+                    ),
+                  ]),
+                ]),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "the-benefits" }, [
+      _c("div", { staticClass: "heading" }, [
+        _c("h3", { staticClass: "h3" }, [
+          _vm._v(_vm._s(_vm.lang.Features_Available_In_The_App)),
+        ]),
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "content" }, [
         _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-md-6" },
-            [
-              _c("slide-down", {
-                attrs: {
-                  heading: "Complaint Management",
-                  msg: "Are you having trouble receiving your customers' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers.\n                            For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention.",
-                },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
           _c(
             "div",
             { staticClass: "col-md-6" },
@@ -40479,15 +40738,117 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "synchronous/asynchronous",
+                  msg: "The restaurant management system synchronizes the online data immediately after every operation that occurs in the store, including deleting, adding or modifying the data related to the store.\n                            Unlike other solutions, you will not face any problem in the event of a sudden power outage.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "give roles",
+                  msg: "The store manager can grant the appropriate permissions to each customer in the store who can delete, add or modify (products, sections and many other permissions), granting the permission only according to your location in the store.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Possibility to review all previous checks",
+                  msg: "Through the open button, you can review all the previous (open) checks in the journal and reopen them again to make any adjustments to them.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Store employees",
+                  msg: "Through the Users and Permissions screen, it is possible to create an unlimited number of users and define the functionality and permissions of each user.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Possibility to delete items from the check",
+                  msg: "Items can be deleted from the check, if it has, and the item can be deleted.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Possibility to delete the entire invoice",
+                  msg: "The user can also delete the entire bill from the daily bills, if he has the authority to delete the check, and this matter (deletion) is related to the powers granted to each user.",
+                },
+              }),
+            ],
+            1
+          ),
         ]),
       ]),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "the-benefits" }, [
-      _vm._m(3),
+      _c("div", { staticClass: "heading" }, [
+        _c("h3", { staticClass: "h3" }, [
+          _vm._v(_vm._s(_vm.lang.Upcoming_releases)),
+        ]),
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "content" }, [
         _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Complaint Management",
+                  msg: "Are you having trouble receiving your customers' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers.\n                            For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "col-md-6" },
@@ -40573,181 +40934,55 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Customers can reserve tables in advance",
+                  msg: "It is possible to reserve a specific table or more than one table and write the date of the reservation. Once the reserved table is selected again, a warning message appears stating that the table has been reserved.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading:
+                    "Possibility to issue an invoice in more than one currency",
+                  msg: "The restaurant and cafe management program is characterized by dealing with more than one currency, so that the invoice can be issued in any currency, and the amounts can be collected in another currency.",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c("slide-down", {
+                attrs: {
+                  heading: "Possibility to pay with a visa",
+                  msg: "The advantage of paying in cash, paying by Visa card, or by more than one payment method.",
+                },
+              }),
+            ],
+            1
+          ),
         ]),
       ]),
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "casher-program-header" }, [
-      _c("div", { staticClass: "header-text col-md-4" }, [
-        _c("h1", { staticClass: "h2" }, [
-          _vm._v(
-            "\n                Offer a luxurious experience in your restaurant and be among\n                the successful entrepreneurs\n            "
-          ),
-        ]),
-        _vm._v(" "),
-        _c(
-          "a",
-          { staticClass: "btn btn-warning col-md-12", attrs: { href: "#" } },
-          [_vm._v(" Learn more ")]
-        ),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "the-benefits" }, [
-      _c("div", { staticClass: "heading" }, [
-        _c("h3", { staticClass: "h3" }, [
-          _vm._v("Restaurant and café management software"),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row", attrs: { id: "the-benefits-content" } }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "row b-0" }, [
-            _c(
-              "div",
-              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
-              [
-                _c("div", { staticClass: "bg-light p-5" }, [
-                  _c("i", {
-                    staticClass: "fas fa-lightbulb fa-4x text-warning m-3",
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "h3",
-                    { staticClass: "h3 bold text-header text-warning" },
-                    [
-                      _vm._v(
-                        "\n                                Smart\n                            "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "h4 line-40" }, [
-                    _vm._v(
-                      "\n                                It Has Smart Revenue Collection Tools\n                            "
-                    ),
-                  ]),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
-              [
-                _c("div", { staticClass: "bg-light p-5" }, [
-                  _c("i", {
-                    staticClass: "fas fa-gear fa-4x text-warning m-3",
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "h3",
-                    { staticClass: "h3 bold text-header text-warning" },
-                    [
-                      _vm._v(
-                        "\n                                Conforms To User Needs\n                            "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "h4 line-40" }, [
-                    _vm._v(
-                      "\n                                Contains hundreds of POS features for your\n                                business\n                            "
-                    ),
-                  ]),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
-              [
-                _c("div", { staticClass: "bg-light p-5" }, [
-                  _c("i", {
-                    staticClass: "fas fa-hand-point-up fa-4x text-warning m-3",
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "h3",
-                    { staticClass: "h3 bold text-header text-warning" },
-                    [
-                      _vm._v(
-                        "\n                                Ease Of Use\n                            "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "h4 line-40" }, [
-                    _vm._v(
-                      "\n                                Includes easy-to-use tools for handling,\n                                understanding and analyzing customer\n                                preferences\n                            "
-                    ),
-                  ]),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-3 p-1 mt-2 mb-2 text-center bold" },
-              [
-                _c("div", { staticClass: "bg-light p-5" }, [
-                  _c("i", {
-                    staticClass: "fas fa-lock fa-4x text-warning m-3",
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "h3",
-                    { staticClass: "h3 bold text-header text-warning" },
-                    [
-                      _vm._v(
-                        "\n                                Very Safe\n                            "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "h4 line-40" }, [
-                    _vm._v(
-                      "\n                                It is immune to hacking and has a\n                                non-hackable black box\n                            "
-                    ),
-                  ]),
-                ]),
-              ]
-            ),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "heading" }, [
-      _c("h3", { staticClass: "h3" }, [
-        _vm._v("Features Available In The App"),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "heading" }, [
-      _c("h3", { staticClass: "h3" }, [_vm._v("Features Coming Soon")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -42822,207 +43057,209 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "invoice-POS" } },
-    [
-      _c("center", { attrs: { id: "top" } }, [
-        _c("div", { staticClass: "logo" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "info mt-2" }, [
-          _c("h2", { staticClass: "bold " }, [
-            _vm._v(" " + _vm._s(_vm.store.name) + " "),
+  return _c("div", { staticClass: "invoice-print-area" }, [
+    _c(
+      "div",
+      { attrs: { id: "invoice-pos" } },
+      [
+        _c("center", { attrs: { id: "top" } }, [
+          _c("div", { staticClass: "logo" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "info mt-2" }, [
+            _vm.store.name
+              ? _c("h2", { staticClass: "bold " }, [
+                  _vm._v(" " + _vm._s(_vm.store.name) + " "),
+                ])
+              : _vm._e(),
           ]),
         ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "mid" } }, [
-        _c("div", { staticClass: "info" }, [
-          _c("h4", { staticClass: "h4 mt-2" }, [
-            _vm._v(" " + _vm._s(_vm.lang.contact_info) + " "),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "mid" } }, [
+          _c("div", { staticClass: "info" }, [
+            _c("h4", { staticClass: "h4 mt-2" }, [
+              _vm._v(" " + _vm._s(_vm.lang.contact_info) + " "),
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "contact-info" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.lang.location) +
+                  " :  " +
+                  _vm._s(_vm.store.location) +
+                  " "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.lang.email) +
+                  "   :  " +
+                  _vm._s(_vm.store.email) +
+                  " "
+              ),
+              _c("br"),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.lang.phone) +
+                  "   :  " +
+                  _vm._s(_vm.store.phone) +
+                  " "
+              ),
+              _c("br"),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "bot" } }, [
+          _c("div", { attrs: { id: "table" } }, [
+            _c(
+              "table",
+              [
+                _c("tr", { staticClass: "tabletitle" }, [
+                  _c("td", { staticClass: "item" }, [
+                    _c("h2", [_vm._v(" " + _vm._s(_vm.lang.item) + " ")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "Hours text-center" }, [
+                    _c("h2", [_vm._v(_vm._s(_vm.lang.qty))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "Rate text-center" }, [
+                    _c("h2", [_vm._v(" " + _vm._s(_vm.lang.sub_total) + " ")]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.invoice.invoicedets, function (details, index) {
+                  return _c("tr", { key: index, staticClass: "service" }, [
+                    details.name
+                      ? _c("td", { staticClass: "tableitem" }, [
+                          _c("p", { staticClass: "itemtext" }, [
+                            _vm._v(" " + _vm._s(details.name) + " "),
+                          ]),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "tableitem" }, [
+                      _c("p", { staticClass: "itemtext text-center" }, [
+                        _vm._v(" " + _vm._s(details.quantity) + " "),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "tableitem" }, [
+                      _c("p", { staticClass: "itemtext text-center" }, [
+                        _vm._v(" " + _vm._s(details.price) + " "),
+                      ]),
+                    ]),
+                  ])
+                }),
+                _vm._v(" "),
+                _vm.invoice_s.tax
+                  ? _c("tr", { staticClass: "tabletitle" }, [
+                      _c("td", { staticClass: "Rate text-center" }, [
+                        _c("h2", [_vm._v(" " + _vm._s(_vm.lang.tax) + " ")]),
+                      ]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "payment text-center" }, [
+                        _c("h2", [
+                          _vm._v(" " + _vm._s(_vm.invoice_s.tax) + " "),
+                        ]),
+                      ]),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.invoice.discount
+                  ? _c("tr", { staticClass: "tabletitle" }, [
+                      _c("td", { staticClass: "Rate text-center" }, [
+                        _c("h2", [
+                          _vm._v(
+                            " " + _vm._s(_vm.lang.total_be_discount) + " "
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "payment text-center" }, [
+                        _c("h2", [
+                          _vm._v(" " + _vm._s(_vm.invoice.total) + " "),
+                        ]),
+                      ]),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.invoice.discount
+                  ? _c("tr", { staticClass: "tabletitle" }, [
+                      _c("td", { staticClass: "Rate text-center" }, [
+                        _c("h2", [
+                          _vm._v(" " + _vm._s(_vm.lang.discount) + " %"),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("td"),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "payment text-center" }, [
+                        _c("h2", [
+                          _vm._v(" " + _vm._s(_vm.invoice.discount) + "% "),
+                        ]),
+                      ]),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("tr", { staticClass: "tabletitle" }, [
+                  _c("td", { staticClass: "Rate text-center" }, [
+                    _c("h2", [_vm._v(" " + _vm._s(_vm.lang.total) + " ")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("td"),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "payment text-center" }, [
+                    _c("h2", [
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.invoice.paid) +
+                          " " +
+                          _vm._s(_vm.store.currency) +
+                          " "
+                      ),
+                    ]),
+                  ]),
+                ]),
+              ],
+              2
+            ),
           ]),
           _vm._v(" "),
-          _c("p", { staticClass: "contact-info" }, [
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.lang.location) +
-                " :  " +
-                _vm._s(_vm.store.location) +
-                " "
-            ),
-            _c("br"),
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.lang.email) +
-                "   :  " +
-                _vm._s(_vm.store.email) +
-                " "
-            ),
-            _c("br"),
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.lang.phone) +
-                "   :  " +
-                _vm._s(_vm.store.phone) +
-                " "
-            ),
-            _c("br"),
+          _c("div", { attrs: { id: "mt-3" } }, [
+            _c("h4", { staticClass: "h4 p-1 m-0" }, [
+              _vm._v(
+                " " + _vm._s(_vm.invoice_s.message) + "\n                "
+              ),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "m-0 mt-1" }),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "mt-3" } }, [
+            _c("h4", { staticClass: "h4 p-1 m-0" }, [
+              _vm._v(" " + _vm._s(_vm.store.fb) + "\n                "),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "m-0 mt-1" }),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "mt-3" } }, [
+            _c("h4", { staticClass: "h4 p-1 m-0" }, [
+              _vm._v(
+                " " + _vm._s(_vm.invoice.created_at) + "\n                "
+              ),
+            ]),
           ]),
         ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "bot" } }, [
-        _c("div", { attrs: { id: "table" } }, [
-          _c(
-            "table",
-            [
-              _c("tr", { staticClass: "tabletitle" }, [
-                _c("td", { staticClass: "item" }, [
-                  _c("h2", [_vm._v(" " + _vm._s(_vm.lang.item) + " ")]),
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "Hours text-center" }, [
-                  _c("h2", [_vm._v(_vm._s(_vm.lang.qty))]),
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "Rate text-center" }, [
-                  _c("h2", [_vm._v(" " + _vm._s(_vm.lang.sub_total) + " ")]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.invoice.invoicedets, function (details, index) {
-                return _c("tr", { key: index, staticClass: "service" }, [
-                  _c("td", { staticClass: "tableitem" }, [
-                    _c("p", { staticClass: "itemtext" }, [
-                      _vm._v(" " + _vm._s(details.name) + " "),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "tableitem" }, [
-                    _c("p", { staticClass: "itemtext text-center" }, [
-                      _vm._v(" " + _vm._s(details.quantity) + " "),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "tableitem" }, [
-                    _c("p", { staticClass: "itemtext text-center" }, [
-                      _vm._v(" " + _vm._s(details.price) + " "),
-                    ]),
-                  ]),
-                ])
-              }),
-              _vm._v(" "),
-              _vm.invoice_s.tax
-                ? _c("tr", { staticClass: "tabletitle" }, [
-                    _c("td", { staticClass: "Rate text-center" }, [
-                      _c("h2", [_vm._v(" " + _vm._s(_vm.lang.tax) + " ")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "payment text-center" }, [
-                      _c("h2", [_vm._v(" " + _vm._s(_vm.invoice_s.tax) + " ")]),
-                    ]),
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.invoice.discount
-                ? _c("tr", { staticClass: "tabletitle" }, [
-                    _c("td", { staticClass: "Rate text-center" }, [
-                      _c("h2", [
-                        _vm._v(" " + _vm._s(_vm.lang.total_be_discount) + " "),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "payment text-center" }, [
-                      _c("h2", [_vm._v(" " + _vm._s(_vm.invoice.total) + " ")]),
-                    ]),
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.invoice.discount
-                ? _c("tr", { staticClass: "tabletitle" }, [
-                    _c("td", { staticClass: "Rate text-center" }, [
-                      _c("h2", [
-                        _vm._v(" " + _vm._s(_vm.lang.discount) + " %"),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("td"),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "payment text-center" }, [
-                      _c("h2", [
-                        _vm._v(" " + _vm._s(_vm.invoice.discount) + "% "),
-                      ]),
-                    ]),
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("tr", { staticClass: "tabletitle" }, [
-                _c("td", { staticClass: "Rate text-center" }, [
-                  _c("h2", [_vm._v(" " + _vm._s(_vm.lang.total) + " ")]),
-                ]),
-                _vm._v(" "),
-                _c("td"),
-                _vm._v(" "),
-                _c("td", { staticClass: "payment text-center" }, [
-                  _c("h2", [
-                    _vm._v(
-                      " " +
-                        _vm._s(_vm.invoice.paid) +
-                        " " +
-                        _vm._s(_vm.store.currency) +
-                        " "
-                    ),
-                  ]),
-                ]),
-              ]),
-            ],
-            2
-          ),
-        ]),
-        _vm._v(" "),
-        _vm.invoice.user.name
-          ? _c("div", { attrs: { id: "mt-3" } }, [
-              _c("h4", { staticClass: "h4 p-1 m-0" }, [
-                _vm._v(
-                  " " +
-                    _vm._s(_vm.lang.casher) +
-                    " " +
-                    _vm._s(_vm.invoice.user.name) +
-                    "\n            "
-                ),
-              ]),
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "mt-3" } }, [
-          _c("h4", { staticClass: "h4 p-1 m-0" }, [
-            _vm._v(" " + _vm._s(_vm.invoice_s.message) + "\n            "),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("hr", { staticClass: "m-0 mt-1" }),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "mt-3" } }, [
-          _c("h4", { staticClass: "h4 p-1 m-0" }, [
-            _vm._v(" " + _vm._s(_vm.store.fb) + "\n            "),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("hr", { staticClass: "m-0 mt-1" }),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "mt-3" } }, [
-          _c("h4", { staticClass: "h4 p-1 m-0" }, [
-            _vm._v(" " + _vm._s(_vm.invoice.created_at) + "\n            "),
-          ]),
-        ]),
-      ]),
-    ],
-    1
-  )
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49870,7 +50107,31 @@ var render = function () {
                   },
                 }),
                 _vm._v(" "),
-                _c("div", [
+                _c("div", { staticClass: "btns-controllers" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-primary col-md-12 h5 p-3 mt-3 text-center bold",
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.printExternal(
+                            "http://localhost:8000/ar/store/2/invoice/print/285"
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-print" }),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.lang.invoice_printing) +
+                          "\n                    "
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "button",
                     {
@@ -49887,15 +50148,14 @@ var render = function () {
                         attrs: { role: "status", hidden: !_vm.form.busy },
                       }),
                       _vm._v(" "),
-                      _c("i", {
-                        staticClass: "fas fa-money-bill-wave",
-                        attrs: { hidden: _vm.form.busy },
-                      }),
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.lang.pay) +
-                          "\n                    "
-                      ),
+                      _c("span", { attrs: { hidden: _vm.form.busy } }, [
+                        _c("i", { staticClass: "fas fa-money-bill-wave" }),
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.lang.pay) +
+                            "\n                        "
+                        ),
+                      ]),
                     ]
                   ),
                   _vm._v(" "),
@@ -68952,7 +69212,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","E:\\\\xampp\\\\htdocs\\\
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الاقتراح ","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_phone2":" رقم هاتف اخر ","store_address":" عنوان المتجر ","create":" إنشاء ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","welcome":" مرحبا بكم","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" أللون ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","des":" الوصف ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتجات ","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","edit_member":" تعديل العضو ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","supervisor":" مشرف ","cancel":" الغاء ","position":" الوظيفة ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مخزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العناوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود","success":" نجاح ","error":" خطأ ","select_all_u":" تحديد الكل  ","show_u":" عرض ","edit_u":" تعديل ","add_u":" إضافة ","delete_u":" حذف ","user_permissions":" أذونات العضو ","invoice_sett":"اعدادات الفواتير ","section_sett":" أعدادات الأقسام ","product_sett":" أعدادات المنتجات ","store_sett":" أعدادات المتجر ","member_sett":" إعدادات الأعضاء","table_sett":" إعدادات الطاولات ","menu_sett":"إعدادات المنيو ","black_box_sett":" إعدادات الصندوق الأسود","member_add_succ":" تم إضافةالعضو بنجاح ","verify_data":" تحقق من صحة البريد الإلكتروني وصحة البيانات ","data_modified":" تم تعديل البيانات بنجاح ","employee_deleted":" تم حذف موظف بنجاح ","erroring_member_delete":" خطأ في حذف العضو ","warning":" تحذير ","update_error":" خطأ في تحديث البيانات  ","product_add_succ":" تم إضافة المنتج بنجاح ","product_update_succ":" تم تعديل المنتج بنجاح ","product_update_error":" خطأ في تحديث بيانات المنتج","section_add_succ":" تم إضافة القسم بنجاح ","section_update_succ":" تم تعديل القسم بنجاح ","section_update_error":" خطأ في حذف القسم ","add_success":" تم الإضافة بنجاح  ","delete_suucess":" تم الحذف بنجاح","edit_success":" تم التعديل بنجاح  ","there_seems_problem":"لم تتم إضافة البيانات ، يبدو أن هناك مشكلة","deleted_there_problem":"لم يتم حذفه ، قد تكون هناك مشكلة","went_wrong":"حدث خطأ تحقق من البيانات ","data_has_sent":"تم إرسال البيانات","please_check_the_data":"توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى","select_the_table":"حدد الطاولة أو نوع الدفع أولاً","store_email":" البريد الإلكتروني للمتجر ","store_password":" الرقم السري للمتجر ","pass_must_not":" يجب ألا تقل كلمة المرور عن 8 أحرف ","pass_must_contain":" يجب أن تحتوي كلمة المرور على أحرف [a ، Z] ","pass_symbols":" يجب أن تحتوي كلمة المرور على رموز [؟ =. *! $ #٪] ","leave_field":" اترك الحقل فارغًا إذا كنت لا تريد تغيير كلمة المرور ","currency_code":" رمز عملة المتجر ","store_discount":" خصم المتجر ","store_location":" موقع المتجر ","store_audience":"جمهور المتجر ","receive_phone_numbers":"يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب","store_cover":" صورة غلاف المتجر ","edit_info":" تعديل البيانات  ","currency_like":" مثل : USD, EUR, EGP, SAR","latest_offers":" أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا ","delete_all":" حذف الكل ","no_audience":"لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر","before_discount":" قبل الخصم ","after_discount":" بعد الخصم ","contact_info":" معلومات الاتصال ","qty":"كمية","sub_total":"إجمالي فرعي","tax":"ضريبة","fb":" رابط فيسبوك","optional":" (أختياري) ","invoice_settings":" أعدادات الفاتورة ","tax_on_invoice":"ضريبة علي الفاتورة","leave_field_blank":" يمكنك ترك الحقل فارغا","product_rtn":"فترة إرجاع المنتج ","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","invoice_message_en":" LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","message_en":"الرسالة بالانجليزية","message_ar":"الرسالة بالعربية","invoice_mes_po":" تظهر هذه الرسالة في الجزء السفلي من الفاتورة ","message_confirm":"تأكد من أن الرسالة متشابهة في اللغتين لأنها ستتغير بناءً على اللغة التي ستُطبع بها الفاتورة","auto_tax":" الأسعار تشمل ضريبة القيمة المضافة    ","tax_record":" رقم التسجيل الضريبي    ","tax_card":" رقم البطاقة الضريبية ","file_no":"رقم الملف  ","icon":"رمز","store_create_success":" تم إنشاء المتجر بنجاح ","create_new_store":" إنشاء متجر جديد","go_to_y_store":" الذهاء إلي متجرك ","why_out_software":" لماذا يجب عليك استخدام برنامجنا ","learn_more":"اعرف اكثر ","support":" دعــــم ","customer_retention":" استبقاء العملاء","feature":"ميـــزة","security":"حمـــاية","our_programs":"برامجنا","res_pro":"برنامج المطاعم","res_des":" يعمل البرنامج على إدارة المطاعم والكافيهات ","dig_men":" المينيو الرقمي ","dig_des":"قائمة مطعم سهلة المسح للعملاء","soon":"قريــبا","new_program":"برنامج جديد","why_us":" لماذا تختارنا ؟","the_primary_purpose":" الغرض الأساسي والهدف من برامجنا هو إحداث ثورة في كيفية إدارة الأعمال بسهولة وبشكل مثالي. "}');
+module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الاقتراح ","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_phone2":" رقم هاتف اخر ","store_address":" عنوان المتجر ","create":" إنشاء ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","welcome":" مرحبا بكم","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" أللون ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","des":" الوصف ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتجات ","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","edit_member":" تعديل العضو ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","supervisor":" مشرف ","cancel":" الغاء ","position":" الوظيفة ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مخزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العناوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود","success":" نجاح ","error":" خطأ ","select_all_u":" تحديد الكل  ","show_u":" عرض ","edit_u":" تعديل ","add_u":" إضافة ","delete_u":" حذف ","user_permissions":" أذونات العضو ","invoice_sett":"اعدادات الفواتير ","section_sett":" أعدادات الأقسام ","product_sett":" أعدادات المنتجات ","store_sett":" أعدادات المتجر ","member_sett":" إعدادات الأعضاء","table_sett":" إعدادات الطاولات ","menu_sett":"إعدادات المنيو ","black_box_sett":" إعدادات الصندوق الأسود","member_add_succ":" تم إضافةالعضو بنجاح ","verify_data":" تحقق من صحة البريد الإلكتروني وصحة البيانات ","data_modified":" تم تعديل البيانات بنجاح ","employee_deleted":" تم حذف موظف بنجاح ","erroring_member_delete":" خطأ في حذف العضو ","warning":" تحذير ","update_error":" خطأ في تحديث البيانات  ","product_add_succ":" تم إضافة المنتج بنجاح ","product_update_succ":" تم تعديل المنتج بنجاح ","product_update_error":" خطأ في تحديث بيانات المنتج","section_add_succ":" تم إضافة القسم بنجاح ","section_update_succ":" تم تعديل القسم بنجاح ","section_update_error":" خطأ في حذف القسم ","add_success":" تم الإضافة بنجاح  ","delete_suucess":" تم الحذف بنجاح","edit_success":" تم التعديل بنجاح  ","there_seems_problem":"لم تتم إضافة البيانات ، يبدو أن هناك مشكلة","deleted_there_problem":"لم يتم حذفه ، قد تكون هناك مشكلة","went_wrong":"حدث خطأ تحقق من البيانات ","data_has_sent":"تم إرسال البيانات","please_check_the_data":"توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى","select_the_table":"حدد الطاولة أو نوع الدفع أولاً","store_email":" البريد الإلكتروني للمتجر ","store_password":" الرقم السري للمتجر ","pass_must_not":" يجب ألا تقل كلمة المرور عن 8 أحرف ","pass_must_contain":" يجب أن تحتوي كلمة المرور على أحرف [a ، Z] ","pass_symbols":" يجب أن تحتوي كلمة المرور على رموز [؟ =. *! $ #٪] ","leave_field":" اترك الحقل فارغًا إذا كنت لا تريد تغيير كلمة المرور ","currency_code":" رمز عملة المتجر ","store_discount":" خصم المتجر ","store_location":" موقع المتجر ","store_audience":"جمهور المتجر ","receive_phone_numbers":"يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب","store_cover":" صورة غلاف المتجر ","edit_info":" تعديل البيانات  ","currency_like":" مثل : USD, EUR, EGP, SAR","latest_offers":" أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا ","delete_all":" حذف الكل ","no_audience":"لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر","before_discount":" قبل الخصم ","after_discount":" بعد الخصم ","contact_info":" معلومات الاتصال ","qty":"كمية","sub_total":"إجمالي فرعي","tax":"ضريبة","fb":" رابط فيسبوك","optional":" (أختياري) ","invoice_settings":" أعدادات الفاتورة ","tax_on_invoice":"ضريبة علي الفاتورة","leave_field_blank":" يمكنك ترك الحقل فارغا","product_rtn":"فترة إرجاع المنتج ","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","invoice_message_en":" LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","message_en":"الرسالة بالانجليزية","message_ar":"الرسالة بالعربية","invoice_mes_po":" تظهر هذه الرسالة في الجزء السفلي من الفاتورة ","message_confirm":"تأكد من أن الرسالة متشابهة في اللغتين لأنها ستتغير بناءً على اللغة التي ستُطبع بها الفاتورة","auto_tax":" الأسعار تشمل ضريبة القيمة المضافة    ","tax_record":" رقم التسجيل الضريبي    ","tax_card":" رقم البطاقة الضريبية ","file_no":"رقم الملف  ","icon":"رمز","store_create_success":" تم إنشاء المتجر بنجاح ","create_new_store":" إنشاء متجر جديد","go_to_y_store":" الذهاء إلي متجرك ","why_out_software":" لماذا يجب عليك استخدام برنامجنا ","learn_more":"اعرف اكثر ","support":" دعــــم ","customer_retention":" استبقاء العملاء","feature":"ميـــزة","security":"حمـــاية","our_programs":"برامجنا","res_pro":"برنامج المطاعم","res_des":" يعمل البرنامج على إدارة المطاعم والكافيهات ","dig_men":" المينيو الرقمي ","dig_des":"قائمة مطعم سهلة المسح للعملاء","soon":"قريــبا","new_program":"برنامج جديد","why_us":" لماذا تختارنا ؟","the_primary_purpose":" الغرض الأساسي والهدف من برامجنا هو إحداث ثورة في كيفية إدارة الأعمال بسهولة وبشكل مثالي. ","invoice_printing":" طباعة الفاتورة ","luxurious_experience":"  قدم تجربة فاخرة في مطعمك وكن من بين رواد الأعمال الناجحين ","restaurant_and_café_management_software":" برنامج إدارة المطاعم والمقاهي ","smart":" ذكي ","it_has_smart_revenue":"لدينا أدوات ذكية لتحصيل الإيرادات","conforms_to_user_needs":"يتوافق مع احتياجات المستخدم","contains_hundreds_of_POS":"يحتوي على مئات من ميزات نقاط البيع لمتجرك","ease_of_use":" سهولة الاستعمال  ","includes_easy_to_use":" يتضمن أدوات سهلة الاستخدام للتعامل مع تفضيلات العملاء وفهمها وتحليلها ","very_safe":"امن جدا","it_is_immune_to_hacking":"إنه محصن ضد القرصنة ولديه صندوق أسود غير قابل للاختراق","Features_Available_In_The_App":"الميزات المتوفرة في التطبيق","Upcoming_releases":"الإصدارات القادمة"}');
 
 /***/ }),
 
@@ -68963,7 +69223,7 @@ module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":"Welcome","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_email":"Store E-mail","store_des":"Store Descreption","store_phone":"Store Phone","store_phone2":"Another Phone Number","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","":"Choose the right one for you","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"The Color","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"The Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","des":" Description ","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","daily_invoice":"Daily Invoices","edit_members":"Edit Members","edit_member":"Edit Member","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","supervisor":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box","success":" Success message ","error":"Error Message","select_all_u":"Select All","show_u":"SHOW","edit_u":"EDIT","add_u":"ADD","delete_u":"DELETE","user_permissions":"User Permissions","invoice_sett":"Billing settings","section_sett":"Section settings","product_sett":"Product settings","store_sett":"Store settings","member_sett":"Member settings","table_sett":"Table settings","menu_sett":"Menu settings","black_box_sett":"Black Box settings","member_add_succ":"Member added successfully","verify_data":"Verify that the e-mail is correct and the data is correct","data_modified":"The data has been modified successfully","employee_deleted":"An employee has been successfully deleted","erroring_member_delete":"Erroring To Deleted Member","warning":"Warning","delete_suucess":"Deleted successfully","update_error":"Product update error","product_add_succ":"Product added successfully","product_update_succ":"Product Updated Successfully","product_update_error":"Error To Update Product","section_add_succ":"Section added successfully","section_update_succ":"Section Updated Successfully","section_update_error":"Error To Update Section","add_success":" Added successfully ","delete_success":" Deleted successfully ","edit_success":" Edited successfully ","there_seems_problem":"The data is not added, there seems to be a problem","deleted_there_problem":"Not deleted, there may be a problem","went_wrong":"Something went wrong Check the data ","data_has_sent":"Data has been sent","please_check_the_data":"There is a problem, please check the data and try again","select_the_table":"Select the table or type of payment first","store_password":"Store Password","pass_must_not":"Password must not be less than 8 characters","pass_must_contain":"Password must contain letters [a,Z]","pass_symbols":"The password must contain symbols [?=.*!$#%]","leave_field":"Leave the field blank if you do not want to change the password","currency_code":"Store Currency Code","store_discount":"Store Discount","store_location":"Store Location","store_audience":"Store Audience","receive_phone_numbers":"You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group","store_cover":"Store Cover Image","edit_info":"Edit Information","currency_like":"Like: USD, EUR, EGP, SAR","latest_offers":"Enter your WhatsApp number to receive all our offers and discounts","delete_all":"Delete All ","no_audience":"There is no audience yet. Please activate the audience feature by going to the store settings","before_discount":"Before Discount","after_discount":" After Discount","contact_info":"Contact Info","qty":"Qty","sub_total":"Sub Total","tax":"tax","fb":"Facebook URL","optional":"(Optional)","invoice_settings":"Invoice Settings","tax_on_invoice":"tax on Invoice","leave_field_blank":"You can leave the field blank","product_rtn":"Product return period","invoice_message_en":"LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","message_en":"English message","message_ar":"Arabic message","invoice_mes_po":"This message appears at the bottom of the invoice","message_confirm":"Make sure that the message is similar in the two languages because it will change based on the language in which the invoice will be printed","auto_tax":"Prices include value added tax","tax_record":"Tax Registration Number","tax_card":"Tax Card Number","file_no":"File No.","icon":"Icon","store_create_success":"Store created successfully","create_new_store":"Create New Store","go_to_y_store":"Go to your store","why_out_software":"Why you should use our software","learn_more":"Learn more","support":"Support","customer_retention":"Customer Retention","feature":"Feature","security":"Security","our_programs":"Our Programs","res_pro":"Restaurants Program","res_des":"The program works on managing restaurants and cafes","dig_men":"Digital Menu","dig_des":"Easy-to-scan restaurant menu for customers","soon":"Soon","new_program":"New Program","why_us":"Why Choose Us ?","the_primary_purpose":"The primary purpose and objective of our programs is to revolutionize how businesses are run easily and perfectly."}');
+module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":"Welcome","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_email":"Store E-mail","store_des":"Store Descreption","store_phone":"Store Phone","store_phone2":"Another Phone Number","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","":"Choose the right one for you","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"The Color","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"The Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","des":" Description ","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","daily_invoice":"Daily Invoices","edit_members":"Edit Members","edit_member":"Edit Member","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","supervisor":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box","success":" Success message ","error":"Error Message","select_all_u":"Select All","show_u":"SHOW","edit_u":"EDIT","add_u":"ADD","delete_u":"DELETE","user_permissions":"User Permissions","invoice_sett":"Billing settings","section_sett":"Section settings","product_sett":"Product settings","store_sett":"Store settings","member_sett":"Member settings","table_sett":"Table settings","menu_sett":"Menu settings","black_box_sett":"Black Box settings","member_add_succ":"Member added successfully","verify_data":"Verify that the e-mail is correct and the data is correct","data_modified":"The data has been modified successfully","employee_deleted":"An employee has been successfully deleted","erroring_member_delete":"Erroring To Deleted Member","warning":"Warning","delete_suucess":"Deleted successfully","update_error":"Product update error","product_add_succ":"Product added successfully","product_update_succ":"Product Updated Successfully","product_update_error":"Error To Update Product","section_add_succ":"Section added successfully","section_update_succ":"Section Updated Successfully","section_update_error":"Error To Update Section","add_success":" Added successfully ","delete_success":" Deleted successfully ","edit_success":" Edited successfully ","there_seems_problem":"The data is not added, there seems to be a problem","deleted_there_problem":"Not deleted, there may be a problem","went_wrong":"Something went wrong Check the data ","data_has_sent":"Data has been sent","please_check_the_data":"There is a problem, please check the data and try again","select_the_table":"Select the table or type of payment first","store_password":"Store Password","pass_must_not":"Password must not be less than 8 characters","pass_must_contain":"Password must contain letters [a,Z]","pass_symbols":"The password must contain symbols [?=.*!$#%]","leave_field":"Leave the field blank if you do not want to change the password","currency_code":"Store Currency Code","store_discount":"Store Discount","store_location":"Store Location","store_audience":"Store Audience","receive_phone_numbers":"You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group","store_cover":"Store Cover Image","edit_info":"Edit Information","currency_like":"Like: USD, EUR, EGP, SAR","latest_offers":"Enter your WhatsApp number to receive all our offers and discounts","delete_all":"Delete All ","no_audience":"There is no audience yet. Please activate the audience feature by going to the store settings","before_discount":"Before Discount","after_discount":" After Discount","contact_info":"Contact Info","qty":"Qty","sub_total":"Sub Total","tax":"tax","fb":"Facebook URL","optional":"(Optional)","invoice_settings":"Invoice Settings","tax_on_invoice":"tax on Invoice","leave_field_blank":"You can leave the field blank","product_rtn":"Product return period","invoice_message_en":"LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","message_en":"English message","message_ar":"Arabic message","invoice_mes_po":"This message appears at the bottom of the invoice","message_confirm":"Make sure that the message is similar in the two languages because it will change based on the language in which the invoice will be printed","auto_tax":"Prices include value added tax","tax_record":"Tax Registration Number","tax_card":"Tax Card Number","file_no":"File No.","icon":"Icon","store_create_success":"Store created successfully","create_new_store":"Create New Store","go_to_y_store":"Go to your store","why_out_software":"Why you should use our software","learn_more":"Learn more","support":"Support","customer_retention":"Customer Retention","feature":"Feature","security":"Security","our_programs":"Our Programs","res_pro":"Restaurants Program","res_des":"The program works on managing restaurants and cafes","dig_men":"Digital Menu","dig_des":"Easy-to-scan restaurant menu for customers","soon":"Soon","new_program":"New Program","why_us":"Why Choose Us ?","the_primary_purpose":"The primary purpose and objective of our programs is to revolutionize how businesses are run easily and perfectly.","invoice_printing":"Invoice printing","luxurious_experience":" Offer a luxurious experience in your restaurant and be among the successful entrepreneurs","restaurant_and_café_management_software":"Restaurant and café management software","smart":"Smart","it_has_smart_revenue":"We have smart revenue collection tools","conforms_to_user_needs":"Conforms To User Needs","contains_hundreds_of_POS":"Contains hundreds of POS features for your store","ease_of_use":"Ease Of Use","includes_easy_to_use":"Includes easy-to-use tools for handling, understanding and analyzing customer preferences","very_safe":"Very Safe","it_is_immune_to_hacking":"It is immune to hacking and has a unhackable black box","Features_Available_In_The_App":"Features Available In The App","Upcoming_releases":"Upcoming releases"}');
 
 /***/ })
 

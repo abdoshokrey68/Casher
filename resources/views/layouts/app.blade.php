@@ -21,12 +21,12 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/store.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/store.css') }}" media="all">
+    <link rel="stylesheet" href="{{ asset('css/print.css') }}" media="print">
 </head>
 <body class="bg-body" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <div id="app">
-        @if (Route::currentRouteName() != 'store' && Route::currentRouteName() != 'store.menu')
+        @if (Route::currentRouteName() != 'store' && Route::currentRouteName() != 'store.menu' && Route::currentRouteName() != 'invoice.print')
         <nav class="navbar navbar-expand-md  navbar-dark bg-dark  shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -121,7 +121,7 @@
             </ul>
         </div>
         {{-- End Language Box --}}
-
+        @if ( Route::currentRouteName() != 'invoice.print')
         <div>
             <footer>
                 <div
@@ -150,6 +150,8 @@
                 </div>
             </footer>
         </div>
+        @endif
+
     </div>
     <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

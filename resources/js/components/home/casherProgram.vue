@@ -1,19 +1,20 @@
-import slideDownVue from "./layouts/slideDown.vue"
-
 <template>
     <div id="casher-program-compo">
         <div class="casher-program-header">
             <div class="header-text col-md-4">
                 <h1 class="h2">
-                    Offer a luxurious experience in your restaurant and be among
-                    the successful entrepreneurs
+                    {{ lang.luxurious_experience }}
                 </h1>
-                <a href="#" class="btn btn-warning col-md-12"> Learn more </a>
+                <a href="#" class="btn btn-warning col-md-12">
+                    {{ lang.learn_more }}
+                </a>
             </div>
         </div>
         <div class="the-benefits">
             <div class="heading">
-                <h3 class="h3">Restaurant and café management software</h3>
+                <h3 class="h3">
+                    {{ lang.restaurant_and_café_management_software }}
+                </h3>
             </div>
 
             <div id="the-benefits-content" class="row">
@@ -25,10 +26,10 @@ import slideDownVue from "./layouts/slideDown.vue"
                                     class="fas fa-lightbulb fa-4x text-warning m-3"
                                 ></i>
                                 <h3 class="h3 bold text-header text-warning">
-                                    Smart
+                                    {{ lang.smart }}
                                 </h3>
                                 <h4 class="h4 line-40">
-                                    It Has Smart Revenue Collection Tools
+                                    {{ lang.it_has_smart_revenue }}
                                 </h4>
                             </div>
                         </div>
@@ -38,11 +39,10 @@ import slideDownVue from "./layouts/slideDown.vue"
                                     class="fas fa-gear fa-4x text-warning m-3"
                                 ></i>
                                 <h3 class="h3 bold text-header text-warning">
-                                    Conforms To User Needs
+                                    {{ lang.conforms_to_user_needs }}
                                 </h3>
                                 <h4 class="h4 line-40">
-                                    Contains hundreds of POS features for your
-                                    business
+                                    {{ lang.contains_hundreds_of_POS }}
                                 </h4>
                             </div>
                         </div>
@@ -52,12 +52,10 @@ import slideDownVue from "./layouts/slideDown.vue"
                                     class="fas fa-hand-point-up fa-4x text-warning m-3"
                                 ></i>
                                 <h3 class="h3 bold text-header text-warning">
-                                    Ease Of Use
+                                    {{ lang.ease_of_use }}
                                 </h3>
                                 <h4 class="h4 line-40">
-                                    Includes easy-to-use tools for handling,
-                                    understanding and analyzing customer
-                                    preferences
+                                    {{ lang.includes_easy_to_use }}
                                 </h4>
                             </div>
                         </div>
@@ -67,11 +65,10 @@ import slideDownVue from "./layouts/slideDown.vue"
                                     class="fas fa-lock fa-4x text-warning m-3"
                                 ></i>
                                 <h3 class="h3 bold text-header text-warning">
-                                    Very Safe
+                                    {{ lang.very_safe }}
                                 </h3>
                                 <h4 class="h4 line-40">
-                                    It is immune to hacking and has a
-                                    non-hackable black box
+                                    {{ lang.it_is_immune_to_hacking }}
                                 </h4>
                             </div>
                         </div>
@@ -198,18 +195,10 @@ import slideDownVue from "./layouts/slideDown.vue"
         </div> -->
         <div class="the-benefits">
             <div class="heading">
-                <h3 class="h3">Features Available In The App</h3>
+                <h3 class="h3">{{ lang.Features_Available_In_The_App }}</h3>
             </div>
             <div class="content">
                 <div class="row">
-                    <div class="col-md-6">
-                        <slide-down
-                            heading="Complaint Management"
-                            msg="Are you having trouble receiving your customers' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers.
-                                For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention."
-                        >
-                        </slide-down>
-                    </div>
                     <div class="col-md-6">
                         <slide-down
                             heading="The black box"
@@ -226,16 +215,67 @@ import slideDownVue from "./layouts/slideDown.vue"
                         >
                         </slide-down>
                     </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="synchronous/asynchronous"
+                            msg="The restaurant management system synchronizes the online data immediately after every operation that occurs in the store, including deleting, adding or modifying the data related to the store.
+                                Unlike other solutions, you will not face any problem in the event of a sudden power outage."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="give roles"
+                            msg="The store manager can grant the appropriate permissions to each customer in the store who can delete, add or modify (products, sections and many other permissions), granting the permission only according to your location in the store."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Possibility to review all previous checks"
+                            msg="Through the open button, you can review all the previous (open) checks in the journal and reopen them again to make any adjustments to them."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Store employees"
+                            msg="Through the Users and Permissions screen, it is possible to create an unlimited number of users and define the functionality and permissions of each user."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Possibility to delete items from the check"
+                            msg="Items can be deleted from the check, if it has, and the item can be deleted."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Possibility to delete the entire invoice"
+                            msg="The user can also delete the entire bill from the daily bills, if he has the authority to delete the check, and this matter (deletion) is related to the powers granted to each user."
+                        >
+                        </slide-down>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="the-benefits">
             <div class="heading">
-                <h3 class="h3">Features Coming Soon</h3>
+                <h3 class="h3">{{ lang.Upcoming_releases }}</h3>
             </div>
             <div class="content">
                 <div class="row">
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Complaint Management"
+                            msg="Are you having trouble receiving your customers' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers.
+                                For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention."
+                        >
+                        </slide-down>
+                    </div>
                     <div class="col-md-6">
                         <slide-down
                             heading="Monitoring the working hours and attendance of employees"
@@ -286,6 +326,27 @@ import slideDownVue from "./layouts/slideDown.vue"
                             msg="What is the benefit of a point of sale system if it does not include the feature of tracking stock levels, especially in real time?
                             It's an effective way to see how much ingredients and recipes are available and track their availability in real time for reorders, making the audit process easier. During the inventory process, it becomes easy to detect product/commodity theft or mismanagement.
                             This unique feature helps auditors and operations managers complete a quick preview of inventory contents without having to stop businesses to perform physical counts."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Customers can reserve tables in advance"
+                            msg="It is possible to reserve a specific table or more than one table and write the date of the reservation. Once the reserved table is selected again, a warning message appears stating that the table has been reserved."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Possibility to issue an invoice in more than one currency"
+                            msg="The restaurant and cafe management program is characterized by dealing with more than one currency, so that the invoice can be issued in any currency, and the amounts can be collected in another currency."
+                        >
+                        </slide-down>
+                    </div>
+                    <div class="col-md-6">
+                        <slide-down
+                            heading="Possibility to pay with a visa"
+                            msg="The advantage of paying in cash, paying by Visa card, or by more than one payment method."
                         >
                         </slide-down>
                     </div>
@@ -342,6 +403,7 @@ export default {
     name: "CasherProgram",
     data: function () {
         return {
+            lang: this.getLang(),
             isShow: false,
         };
     },

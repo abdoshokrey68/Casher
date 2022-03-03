@@ -161,7 +161,6 @@ export default {
     props: ["casher_route", "locale"],
     data: function () {
         return {
-            locale: this.getLocale(),
             lang: this.getLang(),
         };
     },

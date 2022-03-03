@@ -57,8 +57,25 @@
                         disabled
                         readonly="readonly"
                     />
+                    <!-- <div id="invoice-print-area">
+                        <print-invoice
+                            :store_id="store_id"
+                            :invoice_id="invoice_id"
+                        ></print-invoice>
+                    </div> -->
+                    <div class="btns-controllers">
+                        <button
+                            class="btn btn-primary col-md-12 h5 p-3 mt-3 text-center bold"
+                            @click.prevent="
+                                printExternal(
+                                    'http://localhost:8000/ar/store/2/invoice/print/285'
+                                )
+                            "
+                        >
+                            <i class="fas fa-print"></i>
+                            {{ lang.invoice_printing }}
+                        </button>
 
-                    <div>
                         <button
                             type="submit"
                             class="btn btn-warning col-md-12 h5 p-3 mt-3 text-center bold"
@@ -69,11 +86,10 @@
                                 role="status"
                                 :hidden="!form.busy"
                             ></span>
-                            <i
-                                class="fas fa-money-bill-wave"
-                                :hidden="form.busy"
-                            ></i>
-                            {{ lang.pay }}
+                            <span :hidden="form.busy">
+                                <i class="fas fa-money-bill-wave"></i>
+                                {{ lang.pay }}
+                            </span>
                         </button>
 
                         <button
@@ -97,6 +113,7 @@ export default {
     components: {},
     data: function () {
         return {
+            store_id: this.$parent.store_id,
             invoice_id: null,
             lang: this.$parent.lang,
             invoice: {},
@@ -109,7 +126,7 @@ export default {
                 table_id: null,
             }),
             locale: "",
-            store_id: this.$parent.store_id,
+            invoice_printing: null,
         };
     },
     watch: {
@@ -135,7 +152,6 @@ export default {
         this.locale = this.getLocale();
         var paidamount = document.getElementsByName("paidamount");
         paidamount[0].focus();
-        console.log(paidamount);
     },
     methods: {
         payinvoiceToggle: function () {
@@ -169,6 +185,33 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
+        },
+        printExternal: function (url) {
+            var printWindow = window.open(
+                url,
+                "Print",
+                "left=200, top=200, width=950, height=500, toolbar=0, resizable=0"
+            );
+
+            printWindow.addEventListener(
+                "load",
+                function () {
+                    if (Boolean(printWindow.chrome)) {
+                        this.setTimeout(function () {
+                            printWindow.print();
+                            // setTimeout(function () {
+                            //     printWindow.close();
+                            // }, 500);
+                        }, 2000);
+                    } else {
+                        this.setTimeout(function () {
+                            printWindow.print();
+                            printWindow.close();
+                        }, 2000);
+                    }
+                },
+                true
+            );
         },
         notification: function (type, title, text) {
             this.$notify({
