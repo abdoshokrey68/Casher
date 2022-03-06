@@ -109,27 +109,6 @@
                             </div>
                         </a>
                     </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12 p-1 mt-2 mb-2">
-                        <a href="#" class="link-unstyled">
-                            <div class="prog-info">
-                                <h1 class="h4 bold text-d-blue p-2">
-                                    <i
-                                        class="fas fa-face-surprise mr-2 ml-2"
-                                    ></i>
-                                    <span> {{ lang.soon }} </span>
-                                </h1>
-                                <p>{{ lang.new_program }}</p>
-                            </div>
-                            <div class="prog-img">
-                                <img
-                                    src="/image/home/soon.jpg"
-                                    alt="prog-image"
-                                    class="col-md-12 image-res"
-                                />
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

@@ -104,7 +104,10 @@
             @yield('content')
         </main>
         {{-- Language Box --}}
-        <div class="dropdown btn-group dropup dropdown-btn-position" style=" {{app()->getLocale() == 'ar' ? 'left: 20px; right:auto' : '' }}">
+        <div class="dropdown btn-group dropup dropdown-btn-position"
+        style="left: auto; right:37px;"
+        {{-- style=" {{app()->getLocale() == 'ar' ? 'left: 20px; right:auto' : '' }}" --}}
+        >
             <button class="btn btn-warning bg-new-warning bold text-uppercase " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
             >
                 {{-- <i class="fas fa-globe mr-1 ml-1"></i> --}}
@@ -121,6 +124,18 @@
             </ul>
         </div>
         {{-- End Language Box --}}
+
+            <div class="home-btn-wa">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <a href="https://api.whatsapp.com/send?phone=+201061830653&text="
+                class="float btn-style-wa"
+                {{-- style=" {{app()->getLocale() == 'ar' ? 'left: auto !important ; right: 40px !important;' : '' }}" --}}
+                target="_blank">
+                <i class="fa fa-whatsapp my-float"></i>
+            </a>
+            </div>
+
+
         @if ( Route::currentRouteName() != 'invoice.print')
         <div>
             <footer>
@@ -141,8 +156,8 @@
                                 >
                             </div>
                             <div class="col-md-4">
-                                <a href="tel:+201129899520" class="text-light link"
-                                    >+201129899520</a
+                                <a href="tel:+201061830653" class="text-light link"
+                                    >+201061830653</a
                                 >
                             </div>
                         </div>

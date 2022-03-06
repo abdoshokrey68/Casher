@@ -46,15 +46,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/home',                 [HomeController::class, 'index'])->name('home');
     Route::get('/casher-program',       [HomeController::class, 'casherProgram'])->name('casher.program');
     Route::get('/digital-menu',         [HomeController::class, 'digitalMenu'])->name('digital.menu');
-    Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store');
-    Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware('checkmember');
-    Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu');
-    Route::get('store/{store_id}/invoice/print/{invoice_id}', [HomeController::class, 'printInvoice'])->name('invoice.print')->middleware('checkmember');
-    Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
+
+    Route::get('/create-store',         [HomeController::class, 'createStore'])->name('home.create-store')->middleware(['auth']);
+    Route::get('store/{store_id}',      [HomeController::class, 'store'])->name('store')->middleware(['checkmember', 'auth']);
+    Route::get('store/menu/{store_id}', [HomeController::class, 'menu'])->name('store.menu')->middleware(['auth']);
+    Route::get('store/{store_id}/invoice/print/{invoice_id}', [HomeController::class, 'printInvoice'])->name('invoice.print')->middleware('checkmember', 'auth');
+    // Route::get('store/menu/download/qrcode/{store_id}', [HomeController::class, 'downloadQrCode'])->name('download.qrcode');
     Route::get('error',                 [HomeController::class, 'error'])->name('error');
+    Route::post('api/add-new-store',    [storeApi::class, 'addNewStore'])->middleware(['auth']);
 });
 
-Route::post('api/add-new-store',    [storeApi::class, 'addNewStore']);
 
 Route::group(['middleware' => []], function () {
     // Route::group(['middleware' => ['checkMemberPosition']], function () {

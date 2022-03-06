@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div>
-            <digital-menu home="{{route('home')}}" />
+            <digital-menu home="{{route('home')}}" casher_program="{{route('casher.program')}}" />
         </div>
     </div>
 @endsection

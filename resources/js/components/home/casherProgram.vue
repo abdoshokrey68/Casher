@@ -193,7 +193,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="the-benefits">
+        <div class="container the-benefits">
             <div class="heading">
                 <h3 class="h4">{{ lang.Features_Available_In_The_App }}</h3>
                 <h4 class="h4 center-top-border">{{ lang.current_version }}</h4>
@@ -269,11 +269,13 @@
         </div>
         <!-- End the-benefits Class -->
         <div class="clear"></div>
-        <div class="the-benefits mt-5">
+
+        <div class="container the-benefits mt-5">
             <div class="heading">
                 <h3 class="h3">{{ lang.Features_coming_soon }}</h3>
                 <h4 class="h4 center-top-border">
                     {{ lang.Upcoming_releases }}
+                    <i class="fas fa-up mr-2 ml-2"></i>
                 </h4>
             </div>
             <div class="content container">
@@ -357,6 +359,41 @@
                 </div>
             </div>
         </div>
+        <!-- End Container -->
+
+        <div class="container the-benefits pb-5 mt-5 mb-5 pt-5">
+            <div class="heading">
+                <h3 class="h3">{{ lang.create_store }}</h3>
+                <h4 class="h4 center-top-border">
+                    {{ lang.Offer_only_available_this_month }}
+                    <i class="fas fa-up mr-2 ml-2"></i>
+                </h4>
+            </div>
+            <div class="container content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="h5 line-60">
+                            {{ lang.Book_your_online_store }}
+                        </h5>
+                        <a
+                            :href="create_store"
+                            class="btn btn-warning bg-new-warning p-2 bold col-md-6 m-auto"
+                        >
+                            <i class="fas fa-plus mr-2 ml-2"></i>
+                            {{ lang.create_store }}
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <img
+                            src="/image/home/re-qr-des.png"
+                            alt="QR Menu Table Sign"
+                            class="col-md-12 larg-image-st"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End container -->
     </div>
 </template>
 
@@ -403,7 +440,7 @@ ul {
 import slideDown from "./layouts/slideDown.vue";
 export default {
     components: { slideDown },
-    props: ["home"],
+    props: ["home", "create_store"],
     name: "CasherProgram",
     data: function () {
         return {

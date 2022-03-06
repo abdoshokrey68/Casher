@@ -43,6 +43,7 @@
     background-color: #e9c46a !important;
     border-color: #e9c46a !important;
 }
+
 .line-60 {
     line-height: 60px;
 }
@@ -53,10 +54,7 @@
 .row.justify-content-center.members-box {
     width: 80%;
     margin-top: 60px;
-    /* position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
+    height: 90vh;
 }
 
 /* Nav bar Style */
@@ -182,7 +180,7 @@
 .dropdown-btn-position {
     position: fixed;
     right: 30px;
-    bottom: 30px;
+    bottom: 80px;
     margin: 0 5px;
     z-index: 9;
 }
@@ -196,7 +194,8 @@
 #casher-program-compo .casher-program-header {
     background-image: url("/image/home/online-ordering-FB.png");
     height: 70vh;
-    background-size: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
     position: relative;
 }
 
@@ -226,7 +225,6 @@
 #home-compo .our-programs .heading,
 #casher-program-compo .the-benefits {
     border-top: 1px solid #000;
-    position: relative;
     top: 20px;
     margin-bottom: 30px;
     text-align: center;
@@ -260,6 +258,39 @@
 .larg-image-st {
     border-radius: 2.25rem !important;
     box-shadow: 0px 0 16px 3px #565656;
+}
+.select-your-menu .content .col-md-12 {
+    overflow: hidden;
+}
+.select-your-menu .content img {
+    transform: rotate(15deg) scale(1.4);
+    -webkit-transform: rotate(15deg) scale(1.4);
+}
+.select-your-menu .content .col-md-12:hover {
+    box-shadow: 0px 0px 17px 0px;
+}
+.select-your-menu .content .col-md-3:hover img {
+    transform: rotate(0) scale(1);
+    -webkit-transform: rotate(0) scale(1);
+    cursor: pointer;
+}
+#list-tab .list-group-item-action.active,
+.tab-content .active.show {
+    z-index: 2 !important;
+    font-weight: bold !important;
+    color: hsl(0, 0%, 0%) !important;
+    background-color: #fff !important;
+    border-color: #0076fd !important;
+    line-height: 35px;
+    font-size: 1.1em;
+}
+#list-tab .list-group-item-action.active {
+    color: hsl(0, 0%, 100%) !important;
+    background-color: #0076fd !important;
+    box-shadow: 0px 0px 6px 0px #000;
+}
+.tab-content .active.show {
+    min-height: 150px;
 }
 /* Start Create store Page */
 #crate-store .create-box {
@@ -302,4 +333,39 @@
 /* Casher Program Page */
 #crate-store .create-store-heading h4 {
     border-bottom: 2px solid #514da2;
+}
+/* Whatsapp btn  */
+.home-btn-wa .float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 10px;
+    right: 40px;
+}
+.home-btn-wa .btn-style-wa {
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+}
+.home-btn-wa .my-float {
+    margin-top: 16px;
+}
+/* .dig-menu-btn-wa .float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+} */
+.dig-menu-btn-wa .btn-style-wa {
+    background-color: #25d366;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
 }

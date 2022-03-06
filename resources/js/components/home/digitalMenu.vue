@@ -13,7 +13,7 @@
                 </a>
             </div>
         </div>
-        <div class="the-benefits">
+        <div class="the-benefits mt-5 mb-5">
             <div class="heading">
                 <h3 class="h3">
                     {{ lang.dig_men }}
@@ -23,7 +23,7 @@
                 </h6>
             </div>
 
-            <div id="the-benefits-content" class="row mt-5">
+            <div id="the-benefits-content" class="row mt-5 mb-5">
                 <div class="col-md-12">
                     <div class="row b-0">
                         <div class="col-md-4 p-1 mt-2 mb-2 text-center bold">
@@ -70,170 +70,217 @@
             </div>
         </div>
 
-        <div class="the-benefits">
+        <div class="container features-digital-menu mt-5 mb-5">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-8 p-0 the-benefits">
+                        <div class="heading">
+                            <h3 class="h4">
+                                {{ lang.Features_of_the_digital_menu }}
+                            </h3>
+                            <div class="row">
+                                <div class="col-4 p-0">
+                                    <div
+                                        class="list-group"
+                                        id="list-tab"
+                                        role="tablist"
+                                    >
+                                        <a
+                                            class="list-group-item list-group-item-action active"
+                                            id="free-service-list"
+                                            data-toggle="list"
+                                            href="#free-service"
+                                            role="tab"
+                                            aria-controls="free service"
+                                        >
+                                            {{ lang.free_service }}
+                                        </a>
+                                        <a
+                                            class="list-group-item list-group-item-action"
+                                            id="save-money-list"
+                                            data-toggle="list"
+                                            href="#save-money"
+                                            role="tab"
+                                            aria-controls="save money"
+                                            >{{ lang.save_money }}</a
+                                        >
+                                        <a
+                                            class="list-group-item list-group-item-action"
+                                            id="list-synchronous-list"
+                                            data-toggle="list"
+                                            href="#list-synchronous"
+                                            role="tab"
+                                            aria-controls="messages"
+                                            >{{ lang.synchronous }}</a
+                                        >
+                                        <a
+                                            class="list-group-item list-group-item-action"
+                                            id="list-audience-list"
+                                            data-toggle="list"
+                                            href="#list-audience"
+                                            role="tab"
+                                            aria-controls="settings"
+                                            >{{ lang.The_audience_menu }}</a
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div
+                                        class="tab-content"
+                                        id="nav-tabContent"
+                                    >
+                                        <div
+                                            class="tab-pane fade p-2 show active"
+                                            id="free-service"
+                                            role="tabpanel"
+                                            aria-labelledby="free-service-list"
+                                        >
+                                            {{ lang.We_offer_you_the_free }}
+                                        </div>
+                                        <div
+                                            class="tab-pane fade p-2"
+                                            id="save-money"
+                                            role="tabpanel"
+                                            aria-labelledby="save-money-list"
+                                        >
+                                            {{
+                                                lang.The_digital_menu_offers_you
+                                            }}
+                                        </div>
+                                        <div
+                                            class="tab-pane fade p-2"
+                                            id="list-synchronous"
+                                            role="tabpanel"
+                                            aria-labelledby="list-synchronous-list"
+                                        >
+                                            {{ lang.digital_synchronous }}
+                                        </div>
+                                        <div
+                                            class="tab-pane fade p-2"
+                                            id="list-audience"
+                                            role="tabpanel"
+                                            aria-labelledby="list-audience-list"
+                                        >
+                                            {{ lang.It_allows_the_list_reader }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End heading Class -->
+                    </div>
+                    <!-- End col-md-6 Class -->
+                    <div class="col-md-4">
+                        <img
+                            src="/image/home/get-your-qr.png"
+                            alt="digital menu features"
+                            class="col-12"
+                        />
+                    </div>
+                    <!-- End col-md-6 Class -->
+                </div>
+                <!-- End Row Class -->
+            </div>
+            <!-- End the-benefits Class -->
+        </div>
+        <!-- End Container -->
+        <div class="container mt-5 mb-5 the-benefits select-your-menu">
             <div class="heading">
-                <h3 class="h4">{{ lang.Features_Available_In_The_App }}</h3>
-                <h4 class="h4 center-top-border">{{ lang.current_version }}</h4>
+                <h3 class="h4">{{ lang.Choose_your_design }}</h3>
+                <h4 class="h4 center-top-border">{{ lang.free_design }}</h4>
             </div>
             <div class="content container">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.The_black_box"
-                                :msg="lang.We_understand_the_importance"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.multilanguage"
-                                :msg="lang.It_is_a_multi_language_program"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.synchronous_asynchronous"
-                                :msg="lang.The_restaurant_management_system"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.give_roles"
-                                :msg="lang.The_store_manager_can_grant"
-                            >
-                            </slide-down>
+                    <div class="col-md-3">
+                        <div class="col-md-12">
+                            <img
+                                src="/image/home/qr-menu.jpg"
+                                alt="QR-menu"
+                                class="col-12"
+                            />
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="
-                                    lang.Possibility_to_review_all_previous_checks
-                                "
-                                :msg="lang.Through_the_open_button"
-                            >
-                            </slide-down>
+                    <div class="col-md-3">
+                        <div class="col-md-12">
+                            <img
+                                src="/image/home/qr-menu2.jpg"
+                                alt="QR-menu"
+                                class="col-12"
+                            />
                         </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Store_employees"
-                                :msg="lang.Through_the_Users_and_Permissions"
-                            >
-                            </slide-down>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="col-md-12">
+                            <img
+                                src="/image/home/qr-menu3.jpg"
+                                alt="QR-menu"
+                                class="col-12"
+                            />
                         </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Possibility_to_delete"
-                                :msg="lang.Items_can_be_deleted"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Possibility_to_delete_the_entire"
-                                :msg="lang.The_user_can_also_delete"
-                            >
-                            </slide-down>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="col-md-12">
+                            <img
+                                src="/image/home/qr-menu4.png"
+                                alt="QR-menu"
+                                class="col-12"
+                            />
                         </div>
                     </div>
                 </div>
                 <!-- End Row Class -->
             </div>
-            <!-- End container Class -->
+            <!-- End content Class -->
         </div>
-        <!-- End the-benefits Class -->
-        <div class="clear"></div>
-        <div class="the-benefits mt-5">
+        <!-- End select-your-menu Class -->
+
+        <div class="container mt-5 mb-5 pt-5 the-benefits request_your_design">
             <div class="heading">
-                <h3 class="h3">{{ lang.Features_coming_soon }}</h3>
-                <h4 class="h4 center-top-border">
-                    {{ lang.Upcoming_releases }}
-                </h4>
+                <h3 class="h4">{{ lang.Request_your_design }}</h3>
+                <h4 class="h4 center-top-border">{{ lang.within_24_hours }}</h4>
             </div>
             <div class="content container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Complaint_Management"
-                                :msg="lang.Are_you_having_trouble"
+                <div class="col-md-12 row">
+                    <div class="col-md-6 p-0 row">
+                        <h5 class="h5 line-60">
+                            {{ lang.Move_to_the_digital_menu_and_start }}
+                        </h5>
+                        <h5 class="h5 line-40">
+                            {{ lang.You_must_create_your_store }}
+                        </h5>
+                        <a
+                            :href="casher_program"
+                            class="btn btn-warning bg-new-warning col-md-6 m-auto bold p-2 mt-2 mb-2"
+                        >
+                            {{ lang.learn_more }}
+                        </a>
+                        <div class="clear"></div>
+                        <div class="m-auto col-md-4 dig-menu-btn-wa d-grid">
+                            <link
+                                rel="stylesheet"
+                                href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+                            />
+                            <a
+                                href="https://api.whatsapp.com/send?phone=+201061830653&text="
+                                class="btn-style-wa"
+                                target="_blank"
                             >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Monitoring_the_working_hours"
-                                :msg="lang.Managing_employee_time_and"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.daily_plate"
-                                :msg="lang.One_of_the_most_difficult"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Order_Tracking"
-                                :msg="lang.Allow_your_customers_to_track"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Increase_sales_automatically"
-                                :msg="lang.This_smart_feature_is_a_source"
-                            >
-                            </slide-down>
+                                <i class="fa fa-whatsapp"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Customer_preferences"
-                                :msg="lang.The_program_determines"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="
-                                    lang.monitoring_of_stock_and_prescription
-                                "
-                                :msg="lang.What_is_the_benefit_of"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Customers_can_reserve_tables"
-                                :msg="lang.It_is_possible_to_reserve"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Possibility_to_issue_an_invoice"
-                                :msg="lang.The_restaurant_and_cafe_management"
-                            >
-                            </slide-down>
-                        </div>
-                        <div class="col-md-12 p-0">
-                            <slide-down
-                                :heading="lang.Possibility_to_pay_with_a_visa"
-                                :msg="lang.The_advantage_of_paying_in_cash"
-                            >
-                            </slide-down>
-                        </div>
+                        <img
+                            src="/image/home/re-qr-des-im.gif"
+                            alt="digital menu features"
+                            class="col-12"
+                        />
                     </div>
                 </div>
             </div>
+            <!-- End content Class -->
         </div>
+        <!-- End request_your_design Class -->
     </div>
 </template>
 
@@ -280,13 +327,15 @@ ul {
 import slideDown from "./layouts/slideDown.vue";
 export default {
     components: { slideDown },
-    props: ["home"],
+    props: ["home", "casher_program"],
     name: "CasherProgram",
     data: function () {
         return {
             lang: this.getLang(),
             isShow: false,
+            locale: this.getLocale(),
         };
     },
+    methods: {},
 };
 </script>

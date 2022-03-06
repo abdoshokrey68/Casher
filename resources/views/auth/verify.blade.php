@@ -3,9 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center members-box">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
-                <div class="card-header"> @lang('site.verification_email') </div>
+                <div>
+                    <h3 class="h3 text-center p-4">
+                        <i class="fas fa-envelope-open mr-2 ml-2"></i>
+                        @lang('site.verification_email')
+                    </h3>
+                </div>
 
                 <div class="card-body">
                     @if (session('resent'))
