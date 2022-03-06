@@ -21,6 +21,9 @@ class CreateHistoriesTable extends Migration
             $table->integer('store_id');
             $table->integer('status')->default(0);
             $table->timestamps();
+
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('member_id')->references('id')->on('users')->onDelete('SET NULL')->onUpdate('SET NULL');
         });
     }
 

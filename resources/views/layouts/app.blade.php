@@ -65,9 +65,15 @@
                                         <i class="fas fa-store mr-1 ml-1"></i> @lang('site.your_store')
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        {{-- @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
+                                        {{-- @php
+                                            $member_id = Auth::id();
+                                            // $stores = DB::select("SELECT * FROM positions Where member_id = $member_id");
+                                            $stores = DB::table('positions', 'stores')->where('member_id', $member_id)->with('stores')->get();
+                                        @endphp --}}
+                                        @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
                                             <li><a class="dropdown-item mt-1 ml-1" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
-                                        @endforeach --}}
+                                            {{-- <li><a class="dropdown-item mt-1 ml-1" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->position}} </a></li> --}}
+                                        @endforeach
                                     </ul>
                                 </div>
                             @endempty
@@ -138,7 +144,7 @@
 
         @if ( Route::currentRouteName() != 'invoice.print')
         <div>
-            <footer>
+            <footer class="">
                 <div
                     class="col-md-12 d-fixed bottom-0 bg-d-blue text-light text-center p-3 row"
                 >

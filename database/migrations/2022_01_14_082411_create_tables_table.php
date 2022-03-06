@@ -21,6 +21,8 @@ class CreateTablesTable extends Migration
             // $table->integer('invoice_id')->nullable();
             $table->integer('status')->default(0);  // [0] => this is not reserved if  = invoice ID this is reserved
             $table->timestamps();
+
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

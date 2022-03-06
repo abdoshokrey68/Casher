@@ -16,7 +16,6 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->integer('member_id');
-            $table->integer('create_id');
             $table->integer('store_id');
             $table->integer('discount')->default(0); // Discount For All Invoice on For Store
             $table->decimal('total', $precision = 19, $scale = 2)->default(0.00);
@@ -27,7 +26,7 @@ class CreateInvoicesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            // $table->foreignId('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('SET NULL');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

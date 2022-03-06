@@ -23,6 +23,9 @@ class CreateProductsTable extends Migration
             $table->integer('section_id');
             $table->integer('store_id');
             $table->timestamps();
+
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -17,8 +17,6 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('store_id')->nullable();
-            $table->integer('position')->default(3)->nullable(); // [0] => Manager || [1] => Casher || [2] => Restaurant || [3] => Admin
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

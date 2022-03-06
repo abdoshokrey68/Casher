@@ -23,6 +23,9 @@ class CreateInvoicedetsTable extends Migration
             $table->integer('invoice_id');
             $table->integer('store_id');
             $table->timestamps();
+
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -25,6 +25,8 @@ class CreateMenusTable extends Migration
             $table->string('icon_co')->default('#000000');
             $table->string('price_co')->default('#000000');
             $table->timestamps();
+
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

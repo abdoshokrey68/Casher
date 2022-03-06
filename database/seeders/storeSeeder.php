@@ -24,7 +24,6 @@ class storeSeeder extends Seeder
             $store->phone = $faker->e164PhoneNumber;
             $store->image = $faker->imageUrl($width = 640, $height = 480);
             $store->cover = $faker->imageUrl();
-            $store->manager_id = rand(1, 10);
             $store->discount = rand(0, 20);
             $store->save();
         }

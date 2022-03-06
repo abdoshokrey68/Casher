@@ -16,7 +16,6 @@ class InvoiceSeeder extends Seeder
     {
         for ($i = 0; $i < 49; $i++) {
             $invoice = new invoice();
-            $invoice->create_id = "000" . $i;
             $invoice->store_id = $i;
             $invoice->discount = rand(0, 20);
             $invoice->total = rand(200, 7000);

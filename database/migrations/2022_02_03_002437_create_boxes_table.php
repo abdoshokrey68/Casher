@@ -20,6 +20,8 @@ class CreateBoxesTable extends Migration
             $table->integer('store_id');
             $table->integer('member_id');
             $table->timestamps();
+
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

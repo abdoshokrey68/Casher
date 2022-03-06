@@ -22,6 +22,8 @@ class CreateSectionsTable extends Migration
             // $table->integer('discount')->nullable();
             $table->string('icon')->nullable();
             $table->timestamps();
+
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

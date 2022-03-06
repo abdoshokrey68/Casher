@@ -55,6 +55,9 @@ class CreatePositionsTable extends Migration
             // $table->boolean('box_edit')->default(0);
 
             $table->timestamps();
+
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('member_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
