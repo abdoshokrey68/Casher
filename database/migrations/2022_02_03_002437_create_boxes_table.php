@@ -17,7 +17,7 @@ class CreateBoxesTable extends Migration
             $table->id();
             $table->integer('amount');
             $table->integer('status')->default(0); // [0] =>  received || [1] => delivered
-            $table->integer('store_id');
+            $table->unsignedBigInteger('store_id');
             $table->integer('member_id');
             $table->timestamps();
 

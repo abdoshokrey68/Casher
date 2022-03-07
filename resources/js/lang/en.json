@@ -396,6 +396,8 @@
     "table_sett"    : "Table settings",
     "menu_sett"     : "Menu settings",
     "black_box_sett"     : "Black Box settings",
+    "box_sett": "Casher",
+    "treasury_officer" : "treasury officer",
 
     "member_add_succ"        : "Member added successfully",
     "verify_data"   : "Verify that the e-mail is correct and the data is correct",
@@ -561,8 +563,8 @@
 
     "You_must_create_your_store" : "You must create your store first to get the digital menu for free",
     "Offer_only_available_this_month" : "Offer only available this month",
-    "Book_your_online_store":  "Book your online store now and get 40% off and get the digital menu for free. Start your project now at the lowest costs, with the highest capabilities, advanced technologies and up-to-date, with the easiest steps to get started, save your money now, and create your online store"
-
+    "Book_your_online_store":  "Book your online store now and get 40% off and get the digital menu for free. Start your project now at the lowest costs, with the highest capabilities, advanced technologies and up-to-date, with the easiest steps to get started, save your money now, and create your online store",
+    "Contact_us_on_WhatsApp_to_receive_your_design" : "Contact us on WhatsApp to receive your design"
 
 
 

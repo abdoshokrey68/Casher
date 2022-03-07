@@ -14,9 +14,11 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
+            // $table->engine = 'InnoDB';
+
             $table->id();
             $table->integer('member_id');
-            $table->integer('store_id');
+            $table->unsignedBigInteger('store_id');
             $table->integer('discount')->default(0); // Discount For All Invoice on For Store
             $table->decimal('total', $precision = 19, $scale = 2)->default(0.00);
             $table->decimal('f_discount', $precision = 19, $scale = 2)->default(0.00);

@@ -74,7 +74,7 @@
                                 <div class="card row invoice-box mb-2">
                                     <h6 class="card-header bold p-3">
                                         {{ lang.invoice_sett }}
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="invoice-all"
                                                 type="checkbox"
@@ -84,7 +84,7 @@
                                             <label for="invoice-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -139,7 +139,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.section_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="section-all"
                                                 type="checkbox"
@@ -149,7 +149,7 @@
                                             <label for="section-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -204,7 +204,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.product_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="product-all"
                                                 type="checkbox"
@@ -214,7 +214,7 @@
                                             <label for="product-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -269,7 +269,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.table_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="table-all"
                                                 type="checkbox"
@@ -279,7 +279,7 @@
                                             <label for="table-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -334,7 +334,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.member_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="member-all"
                                                 type="checkbox"
@@ -344,7 +344,7 @@
                                             <label for="member-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -399,7 +399,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.store_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="store-all"
                                                 type="checkbox"
@@ -409,7 +409,7 @@
                                             <label for="store-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -431,7 +431,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.black_box_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="history-show"
                                                 type="checkbox"
@@ -441,7 +441,7 @@
                                             <label for="history-show">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -474,7 +474,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.menu_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="menu-all"
                                                 type="checkbox"
@@ -484,7 +484,7 @@
                                             <label for="menu-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -506,7 +506,7 @@
                                     <h6 class="card-header bold p-3">
                                         {{ lang.box_sett }}
 
-                                        <div :class="getFloatPosition()">
+                                        <!-- <div :class="getFloatPosition()">
                                             <input
                                                 id="box-all"
                                                 type="checkbox"
@@ -516,7 +516,7 @@
                                             <label for="box-all">
                                                 {{ lang.select_all_u }}
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </h6>
                                     <div class="row card-body">
                                         <div class="col-md-3">
@@ -527,7 +527,7 @@
                                                 v-model="form.box_add"
                                             />
                                             <label for="box-add">
-                                                {{ lang.show_u }}
+                                                {{ lang.treasury_officer }}
                                             </label>
                                         </div>
                                     </div>
@@ -903,21 +903,21 @@ export default {
                 return "float-end";
             }
         },
-        selectAll: function (e) {
-            if (e.target.checked == true) {
-                let el = document.getElementsByName(e.target.name);
-                for (let i = 1; i < el.length; i++) {
-                    console.log(el[i]);
-                    this.form.invoice + "_show" == false;
-                    el[i].checked = true;
-                }
-            } else {
-                let el = document.getElementsByName(e.target.name);
-                for (let i = 1; i < el.length; i++) {
-                    el[i].checked = false;
-                }
-            }
-        },
+        // selectAll: function (e) {
+        //     if (e.target.checked == true) {
+        //         let el = document.getElementsByName(e.target.name);
+        //         for (let i = 1; i < el.length; i++) {
+        //             console.log(el[i]);
+        //             this.form.invoice + "_show" == false;
+        //             el[i].checked = true;
+        //         }
+        //     } else {
+        //         let el = document.getElementsByName(e.target.name);
+        //         for (let i = 1; i < el.length; i++) {
+        //             el[i].checked = false;
+        //         }
+        //     }
+        // },
         getPositions: function () {
             axios
                 .get(`/api/member/position?store_id=${this.store_id}`)

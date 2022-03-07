@@ -23,7 +23,7 @@ class CreateInvoicesettsTable extends Migration
             $table->string('product_rtn')->nullable();
             $table->string('message_en')->nullable();
             $table->string('message_ar')->nullable();
-            $table->integer('store_id');
+            $table->unsignedBigInteger('store_id');
             $table->timestamps();
 
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');

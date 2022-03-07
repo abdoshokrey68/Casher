@@ -17,7 +17,7 @@ class CreateTablesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->integer('store_id');
+            $table->unsignedBigInteger('store_id');
             // $table->integer('invoice_id')->nullable();
             $table->integer('status')->default(0);  // [0] => this is not reserved if  = invoice ID this is reserved
             $table->timestamps();

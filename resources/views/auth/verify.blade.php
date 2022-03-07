@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center members-box">
-        <div class="col-md-6">
-            <div class="card">
+<div class="container members-box">
+    <div class="row">
+        <div class="col-md-5 m-auto mt-5">
+            <div class="card m-auto mt-5">
                 <div>
                     <h3 class="h3 text-center p-4">
                         <i class="fas fa-envelope-open mr-2 ml-2"></i>

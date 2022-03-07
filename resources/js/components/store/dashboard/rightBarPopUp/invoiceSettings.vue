@@ -59,7 +59,6 @@
                             <input
                                 id="tax-record"
                                 v-model="form.tax_record"
-                                type="number"
                                 name="tax_record"
                                 class="form-control mt-2 mb-2"
                                 :placeholder="lang.tax_record"

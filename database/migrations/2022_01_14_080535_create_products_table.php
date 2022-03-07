@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->decimal('price', $precision = 19, $scale = 2);
             $table->string('image')->nullable();
             $table->integer('stock'); // 0 => not avilable | 1 => avilable | 2 => limited quantity
-            $table->integer('section_id');
-            $table->integer('store_id');
+            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('store_id');
             $table->timestamps();
 
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');

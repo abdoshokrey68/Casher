@@ -15,7 +15,7 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->integer('store_id');
+            $table->unsignedBigInteger('store_id');
             $table->string('qrcode_name')->nullable();
             $table->integer('design_no')->nullable();
             $table->string('background_co')->default('#052531');

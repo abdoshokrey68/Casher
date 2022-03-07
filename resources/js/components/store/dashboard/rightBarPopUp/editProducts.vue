@@ -112,7 +112,7 @@
                         />
 
                         <label for="product-price" class="mt-2">
-                            {{ lang.product_price }}
+                            {{ lang.price }}
                         </label>
                         <input
                             id="product-price"
@@ -122,7 +122,7 @@
                             step="0.01"
                             class="form-control mt-2 mb-2"
                             min="0"
-                            :placeholder="lang.product_price"
+                            :placeholder="lang.price"
                         />
                         <div
                             class="text-danger bold"
@@ -413,11 +413,11 @@ export default {
             sections: {},
             productsearch: "",
             form: new Form({
-                name: "",
-                description: "",
-                price: "",
-                image: "",
-                stock: "",
+                name: null,
+                description: null,
+                price: 0.0,
+                image: null,
+                stock: 1,
                 store_id: this.$parent.store_id,
                 section_id: null,
                 edit_product_id: null,

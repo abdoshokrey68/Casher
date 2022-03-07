@@ -186,7 +186,6 @@ class storeApi extends Controller
         $position->history_show = 1;
         $position->history_delete = 1;
         $position->menu_edit = 1;
-        $position->store_show = 1;
         $position->store_edit = 1;
         $position->box_add = 1;
         $position->save();

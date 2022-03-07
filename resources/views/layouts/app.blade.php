@@ -22,7 +22,9 @@
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/store.css') }}" media="all">
-    <link rel="stylesheet" href="{{ asset('css/print.css') }}" media="print">
+    {{-- @if (app()->getLocale() == "en")
+        <link rel="stylesheet" href="{{ asset('css/ar-style.css') }}">
+    @endif --}}
 </head>
 <body class="bg-body" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
     <div id="app">
@@ -65,14 +67,8 @@
                                         <i class="fas fa-store mr-1 ml-1"></i> @lang('site.your_store')
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        {{-- @php
-                                            $member_id = Auth::id();
-                                            // $stores = DB::select("SELECT * FROM positions Where member_id = $member_id");
-                                            $stores = DB::table('positions', 'stores')->where('member_id', $member_id)->with('stores')->get();
-                                        @endphp --}}
                                         @foreach (Auth::user()->where('id', Auth::id())->with('positions.store')->first()->positions as $position)
                                             <li><a class="dropdown-item mt-1 ml-1" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->store->name}} </a></li>
-                                            {{-- <li><a class="dropdown-item mt-1 ml-1" target="_blank" href="{{route('store', $position->store_id)}}"> {{$position->position}} </a></li> --}}
                                         @endforeach
                                     </ul>
                                 </div>
@@ -111,8 +107,8 @@
         </main>
         {{-- Language Box --}}
         <div class="dropdown btn-group dropup dropdown-btn-position"
-        style="left: auto; right:37px;"
-        {{-- style=" {{app()->getLocale() == 'ar' ? 'left: 20px; right:auto' : '' }}" --}}
+        {{-- style="left: auto; right:37px;" --}}
+        style=" {{app()->getLocale() == 'ar' ? 'left: 37px !important; right:auto !important' : '' }}"
         >
             <button class="btn btn-warning bg-new-warning bold text-uppercase " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
             >
@@ -135,6 +131,7 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
             <a href="https://api.whatsapp.com/send?phone=+201061830653&text="
                 class="float btn-style-wa"
+                style=" {{app()->getLocale() == 'ar' ? 'left: 40px !important; right:auto !important' : '' }}"
                 {{-- style=" {{app()->getLocale() == 'ar' ? 'left: auto !important ; right: 40px !important;' : '' }}" --}}
                 target="_blank">
                 <i class="fa fa-whatsapp my-float"></i>

@@ -15,8 +15,8 @@ class CreatePositionsTable extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->integer('store_id');
-            $table->integer('member_id');
+            $table->unsignedBigInteger('store_id');
+            $table->unsignedBigInteger('member_id');
             $table->integer('position')->default(0); // [0] => Manager || [1] => Casher || [2] => Restaurant || [3] => Supervisor
 
             $table->boolean('invoice_show')->default(0);

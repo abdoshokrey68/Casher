@@ -20,8 +20,8 @@ class CreateInvoicedetsTable extends Migration
             $table->decimal('price', $precision = 19, $scale = 2)->default(0.00);
             $table->integer('quantity');
             // $table->string('discount')->default(0); // Discount For Items
-            $table->integer('invoice_id');
-            $table->integer('store_id');
+            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('store_id');
             $table->timestamps();
 
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade')->onUpdate('cascade');

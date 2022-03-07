@@ -50,21 +50,50 @@
                             <div class="card-header">
                                 <h5 class="h5">{{ lang.menu_qr_code }}</h5>
                             </div>
-                            <div class="card-body row col-md-6 m-auto">
-                                <img
-                                    v-if="menu.qrcode_name"
-                                    :src="'/image/menu/QR/' + menu.qrcode_name"
-                                    class="col-md-10 m-auto"
-                                    alt="Menu-Qr"
-                                />
-                                <a
-                                    id="downloadQr"
-                                    :href="'/image/menu/QR/' + menu.qrcode_name"
-                                    class="btn btn-primary d-block mt-2"
-                                    download
-                                >
-                                    {{ lang.download_qr }}
-                                </a>
+                            <div class="card-body row">
+                                <div class="col-md-5 m-auto">
+                                    <img
+                                        v-if="menu.qrcode_name"
+                                        :src="
+                                            '/image/menu/QR/' + menu.qrcode_name
+                                        "
+                                        class="col-md-12 m-auto"
+                                        alt="Menu-Qr"
+                                    />
+                                    <a
+                                        id="downloadQr"
+                                        :href="
+                                            '/image/menu/QR/' + menu.qrcode_name
+                                        "
+                                        class="btn btn-primary d-block mt-2"
+                                        download
+                                    >
+                                        {{ lang.download_qr }}
+                                    </a>
+                                </div>
+
+                                <div class="menu-design mt-2 col-md-8 m-auto">
+                                    <h4 class="h4 bold text-center">
+                                        {{
+                                            lang.Contact_us_on_WhatsApp_to_receive_your_design
+                                        }}
+                                    </h4>
+                                    <div
+                                        class="m-auto col-md-12 mt-2 dig-menu-btn-wa d-grid"
+                                    >
+                                        <link
+                                            rel="stylesheet"
+                                            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+                                        />
+                                        <a
+                                            href="https://api.whatsapp.com/send?phone=+201061830653&text="
+                                            class="btn-style-wa"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-whatsapp"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
