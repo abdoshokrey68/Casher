@@ -1,7 +1,7 @@
 <template>
     <div id="store-sections">
         <div class="col-md-12 p-1 bg-d-blue text-light">
-            <h5 class="text-center p-3 m-0 bold">Sections</h5>
+            <h5 class="text-center p-3 m-0 bold">{{ lang.Sections }}</h5>
         </div>
         <!-- End Store Section Header -->
         <div class="col-md-12 p-1">
@@ -66,6 +66,8 @@ export default {
                 this.sectionSelected = this.$route.query.section;
             }
             if (this.$route.query.invoice_id) {
+                this.fullPath = this.$route.fullPath;
+            } else {
                 this.fullPath = this.$route.fullPath;
             }
             this.time = new Date().getTime();

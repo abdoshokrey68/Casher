@@ -180,7 +180,6 @@ export default {
                     //     "Success",
                     //     "Section added successfully"
                     // );
-                    console.log(res.data);
                     this.urlReplace();
                     this.payinvoiceToggle();
                 })
@@ -217,8 +216,9 @@ export default {
         },
         getAmount: function () {
             var amount =
-                this.invoice.f_discount +
-                this.invoice.f_discount * (this.invoice.tax / 100);
+                this.invoice.total -
+                this.invoice.total * (this.invoice.discount / 100) +
+                this.invoice.total * (this.invoice.tax / 100);
             return parseFloat(amount).toFixed(2);
         },
         notification: function (type, title, text) {

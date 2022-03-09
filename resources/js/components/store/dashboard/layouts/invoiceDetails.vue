@@ -43,7 +43,7 @@
                 <h6 v-if="invoiceDetails.discount" class="bold p-1 text-danger">
                     {{ lang.total_be_discount + "=" }}
                     <span>
-                        {{ parseFloat(invoiceDetails.f_discount).toFixed(2) }}
+                        {{ parseFloat(invoiceDetails.total).toFixed(2) }}
                         <span class="">
                             {{ "× " + invoiceDetails.discount + "%" }}
                         </span>
@@ -68,7 +68,7 @@
                     readonly="readonly"
                     :value="
                         getInvoiceValue(
-                            invoiceDetails.f_discount,
+                            invoiceDetails.total,
                             invoiceDetails.discount,
                             invoice_s.tax
                         )
@@ -101,6 +101,7 @@ export default {
                 this.getInvoiceSettings(this.store_id);
             } else {
                 this.invoiceDetails = {};
+                this.invoice_id = 0;
             }
         },
     },
@@ -165,7 +166,7 @@ export default {
         },
         deleteInvoice: function (invoice_id) {
             axios
-                .get(
+                .post(
                     `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}&table_id=${this.invoiceDetails.table_id}`
                 )
                 .then((res) => {
@@ -184,7 +185,7 @@ export default {
                     this.notification(
                         this.getType("error"),
                         this.lang.error,
-                        this.lang.upaate_error
+                        this.lang.deleted_there_problem
                     );
                 });
         },
@@ -212,7 +213,9 @@ export default {
             if (this.invoiceDetails == "empty") {
                 return 0;
             } else {
-                return parseFloat(total + (total * tax) / 100).toFixed(2);
+                return parseFloat(
+                    total - (total * discount) / 100 + (total * tax) / 100
+                ).toFixed(2);
             }
         },
         getClass() {

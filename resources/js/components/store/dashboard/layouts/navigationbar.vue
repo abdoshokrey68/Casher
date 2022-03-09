@@ -1,11 +1,11 @@
 <template>
     <div>
-        <nav class="navbar-light top-navbar p-2 pb-0">
+        <nav class="navbar-light top-navbar p-0 pt-2 pb-0">
             <div class="row">
-                <div class="col-md-4 mb-2">
+                <div class="col-md-4 mb-2 p-0">
                     <div class="col-md-12 p-0">
                         <div class="row">
-                            <div class="col-4 pr-1 pl-1 pt-2 text-center">
+                            <div class="col-4 p-1 text-center">
                                 <p class="p-0 m-0">{{ lang.invoice_no }}</p>
                             </div>
                             <div class="col-8 p-0">
@@ -19,10 +19,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-2">
+                <div class="col-md-4 mb-2 p-0">
                     <div class="col-md-12 p-0">
                         <div class="row">
-                            <div class="col-4 pr-1 pl-1 pt-2 text-center">
+                            <div class="col-4 p-1 text-center">
                                 <p class="p-0 m-0">{{ lang.table_no }}</p>
                             </div>
                             <div class="col-8 p-0">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-2">
+                <div class="col-md-4 mb-2 p-0">
                     <div class="col-md-12 p-0">
                         <div class="row">
                             <div class="col text-center pt-2 pb-2">

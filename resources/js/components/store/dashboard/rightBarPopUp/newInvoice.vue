@@ -1,5 +1,5 @@
 <template>
-    <div id="new-invoice" class="col-md-7 m-auto">
+    <div id="new-invoice" class="col-md-9 m-auto">
         <div class="card justify-center border-warning border-2">
             <div class="new-invoice-header">
                 <button
@@ -40,6 +40,29 @@
                             </small>
                         </router-link>
                     </div>
+                    <div
+                        v-if="invoices"
+                        v-for="invoice in invoices"
+                        :key="invoice.id"
+                        class="col-md-4 mt-1 mb-1"
+                    >
+                        <router-link
+                            class="p-3 btn btn-dark bold col-12 action"
+                            :to="
+                                '?table_id=0&invoice_id=' +
+                                invoice.id +
+                                '&time=' +
+                                time
+                            "
+                            tag="a"
+                        >
+                            <i class="fas fa-money-bill-wave"></i>
+                            {{ lang.invoice_no }} {{ invoice.id }}
+                            <small class="text-warning h6">
+                                {{ lang.not_paid }}
+                            </small>
+                        </router-link>
+                    </div>
                     <div class="col-md-4 mt-1 mb-1">
                         <router-link
                             class="p-3 btn btn-danger bold col-12 action"
@@ -63,12 +86,14 @@ export default {
         return {
             store_id: this.$parent.store_id,
             tables: {},
+            invoices: {},
             time: "",
             lang: this.$parent.lang,
         };
     },
     mounted() {
         this.getTables();
+        this.getInvoices();
         this.time = new Date().getTime();
     },
     methods: {
@@ -89,6 +114,15 @@ export default {
                     this.tables = res.data;
                 })
                 .catch((err) => console.log(err));
+        },
+        getInvoices: function () {
+            axios
+                .get(`/api/invoice/notpaid?store_id=${this.store_id}`)
+                .then((res) => {
+                    console.log(res.data);
+                    this.invoices = res.data;
+                })
+                .catch((err) => {});
         },
     },
 };

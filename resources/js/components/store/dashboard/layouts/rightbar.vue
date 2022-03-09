@@ -237,6 +237,8 @@ export default {
                         this.invoice_btn = false;
                     }
                 }
+            } else {
+                this.invoice_btn = false;
             }
         },
     },

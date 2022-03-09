@@ -273,8 +273,8 @@
     "discount": "خصم",
     "total_be_discount" : " الإجمالي قبل الخصم ",
     "total_amount"  : "المبلغ الاجمالي",
-    "invoice_no"    : " رقم الفاتورة ",
-    "table_no"    : " رقم الطاولة",
+    "invoice_no"    : " فاتورة رقم ",
+    "table_no"    : " طاولةرقم ",
 
     "prudact"      : "منتج",
     "prudacts"      : "المنتجات",
@@ -285,6 +285,7 @@
     "new_invoice": " فاتورة جديدة ",
     "pay_the_amount" :" دفع الفاتورة ",
 
+    "Sections": "الاقسام",
     "edit_sections"         : " تعديل الأقسام  ",
     "edit_section"      : " تعديل القسم ",
     "edit_products"         : " تعديل المنتجات ",
@@ -576,7 +577,9 @@
     "Financial_Controller" : "المراقب المالي",
     "Restaurant_service_is_not_currently" : "خدمة المطعم غير متوفرة حاليًا ، وقريبًا سيتوفر توصيل الطلبات تلقائيًا من أمين الصندوق إلى المطعم",
 
-    "cancel_the_bill" : "الغاء الفاتورة"
+    "cancel_the_bill" : "الغاء الفاتورة",
+    "not_paid"  : "غير مدفوعة"
+
 
 
 

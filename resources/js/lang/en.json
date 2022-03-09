@@ -286,6 +286,7 @@
     "new_invoice": "New Invoice",
     "pay_the_amount" :"Pay The Amount",
 
+    "Sections": "Sections",
     "edit_sections" : "Edit Sections",
     "edit_section" : "Edit Section",
     "edit_products" : "Edit Products",
@@ -574,7 +575,8 @@
     "Financial_Controller" : "Financial Controller",
 
     "Restaurant_service_is_not_currently" : "Restaurant service is not currently available, soon the delivery of orders will be available automatically from the cashier to the restaurant",
-    "cancel_the_bill" : "cancel the bill"
+    "cancel_the_bill" : "cancel the bill",
+    "not_paid"  : "Not Paid"
 
 
 

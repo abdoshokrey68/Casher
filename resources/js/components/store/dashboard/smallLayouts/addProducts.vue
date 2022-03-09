@@ -128,7 +128,11 @@ export default {
                         !this.$parent.addProductsComponent;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    this.notification(
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.please_check_the_data
+                    );
                 });
         },
         getProductDetails: function () {

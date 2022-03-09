@@ -67,14 +67,13 @@ class invoiceDetailsApi extends Controller
                     $invoice_id =  $invoice->id;
                     if ($request->table_id != 0) {
                         $table = $this->updateTable($request->table_id, $invoice_id);
-                    } else {
                     }
                 } else {
                     $invoice = invoice::find($request->invoice_id);
-                    if ($invoice) {
+                    if ($invoice && !$invoice->paid) {
                         $invoice_id = $request->invoice_id;
                     } else {
-                        return abort(404);
+                        return abort(401);
                     }
                 }
                 $details = invoicedet::where('invoice_id', $invoice_id)->where('product_id', $request->product_id)->first();
@@ -158,6 +157,9 @@ class invoiceDetailsApi extends Controller
                 $invoiceDetails->f_discount = ($invoiceDetails->f_discount + ($details->price  * $details->quantity));
             }
         }
+
+        // $invoiceDetails->f_discount = $invoiceDetails->f_discount + ($invoiceDetails->f_discount * $invoiceDetails->tax / 100);
+        // $invoiceDetails->total = $invoiceDetails->total + ($invoiceDetails->total * $invoiceDetails->tax / 100);
         $invoiceDetails->save();
         return $invoiceDetails;
     }

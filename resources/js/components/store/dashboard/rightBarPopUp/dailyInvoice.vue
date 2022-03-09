@@ -91,7 +91,7 @@
                         >
                             {{ lang.total_sales }}
                             <span id="total-salse" class="text-danger bold">
-                                {{ total }}
+                                {{ parseFloat(total).toFixed(2) }}
                             </span>
                         </h5>
                     </div>
@@ -112,6 +112,7 @@
                                     <th scope="col">
                                         {{ lang.after_discount }}
                                     </th>
+                                    <th scope="col">{{ lang.tax }}</th>
                                     <th scope="col">{{ lang.table_no }}</th>
                                     <th scope="col">{{ lang.date }}</th>
                                     <th
@@ -132,6 +133,7 @@
                                     <td>{{ invoice.total }}</td>
                                     <td>{{ invoice.discount }}</td>
                                     <td>{{ invoice.f_discount }}</td>
+                                    <td>{{ invoice.tax }}</td>
                                     <td>
                                         <span v-if="invoice.table_id">
                                             {{ invoice.table_id }}
@@ -276,10 +278,10 @@ export default {
                 })
                 .catch((err) => console.log(err));
         },
-        deleteInvoice: function (invoice_id) {
+        deleteInvoice: function (invoice_id, password) {
             axios
-                .get(
-                    `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}`
+                .post(
+                    `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}&password=${password}`
                 )
                 .then((res) => {
                     console.log(res);
@@ -308,8 +310,9 @@ export default {
                     yes: "Yes",
                 },
                 callback: (confirm, password) => {
-                    if (confirm && password == "1234") {
-                        this.deleteInvoice(invoice_id);
+                    if (confirm) {
+                        // this.form.password = password;
+                        this.deleteInvoice(invoice_id, password);
                     }
                 },
             });

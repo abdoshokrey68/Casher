@@ -21,7 +21,7 @@ class CreateInvoicesTable extends Migration
             $table->unsignedBigInteger('store_id');
             $table->integer('discount')->default(0); // Discount For All Invoice on For Store
             $table->decimal('total', $precision = 19, $scale = 2)->default(0.00);
-            $table->decimal('f_discount', $precision = 19, $scale = 2)->default(0.00);
+            $table->decimal('f_discount', $precision = 19, $scale = 2)->default(0.00); // The invoice Total After Discount
             $table->decimal('paid', $precision = 19, $scale = 2)->nullable();
             $table->integer('table_id')->nullable();
             $table->integer('tax')->default(0);

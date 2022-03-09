@@ -53,70 +53,78 @@ class storeApi extends Controller
 
     public function updateinfo(Request $request)
     {
-        $positionApi = new positionApi();
-        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'store_edit');
-        if ($check) {
-            $this->validate($request, [
-                "name"          =>  "required|max:100",
-                "description"   =>  "max:255",
-                "location"      =>  "required|max:200",
-                "phone"         =>  "required",
-                "email"         =>  "required|email:rfc,dns",
-                "currency"      =>  "required|max:4",
-                "store_id"      =>  "required|integer",
-                "discount"      =>  "required|integer",
-                "audience"      =>  "required",
-            ]);
-            $store = store::find($request->store_id);
-            $store->name = $request->name;
-            $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
-            $store->description = $request->description;
-            $store->location = $request->location;
-            $store->phone = $request->phone;
-            $store->phone2 = $request->phone2;
-            $store->fb = $request->fb;
-            $store->email = $request->email;
-            $store->currency = $request->currency;
-            $store->discount = $request->discount;
-            if ($request->audience == false) {
-                $store->audience = 0;
+        $this->validate($request, [
+            "password"  => "required"
+        ]);
+        $user = Auth::user();
+        if (Hash::check($request->password, $user->password)) {
+            $positionApi = new positionApi();
+            $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'store_edit');
+            if ($check) {
+                $this->validate($request, [
+                    "name"          =>  "required|max:100",
+                    "description"   =>  "max:255",
+                    "location"      =>  "required|max:200",
+                    "phone"         =>  "required",
+                    "email"         =>  "required|email:rfc,dns",
+                    "currency"      =>  "required|max:4",
+                    "store_id"      =>  "required|integer",
+                    "discount"      =>  "required|integer",
+                    "audience"      =>  "required",
+                ]);
+                $store = store::find($request->store_id);
+                $store->name = $request->name;
+                $store->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
+                $store->description = $request->description;
+                $store->location = $request->location;
+                $store->phone = $request->phone;
+                $store->phone2 = $request->phone2;
+                $store->fb = $request->fb;
+                $store->email = $request->email;
+                $store->currency = $request->currency;
+                $store->discount = $request->discount;
+                if ($request->audience == false) {
+                    $store->audience = 0;
+                } else {
+                    $store->audience = 1;
+                }
+                if ($request->password) {
+                    $request->validate([
+                        'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
+                    ]);
+                    $store->password = Hash::make($request->password);
+                }
+                if ($request->image) {
+                    $request->validate([
+                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                    ]);
+                    $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+                    $request->image->move(public_path('/image/stores/image'), $imageName);
+                    if (file_exists(public_path("/image/stores/image/$store->image"))) {
+                        unlink(public_path("/image/stores/image/$store->image"));
+                    }
+                    $store->image = $imageName;
+                }
+                if ($request->cover) {
+                    $request->validate([
+                        'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                    ]);
+                    $coverName = time() . rand(1, 9000) . '.' . $request->cover->extension();
+                    $request->cover->move(public_path('/image/stores/cover'), $coverName);
+                    if (file_exists(public_path("/image/stores/cover/$store->cover"))) {
+                        unlink(public_path("/image/stores/cover/$store->cover"));
+                    }
+                    $store->cover = $coverName;
+                }
+                $store->save();
+                $historyApi = new historyApi;
+                $des_ar = " تم تعديل بيانات المتجر ";
+                $des_en = " Store information has been modified ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return $store;
             } else {
-                $store->audience = 1;
+                return abort(401);
             }
-            if ($request->password) {
-                $request->validate([
-                    'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
-                ]);
-                $store->password = Hash::make($request->password);
-            }
-            if ($request->image) {
-                $request->validate([
-                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-                ]);
-                $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
-                $request->image->move(public_path('/image/stores/image'), $imageName);
-                if (file_exists(public_path("/image/stores/image/$store->image"))) {
-                    unlink(public_path("/image/stores/image/$store->image"));
-                }
-                $store->image = $imageName;
-            }
-            if ($request->cover) {
-                $request->validate([
-                    'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-                ]);
-                $coverName = time() . rand(1, 9000) . '.' . $request->cover->extension();
-                $request->cover->move(public_path('/image/stores/cover'), $coverName);
-                if (file_exists(public_path("/image/stores/cover/$store->cover"))) {
-                    unlink(public_path("/image/stores/cover/$store->cover"));
-                }
-                $store->cover = $coverName;
-            }
-            $store->save();
-            $historyApi = new historyApi;
-            $des_ar = " تم تعديل بيانات المتجر ";
-            $des_en = " Store information has been modified ";
-            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-            return $store;
         } else {
             return abort(401);
         }

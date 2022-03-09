@@ -393,7 +393,7 @@ export default {
         storesettingsToggle: function () {
             this.$parent.storesettings = !this.$parent.storesettings;
         },
-        async editStoreSettings() {
+        async editStoreSettings(password) {
             const response = await this.form
                 .post("/api/updateinfo")
                 .then((res) => {
@@ -441,8 +441,9 @@ export default {
                     yes: "Yes",
                 },
                 callback: (confirm, password) => {
-                    if (confirm && password == "1234") {
-                        this.editStoreSettings();
+                    if (confirm) {
+                        this.form.password = password;
+                        this.editStoreSettings(password);
                     }
                 },
             });
