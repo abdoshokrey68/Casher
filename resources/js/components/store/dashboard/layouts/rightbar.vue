@@ -22,14 +22,14 @@
             <h1 id="store-name" class="text-center text-light p-2 h4 mt-2">
                 {{ store.name }}
             </h1>
-            <h6
+            <!-- <h6
                 id="store-email"
                 v-if="store.email"
                 class="text-center text-light p-2 small m-0"
             >
                 <i class="fas fa-envelope-open-text mr-1 ml-1"></i>
                 {{ store.email }}
-            </h6>
+            </h6> -->
 
             <h6
                 id="store-phone"
@@ -43,15 +43,16 @@
         <!-- End Store Info -->
 
         <div class="list-group p-2">
-            <!-- v-if="position.invoice.includes('2')" -->
-            <button
-                v-if="position.invoice_add"
-                @click="newInvoiceToggle()"
-                class="list-group-item list-group-item-action text-center mb-2 action"
-            >
-                <i class="fas fa-plus mr-2 ml-2"></i>
-                {{ lang.new_invoice }}
-            </button>
+            <div v-if="!this.cash_system">
+                <button
+                    v-if="position.invoice_add"
+                    @click="newInvoiceToggle()"
+                    class="list-group-item list-group-item-action text-center mb-2 action"
+                >
+                    <i class="fas fa-plus mr-2 ml-2"></i>
+                    {{ lang.new_invoice }}
+                </button>
+            </div>
             <button
                 v-if="position.invoice_add"
                 @click="payInvoiceToggle()"
@@ -139,10 +140,10 @@
             </button>
             <button
                 v-if="
-                    position.talbe_show ||
-                    position.talbe_add ||
-                    position.talbe_edit ||
-                    position.talbe_delete
+                    position.table_show ||
+                    position.table_add ||
+                    position.table_edit ||
+                    position.table_delete
                 "
                 @click="edittablesToggle()"
                 class="list-group-item list-group-item-action text-center mb-2 action"
@@ -214,18 +215,27 @@ export default {
             store_id: this.$parent.store_id,
             invoice_id: null,
             invoice_btn: false,
+            cash_system: false,
             lang: this.$parent.lang,
             position: {},
         };
     },
     watch: {
         $route: function () {
+            this.cash_system = false;
             if (this.$route.query.invoice_id && this.$route.query.table_id) {
                 this.invoice_id = parseInt(this.$route.query.invoice_id);
-                if (this.invoice_id != 0) {
-                    this.invoice_btn = true;
+                let table_id = parseInt(this.$route.query.table_id);
+                if (this.invoice_id != 0 && table_id == 0) {
+                    this.invoice_btn = true; // If This is Cash system Undisplay Paid invoice btn && display new invoice btn
+                    this.cash_system = true;
                 } else {
-                    this.invoice_btn = false;
+                    this.cash_system = false;
+                    if (this.invoice_id != 0) {
+                        this.invoice_btn = true;
+                    } else {
+                        this.invoice_btn = false;
+                    }
                 }
             }
         },

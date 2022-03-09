@@ -7,6 +7,7 @@ use App\Http\Controllers\historyApi;
 use App\Models\history;
 use App\Models\invoice;
 use App\Models\invoicedet;
+use App\Models\invoicesett;
 use App\Models\product;
 use App\Models\section;
 use App\Models\store;
@@ -23,22 +24,26 @@ class invoiceDetailsApi extends Controller
             'invoice_id' => 'required|numeric',
             'store_id' => 'required'
         ]);
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_add');
+
         $invoice_id = $request->invoice_id;
-        if ($request->invoice_id == '0') {
-            return 'empty';
-        } else {
-            $invoice = invoice::find($invoice_id);
-            if ($invoice) {
-                $store = store::find($invoice->store_id);
-                if ($store) {
+        if ($check) {
+            if ($request->invoice_id == '0') {
+                return 'empty';
+            } else {
+                $invoice = invoice::find($invoice_id);
+                if ($invoice) {
+                    $store = store::find($request->store_id);
                     $invoiceDetails = $this->updateInvoiceTotal($invoice_id);
                     return $invoiceDetails;
                 } else {
-                    return 'false2';
+                    return abort(404);
                 }
-            } else {
-                return 'false3';
             }
+        } else {
+            return abort(401);
         }
     }
 
@@ -50,7 +55,6 @@ class invoiceDetailsApi extends Controller
             'table_id' => 'required|numeric',
             'product_id' => 'required|numeric',
         ]);
-
         $positionApi = new positionApi();
         $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_add');
 
@@ -64,29 +68,26 @@ class invoiceDetailsApi extends Controller
                     if ($request->table_id != 0) {
                         $table = $this->updateTable($request->table_id, $invoice_id);
                     } else {
-                        $table = "";
                     }
                 } else {
                     $invoice = invoice::find($request->invoice_id);
                     if ($invoice) {
                         $invoice_id = $request->invoice_id;
                     } else {
-                        return 'false2';
+                        return abort(404);
                     }
                 }
                 $details = invoicedet::where('invoice_id', $invoice_id)->where('product_id', $request->product_id)->first();
                 if ($details) {
                     $details->quantity = $details->quantity + $request->quantity;
                     $details->save();
-                    return $details;
                 } else {
                     $details = $this->createDetails($product, $request, $store->id, $invoice_id);
-                    return [
-                        'invoice_id'    => $invoice_id,
-                        'table'         => $table,
-                        'details'       => $details
-                    ];
                 }
+                return [
+                    'invoice_id'    => $invoice_id,
+                    'details'       => $details
+                ];
             } else {
                 return abort(404);
             }
@@ -99,33 +100,36 @@ class invoiceDetailsApi extends Controller
     {
         $details_id = $request->invoice_details_id;
         $details = invoicedet::find($details_id);
-        if ($details) {
+
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_add');
+        if ($check) {
             $store = store::find($details->store_id);
-            if ($store) {
+            if ($details) {
                 $invoice = invoice::with('invoicedets')->find($details->invoice_id);
                 if (!$invoice->invoicedets) {
                     $invoice->total = 0;
                     $invoice->save();
                 }
                 $details->delete();
-                // $details->save();
                 return "Deleted successfully";
             } else {
-                return 'false2';
+                return abort(404);
             }
         } else {
-            return 'false3';
+            return abort(401);
         }
     }
 
     protected function createInvoice($store, $table_id)
     {
+        $invoice_sett = invoicesett::where('store_id', $store->id)->first();
         $invoice = new invoice();
-        $invoice->create_id = date('ymd');
         $invoice->store_id = $store->id;
         $invoice->discount = $store->discount;
         $invoice->table_id = $table_id;
         $invoice->member_id = Auth::id();
+        $invoice->tax = $invoice_sett->tax;
         $invoice->save();
         return $invoice;
     }

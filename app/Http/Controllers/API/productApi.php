@@ -115,14 +115,6 @@ class productApi extends Controller
         $positionApi = new positionApi();
         $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'product_edit');
         if ($check) {
-            $imageName = null;
-            if ($request->image) {
-                $request->validate([
-                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-                ]);
-                $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
-                $request->image->move(public_path('/image/products'), $imageName);
-            }
             $product = product::find($request->edit_product_id);
             $store = store::find($product->store_id);
             if ($product) {
@@ -132,7 +124,14 @@ class productApi extends Controller
                 $product->stock         = $request->stock;
                 $product->section_id    = $request->section_id;
                 $product->store_id      = $request->store_id;
-                $product->image         = $imageName;
+                if ($request->image) {
+                    $request->validate([
+                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                    ]);
+                    $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
+                    $request->image->move(public_path('/image/products'), $imageName);
+                    $product->image         = $imageName;
+                }
                 $product->save();
 
                 $historyApi = new historyApi;

@@ -16,7 +16,7 @@
                 <input
                     type="text"
                     class="form-control disabled bold text-center text-danger"
-                    :value="invoice.f_discount"
+                    :value="getAmount()"
                     disabled
                 />
 
@@ -65,18 +65,6 @@
                     </div> -->
                     <div class="btns-controllers">
                         <button
-                            class="btn btn-primary col-md-12 h5 p-3 mt-3 text-center bold"
-                            @click.prevent="
-                                printExternal(
-                                    'http://localhost:8000/ar/store/2/invoice/print/285'
-                                )
-                            "
-                        >
-                            <i class="fas fa-print"></i>
-                            {{ lang.invoice_printing }}
-                        </button>
-
-                        <button
                             type="submit"
                             class="btn btn-warning col-md-12 h5 p-3 mt-3 text-center bold"
                             :disabled="form.busy || pay_btn"
@@ -91,7 +79,17 @@
                                 {{ lang.pay }}
                             </span>
                         </button>
-
+                        <button
+                            class="btn btn-primary col-md-12 h5 p-3 mt-3 text-center bold"
+                            @click.prevent="
+                                printExternal(
+                                    'http://localhost:8000/ar/store/6/invoice/print/285'
+                                )
+                            "
+                        >
+                            <i class="fas fa-print"></i>
+                            {{ lang.invoice_printing }}
+                        </button>
                         <button
                             @click.prevent="payinvoiceToggle()"
                             class="btn btn-light mt-2 col-md-12 text-danger bold"
@@ -117,22 +115,25 @@ export default {
             invoice_id: null,
             lang: this.$parent.lang,
             invoice: {},
-            paidamount: "",
+            paidamount: null,
             remaining: 0.0,
             pay_btn: true,
             form: new Form({
                 paidamount: 0.0,
                 invoice_id: null,
                 table_id: null,
+                store_id: this.$parent.store_id,
             }),
-            locale: "",
+            locale: null,
             invoice_printing: null,
         };
     },
     watch: {
         paidamount: function () {
-            this.remaining = this.paidamount - this.invoice.f_discount;
-            this.form.paidamount = parseInt(this.paidamount);
+            this.remaining = parseFloat(
+                this.paidamount - this.getAmount()
+            ).toFixed(2);
+            this.form.paidamount = parseFloat(this.paidamount).toFixed(2);
             if (this.remaining >= 0.0) {
                 this.pay_btn = false;
             } else {
@@ -141,7 +142,7 @@ export default {
         },
     },
     mounted() {
-        if (this.$route.query.invoice_id) {
+        if (this.$route.query.invoice_id && this.$route.query.table_id) {
             this.invoice_id = parseInt(this.$route.query.invoice_id);
             this.getInvoiceDetails(this.invoice_id, this.store_id);
             this.form.invoice_id = this.invoice_id;
@@ -179,6 +180,7 @@ export default {
                     //     "Success",
                     //     "Section added successfully"
                     // );
+                    console.log(res.data);
                     this.urlReplace();
                     this.payinvoiceToggle();
                 })
@@ -212,6 +214,12 @@ export default {
                 },
                 true
             );
+        },
+        getAmount: function () {
+            var amount =
+                this.invoice.f_discount +
+                this.invoice.f_discount * (this.invoice.tax / 100);
+            return parseFloat(amount).toFixed(2);
         },
         notification: function (type, title, text) {
             this.$notify({

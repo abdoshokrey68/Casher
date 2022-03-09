@@ -19,7 +19,7 @@ class CreateInvoicesettsTable extends Migration
             $table->integer('tax_record')->nullable();
             $table->string('tax_card')->nullable();
             $table->string('file_no')->nullable();
-            $table->integer('tax')->nullable();
+            $table->integer('tax')->default(0);
             $table->string('product_rtn')->nullable();
             $table->string('message_en')->nullable();
             $table->string('message_ar')->nullable();

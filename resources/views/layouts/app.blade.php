@@ -108,7 +108,7 @@
         {{-- Language Box --}}
         <div class="dropdown btn-group dropup dropdown-btn-position"
         {{-- style="left: auto; right:37px;" --}}
-        style=" {{app()->getLocale() == 'ar' ? 'left: 37px !important; right:auto !important' : '' }}"
+        style=" {{app()->getLocale() == 'ar' ? 'left: 5px !important; right:auto !important' : '' }}"
         >
             <button class="btn btn-warning bg-new-warning bold text-uppercase " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
             >
@@ -131,7 +131,7 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
             <a href="https://api.whatsapp.com/send?phone=+201061830653&text="
                 class="float btn-style-wa"
-                style=" {{app()->getLocale() == 'ar' ? 'left: 40px !important; right:auto !important' : '' }}"
+                style=" {{app()->getLocale() == 'ar' ? 'left: 5px !important; right:auto !important' : '' }}"
                 {{-- style=" {{app()->getLocale() == 'ar' ? 'left: auto !important ; right: 40px !important;' : '' }}" --}}
                 target="_blank">
                 <i class="fa fa-whatsapp my-float"></i>

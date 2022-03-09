@@ -55,8 +55,16 @@
                         </div>
                         <a href="#">
                             <img
+                                v-if="product.image"
                                 class="product-image"
                                 :src="'/image/products/' + product.image"
+                                alt="product image"
+                            />
+
+                            <img
+                                v-else
+                                class="product-image"
+                                src="/image/products/newproduct.png"
                                 alt="product image"
                             />
                             <a

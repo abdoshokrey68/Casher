@@ -62,7 +62,36 @@
                                 <option value="1">{{ lang.casher }}</option>
                                 <option value="2">{{ lang.restaurant }}</option>
                                 <option value="3">{{ lang.supervisor }}</option>
+                                <option value="4">
+                                    {{ lang.Marketing_Specialist }}
+                                </option>
+                                <option value="5">
+                                    {{ lang.Data_Analyst }}
+                                </option>
+                                <option value="6">
+                                    {{ lang.Administrative_Manager }}
+                                </option>
+                                <option value="7">
+                                    {{ lang.Sales_Manager }}
+                                </option>
+                                <option value="8">
+                                    {{ lang.Inventory_Manager }}
+                                </option>
+                                <option value="9">
+                                    {{ lang.Financial_Controller }}
+                                </option>
                             </select>
+                            <div
+                                v-if="form.position == '2'"
+                                class="text-danger bold"
+                            >
+                                {{ lang.Restaurant_service_is_not_currently }}
+                            </div>
+                            <div
+                                class="text-danger bold"
+                                v-if="form.errors.has('position')"
+                                v-html="form.errors.get('position')"
+                            />
                         </div>
 
                         <div class="card mt-3">
@@ -623,6 +652,24 @@
                                         <span v-if="member.position == 3">{{
                                             lang.supervisor
                                         }}</span>
+                                        <span v-if="member.position == 4">
+                                            {{ lang.Marketing_Specialist }}
+                                        </span>
+                                        <span v-if="member.position == 5">
+                                            {{ lang.Data_Analyst }}
+                                        </span>
+                                        <span v-if="member.position == 6">
+                                            {{ lang.Administrative_Manager }}
+                                        </span>
+                                        <span v-if="member.position == 7">
+                                            {{ lang.Sales_Manager }}
+                                        </span>
+                                        <span v-if="member.position == 8">
+                                            {{ lang.Inventory_Manager }}
+                                        </span>
+                                        <span v-if="member.position == 9">
+                                            {{ lang.Financial_Controller }}
+                                        </span>
                                     </td>
                                     <td v-if="position.member_edit">
                                         <router-link

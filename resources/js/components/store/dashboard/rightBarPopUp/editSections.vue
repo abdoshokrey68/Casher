@@ -30,21 +30,6 @@
                             v-if="NewSectionFrom"
                         >
                             <input
-                                v-if="form.section_id"
-                                hidden
-                                v-model="form.section_id"
-                                type="text"
-                                name="section_id"
-                            />
-
-                            <input
-                                hidden
-                                v-model="form.store_id"
-                                type="text"
-                                name="store_id"
-                            />
-
-                            <input
                                 v-model="form.name"
                                 type="text"
                                 name="name"
@@ -121,6 +106,20 @@
                                         <input
                                             type="radio"
                                             name="icon"
+                                            value="fas fa-mortar-pestle"
+                                            v-model="form.icon"
+                                            id="fa-mortar-pestle"
+                                        />
+                                        <label for="fa-mortar-pestle"
+                                            ><i
+                                                class="fas fa-mortar-pestle fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
                                             value="fas fa-ice-cream"
                                             v-model="form.icon"
                                             id="fa-ice-cream"
@@ -184,6 +183,118 @@
                                         <label for="fa-drumstick-bite"
                                             ><i
                                                 class="fas fa-drumstick-bite fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-carrot"
+                                            v-model="form.icon"
+                                            id="fa-carrot"
+                                        />
+                                        <label for="fa-carrot"
+                                            ><i
+                                                class="fas fa-carrot fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-bread-slice"
+                                            v-model="form.icon"
+                                            id="fa-bread-slice"
+                                        />
+                                        <label for="fa-bread-slice"
+                                            ><i
+                                                class="fas fa-bread-slice fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-cake-candles"
+                                            v-model="form.icon"
+                                            id="fa-cake-candles"
+                                        />
+                                        <label for="fa-cake-candles"
+                                            ><i
+                                                class="fas fa-cake-candles fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-candy-cane"
+                                            v-model="form.icon"
+                                            id="fa-candy-cane"
+                                        />
+                                        <label for="fa-candy-cane"
+                                            ><i
+                                                class="fas fa-candy-cane fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-cookie"
+                                            v-model="form.icon"
+                                            id="fa-cookie"
+                                        />
+                                        <label for="fa-cookie"
+                                            ><i
+                                                class="fas fa-cookie fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-apple-whole"
+                                            v-model="form.icon"
+                                            id="fa-apple-whole"
+                                        />
+                                        <label for="fa-apple-whole"
+                                            ><i
+                                                class="fas fa-apple-whole fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-pepper-hot"
+                                            v-model="form.icon"
+                                            id="fa-pepper-hot"
+                                        />
+                                        <label for="fa-pepper-hot"
+                                            ><i
+                                                class="fas fa-pepper-hot fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-champagne-glasses"
+                                            v-model="form.icon"
+                                            id="fa-champagne-glasses"
+                                        />
+                                        <label for="fa-champagne-glasses"
+                                            ><i
+                                                class="fas fa-champagne-glasses fa-2x mr-2 ml-2"
                                             ></i
                                         ></label>
                                     </div>
@@ -324,6 +435,35 @@
                                         <label for="fa-hat-cowboy"
                                             ><i
                                                 class="fas fa-hat-cowboy fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-socks"
+                                            v-model="form.icon"
+                                            id="fa-socks"
+                                        />
+                                        <label for="fa-socks"
+                                            ><i
+                                                class="fas fa-socks fa-2x mr-2 ml-2"
+                                            ></i
+                                        ></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input
+                                            type="radio"
+                                            name="icon"
+                                            value="fas fa-shoe-prints"
+                                            v-model="form.icon"
+                                            id="fa-shoe-prints"
+                                        />
+                                        <label for="fa-shoe-prints"
+                                            ><i
+                                                class="fas fa-shoe-prints fa-2x mr-2 ml-2"
                                             ></i
                                         ></label>
                                     </div>

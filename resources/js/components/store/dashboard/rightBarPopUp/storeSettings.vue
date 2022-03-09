@@ -22,13 +22,6 @@
                         role="form"
                         class="form-horizontal"
                     >
-                        <input
-                            hidden
-                            v-model="form.store_id"
-                            type="text"
-                            name="store_id"
-                        />
-
                         <div class="clear"></div>
                         <label for="store-name"> {{ lang.store_name }} </label>
                         <input

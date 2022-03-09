@@ -6961,6 +6961,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "invoiceDetails",
   data: function data() {
@@ -6968,23 +6984,26 @@ __webpack_require__.r(__webpack_exports__);
       store_id: this.$parent.store_id,
       invoiceDetails: {},
       invoice_id: 0,
-      lang: this.$parent.lang
+      lang: this.$parent.lang,
+      invoice_s: {},
+      locale: this.getLocale()
     };
   },
   watch: {
     $route: function $route() {
-      if (this.$route.query.invoice_id || this.$route.query.get_invoice_details) {
+      if (this.$route.query.invoice_id && this.$route.query.time) {
         this.invoice_id = this.$route.query.invoice_id;
         this.getInvoiceDetails();
+        this.getInvoiceSettings(this.store_id);
       } else {
         this.invoiceDetails = {};
-        this.store_id = 0;
       }
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {// this.getInvoiceSettings(this.store_id);
+  },
   methods: {
-    handleClick: function handleClick(details_id) {
+    handleClick: function handleClick(id, type) {
       var _this = this;
 
       this.$confirm({
@@ -6995,7 +7014,11 @@ __webpack_require__.r(__webpack_exports__);
         },
         callback: function callback(confirm) {
           if (confirm) {
-            _this.deleteDetails(details_id, _this.store_id);
+            if (type == "details") {
+              _this.deleteDetails(id, _this.store_id);
+            } else {
+              _this.deleteInvoice(_this.invoice_id, _this.store_id);
+            }
           }
         }
       });
@@ -7009,22 +7032,79 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {// console.log(err);
       });
     },
-    deleteDetails: function deleteDetails(details_id, store_id) {
+    getInvoiceSettings: function getInvoiceSettings(store_id) {
       var _this3 = this;
+
+      axios.get("/api/invoice/settings?store_id=".concat(store_id)).then(function (res) {
+        // console.log(res);
+        _this3.invoice_s = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    deleteDetails: function deleteDetails(details_id, store_id) {
+      var _this4 = this;
 
       axios.get("/api/deletedetails?invoice_details_id=".concat(details_id, "&store_id=").concat(store_id)).then(function (res) {
         // console.log(res.data);
-        _this3.getInvoiceDetails();
+        _this4.getInvoiceDetails();
       })["catch"](function (err) {// console.log(err);
       });
     },
-    getInvoiceValue: function getInvoiceValue(total, discount) {
+    deleteInvoice: function deleteInvoice(invoice_id) {
+      var _this5 = this;
+
+      axios.get("/api/deleteinvoice?invoice_id=".concat(invoice_id, "&store_id=").concat(this.store_id, "&table_id=").concat(this.invoiceDetails.table_id)).then(function (res) {
+        // console.log(res);
+        _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.delete_suucess);
+
+        _this5.urlReplace();
+
+        _this5.invoice_id = 0;
+        _this5.invoiceDetails = "empty";
+      })["catch"](function (err) {
+        // console.log(err);
+        _this5.notification(_this5.getType("error"), _this5.lang.error, _this5.lang.upaate_error);
+      });
+    },
+    notification: function notification(type, title, text) {
+      this.$notify({
+        group: "dashboard",
+        speed: 1500,
+        type: type,
+        // error , warn, success
+        title: title,
+        text: text
+      });
+    },
+    urlReplace: function urlReplace() {
+      if (this.$route.query) {
+        this.$router.replace({
+          path: this.$route.path
+        })["catch"](function () {});
+      }
+    },
+    getInvoiceValue: function getInvoiceValue(total, discount, tax) {
       // if (this.invoiceDetails == "empty")
       //     console.log(this.invoiceDetails);
       if (this.invoiceDetails == "empty") {
         return 0;
       } else {
-        return total;
+        return parseFloat(total + total * tax / 100).toFixed(2);
+      }
+    },
+    getClass: function getClass() {
+      if (this.locale == "ar") {
+        return "btn btn-danger text-light bold text-uppercase float-start";
+      } else {
+        return "btn btn-danger text-light bold text-uppercase float-end";
+      }
+    },
+    getType: function getType(type) {
+      if (this.locale == "ar") {
+        return "".concat(type, " text-end");
+      } else {
+        return type;
       }
     }
   }
@@ -7156,6 +7236,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (hour < 10) hour = "0" + hour;
       var min = time.getMinutes();
+      if (min < 10) min = "0" + min;
       this.time = hour + ":" + min + " " + ampm;
     }
   }
@@ -7175,6 +7256,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _smallLayouts_addProducts_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../smallLayouts/addProducts.vue */ "./resources/js/components/store/dashboard/smallLayouts/addProducts.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7539,6 +7628,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RightBar",
@@ -7548,19 +7638,31 @@ __webpack_require__.r(__webpack_exports__);
       store_id: this.$parent.store_id,
       invoice_id: null,
       invoice_btn: false,
+      cash_system: false,
       lang: this.$parent.lang,
       position: {}
     };
   },
   watch: {
     $route: function $route() {
+      this.cash_system = false;
+
       if (this.$route.query.invoice_id && this.$route.query.table_id) {
         this.invoice_id = parseInt(this.$route.query.invoice_id);
+        var table_id = parseInt(this.$route.query.table_id);
 
-        if (this.invoice_id != 0) {
-          this.invoice_btn = true;
+        if (this.invoice_id != 0 && table_id == 0) {
+          this.invoice_btn = true; // If This is Cash system Undisplay Paid invoice btn && display new invoice btn
+
+          this.cash_system = true;
         } else {
-          this.invoice_btn = false;
+          this.cash_system = false;
+
+          if (this.invoice_id != 0) {
+            this.invoice_btn = true;
+          } else {
+            this.invoice_btn = false;
+          }
         }
       }
     }
@@ -7639,6 +7741,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9145,6 +9253,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditMembers",
@@ -9454,12 +9609,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -10604,6 +10753,146 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "editSections",
@@ -10845,21 +11134,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -11472,13 +11746,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -11835,8 +12102,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PayInvoice",
@@ -11847,22 +12112,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       invoice_id: null,
       lang: this.$parent.lang,
       invoice: {},
-      paidamount: "",
+      paidamount: null,
       remaining: 0.0,
       pay_btn: true,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
         paidamount: 0.0,
         invoice_id: null,
-        table_id: null
+        table_id: null,
+        store_id: this.$parent.store_id
       }),
-      locale: "",
+      locale: null,
       invoice_printing: null
     };
   },
   watch: {
     paidamount: function paidamount() {
-      this.remaining = this.paidamount - this.invoice.f_discount;
-      this.form.paidamount = parseInt(this.paidamount);
+      this.remaining = parseFloat(this.paidamount - this.getAmount()).toFixed(2);
+      this.form.paidamount = parseFloat(this.paidamount).toFixed(2);
 
       if (this.remaining >= 0.0) {
         this.pay_btn = false;
@@ -11872,7 +12138,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    if (this.$route.query.invoice_id) {
+    if (this.$route.query.invoice_id && this.$route.query.table_id) {
       this.invoice_id = parseInt(this.$route.query.invoice_id);
       this.getInvoiceDetails(this.invoice_id, this.store_id);
       this.form.invoice_id = this.invoice_id;
@@ -11915,6 +12181,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   //     "Success",
                   //     "Section added successfully"
                   // );
+                  console.log(res.data);
+
                   _this2.urlReplace();
 
                   _this2.payinvoiceToggle();
@@ -11949,6 +12217,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }, 2000);
         }
       }, true);
+    },
+    getAmount: function getAmount() {
+      var amount = this.invoice.f_discount + this.invoice.f_discount * (this.invoice.tax / 100);
+      return parseFloat(amount).toFixed(2);
     },
     notification: function notification(type, title, text) {
       this.$notify({
@@ -12776,13 +13048,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -12947,13 +13212,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -13545,12 +13803,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       product: {},
       store_id: this.$parent.store_id,
       productquantity: 1,
-      invoice_id: 55,
+      invoice_id: 0,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
         quantity: 1,
         invoice_id: 0,
         table_id: 0,
-        product_id: this.product_id
+        product_id: this.product_id,
+        store_id: this.$parent.store_id
       }),
       lang: this.$parent.lang,
       time: 0,
@@ -13562,6 +13821,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     if (this.$route.query.invoice_id) {
       this.form.invoice_id = parseInt(this.$route.query.invoice_id);
+      this.invoice_id = parseInt(this.$route.query.invoice_id);
       this.form.table_id = parseInt(this.$route.query.table_id);
     } else {
       this.$parent.addProductsComponent = !this.$parent.addProductsComponent;
@@ -13570,11 +13830,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     this.time = new Date().getTime();
     this.locale = this.getLocale();
+    var quantity = document.getElementsByName("quantity");
+    quantity[0].focus();
   },
   methods: {
     addProductsToggle: function addProductsToggle() {
       this.$parent.addProductsComponent = !this.$parent.addProductsComponent;
       this.$parent.addproduct_id = null;
+      this.form.reset();
     },
     addToDetails: function addToDetails() {
       var _this = this;
@@ -13587,27 +13850,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/addtodetails").then(function (res) {
-                  _this.invoice_id = res.data.invoice_id; // console.log(res.data);
-
                   // console.log(res.data);
-                  _this.updateUrl(_this.invoice_id); // this.$router.replace(
-                  //     this.$route.fullPath +
-                  //         "&get_invoice_details=" +
-                  //         this.time
-                  // );
+                  _this.invoice_id = res.data.invoice_id;
 
+                  _this.updateUrl(_this.invoice_id);
 
-                  // this.$router.replace(
-                  //     this.$route.fullPath +
-                  //         "&get_invoice_details=" +
-                  //         this.time
-                  // );
                   _this.time = new Date().getTime();
 
                   _this.form.reset();
 
                   _this.$parent.addProductsComponent = !_this.$parent.addProductsComponent;
-                })["catch"](function (err) {// console.log(err);
+                })["catch"](function (err) {
+                  console.log(err);
                 });
 
               case 2:
@@ -13651,11 +13905,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         query: {
           table_id: this.$route.query.table_id,
           invoice_id: invoice_id,
-          section: this.$route.query.section_id,
-          time: this.$route.query.time,
-          get_invoice_details: this.time
+          section: this.$route.query.section,
+          time: this.time
         }
-      })["catch"](function () {});
+      })["catch"](function () {}); // get_invoice_details: this.time,
+      // this.$router.replace(
+      //     this.$route.fullPath +
+      //         "&get_invoice_details=" +
+      //         this.time
+      // );
     },
     getType: function getType(type) {
       if (this.locale == "ar") {
@@ -43350,7 +43608,7 @@ var render = function () {
                         attrs: { href: "#" },
                         on: {
                           click: function ($event) {
-                            return _vm.handleClick(details.id)
+                            return _vm.handleClick(details.id, "details")
                           },
                         },
                       },
@@ -43373,19 +43631,21 @@ var render = function () {
       ? _c("div", { staticClass: "col-md-12 mt-5" }, [
           _c("div", { staticClass: "border rounded col-md-12 mt-5" }, [
             _vm.invoiceDetails.discount
-              ? _c("h5", { staticClass: "bold p-3" }, [
+              ? _c("h6", { staticClass: "bold p-1 text-danger" }, [
                   _vm._v(
                     "\n                " +
-                      _vm._s(_vm.lang.total_be_discount) +
+                      _vm._s(_vm.lang.total_be_discount + "=") +
                       "\n                "
                   ),
                   _c("span", [
                     _vm._v(
                       "\n                    " +
-                        _vm._s(_vm.invoiceDetails.total) +
+                        _vm._s(
+                          parseFloat(_vm.invoiceDetails.f_discount).toFixed(2)
+                        ) +
                         "\n                    "
                     ),
-                    _c("span", { staticClass: "text-danger" }, [
+                    _c("span", {}, [
                       _vm._v(
                         "\n                        " +
                           _vm._s("× " + _vm.invoiceDetails.discount + "%") +
@@ -43396,7 +43656,42 @@ var render = function () {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _c("h5", { staticClass: "bold p-3" }, [
+            _vm.invoice_s.tax
+              ? _c("h6", { staticClass: "bold p-1 text-danger" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.lang.tax) +
+                      " =>\n                "
+                  ),
+                  _c("span", {}, [_vm._v(_vm._s(_vm.invoice_s.tax + "%"))]),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.invoice_id != 0
+              ? _c(
+                  "button",
+                  {
+                    class: _vm.getClass(),
+                    on: {
+                      click: function ($event) {
+                        return _vm.handleClick(_vm.invoice_id, "invoice")
+                      },
+                    },
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-xmark mr-2 ml-2 text-light",
+                    }),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.lang.cancel_the_bill) +
+                        "\n            "
+                    ),
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("h5", { staticClass: "bold p-2" }, [
               _vm._v(_vm._s(_vm.lang.total_amount)),
             ]),
             _vm._v(" "),
@@ -43407,7 +43702,8 @@ var render = function () {
               domProps: {
                 value: _vm.getInvoiceValue(
                   _vm.invoiceDetails.f_discount,
-                  _vm.invoiceDetails.discount
+                  _vm.invoiceDetails.discount,
+                  _vm.invoice_s.tax
                 ),
               },
             }),
@@ -43624,13 +43920,21 @@ var render = function () {
                   ),
                   _vm._v(" "),
                   _c("a", { attrs: { href: "#" } }, [
-                    _c("img", {
-                      staticClass: "product-image",
-                      attrs: {
-                        src: "/image/products/" + product.image,
-                        alt: "product image",
-                      },
-                    }),
+                    product.image
+                      ? _c("img", {
+                          staticClass: "product-image",
+                          attrs: {
+                            src: "/image/products/" + product.image,
+                            alt: "product image",
+                          },
+                        })
+                      : _c("img", {
+                          staticClass: "product-image",
+                          attrs: {
+                            src: "/image/products/newproduct.png",
+                            alt: "product image",
+                          },
+                        }),
                     _vm._v(" "),
                     _c(
                       "a",
@@ -43736,20 +44040,6 @@ var render = function () {
         [_vm._v("\n            " + _vm._s(_vm.store.name) + "\n        ")]
       ),
       _vm._v(" "),
-      _vm.store.email
-        ? _c(
-            "h6",
-            {
-              staticClass: "text-center text-light p-2 small m-0",
-              attrs: { id: "store-email" },
-            },
-            [
-              _c("i", { staticClass: "fas fa-envelope-open-text mr-1 ml-1" }),
-              _vm._v("\n            " + _vm._s(_vm.store.email) + "\n        "),
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
       _vm.store.phone
         ? _c(
             "h6",
@@ -43766,25 +44056,31 @@ var render = function () {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "list-group p-2" }, [
-      _vm.position.invoice_add
-        ? _c(
-            "button",
-            {
-              staticClass:
-                "list-group-item list-group-item-action text-center mb-2 action",
-              on: {
-                click: function ($event) {
-                  return _vm.newInvoiceToggle()
-                },
-              },
-            },
-            [
-              _c("i", { staticClass: "fas fa-plus mr-2 ml-2" }),
-              _vm._v(
-                "\n            " + _vm._s(_vm.lang.new_invoice) + "\n        "
-              ),
-            ]
-          )
+      !this.cash_system
+        ? _c("div", [
+            _vm.position.invoice_add
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "list-group-item list-group-item-action text-center mb-2 action",
+                    on: {
+                      click: function ($event) {
+                        return _vm.newInvoiceToggle()
+                      },
+                    },
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-plus mr-2 ml-2" }),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.lang.new_invoice) +
+                        "\n            "
+                    ),
+                  ]
+                )
+              : _vm._e(),
+          ])
         : _vm._e(),
       _vm._v(" "),
       _vm.position.invoice_add
@@ -43969,10 +44265,10 @@ var render = function () {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.position.talbe_show ||
-      _vm.position.talbe_add ||
-      _vm.position.talbe_edit ||
-      _vm.position.talbe_delete
+      _vm.position.table_show ||
+      _vm.position.table_add ||
+      _vm.position.table_edit ||
+      _vm.position.table_delete
         ? _c(
             "button",
             {
@@ -44130,11 +44426,15 @@ var render = function () {
               },
             },
             [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.lang.all_prudacts) +
-                  "\n            "
-              ),
+              _c("span", { staticClass: "mr-2 ml-2 bold" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.lang.all_prudacts) +
+                    "\n                "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("i", { staticClass: "fas fa-check-to-slot" }),
             ]
           ),
           _vm._v(" "),
@@ -44158,11 +44458,15 @@ var render = function () {
                     },
                   },
                   [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(section.name) +
-                        "\n                "
-                    ),
+                    _c("span", { staticClass: "mr-2 ml-2 bold" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(section.name) +
+                          "\n                    "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("i", { class: section.icon }),
                   ]
                 ),
               ],
@@ -45065,8 +45369,80 @@ var render = function () {
                                 _c("option", { attrs: { value: "3" } }, [
                                   _vm._v(_vm._s(_vm.lang.supervisor)),
                                 ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "4" } }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.Marketing_Specialist) +
+                                      "\n                            "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "5" } }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.Data_Analyst) +
+                                      "\n                            "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "6" } }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.Administrative_Manager) +
+                                      "\n                            "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "7" } }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.Sales_Manager) +
+                                      "\n                            "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "8" } }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.Inventory_Manager) +
+                                      "\n                            "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "9" } }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.lang.Financial_Controller) +
+                                      "\n                            "
+                                  ),
+                                ]),
                               ]
                             ),
+                            _vm._v(" "),
+                            _vm.form.position == "2"
+                              ? _c("div", { staticClass: "text-danger bold" }, [
+                                  _vm._v(
+                                    "\n                            " +
+                                      _vm._s(
+                                        _vm.lang
+                                          .Restaurant_service_is_not_currently
+                                      ) +
+                                      "\n                        "
+                                  ),
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.form.errors.has("position")
+                              ? _c("div", {
+                                  staticClass: "text-danger bold",
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.form.errors.get("position")
+                                    ),
+                                  },
+                                })
+                              : _vm._e(),
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "card mt-3" }, [
@@ -47336,6 +47712,81 @@ var render = function () {
                                               ),
                                             ])
                                           : _vm._e(),
+                                        _vm._v(" "),
+                                        member.position == 4
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.lang
+                                                      .Marketing_Specialist
+                                                  ) +
+                                                  "\n                                    "
+                                              ),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        member.position == 5
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.lang.Data_Analyst
+                                                  ) +
+                                                  "\n                                    "
+                                              ),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        member.position == 6
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.lang
+                                                      .Administrative_Manager
+                                                  ) +
+                                                  "\n                                    "
+                                              ),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        member.position == 7
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.lang.Sales_Manager
+                                                  ) +
+                                                  "\n                                    "
+                                              ),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        member.position == 8
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.lang.Inventory_Manager
+                                                  ) +
+                                                  "\n                                    "
+                                              ),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        member.position == 9
+                                          ? _c("span", [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.lang
+                                                      .Financial_Controller
+                                                  ) +
+                                                  "\n                                    "
+                                              ),
+                                            ])
+                                          : _vm._e(),
                                       ]),
                                       _vm._v(" "),
                                       _vm.position.member_edit
@@ -47503,66 +47954,6 @@ var render = function () {
                           },
                         },
                         [
-                          _vm.form.edit_product_id
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.edit_product_id,
-                                    expression: "form.edit_product_id",
-                                  },
-                                ],
-                                attrs: {
-                                  hidden: "",
-                                  type: "text",
-                                  name: "store_id",
-                                },
-                                domProps: { value: _vm.form.edit_product_id },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.form,
-                                      "edit_product_id",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.store_id,
-                                expression: "form.store_id",
-                              },
-                            ],
-                            attrs: {
-                              hidden: "",
-                              type: "text",
-                              name: "store_id",
-                            },
-                            domProps: { value: _vm.form.store_id },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "store_id",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
                           _c(
                             "label",
                             {
@@ -47912,14 +48303,14 @@ var render = function () {
                             "div",
                             { staticClass: "justify-content-center d-flex" },
                             [
-                              _vm.product_image
+                              _vm.product.image
                                 ? _c("img", {
-                                    staticClass: "rounded",
-                                    staticStyle: {
-                                      width: "150px",
-                                      height: "150px",
+                                    staticClass: "product-image",
+                                    attrs: {
+                                      src:
+                                        "/image/products/" + _vm.product.image,
+                                      alt: "product image",
                                     },
-                                    attrs: { src: _vm.product_image },
                                   })
                                 : _c("img", {
                                     staticClass: "rounded",
@@ -47965,15 +48356,29 @@ var render = function () {
                                   },
                                 }),
                                 _vm._v(" "),
-                                _c("i", {
-                                  staticClass: "fas fa-plus mt-2 ml-2",
-                                  attrs: { hidden: _vm.form.busy },
-                                }),
-                                _vm._v(
-                                  "\n                            " +
-                                    _vm._s(_vm.lang.add_product) +
-                                    "\n                        "
-                                ),
+                                _vm.form.edit_product_id
+                                  ? _c("span", [
+                                      _c("i", {
+                                        staticClass: "fas fa-edit mt-2 ml-2",
+                                        attrs: { hidden: _vm.form.busy },
+                                      }),
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(_vm.lang.edit_product) +
+                                          "\n                            "
+                                      ),
+                                    ])
+                                  : _c("span", [
+                                      _c("i", {
+                                        staticClass: "fas fa-plus mt-2 ml-2",
+                                        attrs: { hidden: _vm.form.busy },
+                                      }),
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(_vm.lang.add_product) +
+                                          "\n                            "
+                                      ),
+                                    ]),
                               ]
                             ),
                             _vm._v(" "),
@@ -48437,66 +48842,6 @@ var render = function () {
                             },
                           },
                           [
-                            _vm.form.section_id
-                              ? _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.section_id,
-                                      expression: "form.section_id",
-                                    },
-                                  ],
-                                  attrs: {
-                                    hidden: "",
-                                    type: "text",
-                                    name: "section_id",
-                                  },
-                                  domProps: { value: _vm.form.section_id },
-                                  on: {
-                                    input: function ($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "section_id",
-                                        $event.target.value
-                                      )
-                                    },
-                                  },
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.store_id,
-                                  expression: "form.store_id",
-                                },
-                              ],
-                              attrs: {
-                                hidden: "",
-                                type: "text",
-                                name: "store_id",
-                              },
-                              domProps: { value: _vm.form.store_id },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "store_id",
-                                    $event.target.value
-                                  )
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
                             _c("input", {
                               directives: [
                                 {
@@ -48708,6 +49053,42 @@ var render = function () {
                                     attrs: {
                                       type: "radio",
                                       name: "icon",
+                                      value: "fas fa-mortar-pestle",
+                                      id: "fa-mortar-pestle",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-mortar-pestle"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-mortar-pestle"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(3),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
                                       value: "fas fa-ice-cream",
                                       id: "fa-ice-cream",
                                     },
@@ -48728,7 +49109,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(3),
+                                  _vm._m(4),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -48764,7 +49145,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(4),
+                                  _vm._m(5),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -48800,7 +49181,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(5),
+                                  _vm._m(6),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -48836,7 +49217,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(6),
+                                  _vm._m(7),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -48872,7 +49253,295 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(7),
+                                  _vm._m(8),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-carrot",
+                                      id: "fa-carrot",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-carrot"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-carrot"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(9),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-bread-slice",
+                                      id: "fa-bread-slice",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-bread-slice"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-bread-slice"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(10),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-cake-candles",
+                                      id: "fa-cake-candles",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-cake-candles"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-cake-candles"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(11),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-candy-cane",
+                                      id: "fa-candy-cane",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-candy-cane"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-candy-cane"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(12),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-cookie",
+                                      id: "fa-cookie",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-cookie"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-cookie"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(13),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-apple-whole",
+                                      id: "fa-apple-whole",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-apple-whole"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-apple-whole"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(14),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-pepper-hot",
+                                      id: "fa-pepper-hot",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-pepper-hot"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-pepper-hot"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(15),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-champagne-glasses",
+                                      id: "fa-champagne-glasses",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-champagne-glasses"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-champagne-glasses"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(16),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -48908,7 +49577,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(8),
+                                  _vm._m(17),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -48944,7 +49613,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(9),
+                                  _vm._m(18),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -48980,7 +49649,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(10),
+                                  _vm._m(19),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -49016,7 +49685,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(11),
+                                  _vm._m(20),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -49052,7 +49721,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(12),
+                                  _vm._m(21),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -49088,7 +49757,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(13),
+                                  _vm._m(22),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -49124,7 +49793,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(14),
+                                  _vm._m(23),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -49160,7 +49829,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(15),
+                                  _vm._m(24),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -49196,7 +49865,7 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(16),
+                                  _vm._m(25),
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "col-md-3" }, [
@@ -49232,7 +49901,79 @@ var render = function () {
                                     },
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(17),
+                                  _vm._m(26),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-socks",
+                                      id: "fa-socks",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-socks"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-socks"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(27),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-3" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.icon,
+                                        expression: "form.icon",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "radio",
+                                      name: "icon",
+                                      value: "fas fa-shoe-prints",
+                                      id: "fa-shoe-prints",
+                                    },
+                                    domProps: {
+                                      checked: _vm._q(
+                                        _vm.form.icon,
+                                        "fas fa-shoe-prints"
+                                      ),
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.$set(
+                                          _vm.form,
+                                          "icon",
+                                          "fas fa-shoe-prints"
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._m(28),
                                 ]),
                               ]),
                               _vm._v(" "),
@@ -49560,6 +50301,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-mortar-pestle" } }, [
+      _c("i", { staticClass: "fas fa-mortar-pestle fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "fa-ice-cream" } }, [
       _c("i", { staticClass: "fas fa-ice-cream fa-2x mr-2 ml-2" }),
     ])
@@ -49594,6 +50343,70 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "fa-drumstick-bite" } }, [
       _c("i", { staticClass: "fas fa-drumstick-bite fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-carrot" } }, [
+      _c("i", { staticClass: "fas fa-carrot fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-bread-slice" } }, [
+      _c("i", { staticClass: "fas fa-bread-slice fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-cake-candles" } }, [
+      _c("i", { staticClass: "fas fa-cake-candles fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-candy-cane" } }, [
+      _c("i", { staticClass: "fas fa-candy-cane fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-cookie" } }, [
+      _c("i", { staticClass: "fas fa-cookie fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-apple-whole" } }, [
+      _c("i", { staticClass: "fas fa-apple-whole fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-pepper-hot" } }, [
+      _c("i", { staticClass: "fas fa-pepper-hot fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-champagne-glasses" } }, [
+      _c("i", { staticClass: "fas fa-champagne-glasses fa-2x mr-2 ml-2" }),
     ])
   },
   function () {
@@ -49674,6 +50487,22 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "fa-hat-cowboy" } }, [
       _c("i", { staticClass: "fas fa-hat-cowboy fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-socks" } }, [
+      _c("i", { staticClass: "fas fa-socks fa-2x mr-2 ml-2" }),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "fa-shoe-prints" } }, [
+      _c("i", { staticClass: "fas fa-shoe-prints fa-2x mr-2 ml-2" }),
     ])
   },
 ]
@@ -49773,58 +50602,6 @@ var render = function () {
                       },
                     },
                     [
-                      _vm.form.table_id
-                        ? _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.table_id,
-                                expression: "form.table_id",
-                              },
-                            ],
-                            attrs: {
-                              hidden: "",
-                              type: "text",
-                              name: "table_id",
-                            },
-                            domProps: { value: _vm.form.table_id },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "table_id",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          })
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.store_id,
-                            expression: "form.store_id",
-                          },
-                        ],
-                        attrs: { hidden: "", type: "text", name: "store_id" },
-                        domProps: { value: _vm.form.store_id },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "store_id", $event.target.value)
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
                       _c("input", {
                         directives: [
                           {
@@ -50136,27 +50913,6 @@ var render = function () {
                   },
                 },
                 [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.store_id,
-                        expression: "form.store_id",
-                      },
-                    ],
-                    attrs: { hidden: "", type: "text", name: "store_id" },
-                    domProps: { value: _vm.form.store_id },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "store_id", $event.target.value)
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
                   _c("div", { staticClass: "clear" }),
                   _vm._v(" "),
                   _c(
@@ -50878,7 +51634,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control disabled bold text-center text-danger",
               attrs: { type: "text", disabled: "" },
-              domProps: { value: _vm.invoice.f_discount },
+              domProps: { value: _vm.getAmount() },
             }),
             _vm._v(" "),
             _c(
@@ -50977,30 +51733,6 @@ var render = function () {
                     "button",
                     {
                       staticClass:
-                        "btn btn-primary col-md-12 h5 p-3 mt-3 text-center bold",
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.printExternal(
-                            "http://localhost:8000/ar/store/2/invoice/print/285"
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-print" }),
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.lang.invoice_printing) +
-                          "\n                    "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
                         "btn btn-warning col-md-12 h5 p-3 mt-3 text-center bold",
                       attrs: {
                         type: "submit",
@@ -51021,6 +51753,30 @@ var render = function () {
                             "\n                        "
                         ),
                       ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-primary col-md-12 h5 p-3 mt-3 text-center bold",
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.printExternal(
+                            "http://localhost:8000/ar/store/6/invoice/print/285"
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-print" }),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.lang.invoice_printing) +
+                          "\n                    "
+                      ),
                     ]
                   ),
                   _vm._v(" "),
@@ -51751,31 +52507,6 @@ var render = function () {
                         },
                       },
                       [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.store_id,
-                              expression: "form.store_id",
-                            },
-                          ],
-                          attrs: { hidden: "", type: "text", name: "store_id" },
-                          domProps: { value: _vm.form.store_id },
-                          on: {
-                            input: function ($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "store_id",
-                                $event.target.value
-                              )
-                            },
-                          },
-                        }),
-                        _vm._v(" "),
                         _c("div", { staticClass: "background-color" }, [
                           _c("label", { attrs: { for: "background_co" } }, [
                             _vm._v(_vm._s(_vm.lang.bg_co)),
@@ -52235,27 +52966,6 @@ var render = function () {
                   },
                 },
                 [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.store_id,
-                        expression: "form.store_id",
-                      },
-                    ],
-                    attrs: { hidden: "", type: "text", name: "store_id" },
-                    domProps: { value: _vm.form.store_id },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "store_id", $event.target.value)
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
                   _c("div", { staticClass: "clear" }),
                   _vm._v(" "),
                   _c("label", { attrs: { for: "store-name" } }, [
@@ -70128,7 +70838,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","E:\\\\xampp\\\\htdocs\\\
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الاقتراح ","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_phone2":" رقم هاتف اخر ","store_address":" عنوان المتجر ","create":" إنشاء ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","welcome":" مرحبا بكم","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" أللون ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","des":" الوصف ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتجات ","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","edit_member":" تعديل العضو ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","supervisor":" مشرف ","cancel":" الغاء ","position":" الوظيفة ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مخزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العناوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود","success":" نجاح ","error":" خطأ ","select_all_u":" تحديد الكل  ","show_u":" عرض ","edit_u":" تعديل ","add_u":" إضافة ","delete_u":" حذف ","user_permissions":" أذونات العضو ","invoice_sett":"اعدادات الفواتير ","section_sett":" أعدادات الأقسام ","product_sett":" أعدادات المنتجات ","store_sett":" أعدادات المتجر ","member_sett":" إعدادات الأعضاء","table_sett":" إعدادات الطاولات ","menu_sett":"إعدادات المنيو ","black_box_sett":" إعدادات الصندوق الأسود","box_sett":"كاشير","treasury_officer":"موظف الخزينة","member_add_succ":" تم إضافةالعضو بنجاح ","verify_data":" تحقق من صحة البريد الإلكتروني وصحة البيانات ","data_modified":" تم تعديل البيانات بنجاح ","employee_deleted":" تم حذف موظف بنجاح ","erroring_member_delete":" خطأ في حذف العضو ","warning":" تحذير ","update_error":" خطأ في تحديث البيانات  ","product_add_succ":" تم إضافة المنتج بنجاح ","product_update_succ":" تم تعديل المنتج بنجاح ","product_update_error":" خطأ في تحديث بيانات المنتج","section_add_succ":" تم إضافة القسم بنجاح ","section_update_succ":" تم تعديل القسم بنجاح ","section_update_error":" خطأ في حذف القسم ","add_success":" تم الإضافة بنجاح  ","delete_suucess":" تم الحذف بنجاح","edit_success":" تم التعديل بنجاح  ","there_seems_problem":"لم تتم إضافة البيانات ، يبدو أن هناك مشكلة","deleted_there_problem":"لم يتم حذفه ، قد تكون هناك مشكلة","went_wrong":"حدث خطأ تحقق من البيانات ","data_has_sent":"تم إرسال البيانات","please_check_the_data":"توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى","select_the_table":"حدد الطاولة أو نوع الدفع أولاً","store_email":" البريد الإلكتروني للمتجر ","store_password":" الرقم السري للمتجر ","pass_must_not":" يجب ألا تقل كلمة المرور عن 8 أحرف ","pass_must_contain":" يجب أن تحتوي كلمة المرور على أحرف [a ، Z] ","pass_symbols":" يجب أن تحتوي كلمة المرور على رموز [؟ =. *! $ #٪] ","leave_field":" اترك الحقل فارغًا إذا كنت لا تريد تغيير كلمة المرور ","currency_code":" رمز عملة المتجر ","store_discount":" خصم المتجر ","store_location":" موقع المتجر ","store_audience":"جمهور المتجر ","receive_phone_numbers":"يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب","store_cover":" صورة غلاف المتجر ","edit_info":" تعديل البيانات  ","currency_like":" مثل : USD, EUR, EGP, SAR","latest_offers":" أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا ","delete_all":" حذف الكل ","no_audience":"لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر","before_discount":" قبل الخصم ","after_discount":" بعد الخصم ","contact_info":" معلومات الاتصال ","qty":"كمية","sub_total":"إجمالي فرعي","tax":"ضريبة","fb":" رابط فيسبوك","optional":" (أختياري) ","invoice_settings":" أعدادات الفاتورة ","tax_on_invoice":"ضريبة علي الفاتورة","leave_field_blank":" يمكنك ترك الحقل فارغا","product_rtn":"فترة إرجاع المنتج ","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","invoice_message_en":" LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","message_en":"الرسالة بالانجليزية","message_ar":"الرسالة بالعربية","invoice_mes_po":" تظهر هذه الرسالة في الجزء السفلي من الفاتورة ","message_confirm":"تأكد من أن الرسالة متشابهة في اللغتين لأنها ستتغير بناءً على اللغة التي ستُطبع بها الفاتورة","auto_tax":" الأسعار تشمل ضريبة القيمة المضافة    ","tax_record":" رقم التسجيل الضريبي    ","tax_card":" رقم البطاقة الضريبية ","file_no":"رقم الملف  ","icon":"رمز","store_create_success":" تم إنشاء المتجر بنجاح ","create_new_store":" إنشاء متجر جديد","go_to_y_store":" الذهاء إلي متجرك ","why_out_software":" لماذا يجب عليك استخدام برنامجنا ","learn_more":"اعرف اكثر ","support":" دعــــم ","customer_retention":" استبقاء العملاء","feature":"ميـــزة","security":"حمـــاية","our_programs":"برامجنا","res_pro":"برنامج المطاعم","res_des":" يعمل البرنامج على إدارة المطاعم والكافيهات ","dig_men":" قائمة طعام رقمية  ","dig_des":"قائمة مطعم سهلة المسح للعملاء","soon":"قريــبا","new_program":"برنامج جديد","why_us":" لماذا تختارنا ؟","the_primary_purpose":" الغرض الأساسي والهدف من برامجنا هو إحداث ثورة في كيفية إدارة الأعمال بسهولة وبشكل مثالي. ","invoice_printing":" طباعة الفاتورة ","luxurious_experience":"  قدم تجربة فاخرة في مطعمك وكن من بين رواد الأعمال الناجحين ","restaurant_and_café_management_software":" برنامج إدارة المطاعم والمقاهي ","smart":" ذكي ","it_has_smart_revenue":"لدينا أدوات ذكية لتحصيل الإيرادات","conforms_to_user_needs":"يتوافق مع احتياجات المستخدم","contains_hundreds_of_POS":"يحتوي على مئات من ميزات نقاط البيع لمتجرك","ease_of_use":" سهولة الاستعمال  ","includes_easy_to_use":" يتضمن أدوات سهلة الاستخدام للتعامل مع تفضيلات العملاء وفهمها وتحليلها ","very_safe":"امن جدا","it_is_immune_to_hacking":"إنه محصن ضد القرصنة ولديه صندوق أسود غير قابل للاختراق","Features_Available_In_The_App":"الميزات المتوفرة في التطبيق","Upcoming_releases":"الإصدارات القادمة : 2.1.0","The_black_box":" الصندوق الأسود ","We_understand_the_importance":" نحن نتفهم أهمية الحفاظ على الأمن في كل منشأة وتقليل المخاطر التي قد تنشأ. لذلك يضع نظامنا حداً لمخاوفك عن طريق تثبيت ميزة الصندوق الأسود. على غرار وظيفة الصندوق الأسود في الطائرات ، يمكن لهذا النظام تتبع أي تعديل مثل إدراج منتج جديد أو تغيير سعر سلعة أو تغيير كلمة المرور أو إلغاء عنصر وجميع المهام التي تحدث داخل النظام. ","multilanguage":"متعدد اللغات","It_is_a_multi_language_program":" هو برنامج متعدد اللغات ويمكن تكييفه مع كل مستخدم أو مطعم مما يجعله سهل الاستخدام. وتقليل المضايقات التي قد تنشأ في بيئة العمل متعددة الجنسيات ، بحيث يمكن لجميع الموظفين استخدامها. ","synchronous_asynchronous":" متزامن / غير متزامن ","The_restaurant_management_system":" يقوم نظام إدارة المطعم بمزامنة البيانات عبر الإنترنت فورًا بعد كل عملية تحدث في المتجر ، بما في ذلك حذف أو إضافة أو تعديل البيانات المتعلقة بالمتجر. على عكس الحلول الأخرى ، لن تواجه أي مشكلة في حالة انقطاع التيار الكهربائي المفاجئ. ","give_roles":" إعطاء الأدوار ","The_store_manager_can_grant":"يمكن لمدير المتجر منح الأذونات المناسبة لكل عميل في المتجر يمكنه حذف أو إضافة أو تعديل (المنتجات والأقسام والعديد من الأذونات الأخرى) ، مع منح الإذن فقط وفقًا لموقعك في المتجر.","Possibility_to_review_all_previous_checks":" إمكانية مراجعة جميع الشيكات السابقة ","Through_the_open_button":" من خلال زر الفتح ، يمكنك مراجعة جميع الشيكات (المفتوحة) السابقة في المجلة وإعادة فتحها مرة أخرى لإجراء أي تعديلات عليها. ","Store_employees":" موظفي المتجر ","Through_the_Users_and_Permissions":" من خلال شاشة المستخدمين والأذونات ، يمكن إنشاء عدد غير محدود من المستخدمين وتحديد وظائف وأذونات كل مستخدم. ","Possibility_to_delete":"إمكانية حذف العناصر من الفاتورة","Items_can_be_deleted":"يمكن حذف الأصناف من الفاتورة ، إذا كانت موجودة ، ويمكن حذف العنصر.","Possibility_to_delete_the_entire":"إمكانية حذف الفاتورة بالكامل","The_user_can_also_delete":"كما يمكن للمستخدم حذف الفاتورة بالكامل من الفواتير اليومية ، إذا كان لديه الصلاحية لحذف الفاتورة ، وهذا الأمر (الحذف) يتعلق بالصلاحيات الممنوحة لكل مستخدم.","Complaint_Management":"إدارة الشكاوى","Are_you_having_trouble":"هل تواجه مشكلة في تلقي شكاوى أو اقتراحات عملائك؟ هل كانت تعليقاتهم غير مسجلة ، أو لم يتم تتبعها ، أو ببساطة لم يتم حلها؟ تتيح لك هذه الميزة تسجيل وحل أي اقتراحات أو شكاوى يقدمها عملاؤك. بالنسبة للمطاعم ، يسجل البرنامج جميع الشكاوى ويرسلها تلقائيًا إلى الأشخاص المعنيين لاتخاذ الإجراء المناسب ، مما يساعدهم على ملاحظة الملاحظات وتذكيرها في كل مرة يقومون فيها بخدمة العميل المعني ، وبالتالي تقديم خدمة واهتمام أفضل.","Monitoring_the_working_hours":"مراقبة ساعات العمل وحضور الموظفين","Managing_employee_time_and":"يمكن أن تستغرق إدارة وقت الموظفين وحضورهم الكثير من وقتك وتسمح للأخطاء البشرية بتكلفة عملك. لذلك ، توفر لك هذه الميزة جدولاً منظمًا وناجحًا لتتبع تفاصيل الموظفين واحتساب الرواتب. يمكنك الجمع بين وقت عمل موظفيك وحضورهم مع فترات الراحة المجدولة ، وربطهم بنظام كشوف رواتب صغير يقوم بالمهمة نيابة عنك. وبذلك يمكنك مراقبة كفاءة موظفيك ودفع رواتبهم حسب جودة أدائهم دون بذل أي مجهود من جانبك.","daily_plate":"طبق يومي","One_of_the_most_difficult":"من أصعب المهام التي تواجهها المطاعم ذات قائمة الخيارات المتعددة تغيير أطباقها الخاصة يوميًا وأسبوعيًا وحتى شهريًا. يقوم برنامج نقاط البيع الخاص بالمطعم بإبلاغ موظفيك تلقائيًا بالوجبات أو العروض الخاصة التي سيقدمها الشيف في ذلك اليوم. بنقرة زر واحدة ، يمكنك إرسال قائمتك الأسبوعية والشهرية والفصلية إلى عملائك عبر البريد الإلكتروني أو الرسائل القصيرة.","Order_Tracking":"تتبع الطلب","Allow_your_customers_to_track":"اسمح لعملائك بتتبع طلباتهم بمجرد تقديم الطلب. من خلال هذه الميزة الفريدة ، يتم إرسال تنبيه إليهم بمجرد استلام المطعم لطلبهم حتى يغادر سائق التوصيل المطعم ، دون تنزيل أي تطبيق. يمكن للعملاء أيضًا تتبع سائق التوصيل على الخريطة ، مع إمكانية التواصل معه.","Increase_sales_automatically":"زيادة المبيعات بشكل تلقائي","This_smart_feature_is_a_source":"هذه الميزة الذكية هي مصدر دخل حيث أن النوادل والصرافين ومشغلي الهاتف لخدمة التوصيل لديهم أداة فعالة تساهم في زيادة المبيعات تلقائيًا. تعمل هذه الميزة الذكية على حفظ أنماط شراء العملاء واستهداف الآخرين من خلال اقتراح منتجات مماثلة لزيادة المبيعات كمنتج جانبي أو مقبلات أو مشروب أو حتى تعديلها بناءً على ما طلبه الآخرون. لا داعي لتذكير موظفيك باقتراح منتجات لزيادة مبيعاتهم أو حتى تحديث أطباقك. هذه الميزة تفعل ذلك من أجلك وتضمن زيادة الإيرادات.","Customer_preferences":"تفضيلات العملاء","The_program_determines":"يقوم البرنامج بتحديد تفضيلات العميل وحفظها تلقائيًا. تتعرف المكتبة الذكية على أنماط الشراء الخاصة به وتفضيلاته الخاصة ، بحيث يقترح النظام على الفور ما إذا كان يريد أي إضافات إلى طلبه المعتاد. وبالتالي ، فإن هذه الميزة سهلة الاستخدام تحافظ على خيارات العميل ، مما يجعله يشعر بالأهمية والعناية.","monitoring_of_stock_and_prescription":"المراقبة في الوقت الحقيقي للمخزون والوصفات الطبية تنفد","What_is_the_benefit_of":"ما فائدة نظام نقاط البيع إذا لم يتضمن خاصية تتبع مستويات المخزون ، خاصة في الوقت الحقيقي؟ إنها طريقة فعالة لمعرفة مقدار المكونات والوصفات المتوفرة وتتبع مدى توفرها في الوقت الفعلي لإعادة الطلبات ، مما يجعل عملية التدقيق أسهل. أثناء عملية الجرد ، يصبح من السهل اكتشاف سرقة المنتج / السلعة أو سوء الإدارة. تساعد هذه الميزة الفريدة المدققين ومديري العمليات على إكمال معاينة سريعة لمحتويات المخزون دون الحاجة إلى إيقاف الشركات عن إجراء عمليات الجرد المادي.","Customers_can_reserve_tables":"يمكن للعملاء حجز الطاولات مقدما","It_is_possible_to_reserve":"يمكن حجز طاولة معينة او اكثر من جدول وكتابة تاريخ الحجز. بمجرد تحديد الجدول المحجوز مرة أخرى ، تظهر رسالة تحذير تفيد بأنه تم حجز الجدول.","Possibility_to_issue_an_invoice":"إمكانية إصدار فاتورة بأكثر من عملة","The_restaurant_and_cafe_management":"يتميز برنامج إدارة المطاعم والمقاهي بالتعامل مع أكثر من عملة ، بحيث يمكن إصدار الفاتورة بأي عملة ، ويمكن تحصيل المبالغ بعملة أخرى.","Possibility_to_pay_with_a_visa":"إمكانية الدفع بالفيزا","The_advantage_of_paying_in_cash":" ميزة الدفع نقدًا أو الدفع ببطاقة فيزا أو بأكثر من طريقة دفع. ","current_version":" الإصدار الحالي: 1.1.0 ","Features_coming_soon":"ميزات ستتوافر قريبا ","Give_your_customers_a_safe":"امنح عملائك تجربة آمنة عن طريق مسح رمز الاستجابة السريعة للتحقق من قائمة مطعمك ، على هواتفهم الذكية ودون تثبيت أي تطبيق. كما أنه يعمل على جميع انواع الاجهزة، بغض النظر عن العلامة التجارية للجهاز.","clean_and_safe":"نظيفة وآمنة","They_are_digital_to_ensure":"إنها رقمية لضمان سلامة كل مستخدم. يمكن لعملائك تصفح القائمة على هواتفهم الذكية دون اتصال.","Compatible_with_all_mobile_phones":"متوافق مع جميع الهواتف المحمولة","Responsive_and_clear_menu":"قائمة مستجيبة وواضحة. يعرض صورة بزاوية عريضة وواضحة على جميع الهواتف المحمولة دون تثبيت أي تطبيق.","Cost_effective":"فعاله من حيث التكلفه","Being_connected_to_the_store":"كونك متصلاً بالمتجر ، ستبقى قائمتك محدثة ولن تضطر إلى إنفاق تكاليف طباعة القوائم الورقية.","Features_of_the_digital_menu":" ميزات القائمة الرقمية ","free_service":"خدمة مجانية","We_offer_you_the_free":"نقدم لك ميزة القائمة الرقمية المجانية للمطاعم عند إنشاء متجرك ، والتي تعمل على الهواتف الذكية لعملائك ، دون تثبيت أي تطبيق.","save_money":"توفير الأموال","The_digital_menu_offers_you":"تقدم لك القائمة الرقمية خدمة توفير الأموال التي تهدرها عند تعديل القائمة وطباعة القائمة مرة أخرى","synchronous":"متزامن","digital_synchronous":"يقوم نظام إدارة المطاعم بمزامنة البيانات عبر الإنترنت فورًا بعد كل تعديل أو إضافة أو حذف لمنتجات المتجر وإرسالها على الفور إلى القائمة. مما سيجعل العميل على علم بالمنتجات المتاحة وغير المتاحة لأن القائمة ستخفي جميع المنتجات غير المتوفرة في المتجر.","The_audience_menu":"الجمهور","It_allows_the_list_reader":"يسمح لقارئ القائمة بإضافة رقم هاتفه ويقوم صاحب المتجر بإنشاء مجموعة WhatsApp لإبلاغه بجميع العروض والخصومات المتعلقة بالمتجر","Choose_your_design":"اختر التصميم الخاص بك","free_design":"تصميم مجاني","Request_your_design":"اطلب التصميم الخاص بك","within_24_hours":"خلال 24 ساعة","Move_to_the_digital_menu_and_start":"انتقل إلى القائمة الرقمية وابدأ أسهل طريقة لإنشاء قائمة مجانية على الإنترنت ، وتزويد عملائك بتجربة فريدة ، ونقدم حلولًا كاملة لإنشاء موقع ويب لمطعم يمكن الوصول إليه عبر رمز الاستجابة السريعة ، والابتعاد عن القائمة الورقية وتوفير تجربة صحية لعملائك.استلم تصميمك في غضون 24 ساعة فقط تواصل معنا على الواتساب وسنعاود الاتصال بك خلال اليوم.","You_must_create_your_store":"يجب عليك إنشاء متجرك أولاً للحصول على القائمة الرقمية مجانًا","Offer_only_available_this_month":"العرض متاح فقط هذا الشهر","Book_your_online_store":"احجز متجرك الإلكتروني الآن واحصل على خصم 40٪ واحصل على القائمة الرقمية مجانًا. ابدأ مشروعك الآن بأقل التكاليف ، بأعلى الإمكانات والتقنيات المتقدمة والحديثة ، مع أسهل الخطوات للبدء ، وفر أموالك الآن ، وقم بإنشاء متجرك عبر الإنترنت","Contact_us_on_WhatsApp_to_receive_your_design":"راسلنا علي واتساب لإستلام التصميم الخاص بك"}');
+module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":" الرئيسية ","about":" حول الشركة ","contact":" اتصل بنا ","links":" روابط مفيدة ","address":" عنوان ","my_address":" مصر - أسوان  ","call":" أتصل بنا","about_co":" عن الشركة ","about_co_des":" أدوات للمساعدة في تحسين نتائج البحث وانتشار موقعك الإلكتروني مع اكسباندكارت. اكسباندكارت تدعمك وتزيد مبيعاتك أونلاين من خلال الربط بقنوات السوشيال ميديا. تطبيقات جوال لمتجرك. دعم كل طرق الدفع. فريق من الخبراء لمساعدتك.","go_to_store":" أنتقل إلي متجرك ","search":" بحث ","innovative":" إبداعي ","investor":" مستثمر ","financier":" ممول ","notifications_box":" صندوق الاشعارات  ","all_projects":" جميع المشاريع ","work_with_us":" أعمل معنا","friends_list":" قائمة الأصدقاء ","edit_suggestion":" تعديل الاقتراح ","project_amount":" أقل تكلفة للمشروع","choose_plane":" قم بتحديد الخطة المناسبة لك ","request_project":" المشاركة في المشروع ","will_financier":"  سأكون ممول للمشروع ","inveset_project":" سأستثمر المشروع ","update":" تحديث ","select_image":" أختر صورة جديدة ","full_name":" الأسم كامل ","bio":" نبذة مختصرة ","status":" الحالة ","choose_interests":"  اختر اهتماماتك ","request_sent":" تم ارسال طلب الصداقة ","really_friends":" أنتم أصدقاء الان  ","edit_profile":" تعديل ملفك الشخصي ","ratings":" التقييم ","edit_project":" تعديل المشروع ","project_name":" أسم المشروع ","project_des":" وصف المشروع","min_price_project":" أقل سعر للمشروع ","separate_tags":" أفصل بينهم بعلامة ,","tags_example":" مثل : مهندس , محرر , مصمم","save":" حفظ ","new_project":" مشروع جديد","min_price":" أقل سعر","small_overview":" نظرة عامة صغيرة عن المشروع : ","proposals":" أقتراحات","project_suggestions":" أقتراحات المشروع ","delete_project":" حذف المشروع","add_audience":"أضف جمهور  :","the_audience":"الجمهور :","your_money":"أموالك :","audience_empty":" ليس لديك أي جمهور ","audience_empty2":"قم بدعوتهم بإستخدام هذا الرابط للحصول علي ارباحك ","member_aud_empty2":" هذا الحساب ليس لديه جمهور  ","make_company":" شركة نشأة حول العالم ","location":" موقعنا ","message":" أترك رسالتك ","users":" الأعضاء ","subscribers":" المشتركون ","comments":" التعليقات ","new_sugg":" أقتراح جديد ","your_project_plan":" خطتك لهذا المشروع :","select_plan":" أختر خطتك","participate":" طلب مشاركة في المشروع","be_financier":" أستطيع تمويل المشروع","best_candidate":" ما الذي يجعلك أفضل مرشح لهذا المشروع؟ ","submit_suggestion":" إرسال أقتراج ","delete_suggestion":" حذف الأقتراح","create_store":" إنشيء متجرك ","store_name":" أسم المتجر ","store_des":" نبذة عن المتجر ","store_phone":" هاتف المتجر ","store_phone2":" رقم هاتف اخر ","store_address":" عنوان المتجر ","create":" إنشاء ","years":" دفع سنوي","buy_years":" مقابل 105 عملة بدلا من 120 عملة","months":" دفع شهري","buy_months":" مقابل 10 عملات ","renew_your_plan":" جدد إشتراكك الأن ","login":" تسجيل دخول ","register":" تسجيل ","logout":" تسجيل الخروج ","new_account":"إنشاء حساب جديد","your_coins":" عملاتك ","pay_coins":" شراء عملات ","your_stores":" جميع متاجرك  ","email":" البريد الإلكتروني ","phone":" الهاتف ","password":" كلمة السر ","remember_me":" تذكرني لاحقا ","forgot_password":" نسيت كلمة المرور ","name":" الأسم ","confirm_password":"تأكيد كلمة المرور","reset_password":" أعادة تعيين كلمة السر ","send_password":" إرسال رابط إعادة تعيين كلمة السر ","pls_confirm":" يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة. ","confirm":"تأكيد","security_place":"هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور الخاصة بك قبل المتابعة.","forgot_your_password":"نسيت رقمك السري؟ لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسنرسل لك عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الذي سيسمح لك باختيار عنوان جديد.","please_confirm":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال رمز المصادقة المقدم من تطبيق المصادقة الخاص بك.","recovery_cods":"يرجى تأكيد الوصول إلى حسابك عن طريق إدخال أحد رموز الاسترداد في حالات الطوارئ.","thx_signup":"شكرا لتسجيلك! قبل البدء ، هل يمكنك التحقق من عنوان بريدك الإلكتروني من خلال النقر على الرابط الذي أرسلناه إليك عبر البريد الإلكتروني للتو؟ إذا لم تتلق البريد الإلكتروني ، فسنرسل لك رسالة أخرى بكل سرور.","verification_link":"تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قدمته أثناء التسجيل.","email_varification":" إعادة إرسال بريد التحقق ","verification_email":"تحقق من عنوان بريدك الإلكتروني","link_verification":"تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.","before_proceeding":"قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق.","not_receive":"إذا لم تستلم البريد الإلكتروني","request_another":"انقر هنا لطلب آخر","code":" رمز ","recovery_code":" رمز الأسترداد ","auth_code":" أستخدم رمز المصادقة ","use_recovery_code":" أستخدم رمز الأسترداد ","welcome":" مرحبا بكم","best_co":"أفضل شركة تصميم متاجر الكترونية","wdesign":" تصميم مواقع ","wdesign_des":"الخطوة الهامة لتطوير أعمالك و خدماتك","emarketing":" تسويق الكتروني ","emarketing_des":"الخطوة الهامة للوصول الصحيح لعملائك ","tsupport":"الدعم الفني","tsupport_des":"تميزنا بخبرة تجاوزت 3 سنوات","business":"بعض أعمالنا","all":"الجميع","design_w":" صمم موقعك ","create_web":" صمم موقعك بخطوات بسيطة ","start_now":" أبدأ الأن ","upgrade_project":"قم بتطوير مشاريعك","start_develop":" ابدأ الان بتطوير مشاريعك و قم بالوصول لعدد أكبرمن العملاء ","watch_and_pay":" المشاهدة و الدفع ","price":" السعر ","pay":" أدفع الان ","count":" العدد ","color":" أللون ","c_shopping":" متابعة التسوق ","total":" الإجمالي ","cart_is_empty":" عربة التسوق فارغة ","control":" التحكم ","delete":" حذف ","edit":" تعديل ","size":" الحجم ","recipient":" مستلم ","demand":" تحت الطلب ","order_des":" تفاصيل الطلب ","order_count":" عدد الطلبات ","items_count":" عدد العناصر ","pay_status":" حالة الدفع ","pay_status_false":" الدفع عند الإستلام ","pay_status_true":" تم الدفع ","payment_soon":"  قريبا الدفع الألكتروني ","order_list_empty":" قائمة الطلبات الخاصة بك فارغة ","delete_confirm":" هل أنت متأكد من الحذف ","delivery":" خدمة التوصيل للمنازل ","delivery_av":" متوفر خدمة التوصيل للمنازل ","delivery_not_av":" غير متوفرة خدمة التوصيل للمنازل ","payment":" الدفع الالكتروني ","payment_av":" تفعيل خاصية الدفع الالكتروني ","payment_not_av":" عدم تفعيل خاصية الدفع الالكتروني ","empty":"فارغ","dashboard":" الرئيسية ","store_items":" عناصر المتجر ","sales":" المبيعات ","category":" القسم ","all_items":"جميع العناصر","categorys":" جميع الاقسام ","item":" العناصر ","new_orders":" الطلبات الجديدة ","view_details":" مشاهدة التفاصيل ","store_info":" معلومات المتجر ","des":" الوصف ","warehouse":" المستودع ","new_item":" إضافة عنصر جديد ","new_category":" إضافة قسم جديد ","my_orders":" الطلبات ","order_list":" قائمة الطلبات ","purchaser":" المشتري ","my_messages":" رسائلي ","messages_list":" قائمة الرسائل ","messages":" الرسائل ","store_status":" حالة المتجر ","store_open":" المتجر مفتوح ","store_update":" يوجد تحديثات","enabled":" مفعل ","disabled":" معطل ","main_store":" المتجر الرئيسي ","send_message":" ارسال الرسالة","buy_coins":" شراء عملات ","vist_my_store":" زيارة متجري ","profile":" الملف الشخصي ","settings":" الأعدادات ","delete_category":" حذف القسم ","confirm_delete_category":" هل أنت متأكد من حذف القسم ","close":" أغلاق ","delete_item":" حذف العنصر ","confirm_delete_item":" هل أنت متأكد من حذف العنصر ؟ ","edit_item":" تعديل العنصر ","old_price":" السعر القديم ","made":" الصنع ","available":" متوفر ","quantity":" كمية  ","quantity_is_out":" نفذت الكمية ","store_image":" صورة المتجر ","image":" أختيار صورة ","select_color":" تحديد لون العنصر ","select_category":" حدد قسم العنصر ","item_name":" اسم العنصر ","show":"إظهار","sender_phone":" هاتف المرسل ","buyer_name":" أسم المشتري ","buyer_phone":" هاتف المشتري ","buyer_address":" عنوان المشتري ","been_completed":" تم الانتهاء ","customer_waiting":" العميل في الانتظار ","is_over":" انتهي ","edit_store_info":" تعديل بيانات المتجر ","best_seller":" الأكثر مبيعا ","other_items":" عناصر أخري ","browse_items":" تصفح العناصر ","welcome_store":" مرحبا بك في متجرك ! ","have_time_on_store":" إحظي بوقت رائع في متجرك ! ","copyright":" حقوق الطبع و النشر ","menu":" القائمة ","add_to_card":" أضف إلي العربة ","on_your_card":" هذا العنصر في العربة ","tags":" العلامات ","payment_de":" تفاصيل الدفع","payment_more_de":"متوفر حاليا الدفع عبر فودافون كاش علي الرقم الذي في الأسفل اتصل بنا او راسلنا علي الواتس اب أولا لتفاصيل أكثر   ","coins_price":" سعر العملات المعدنية","plan_one":" الخطة الأأولي","plan_two":" الخطة الثانية","get_coins1":" أحصل علي 10 عملات مقابل 14$ دولارا","get_coins2":" أحصل علي 120 عملة معدنية مقابل 155$ دولارا بدلا من 168$ دولارا ","your_store":"متاجرك","discount":"خصم","total_be_discount":" الإجمالي قبل الخصم ","total_amount":"المبلغ الاجمالي","invoice_no":" رقم الفاتورة ","table_no":" رقم الطاولة","prudact":"منتج","prudacts":"المنتجات","all_prudacts":"كل المنتجات","no_items_yet":"لا يوجد عناصر بعد ","new_invoice":" فاتورة جديدة ","pay_the_amount":" دفع الفاتورة ","edit_sections":" تعديل الأقسام  ","edit_section":" تعديل القسم ","edit_products":" تعديل المنتجات ","edit_product":"تعديل المنتج","daily_invoice":" الفواتير اليومية","edit_members":" تعديل الأعضاء ","edit_member":" تعديل العضو ","store_settings":" اعدادات المتجر ","table_manage":"إدارة الطاولات ","box":"الصندوق ","store_history":" سجل المتجر ","store_menu":" المينيو ","open_menu":" فتح المينيو  ","billing_details":"  تفاصيل الفاتورة  ","from":" من : ","from_n":"من  ","to":" إلي : ","date_style":"نمط التاريخ ","show_invoice":" عرض الفواتير ","total_sales":" إجمالي المبييعات ","date":" التاريخ ","no_invoice":"لا توجد فواتير\' يجب تغيير الفترة الزمنية\'","delete_invoice":" حذف فاتورة","invoice_number":" رقم الفاتورة ","search_products":" بحث في المنتجات","search_section":"بحث في الاقسام","user_manage":"إدارة الأعضاء","add_new_member":" إضافة عضو جديد","add_member":"إضافة عضو ","the_email_that":"البريد الإلكتروني الذي سيتم إضافته يجب أن يتم تسجيل الدخول إلى النظام أولا","employment":"الوظيفة ","manager":" مدير ","casher":" كاشير ","restaurant":" مطعم ","supervisor":" مشرف ","cancel":" الغاء ","position":" الوظيفة ","en_member_email":"أدخل البريد الإلكتروني للعضو ","products_control":" التحكم بالمنتجات ","add_new_product":" إضافت منتج جديد  ","product_name":" أسم المنتج ","product_section":" قسم المنتج ","product_des":" وصف المنتج ","ch_product_category":" اختر قسم المنتج ","product_stock":" مخزون المنتج ","not_avilable":" غير متوفر","avilable":" متوفر ","limited_quantity":" كمية محدودة ","product_image":" صورة المنتج ","add_product":" إضافة منتج ","current_products":" المنتجات الحالية ","no_products":" لا يوجد منتجات بهذا الأسم ","no_products_add_one":" لا يوجد منتجات \'ط\' قم بإضافة البعض \'","store_sections":" أقسام المتجر  ","add_new_section":" إضافة قسم جديد ","section_icon_op":" إختر رمز القسم ( إختياري )","this_icon_menu":" هذا الرمز سوف يظهر في مينيو المطعم ","add_section":" إضافة قسم ","add_new_table":" إضافة طاولة جديدة ","add_table":" إضافة طاولة ","edit_table":" تعديل الطاولة ","delete_table":" حذف طاولة ","en_table_name":" أدخل أسم الطاولة ","current_tables":" الطاولات الحالية","search_tables":" بحث في الطاولات ","select_table":" اختر طاولة ","reserved":" محجوز ","cash":" نقدي ","invoice_value":" قيمة الفاتورة ","the_amount_paid":" المبلغ المدفوع ","remaining_amount":" المبلغ المسترجع","treasury_delivery":" تسليم الخزينة ","receipt_of_treasury":" استلام الخزينة ","received_amount":" المبلغ المستلم ","the_amount_delivered":" المبلغ المسلم ","send_amount":" إرسال المبلغ ","menu_qr_code":"رمز QR المينيو","download_qr":"تحميل رمز QR","edit_menu_des":" تعديل تصميم المينيو","bg_co":" لون الخلفية : ","text_co":"لون النص :","product_des_co":" لون وصف المنتج  : ","price_co":"لون السعر  : ","icon_co":"لون الرموز : ","heading_co":"لون العناوين الرئيسية : ","edit_design":" تعديل التصميم ","join_us":" إنضم إلينا","latest_offer":"لمعرفة آخر العروض ، يمكنك الانضمام إلينا وترك رقم الواتس اب الخاص بك","whatsapp_number":" أدخل رقم الواتس اب الخاص بك ","join_now":" إنضم الأن ","dark_box":" الصندوق الأسود","success":" نجاح ","error":" خطأ ","select_all_u":" تحديد الكل  ","show_u":" عرض ","edit_u":" تعديل ","add_u":" إضافة ","delete_u":" حذف ","user_permissions":" أذونات العضو ","invoice_sett":"اعدادات الفواتير ","section_sett":" أعدادات الأقسام ","product_sett":" أعدادات المنتجات ","store_sett":" أعدادات المتجر ","member_sett":" إعدادات الأعضاء","table_sett":" إعدادات الطاولات ","menu_sett":"إعدادات المنيو ","black_box_sett":" إعدادات الصندوق الأسود","box_sett":"كاشير","treasury_officer":"موظف الخزينة","member_add_succ":" تم إضافةالعضو بنجاح ","verify_data":" تحقق من صحة البريد الإلكتروني وصحة البيانات ","data_modified":" تم تعديل البيانات بنجاح ","employee_deleted":" تم حذف موظف بنجاح ","erroring_member_delete":" خطأ في حذف العضو ","warning":" تحذير ","update_error":" خطأ في تحديث البيانات  ","product_add_succ":" تم إضافة المنتج بنجاح ","product_update_succ":" تم تعديل المنتج بنجاح ","product_update_error":" خطأ في تحديث بيانات المنتج","section_add_succ":" تم إضافة القسم بنجاح ","section_update_succ":" تم تعديل القسم بنجاح ","section_update_error":" خطأ في حذف القسم ","add_success":" تم الإضافة بنجاح  ","delete_suucess":" تم الحذف بنجاح","edit_success":" تم التعديل بنجاح  ","there_seems_problem":"لم تتم إضافة البيانات ، يبدو أن هناك مشكلة","deleted_there_problem":"لم يتم حذفه ، قد تكون هناك مشكلة","went_wrong":"حدث خطأ تحقق من البيانات ","data_has_sent":"تم إرسال البيانات","please_check_the_data":"توجد مشكلة ، يرجى التحقق من البيانات والمحاولة مرة أخرى","select_the_table":"حدد الطاولة أو نوع الدفع أولاً","store_email":" البريد الإلكتروني للمتجر ","store_password":" الرقم السري للمتجر ","pass_must_not":" يجب ألا تقل كلمة المرور عن 8 أحرف ","pass_must_contain":" يجب أن تحتوي كلمة المرور على أحرف [a ، Z] ","pass_symbols":" يجب أن تحتوي كلمة المرور على رموز [؟ =. *! $ #٪] ","leave_field":" اترك الحقل فارغًا إذا كنت لا تريد تغيير كلمة المرور ","currency_code":" رمز عملة المتجر ","store_discount":" خصم المتجر ","store_location":" موقع المتجر ","store_audience":"جمهور المتجر ","receive_phone_numbers":"يمكنك استقبال ارقام هواتف زوار المتجر لمتابعة جميع العروض والمنتجات الجديدة من خلال مجموعة الواتس اب","store_cover":" صورة غلاف المتجر ","edit_info":" تعديل البيانات  ","currency_like":" مثل : USD, EUR, EGP, SAR","latest_offers":" أدخل رقم WhatsApp الخاص بك لتلقي جميع عروضنا وخصوماتنا ","delete_all":" حذف الكل ","no_audience":"لا يوجد جمهور حتى الان. يرجى تفعيل ميزة الجمهور من خلال الذهاب إلى إعدادات المتجر","before_discount":" قبل الخصم ","after_discount":" بعد الخصم ","contact_info":" معلومات الاتصال ","qty":"كمية","sub_total":"إجمالي فرعي","tax":"ضريبة","fb":" رابط فيسبوك","optional":" (أختياري) ","invoice_settings":" أعدادات الفاتورة ","tax_on_invoice":"ضريبة علي الفاتورة","leave_field_blank":" يمكنك ترك الحقل فارغا","product_rtn":"فترة إرجاع المنتج ","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","invoice_message_en":" LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","message_en":"الرسالة بالانجليزية","message_ar":"الرسالة بالعربية","invoice_mes_po":" تظهر هذه الرسالة في الجزء السفلي من الفاتورة ","message_confirm":"تأكد من أن الرسالة متشابهة في اللغتين لأنها ستتغير بناءً على اللغة التي ستُطبع بها الفاتورة","auto_tax":" الأسعار تشمل ضريبة القيمة المضافة    ","tax_record":" رقم التسجيل الضريبي    ","tax_card":" رقم البطاقة الضريبية ","file_no":"رقم الملف  ","icon":"رمز","store_create_success":" تم إنشاء المتجر بنجاح ","create_new_store":" إنشاء متجر جديد","go_to_y_store":" الذهاء إلي متجرك ","why_out_software":" لماذا يجب عليك استخدام برنامجنا ","learn_more":"اعرف اكثر ","support":" دعــــم ","customer_retention":" استبقاء العملاء","feature":"ميـــزة","security":"حمـــاية","our_programs":"برامجنا","res_pro":"برنامج المطاعم","res_des":" يعمل البرنامج على إدارة المطاعم والكافيهات ","dig_men":" قائمة طعام رقمية  ","dig_des":"قائمة مطعم سهلة المسح للعملاء","soon":"قريــبا","new_program":"برنامج جديد","why_us":" لماذا تختارنا ؟","the_primary_purpose":" الغرض الأساسي والهدف من برامجنا هو إحداث ثورة في كيفية إدارة الأعمال بسهولة وبشكل مثالي. ","invoice_printing":" طباعة الفاتورة ","luxurious_experience":"  قدم تجربة فاخرة في مطعمك وكن من بين رواد الأعمال الناجحين ","restaurant_and_café_management_software":" برنامج إدارة المطاعم والمقاهي ","smart":" ذكي ","it_has_smart_revenue":"لدينا أدوات ذكية لتحصيل الإيرادات","conforms_to_user_needs":"يتوافق مع احتياجات المستخدم","contains_hundreds_of_POS":"يحتوي على مئات من ميزات نقاط البيع لمتجرك","ease_of_use":" سهولة الاستعمال  ","includes_easy_to_use":" يتضمن أدوات سهلة الاستخدام للتعامل مع تفضيلات العملاء وفهمها وتحليلها ","very_safe":"امن جدا","it_is_immune_to_hacking":"إنه محصن ضد القرصنة ولديه صندوق أسود غير قابل للاختراق","Features_Available_In_The_App":"الميزات المتوفرة في التطبيق","Upcoming_releases":"الإصدارات القادمة : 2.1.0","The_black_box":" الصندوق الأسود ","We_understand_the_importance":" نحن نتفهم أهمية الحفاظ على الأمن في كل منشأة وتقليل المخاطر التي قد تنشأ. لذلك يضع نظامنا حداً لمخاوفك عن طريق تثبيت ميزة الصندوق الأسود. على غرار وظيفة الصندوق الأسود في الطائرات ، يمكن لهذا النظام تتبع أي تعديل مثل إدراج منتج جديد أو تغيير سعر سلعة أو تغيير كلمة المرور أو إلغاء عنصر وجميع المهام التي تحدث داخل النظام. ","multilanguage":"متعدد اللغات","It_is_a_multi_language_program":" هو برنامج متعدد اللغات ويمكن تكييفه مع كل مستخدم أو مطعم مما يجعله سهل الاستخدام. وتقليل المضايقات التي قد تنشأ في بيئة العمل متعددة الجنسيات ، بحيث يمكن لجميع الموظفين استخدامها. ","synchronous_asynchronous":" متزامن / غير متزامن ","The_restaurant_management_system":" يقوم نظام إدارة المطعم بمزامنة البيانات عبر الإنترنت فورًا بعد كل عملية تحدث في المتجر ، بما في ذلك حذف أو إضافة أو تعديل البيانات المتعلقة بالمتجر. على عكس الحلول الأخرى ، لن تواجه أي مشكلة في حالة انقطاع التيار الكهربائي المفاجئ. ","give_roles":" إعطاء الأدوار ","The_store_manager_can_grant":"يمكن لمدير المتجر منح الأذونات المناسبة لكل عميل في المتجر يمكنه حذف أو إضافة أو تعديل (المنتجات والأقسام والعديد من الأذونات الأخرى) ، مع منح الإذن فقط وفقًا لموقعك في المتجر.","Possibility_to_review_all_previous_checks":" إمكانية مراجعة جميع الشيكات السابقة ","Through_the_open_button":" من خلال زر الفتح ، يمكنك مراجعة جميع الشيكات (المفتوحة) السابقة في المجلة وإعادة فتحها مرة أخرى لإجراء أي تعديلات عليها. ","Store_employees":" موظفي المتجر ","Through_the_Users_and_Permissions":" من خلال شاشة المستخدمين والأذونات ، يمكن إنشاء عدد غير محدود من المستخدمين وتحديد وظائف وأذونات كل مستخدم. ","Possibility_to_delete":"إمكانية حذف العناصر من الفاتورة","Items_can_be_deleted":"يمكن حذف الأصناف من الفاتورة ، إذا كانت موجودة ، ويمكن حذف العنصر.","Possibility_to_delete_the_entire":"إمكانية حذف الفاتورة بالكامل","The_user_can_also_delete":"كما يمكن للمستخدم حذف الفاتورة بالكامل من الفواتير اليومية ، إذا كان لديه الصلاحية لحذف الفاتورة ، وهذا الأمر (الحذف) يتعلق بالصلاحيات الممنوحة لكل مستخدم.","Complaint_Management":"إدارة الشكاوى","Are_you_having_trouble":"هل تواجه مشكلة في تلقي شكاوى أو اقتراحات عملائك؟ هل كانت تعليقاتهم غير مسجلة ، أو لم يتم تتبعها ، أو ببساطة لم يتم حلها؟ تتيح لك هذه الميزة تسجيل وحل أي اقتراحات أو شكاوى يقدمها عملاؤك. بالنسبة للمطاعم ، يسجل البرنامج جميع الشكاوى ويرسلها تلقائيًا إلى الأشخاص المعنيين لاتخاذ الإجراء المناسب ، مما يساعدهم على ملاحظة الملاحظات وتذكيرها في كل مرة يقومون فيها بخدمة العميل المعني ، وبالتالي تقديم خدمة واهتمام أفضل.","Monitoring_the_working_hours":"مراقبة ساعات العمل وحضور الموظفين","Managing_employee_time_and":"يمكن أن تستغرق إدارة وقت الموظفين وحضورهم الكثير من وقتك وتسمح للأخطاء البشرية بتكلفة عملك. لذلك ، توفر لك هذه الميزة جدولاً منظمًا وناجحًا لتتبع تفاصيل الموظفين واحتساب الرواتب. يمكنك الجمع بين وقت عمل موظفيك وحضورهم مع فترات الراحة المجدولة ، وربطهم بنظام كشوف رواتب صغير يقوم بالمهمة نيابة عنك. وبذلك يمكنك مراقبة كفاءة موظفيك ودفع رواتبهم حسب جودة أدائهم دون بذل أي مجهود من جانبك.","daily_plate":"طبق يومي","One_of_the_most_difficult":"من أصعب المهام التي تواجهها المطاعم ذات قائمة الخيارات المتعددة تغيير أطباقها الخاصة يوميًا وأسبوعيًا وحتى شهريًا. يقوم برنامج نقاط البيع الخاص بالمطعم بإبلاغ موظفيك تلقائيًا بالوجبات أو العروض الخاصة التي سيقدمها الشيف في ذلك اليوم. بنقرة زر واحدة ، يمكنك إرسال قائمتك الأسبوعية والشهرية والفصلية إلى عملائك عبر البريد الإلكتروني أو الرسائل القصيرة.","Order_Tracking":"تتبع الطلب","Allow_your_customers_to_track":"اسمح لعملائك بتتبع طلباتهم بمجرد تقديم الطلب. من خلال هذه الميزة الفريدة ، يتم إرسال تنبيه إليهم بمجرد استلام المطعم لطلبهم حتى يغادر سائق التوصيل المطعم ، دون تنزيل أي تطبيق. يمكن للعملاء أيضًا تتبع سائق التوصيل على الخريطة ، مع إمكانية التواصل معه.","Increase_sales_automatically":"زيادة المبيعات بشكل تلقائي","This_smart_feature_is_a_source":"هذه الميزة الذكية هي مصدر دخل حيث أن النوادل والصرافين ومشغلي الهاتف لخدمة التوصيل لديهم أداة فعالة تساهم في زيادة المبيعات تلقائيًا. تعمل هذه الميزة الذكية على حفظ أنماط شراء العملاء واستهداف الآخرين من خلال اقتراح منتجات مماثلة لزيادة المبيعات كمنتج جانبي أو مقبلات أو مشروب أو حتى تعديلها بناءً على ما طلبه الآخرون. لا داعي لتذكير موظفيك باقتراح منتجات لزيادة مبيعاتهم أو حتى تحديث أطباقك. هذه الميزة تفعل ذلك من أجلك وتضمن زيادة الإيرادات.","Customer_preferences":"تفضيلات العملاء","The_program_determines":"يقوم البرنامج بتحديد تفضيلات العميل وحفظها تلقائيًا. تتعرف المكتبة الذكية على أنماط الشراء الخاصة به وتفضيلاته الخاصة ، بحيث يقترح النظام على الفور ما إذا كان يريد أي إضافات إلى طلبه المعتاد. وبالتالي ، فإن هذه الميزة سهلة الاستخدام تحافظ على خيارات العميل ، مما يجعله يشعر بالأهمية والعناية.","monitoring_of_stock_and_prescription":"المراقبة في الوقت الحقيقي للمخزون والوصفات الطبية تنفد","What_is_the_benefit_of":"ما فائدة نظام نقاط البيع إذا لم يتضمن خاصية تتبع مستويات المخزون ، خاصة في الوقت الحقيقي؟ إنها طريقة فعالة لمعرفة مقدار المكونات والوصفات المتوفرة وتتبع مدى توفرها في الوقت الفعلي لإعادة الطلبات ، مما يجعل عملية التدقيق أسهل. أثناء عملية الجرد ، يصبح من السهل اكتشاف سرقة المنتج / السلعة أو سوء الإدارة. تساعد هذه الميزة الفريدة المدققين ومديري العمليات على إكمال معاينة سريعة لمحتويات المخزون دون الحاجة إلى إيقاف الشركات عن إجراء عمليات الجرد المادي.","Customers_can_reserve_tables":"يمكن للعملاء حجز الطاولات مقدما","It_is_possible_to_reserve":"يمكن حجز طاولة معينة او اكثر من جدول وكتابة تاريخ الحجز. بمجرد تحديد الجدول المحجوز مرة أخرى ، تظهر رسالة تحذير تفيد بأنه تم حجز الجدول.","Possibility_to_issue_an_invoice":"إمكانية إصدار فاتورة بأكثر من عملة","The_restaurant_and_cafe_management":"يتميز برنامج إدارة المطاعم والمقاهي بالتعامل مع أكثر من عملة ، بحيث يمكن إصدار الفاتورة بأي عملة ، ويمكن تحصيل المبالغ بعملة أخرى.","Possibility_to_pay_with_a_visa":"إمكانية الدفع بالفيزا","The_advantage_of_paying_in_cash":" ميزة الدفع نقدًا أو الدفع ببطاقة فيزا أو بأكثر من طريقة دفع. ","current_version":" الإصدار الحالي: 1.1.0 ","Features_coming_soon":"ميزات ستتوافر قريبا ","Give_your_customers_a_safe":"امنح عملائك تجربة آمنة عن طريق مسح رمز الاستجابة السريعة للتحقق من قائمة مطعمك ، على هواتفهم الذكية ودون تثبيت أي تطبيق. كما أنه يعمل على جميع انواع الاجهزة، بغض النظر عن العلامة التجارية للجهاز.","clean_and_safe":"نظيفة وآمنة","They_are_digital_to_ensure":"إنها رقمية لضمان سلامة كل مستخدم. يمكن لعملائك تصفح القائمة على هواتفهم الذكية دون اتصال.","Compatible_with_all_mobile_phones":"متوافق مع جميع الهواتف المحمولة","Responsive_and_clear_menu":"قائمة مستجيبة وواضحة. يعرض صورة بزاوية عريضة وواضحة على جميع الهواتف المحمولة دون تثبيت أي تطبيق.","Cost_effective":"فعاله من حيث التكلفه","Being_connected_to_the_store":"كونك متصلاً بالمتجر ، ستبقى قائمتك محدثة ولن تضطر إلى إنفاق تكاليف طباعة القوائم الورقية.","Features_of_the_digital_menu":" ميزات القائمة الرقمية ","free_service":"خدمة مجانية","We_offer_you_the_free":"نقدم لك ميزة القائمة الرقمية المجانية للمطاعم عند إنشاء متجرك ، والتي تعمل على الهواتف الذكية لعملائك ، دون تثبيت أي تطبيق.","save_money":"توفير الأموال","The_digital_menu_offers_you":"تقدم لك القائمة الرقمية خدمة توفير الأموال التي تهدرها عند تعديل القائمة وطباعة القائمة مرة أخرى","synchronous":"متزامن","digital_synchronous":"يقوم نظام إدارة المطاعم بمزامنة البيانات عبر الإنترنت فورًا بعد كل تعديل أو إضافة أو حذف لمنتجات المتجر وإرسالها على الفور إلى القائمة. مما سيجعل العميل على علم بالمنتجات المتاحة وغير المتاحة لأن القائمة ستخفي جميع المنتجات غير المتوفرة في المتجر.","The_audience_menu":"الجمهور","It_allows_the_list_reader":"يسمح لقارئ القائمة بإضافة رقم هاتفه ويقوم صاحب المتجر بإنشاء مجموعة WhatsApp لإبلاغه بجميع العروض والخصومات المتعلقة بالمتجر","Choose_your_design":"اختر التصميم الخاص بك","free_design":"تصميم مجاني","Request_your_design":"اطلب التصميم الخاص بك","within_24_hours":"خلال 24 ساعة","Move_to_the_digital_menu_and_start":"انتقل إلى القائمة الرقمية وابدأ أسهل طريقة لإنشاء قائمة مجانية على الإنترنت ، وتزويد عملائك بتجربة فريدة ، ونقدم حلولًا كاملة لإنشاء موقع ويب لمطعم يمكن الوصول إليه عبر رمز الاستجابة السريعة ، والابتعاد عن القائمة الورقية وتوفير تجربة صحية لعملائك.استلم تصميمك في غضون 24 ساعة فقط تواصل معنا على الواتساب وسنعاود الاتصال بك خلال اليوم.","You_must_create_your_store":"يجب عليك إنشاء متجرك أولاً للحصول على القائمة الرقمية مجانًا","Offer_only_available_this_month":"العرض متاح فقط هذا الشهر","Book_your_online_store":"احجز متجرك الإلكتروني الآن واحصل على خصم 40٪ واحصل على القائمة الرقمية مجانًا. ابدأ مشروعك الآن بأقل التكاليف ، بأعلى الإمكانات والتقنيات المتقدمة والحديثة ، مع أسهل الخطوات للبدء ، وفر أموالك الآن ، وقم بإنشاء متجرك عبر الإنترنت","Contact_us_on_WhatsApp_to_receive_your_design":"راسلنا علي واتساب لإستلام التصميم الخاص بك","Marketing_Specialist":"اخصائي تسويق","Data_Analyst":" محلل بيانات ","Administrative_Manager":"المدير الإداري","Sales_Manager":"مدير المبيعات","Inventory_Manager":"مدير المخزون","Financial_Controller":"المراقب المالي","Restaurant_service_is_not_currently":"خدمة المطعم غير متوفرة حاليًا ، وقريبًا سيتوفر توصيل الطلبات تلقائيًا من أمين الصندوق إلى المطعم","cancel_the_bill":"الغاء الفاتورة"}');
 
 /***/ }),
 
@@ -70139,7 +70849,7 @@ module.exports = JSON.parse('{"invo_det":"تفاصيل الفاتورة","home":
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":"Welcome","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_email":"Store E-mail","store_des":"Store Descreption","store_phone":"Store Phone","store_phone2":"Another Phone Number","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","":"Choose the right one for you","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"The Color","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"The Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","des":" Description ","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","daily_invoice":"Daily Invoices","edit_members":"Edit Members","edit_member":"Edit Member","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","supervisor":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box","success":" Success message ","error":"Error Message","select_all_u":"Select All","show_u":"SHOW","edit_u":"EDIT","add_u":"ADD","delete_u":"DELETE","user_permissions":"User Permissions","invoice_sett":"Billing settings","section_sett":"Section settings","product_sett":"Product settings","store_sett":"Store settings","member_sett":"Member settings","table_sett":"Table settings","menu_sett":"Menu settings","black_box_sett":"Black Box settings","box_sett":"Casher","treasury_officer":"treasury officer","member_add_succ":"Member added successfully","verify_data":"Verify that the e-mail is correct and the data is correct","data_modified":"The data has been modified successfully","employee_deleted":"An employee has been successfully deleted","erroring_member_delete":"Erroring To Deleted Member","warning":"Warning","delete_suucess":"Deleted successfully","update_error":"Product update error","product_add_succ":"Product added successfully","product_update_succ":"Product Updated Successfully","product_update_error":"Error To Update Product","section_add_succ":"Section added successfully","section_update_succ":"Section Updated Successfully","section_update_error":"Error To Update Section","add_success":" Added successfully ","delete_success":" Deleted successfully ","edit_success":" Edited successfully ","there_seems_problem":"The data is not added, there seems to be a problem","deleted_there_problem":"Not deleted, there may be a problem","went_wrong":"Something went wrong Check the data ","data_has_sent":"Data has been sent","please_check_the_data":"There is a problem, please check the data and try again","select_the_table":"Select the table or type of payment first","store_password":"Store Password","pass_must_not":"Password must not be less than 8 characters","pass_must_contain":"Password must contain letters [a,Z]","pass_symbols":"The password must contain symbols [?=.*!$#%]","leave_field":"Leave the field blank if you do not want to change the password","currency_code":"Store Currency Code","store_discount":"Store Discount","store_location":"Store Location","store_audience":"Store Audience","receive_phone_numbers":"You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group","store_cover":"Store Cover Image","edit_info":"Edit Information","currency_like":"Like: USD, EUR, EGP, SAR","latest_offers":"Enter your WhatsApp number to receive all our offers and discounts","delete_all":"Delete All ","no_audience":"There is no audience yet. Please activate the audience feature by going to the store settings","before_discount":"Before Discount","after_discount":" After Discount","contact_info":"Contact Info","qty":"Qty","sub_total":"Sub Total","tax":"tax","fb":"Facebook URL","optional":"(Optional)","invoice_settings":"Invoice Settings","tax_on_invoice":"tax on Invoice","leave_field_blank":"You can leave the field blank","product_rtn":"Product return period","invoice_message_en":"LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","message_en":"English message","message_ar":"Arabic message","invoice_mes_po":"This message appears at the bottom of the invoice","message_confirm":"Make sure that the message is similar in the two languages because it will change based on the language in which the invoice will be printed","auto_tax":"Prices include value added tax","tax_record":"Tax Registration Number","tax_card":"Tax Card Number","file_no":"File No.","icon":"Icon","store_create_success":"Store created successfully","create_new_store":"Create New Store","go_to_y_store":"Go to your store","why_out_software":"Why you should use our software","learn_more":"Learn more","support":"Support","customer_retention":"Customer Retention","feature":"Feature","security":"Security","our_programs":"Our Programs","res_pro":"Restaurants Program","res_des":"The program works on managing restaurants and cafes","dig_men":"Digital Menu","dig_des":"Easy-to-scan restaurant menu for customers","soon":"Soon","new_program":"New Program","why_us":"Why Choose Us ?","the_primary_purpose":"The primary purpose and objective of our programs is to revolutionize how businesses are run easily and perfectly.","invoice_printing":"Invoice printing","luxurious_experience":" Offer a luxurious experience in your restaurant and be among the successful entrepreneurs","restaurant_and_café_management_software":"Restaurant and café management software","smart":"Smart","it_has_smart_revenue":"We have smart revenue collection tools","conforms_to_user_needs":"Conforms To User Needs","contains_hundreds_of_POS":"Contains hundreds of POS features for your store","ease_of_use":"Ease Of Use","includes_easy_to_use":"Includes easy-to-use tools for handling, understanding and analyzing customer preferences","very_safe":"Very Safe","it_is_immune_to_hacking":"It is immune to hacking and has a unhackable black box","Features_Available_In_The_App":"Features Available In The App","Upcoming_releases":"Upcoming releases : 2.1.0","The_black_box":"The black box","We_understand_the_importance":"We understand the importance of maintaining security in every facility and minimizing risks that may arise. So our system puts an end to your concerns by installing the black box feature. Similar to the black box function in aircraft, this system can track any modification such as listing a new product, changing the price of a commodity, changing the password, or canceling an item and all the tasks that occur within the system.","multilanguage":"multilanguage","It_is_a_multi_language_program":"It is a multi-language program and can be adapted to each user or restaurant, making it easy to use. And reduce inconveniences that may arise in a multinational work environment, so that all employees can use it.","synchronous_asynchronous":"synchronous/asynchronous","The_restaurant_management_system":"The restaurant management system synchronizes the online data immediately after every operation that occurs in the store, including deleting, adding or modifying the data related to the store. Unlike other solutions, you will not face any problem in the event of a sudden power outage.","give_roles":"give roles","The_store_manager_can_grant":"The store manager can grant the appropriate permissions to each customer in the store who can delete, add or modify (products, sections and many other permissions), granting the permission only according to your location in the store.","Possibility_to_review_all_previous_checks":"Possibility to review all previous checks","Through_the_open_button":"Through the open button, you can review all the previous (open) checks in the journal and reopen them again to make any adjustments to them.","Store_employees":"Store employees","Through_the_Users_and_Permissions":"Through the Users and Permissions screen, it is possible to create an unlimited number of users and define the functionality and permissions of each user.","Possibility_to_delete":"Possibility to delete items from the invoice","Items_can_be_deleted":"Items can be deleted from the invoice, if it has, and the item can be deleted.","Possibility_to_delete_the_entire":"Possibility to delete the entire invoice","The_user_can_also_delete":"The user can also delete the entire bill from the daily bills, if he has the authority to delete the invoice, and this matter (deletion) is related to the powers granted to each user.","Complaint_Management":"Complaint Management","Are_you_having_trouble":"Are you having trouble receiving your customers\' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers. For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention.","Monitoring_the_working_hours":"Monitoring the working hours and attendance of employees","Managing_employee_time_and":"Managing employee time and attendance can take up a lot of your time and allow human mistakes to cost you your work. Therefore, this feature provides you with an organized and successful schedule for tracking employee details and calculating salaries. You can combine your employees\' work time and attendance with their scheduled breaks, and connect them to a mini payroll system that does the job for you. Thus, you can monitor the efficiency of your employees and pay their salaries according to the quality of their performance, without making any effort on your part.","daily_plate":"daily plate","One_of_the_most_difficult":"One of the most difficult tasks that restaurants with a multi-choice menu face is changing their special dishes daily, weekly, and even monthly. Our restaurant point of sale software automatically informs your employees of the meals or specials that the chef will serve that day. With the click of a button, you can send your weekly, monthly and quarterly menu to your customers via email or SMS.","Order_Tracking":"Order Tracking","Allow_your_customers_to_track":"Allow your customers to track their orders as soon as the order is placed. Through this unique feature, an alert is sent to them as soon as the restaurant receives their order until the delivery driver leaves the restaurant, without downloading any application. Customers can also track the delivery driver on the map, with the ability to communicate with him.","Increase_sales_automatically":"Increase sales automatically","This_smart_feature_is_a_source":"This smart feature is a source of income as waiters, cashiers and phone operators for the delivery service have an effective tool that contributes to increasing sales automatically. This smart feature memorizes customers\' buying patterns and targets others by suggesting similar products to increase sales as a side product, appetizer or drink, or even to modify them based on what others have requested. No need to remind your employees to suggest products to increase their sales or even update your dishes. This feature does it for you and ensures increased revenue.","Customer_preferences":"Customer preferences","The_program_determines":"The program determines the customer\'s preferences and saves them automatically. The smart library learns about his purchasing patterns and his own preferences, so that the system immediately suggests if he wants any additions to his regular order. Thus, this easy-to-use feature preserves the customer\'s choices, making them feel important and cared for.","monitoring_of_stock_and_prescription":"Real-time monitoring of stock and prescription runs out","What_is_the_benefit_of":"What is the benefit of a point of sale system if it does not include the feature of tracking stock levels, especially in real time? It\'s an effective way to see how much ingredients and recipes are available and track their availability in real time for reorders, making the audit process easier. During the inventory process, it becomes easy to detect product/commodity theft or mismanagement. This unique feature helps auditors and operations managers complete a quick preview of inventory contents without having to stop businesses to perform physical counts.","Customers_can_reserve_tables":"Customers can reserve tables in advance","It_is_possible_to_reserve":"It is possible to reserve a specific table or more than one table and write the date of the reservation. Once the reserved table is selected again, a warning message appears stating that the table has been reserved.","Possibility_to_issue_an_invoice":"Possibility to issue an invoice in more than one currency","The_restaurant_and_cafe_management":"The restaurant and cafe management program is characterized by dealing with more than one currency, so that the invoice can be issued in any currency, and the amounts can be collected in another currency.","Possibility_to_pay_with_a_visa":"Possibility to pay with a visa","The_advantage_of_paying_in_cash":"The advantage of paying in cash, paying by Visa card, or by more than one payment method.","current_version":"The Current Version: 1.1.0","Features_coming_soon":"Features coming soon","Give_your_customers_a_safe":"Give your customers a safe experience by scanning a QR code to check your restaurant menu, on their smartphone and without installing any app. It also works on all types of devices, regardless of the brand of the device.","clean_and_safe":"clean and safe","They_are_digital_to_ensure":"They are digital to ensure the safety of each user. Your customers can browse the menu on their smartphones without contact.","Compatible_with_all_mobile_phones":"Compatible with all mobile phones","Responsive_and_clear_menu":"Responsive and clear menu. Displays a clear, wide-angle image on all mobile phones, without installing any app.","Cost_effective":"Cost-effective","Being_connected_to_the_store":"Being connected to the store, your list will stay updated and you won\'t have to outlay the costs of printing paper lists.","Features_of_the_digital_menu":"Features of the digital menu","free_service":"Free Service","We_offer_you_the_free":"We offer you the free digital menu feature for restaurants when setting up your store, which works on your customers\' smartphones, without installing any application.","save_money":"Save Money","The_digital_menu_offers_you":"The digital menu offers you the service of saving the money that you waste when modifying the menu and printing the menu again","synchronous":"synchronous","digital_synchronous":"The restaurant management system synchronizes the data online immediately after each modification, addition or deletion of the store\'s products and immediately sends it to the menu. Which will make the customer aware of the available and unavailable products because the menu will hide all the products that are not available in the store.","The_audience_menu":"The Audience","It_allows_the_list_reader":"It allows the list reader to add his phone number and the store owner creates a WhatsApp group to inform him of all the offers and discounts related to the store","Choose_your_design":"Choose your design","free_design":"Free Design","Request_your_design":"Request your design","within_24_hours":"Within 24 Hours","Move_to_the_digital_menu_and_start":"Move to the digital menu and start with the easiest way to create a free online menu, and provide your customers with a unique experience, we provide complete solutions to create a QR code-accessible restaurant website, moving away from paper menu and providing a healthy alternative to customers. Receive your design within 24 hours, Receive your design within 24 hours, just contact us on WhatsApp and we will get back to you within the day.","You_must_create_your_store":"You must create your store first to get the digital menu for free","Offer_only_available_this_month":"Offer only available this month","Book_your_online_store":"Book your online store now and get 40% off and get the digital menu for free. Start your project now at the lowest costs, with the highest capabilities, advanced technologies and up-to-date, with the easiest steps to get started, save your money now, and create your online store","Contact_us_on_WhatsApp_to_receive_your_design":"Contact us on WhatsApp to receive your design"}');
+module.exports = JSON.parse('{"invo_det":"Invoice Details","welcome":"Welcome","home":"Home","about":"About Us","contact":"Contact us","links":"USEFUL LINKS","address":"Address","my_address":"Egypt, Asswan","call":" Call Us ","about_co":"About company","about_co_des":"Tools to help improve the search results and reach of your website with Expandcart. ExpandCart supports you and increases your online sales by connecting to social media channels. Mobile applications for your store. Support for all payment methods. A team of experts to help you.","go_to_store":"Go to your store","search":"Search","innovative":"Innovative","investor":"Investor","financier":"Financier","notifications_box":"Notifications Box","all_projects":"All Projects","work_with_us":"Work with us","friends_list":"Friends List","submit_suggestion":"Submit a Suggestion","delete_suggestion":"Delete a Suggestion","edit_suggestion":"Edit Suggestion","project_amount":"The lowest project amount :","your_project_plan":"Your plan for the project :","request_project":"Request to participate in the project","will_financier":" I will be a financier for the project","inveset_project":" Im going to invest in the project ","best_candidate":"What makes you the best candidate for this project?","new_sugg":"New Suggestion","update":"Update","select_image":"Select New Image","full_name":"Full Name","bio":"BIO","status":"Status ","choose_interests":" Choose your interests","users":"Members","subscribers":"Subscribers","comments":" Comments ","request_sent":"Friendship request has been sent","really_friends":"You are really friends","edit_profile":"Edit Profile","ratings":"Ratings","edit_project":"Edit Project","project_name":"Project Name","project_des":"Project Description","min_price_project":"The lowest price for the project in dollars","separate_tags":"Separate them with a sign  ,","tags_example":"Example: Engineer, Editor, Designer","save":"Save","new_project":"New Project","min_price":"Minimum price","create":"Create","small_overview":"A small overview of the project :","proposals":"Proposals","project_suggestions":"Project Suggestions","delete_project":"Delete Project","add_audience":"Add Audience :","the_audience":"The Audience :","your_money":"Your Money :","audience_empty":"You do not have an audience","audience_empty2":"Invite them and have them register via this link to get your profits","member_aud_empty2":"This account does not have any audience","make_company":"Company origination around the world","location":"Location","create_store":"Create Your Store","store_name":"Store Name","store_email":"Store E-mail","store_des":"Store Descreption","store_phone":"Store Phone","store_phone2":"Another Phone Number","store_address":"Store Address","years":"Yearly Payment","buy_years":"For 105 coins instead of 120","months":"Monthly Payment","buy_months":"For 10 Coins","":"Choose the right one for you","more_credit":"More Credit Cards \'Soon\'","renew_your_plan":"Renew your subscription now","login":"Login","register":"Register","logout":"Logout","new_account":"Create a new account","your_coins":"Your Coins","pay_coins":"Pay Coins","your_stores":"All Your Stores","email":"E-Mail Address","phone":" Phone ","password":"Password","remember_me":"Remember Me","forgot_password":"Forgot Your Password?","name":"Name","confirm_password":"Confirm Password","reset_password":"Reset Password","send_password":"Send Password Reset Link","pls_confirm":"Please confirm your password before continuing.","confirm":"Confirm","security_place":"This is a secure area of the application. Please confirm your password before continuing.","forgot_your_password":"Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.","please_confirm":"Please confirm access to your account by entering the authentication code provided by your authenticator application.","recovery_cods":"Please confirm access to your account by entering one of your emergency recovery codes.","thx_signup":"Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didnt receive the email, we will gladly send you another.","verification_link":"A new verification link has been sent to the email address you provided during registration.","email_varification":"Resend Verification Email","verification_email":"Verify Your Email Address","link_verification":"A fresh verification link has been sent to your email address.","before_proceeding":"Before proceeding, please check your email for a verification link.","not_receive":"If you did not receive the email","request_another":"click here to request another","code":"Code","recovery_code":"Recovery Code","auth_code":"Use an authentication code","use_recovery_code":"Use a recovery code","best_co":"The best online store design company","wdesign":"Web Design","wdesign_des":"The important step for developing your business and services","emarketing":"E-Marketing","emarketing_des":"The critical step to getting your customers right","tsupport":"Technical support","tsupport_des":"We were distinguished by more than 3 years of experience","business":"Some of our business","all":"All","design_w":"Design your website","create_web":"Create A Website In A Few Simple Steps","start_now":"Start Now","upgrade_project":"Develop Your Projects","start_develop":"Start developing your projects now and reach more clients","watch_and_pay":"Watch and pay","price":"Price","pay":"Pay Now","count":"The Count","color":"The Color","c_shopping":"Continue Shopping","total":"Total","cart_is_empty":"Your Cart Is Empty","control":"Control","delete":"Delete","edit":"Edit","size":"The Size","recipient":"Recipient","demand":"Demand","order_des":"Order Descreption","order_count":"Order Count","items_count":"Items Count","pay_status":"Pay Status","pay_status_false":"Paiement when recieving","pay_status_true":"The payment was made","payment_soon":" Soon Online Payment","order_list_empty":"Your Orders List Is Empty","delete_confirm":"Are you sure to delete?","delivery":" Home Delivery Service","delivery_av":" Home delivery available ","delivery_not_av":" Home delivery is not available ","payment":" Online Payment ","payment_av":" Activate the electronic payment feature ","payment_not_av":" Not activating the electronic payment feature ","empty":"Empty","dashboard":"Dashboard","store_items":"Store Items","sales":"The Sales","message":"The Messages","category":"category","categorys":"Categories","item":"The Item","all_items":"All Items","new_orders":"New Orders","view_details":"View Details","store_info":"Store Information","des":" Description ","warehouse":"The Warehouse","new_item":"Add New Item","new_category":"Add New Category","my_orders":"The Orders","order_list":"Order List","purchaser":"Purchaser","my_messages":"My Messages","messages_list":"Messages List","messages":"Messages","store_status":"Store Status","store_open":"The Store Is Open","store_update":"There Are Updates","enabled":"Enabled","disabled":"Disabled","main_store":"The Main Store","send_message":"Send Message","buy_coins":"Buy Coins","paycoins_info":"","vist_my_store":"Vist My Store","profile":"Profile","settings":"Settings","delete_category":"Delete Category","confirm_delete_category":"Are you sure to delete Category","close":"Close","delete_item":"Delete Item","confirm_delete_item":"Are you sure to delete the item?","edit_item":"Edit Item","old_price":"Old Price","made":"Made","available":"Available","quantity":"Quantity","quantity_is_out":"The Quantity Is Out","store_image":"Store Image","image":"Image","select_color":"Select Item color","select_category":"Select The Item Category","item_name":"Item Name","show":"Show","sender_phone":"The senders phone","buyer_name":"Buyers Name","buyer_phone":"Buyers Phone","buyer_address":"Buyers Address","been_completed":"Been completed","customer_waiting":"The customer is waiting","is_over":"Is Over","edit_store_info":"Edit Store Information","best_seller":"Best Seller","other_items":"Other Items","browse_items":"Browse items","welcome_store":"Welcome to your store !","have_time_on_store":"Have a great time in your store !","copyright":"Copyright","menu":"Menu","add_to_card":"Add to Card","on_your_card":"This Item On Your Card","tags":"Tags","payment_de":"Payment Details","payment_more_de":"Currently available payment is via Vodafone Cash on the number below. Call us or write to us on WhatsApp first for more details.","coins_price":"Coins Price","plan_one":"The Plan One","plan_two":"The Plan Two","get_coins1":"Get 10 coins for 14 $","get_coins2":"Get 120 coins for $ 155 instead of $ 168","next_sub":"Next subscription renewal date","your_store":"Your Stores","discount":"Discount","total_be_discount":"Total Before Discount","total_amount":"The Total Amount","invoice_no":"Invoice NO","table_no":"Table NO","prudact":"Prodact","prudacts":"Prodacts","all_prudacts":"All Prodacts","no_items_yet":"There are no items yet","new_invoice":"New Invoice","pay_the_amount":"Pay The Amount","edit_sections":"Edit Sections","edit_section":"Edit Section","edit_products":"Edit Products","edit_product":"Edit Product","daily_invoice":"Daily Invoices","edit_members":"Edit Members","edit_member":"Edit Member","store_settings":"Store Settings","table_manage":"Table Management","box":"Box","store_history":"Store History","store_menu":"Store Menu","open_menu":"Open Menu","billing_details":" Billing Details","from":"From : ","from_n":"From  ","to":"To : ","date_style":"Date Style","show_invoice":"Show The Invoices","total_sales":"Total Sales","date":"Date","no_invoice":"No invoices “The time period must be changed”","delete_invoice":"Delete Invoice","invoice_number":"Invoice Number","search_products":"Search For Products","search_section":"Search For Section","user_manage":"User Management","add_new_member":"Add New Member","add_member":"Add Member","the_email_that":"The email that will be added must be logged in to the platform","employment":"Employment","manager":"Manager","casher":"Casher","restaurant":"Restaurant","supervisor":"Supervisor","cancel":"Cancel","position":"Position","en_member_email":"Enter Member Email","products_control":"Prodacts Control","add_new_product":"Add New Product","product_name":"Product Name","product_section":"Product Section","product_des":"Product Description","ch_product_category":"Choose Product Category","product_stock":"Product Stock","not_avilable":"Not Avilable","avilable":"Avilable","limited_quantity":"Limited Quantity","product_image":"Product Image","add_product":"Add Product","current_products":"Current Products","no_products":"There are no products with this name","no_products_add_one":"There are no products, add products","store_sections":"Store Sections","add_new_section":"Add New Section","section_icon_op":"Select Section Icon (Optional)","this_icon_menu":"This icon will appear in the menu","add_section":"Add Section","add_new_table":"Add New Table","add_table":"Add Table","edit_table":"Edit Table","delete_table":"Delete Table","en_table_name":"Enter Table Name","current_tables":"CURRENT TABLES","search_tables":"Search For Tables","select_table":"Select Table","reserved":"Reserved","cash":"Cash","invoice_value":"Invoice Value","the_amount_paid":"The amount paid","remaining_amount":"Remaining Amount","treasury_delivery":"Treasury Delivery","receipt_of_treasury":"Receipt Of The Treasury","received_amount":"Received Amount","the_amount_delivered":"The Amount Delivered","send_amount":"Send Amount","menu_qr_code":"Menu QR Code","download_qr":"Download QR","edit_menu_des":"Edit Menu Design","bg_co":" Background Color : ","text_co":"Text Color :","product_des_co":"Product Description Color : ","price_co":"Price Color : ","icon_co":"Icon Color : ","heading_co":"Headings Color : ","edit_design":"Edit Design","join_us":"Join Us","latest_offer":"To know the latest offers, you can join us and leave your WhatsApp number","whatsapp_number":"Enter Your WhatsApp Number","join_now":"Join Now","dark_box":" The Black Box","success":" Success message ","error":"Error Message","select_all_u":"Select All","show_u":"SHOW","edit_u":"EDIT","add_u":"ADD","delete_u":"DELETE","user_permissions":"User Permissions","invoice_sett":"Billing settings","section_sett":"Section settings","product_sett":"Product settings","store_sett":"Store settings","member_sett":"Member settings","table_sett":"Table settings","menu_sett":"Menu settings","black_box_sett":"Black Box settings","box_sett":"Casher","treasury_officer":"treasury officer","member_add_succ":"Member added successfully","verify_data":"Verify that the e-mail is correct and the data is correct","data_modified":"The data has been modified successfully","employee_deleted":"An employee has been successfully deleted","erroring_member_delete":"Erroring To Deleted Member","warning":"Warning","delete_suucess":"Deleted successfully","update_error":"Product update error","product_add_succ":"Product added successfully","product_update_succ":"Product Updated Successfully","product_update_error":"Error To Update Product","section_add_succ":"Section added successfully","section_update_succ":"Section Updated Successfully","section_update_error":"Error To Update Section","add_success":" Added successfully ","delete_success":" Deleted successfully ","edit_success":" Edited successfully ","there_seems_problem":"The data is not added, there seems to be a problem","deleted_there_problem":"Not deleted, there may be a problem","went_wrong":"Something went wrong Check the data ","data_has_sent":"Data has been sent","please_check_the_data":"There is a problem, please check the data and try again","select_the_table":"Select the table or type of payment first","store_password":"Store Password","pass_must_not":"Password must not be less than 8 characters","pass_must_contain":"Password must contain letters [a,Z]","pass_symbols":"The password must contain symbols [?=.*!$#%]","leave_field":"Leave the field blank if you do not want to change the password","currency_code":"Store Currency Code","store_discount":"Store Discount","store_location":"Store Location","store_audience":"Store Audience","receive_phone_numbers":"You can receive the phone numbers of store visitors to follow up on all the new offers and products through the WhatsApp group","store_cover":"Store Cover Image","edit_info":"Edit Information","currency_like":"Like: USD, EUR, EGP, SAR","latest_offers":"Enter your WhatsApp number to receive all our offers and discounts","delete_all":"Delete All ","no_audience":"There is no audience yet. Please activate the audience feature by going to the store settings","before_discount":"Before Discount","after_discount":" After Discount","contact_info":"Contact Info","qty":"Qty","sub_total":"Sub Total","tax":"tax","fb":"Facebook URL","optional":"(Optional)","invoice_settings":"Invoice Settings","tax_on_invoice":"tax on Invoice","leave_field_blank":"You can leave the field blank","product_rtn":"Product return period","invoice_message_en":"LIKE: Thanks for visiting, we hope you liked trying our products, and we hope you will visit us again soon","invoice_message_ar":" مثلا : شكرًا لك على مرورك، نأمل بأن تكون تجربة منتجاتنا قد أعجبتم، نتمنى أن تكرر هذا الزيارة قريبًا","message_en":"English message","message_ar":"Arabic message","invoice_mes_po":"This message appears at the bottom of the invoice","message_confirm":"Make sure that the message is similar in the two languages because it will change based on the language in which the invoice will be printed","auto_tax":"Prices include value added tax","tax_record":"Tax Registration Number","tax_card":"Tax Card Number","file_no":"File No.","icon":"Icon","store_create_success":"Store created successfully","create_new_store":"Create New Store","go_to_y_store":"Go to your store","why_out_software":"Why you should use our software","learn_more":"Learn more","support":"Support","customer_retention":"Customer Retention","feature":"Feature","security":"Security","our_programs":"Our Programs","res_pro":"Restaurants Program","res_des":"The program works on managing restaurants and cafes","dig_men":"Digital Menu","dig_des":"Easy-to-scan restaurant menu for customers","soon":"Soon","new_program":"New Program","why_us":"Why Choose Us ?","the_primary_purpose":"The primary purpose and objective of our programs is to revolutionize how businesses are run easily and perfectly.","invoice_printing":"Invoice printing","luxurious_experience":" Offer a luxurious experience in your restaurant and be among the successful entrepreneurs","restaurant_and_café_management_software":"Restaurant and café management software","smart":"Smart","it_has_smart_revenue":"We have smart revenue collection tools","conforms_to_user_needs":"Conforms To User Needs","contains_hundreds_of_POS":"Contains hundreds of POS features for your store","ease_of_use":"Ease Of Use","includes_easy_to_use":"Includes easy-to-use tools for handling, understanding and analyzing customer preferences","very_safe":"Very Safe","it_is_immune_to_hacking":"It is immune to hacking and has a unhackable black box","Features_Available_In_The_App":"Features Available In The App","Upcoming_releases":"Upcoming releases : 2.1.0","The_black_box":"The black box","We_understand_the_importance":"We understand the importance of maintaining security in every facility and minimizing risks that may arise. So our system puts an end to your concerns by installing the black box feature. Similar to the black box function in aircraft, this system can track any modification such as listing a new product, changing the price of a commodity, changing the password, or canceling an item and all the tasks that occur within the system.","multilanguage":"multilanguage","It_is_a_multi_language_program":"It is a multi-language program and can be adapted to each user or restaurant, making it easy to use. And reduce inconveniences that may arise in a multinational work environment, so that all employees can use it.","synchronous_asynchronous":"synchronous/asynchronous","The_restaurant_management_system":"The restaurant management system synchronizes the online data immediately after every operation that occurs in the store, including deleting, adding or modifying the data related to the store. Unlike other solutions, you will not face any problem in the event of a sudden power outage.","give_roles":"give roles","The_store_manager_can_grant":"The store manager can grant the appropriate permissions to each customer in the store who can delete, add or modify (products, sections and many other permissions), granting the permission only according to your location in the store.","Possibility_to_review_all_previous_checks":"Possibility to review all previous checks","Through_the_open_button":"Through the open button, you can review all the previous (open) checks in the journal and reopen them again to make any adjustments to them.","Store_employees":"Store employees","Through_the_Users_and_Permissions":"Through the Users and Permissions screen, it is possible to create an unlimited number of users and define the functionality and permissions of each user.","Possibility_to_delete":"Possibility to delete items from the invoice","Items_can_be_deleted":"Items can be deleted from the invoice, if it has, and the item can be deleted.","Possibility_to_delete_the_entire":"Possibility to delete the entire invoice","The_user_can_also_delete":"The user can also delete the entire bill from the daily bills, if he has the authority to delete the invoice, and this matter (deletion) is related to the powers granted to each user.","Complaint_Management":"Complaint Management","Are_you_having_trouble":"Are you having trouble receiving your customers\' complaints or suggestions? Were their comments unrecorded, untracked, or simply unresolved? This feature allows you to record and resolve any suggestions or complaints made by your customers. For restaurants, the software records all complaints and automatically forwards them to the relevant people for appropriate action, helping them to notice and remind the feedback each time they serve the customer in question, thus providing better service and attention.","Monitoring_the_working_hours":"Monitoring the working hours and attendance of employees","Managing_employee_time_and":"Managing employee time and attendance can take up a lot of your time and allow human mistakes to cost you your work. Therefore, this feature provides you with an organized and successful schedule for tracking employee details and calculating salaries. You can combine your employees\' work time and attendance with their scheduled breaks, and connect them to a mini payroll system that does the job for you. Thus, you can monitor the efficiency of your employees and pay their salaries according to the quality of their performance, without making any effort on your part.","daily_plate":"daily plate","One_of_the_most_difficult":"One of the most difficult tasks that restaurants with a multi-choice menu face is changing their special dishes daily, weekly, and even monthly. Our restaurant point of sale software automatically informs your employees of the meals or specials that the chef will serve that day. With the click of a button, you can send your weekly, monthly and quarterly menu to your customers via email or SMS.","Order_Tracking":"Order Tracking","Allow_your_customers_to_track":"Allow your customers to track their orders as soon as the order is placed. Through this unique feature, an alert is sent to them as soon as the restaurant receives their order until the delivery driver leaves the restaurant, without downloading any application. Customers can also track the delivery driver on the map, with the ability to communicate with him.","Increase_sales_automatically":"Increase sales automatically","This_smart_feature_is_a_source":"This smart feature is a source of income as waiters, cashiers and phone operators for the delivery service have an effective tool that contributes to increasing sales automatically. This smart feature memorizes customers\' buying patterns and targets others by suggesting similar products to increase sales as a side product, appetizer or drink, or even to modify them based on what others have requested. No need to remind your employees to suggest products to increase their sales or even update your dishes. This feature does it for you and ensures increased revenue.","Customer_preferences":"Customer preferences","The_program_determines":"The program determines the customer\'s preferences and saves them automatically. The smart library learns about his purchasing patterns and his own preferences, so that the system immediately suggests if he wants any additions to his regular order. Thus, this easy-to-use feature preserves the customer\'s choices, making them feel important and cared for.","monitoring_of_stock_and_prescription":"Real-time monitoring of stock and prescription runs out","What_is_the_benefit_of":"What is the benefit of a point of sale system if it does not include the feature of tracking stock levels, especially in real time? It\'s an effective way to see how much ingredients and recipes are available and track their availability in real time for reorders, making the audit process easier. During the inventory process, it becomes easy to detect product/commodity theft or mismanagement. This unique feature helps auditors and operations managers complete a quick preview of inventory contents without having to stop businesses to perform physical counts.","Customers_can_reserve_tables":"Customers can reserve tables in advance","It_is_possible_to_reserve":"It is possible to reserve a specific table or more than one table and write the date of the reservation. Once the reserved table is selected again, a warning message appears stating that the table has been reserved.","Possibility_to_issue_an_invoice":"Possibility to issue an invoice in more than one currency","The_restaurant_and_cafe_management":"The restaurant and cafe management program is characterized by dealing with more than one currency, so that the invoice can be issued in any currency, and the amounts can be collected in another currency.","Possibility_to_pay_with_a_visa":"Possibility to pay with a visa","The_advantage_of_paying_in_cash":"The advantage of paying in cash, paying by Visa card, or by more than one payment method.","current_version":"The Current Version: 1.1.0","Features_coming_soon":"Features coming soon","Give_your_customers_a_safe":"Give your customers a safe experience by scanning a QR code to check your restaurant menu, on their smartphone and without installing any app. It also works on all types of devices, regardless of the brand of the device.","clean_and_safe":"clean and safe","They_are_digital_to_ensure":"They are digital to ensure the safety of each user. Your customers can browse the menu on their smartphones without contact.","Compatible_with_all_mobile_phones":"Compatible with all mobile phones","Responsive_and_clear_menu":"Responsive and clear menu. Displays a clear, wide-angle image on all mobile phones, without installing any app.","Cost_effective":"Cost-effective","Being_connected_to_the_store":"Being connected to the store, your list will stay updated and you won\'t have to outlay the costs of printing paper lists.","Features_of_the_digital_menu":"Features of the digital menu","free_service":"Free Service","We_offer_you_the_free":"We offer you the free digital menu feature for restaurants when setting up your store, which works on your customers\' smartphones, without installing any application.","save_money":"Save Money","The_digital_menu_offers_you":"The digital menu offers you the service of saving the money that you waste when modifying the menu and printing the menu again","synchronous":"synchronous","digital_synchronous":"The restaurant management system synchronizes the data online immediately after each modification, addition or deletion of the store\'s products and immediately sends it to the menu. Which will make the customer aware of the available and unavailable products because the menu will hide all the products that are not available in the store.","The_audience_menu":"The Audience","It_allows_the_list_reader":"It allows the list reader to add his phone number and the store owner creates a WhatsApp group to inform him of all the offers and discounts related to the store","Choose_your_design":"Choose your design","free_design":"Free Design","Request_your_design":"Request your design","within_24_hours":"Within 24 Hours","Move_to_the_digital_menu_and_start":"Move to the digital menu and start with the easiest way to create a free online menu, and provide your customers with a unique experience, we provide complete solutions to create a QR code-accessible restaurant website, moving away from paper menu and providing a healthy alternative to customers. Receive your design within 24 hours, Receive your design within 24 hours, just contact us on WhatsApp and we will get back to you within the day.","You_must_create_your_store":"You must create your store first to get the digital menu for free","Offer_only_available_this_month":"Offer only available this month","Book_your_online_store":"Book your online store now and get 40% off and get the digital menu for free. Start your project now at the lowest costs, with the highest capabilities, advanced technologies and up-to-date, with the easiest steps to get started, save your money now, and create your online store","Contact_us_on_WhatsApp_to_receive_your_design":"Contact us on WhatsApp to receive your design","Marketing_Specialist":"Marketing Specialist","Data_Analyst":"Data Analyst","Administrative_Manager":"Administrative Manager","Sales_Manager":"Sales Manager","Inventory_Manager":"Inventory Manager","Financial_Controller":"Financial Controller","Restaurant_service_is_not_currently":"Restaurant service is not currently available, soon the delivery of orders will be available automatically from the cashier to the restaurant","cancel_the_bill":"cancel the bill"}');
 
 /***/ })
 

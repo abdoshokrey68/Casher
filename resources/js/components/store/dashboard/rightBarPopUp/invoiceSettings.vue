@@ -22,13 +22,6 @@
                         role="form"
                         class="form-horizontal"
                     >
-                        <input
-                            hidden
-                            v-model="form.store_id"
-                            type="text"
-                            name="store_id"
-                        />
-
                         <div class="clear"></div>
                         <div class="auto-tax form-check form-switch">
                             <input

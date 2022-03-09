@@ -121,8 +121,9 @@ export default {
                 hour = 12;
             }
             if (hour < 10) hour = "0" + hour;
-
             var min = time.getMinutes();
+
+            if (min < 10) min = "0" + min;
 
             this.time = hour + ":" + min + " " + ampm;
         },

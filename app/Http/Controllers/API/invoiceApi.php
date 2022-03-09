@@ -82,18 +82,30 @@ class invoiceApi extends Controller
 
     public function deleteinvoice(Request $request)
     {
-
         $positionApi = new positionApi();
         $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_delete');
         if ($check) {
             $invoice = invoice::find($request->invoice_id);
-            $store = store::find($invoice->store_id);
-            $historyApi = new historyApi;
-            $des_ar = " تم حذف الفاتورة رقم $invoice->id ";
-            $des_en = " Invoice No. $invoice->id has been deleted ";
-            $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-            $invoice->delete();
-            return "Deleted successfully";
+            if ($invoice) {
+                $store = store::find($invoice->store_id);
+                $historyApi = new historyApi;
+                $des_ar = " تم حذف الفاتورة رقم $invoice->id ";
+                $des_en = " Invoice No. $invoice->id has been deleted ";
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                if ($request->table_id && $request->table_id != 0) {
+                    $table = table::find($request->table_id);
+                    if ($table) {
+                        $table->status = 0;
+                        $table->save();
+                    } else {
+                        return abort(404);
+                    }
+                }
+                $invoice->delete();
+                return "Deleted successfully";
+            } else {
+                return abort(404);
+            }
         } else {
             return abort(401);
         }
@@ -105,27 +117,36 @@ class invoiceApi extends Controller
             'invoice_id' => 'required|numeric',
             'table_id' => 'required|numeric',
             'paidamount' => 'required|numeric',
+            'store_id' => 'required',
         ]);
 
         $positionApi = new positionApi();
         $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_add');
-
         if ($check) {
             $invoice = invoice::find($request->invoice_id);
             $store = store::find($invoice->store_id);
-            $table = table::find($request->table_id);
-            if ($invoice->store_id == $table->store_id) {
-                if ($request->paidamount >= $invoice->f_discount) {
-                    $table->status = 0;
-                    $table->save();
-                    $invoice->paid = $request->f_discount;
-                    $invoice->save();
-                    return 'Invoice Completed';
+            if ($request->table_id != 0) {
+                $table = table::find($request->table_id);
+                if ($invoice->store_id == $table->store_id) {
+                    if ($request->paidamount >= $invoice->f_discount) {
+                        $table->status = 0;
+                        $table->save();
+                        $invoice->paid = $request->f_discount;
+                        $invoice->save();
+                        return 'Invoice Completed';
+                    } else {
+                        return abort(419);
+                    }
                 } else {
                     return abort(419);
                 }
             } else {
-                return abort(419);
+                if ($request->paidamount >= $invoice->f_discount) {
+                    $invoice->paid = $invoice->f_discount + ($invoice->f_discount * ($invoice->tax  / 100));
+                    return $invoice->save();
+                } else {
+                    return abort(419);
+                }
             }
         } else {
             return abort(401);

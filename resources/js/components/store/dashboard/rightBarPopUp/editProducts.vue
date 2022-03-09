@@ -63,21 +63,6 @@
                         @keydown="form.onKeydown($event)"
                         v-if="addProductForm"
                     >
-                        <input
-                            hidden
-                            v-if="form.edit_product_id"
-                            v-model="form.edit_product_id"
-                            type="text"
-                            name="store_id"
-                        />
-
-                        <input
-                            hidden
-                            v-model="form.store_id"
-                            type="text"
-                            name="store_id"
-                        />
-
                         <label for="product-name" class="mt-2">
                             {{ lang.product_name }}
                         </label>
@@ -188,10 +173,10 @@
                         />
                         <div class="justify-content-center d-flex">
                             <img
-                                v-if="product_image"
-                                :src="product_image"
-                                class="rounded"
-                                style="width: 150px; height: 150px"
+                                v-if="product.image"
+                                class="product-image"
+                                :src="'/image/products/' + product.image"
+                                alt="product image"
                             />
                             <img
                                 v-else
@@ -217,11 +202,20 @@
                                     role="status"
                                     :hidden="!form.busy"
                                 ></span>
-                                <i
-                                    class="fas fa-plus mt-2 ml-2"
-                                    :hidden="form.busy"
-                                ></i>
-                                {{ lang.add_product }}
+                                <span v-if="form.edit_product_id">
+                                    <i
+                                        class="fas fa-edit mt-2 ml-2"
+                                        :hidden="form.busy"
+                                    ></i>
+                                    {{ lang.edit_product }}
+                                </span>
+                                <span v-else>
+                                    <i
+                                        class="fas fa-plus mt-2 ml-2"
+                                        :hidden="form.busy"
+                                    ></i>
+                                    {{ lang.add_product }}
+                                </span>
                             </button>
 
                             <button

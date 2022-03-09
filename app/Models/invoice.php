@@ -21,6 +21,7 @@ class invoice extends Model
         'table_id',
         'member_id',
         'status',
+        'tax',
         'paid',
     ];
 

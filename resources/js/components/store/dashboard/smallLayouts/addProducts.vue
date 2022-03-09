@@ -74,12 +74,13 @@ export default {
             product: {},
             store_id: this.$parent.store_id,
             productquantity: 1,
-            invoice_id: 55,
+            invoice_id: 0,
             form: new Form({
                 quantity: 1,
                 invoice_id: 0,
                 table_id: 0,
                 product_id: this.product_id,
+                store_id: this.$parent.store_id,
             }),
             lang: this.$parent.lang,
             time: 0,
@@ -90,6 +91,7 @@ export default {
         this.getProductDetails();
         if (this.$route.query.invoice_id) {
             this.form.invoice_id = parseInt(this.$route.query.invoice_id);
+            this.invoice_id = parseInt(this.$route.query.invoice_id);
             this.form.table_id = parseInt(this.$route.query.table_id);
         } else {
             this.$parent.addProductsComponent =
@@ -102,26 +104,23 @@ export default {
         }
         this.time = new Date().getTime();
         this.locale = this.getLocale();
+        var quantity = document.getElementsByName("quantity");
+        quantity[0].focus();
     },
     methods: {
         addProductsToggle() {
             this.$parent.addProductsComponent =
                 !this.$parent.addProductsComponent;
             this.$parent.addproduct_id = null;
+            this.form.reset();
         },
         async addToDetails() {
             const response = await this.form
                 .post("/api/addtodetails")
                 .then((res) => {
-                    this.invoice_id = res.data.invoice_id;
                     // console.log(res.data);
+                    this.invoice_id = res.data.invoice_id;
                     this.updateUrl(this.invoice_id);
-
-                    // this.$router.replace(
-                    //     this.$route.fullPath +
-                    //         "&get_invoice_details=" +
-                    //         this.time
-                    // );
 
                     this.time = new Date().getTime();
                     this.form.reset();
@@ -129,7 +128,7 @@ export default {
                         !this.$parent.addProductsComponent;
                 })
                 .catch((err) => {
-                    // console.log(err);
+                    console.log(err);
                 });
         },
         getProductDetails: function () {
@@ -173,12 +172,17 @@ export default {
                     query: {
                         table_id: this.$route.query.table_id,
                         invoice_id: invoice_id,
-                        section: this.$route.query.section_id,
-                        time: this.$route.query.time,
-                        get_invoice_details: this.time,
+                        section: this.$route.query.section,
+                        time: this.time,
                     },
                 })
                 .catch(() => {});
+            // get_invoice_details: this.time,
+            // this.$router.replace(
+            //     this.$route.fullPath +
+            //         "&get_invoice_details=" +
+            //         this.time
+            // );
         },
         getType: function (type) {
             if (this.locale == "ar") {

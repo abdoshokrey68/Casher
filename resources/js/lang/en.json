@@ -289,6 +289,7 @@
     "edit_sections" : "Edit Sections",
     "edit_section" : "Edit Section",
     "edit_products" : "Edit Products",
+    "edit_product" : "Edit Product",
     "daily_invoice" : "Daily Invoices",
     "edit_members":"Edit Members",
     "edit_member":"Edit Member",
@@ -564,8 +565,16 @@
     "You_must_create_your_store" : "You must create your store first to get the digital menu for free",
     "Offer_only_available_this_month" : "Offer only available this month",
     "Book_your_online_store":  "Book your online store now and get 40% off and get the digital menu for free. Start your project now at the lowest costs, with the highest capabilities, advanced technologies and up-to-date, with the easiest steps to get started, save your money now, and create your online store",
-    "Contact_us_on_WhatsApp_to_receive_your_design" : "Contact us on WhatsApp to receive your design"
+    "Contact_us_on_WhatsApp_to_receive_your_design" : "Contact us on WhatsApp to receive your design",
+    "Marketing_Specialist" : "Marketing Specialist" ,
+    "Data_Analyst" : "Data Analyst",
+    "Administrative_Manager" : "Administrative Manager",
+    "Sales_Manager" : "Sales Manager",
+    "Inventory_Manager" : "Inventory Manager",
+    "Financial_Controller" : "Financial Controller",
 
+    "Restaurant_service_is_not_currently" : "Restaurant service is not currently available, soon the delivery of orders will be available automatically from the cashier to the restaurant",
+    "cancel_the_bill" : "cancel the bill"
 
 
 

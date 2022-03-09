@@ -57,8 +57,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::post('api/add-new-store',    [storeApi::class, 'addNewStore'])->middleware(['auth']);
 });
 
+Route::get('api/invoicedetails',    [invoiceDetailsApi::class, 'invoicedetails']);
 
-Route::group(['middleware' => []], function () {
+Route::group(['middleware' => ['checkMemberPosition']], function () {
     // Route::group(['middleware' => ['checkMemberPosition']], function () {
     // ================================================================
     // ========================== Store API ===========================
@@ -80,7 +81,6 @@ Route::group(['middleware' => []], function () {
     // ================================================================
     // ====================== INVOICE DETAILS API =====================
     // ================================================================
-    Route::get('api/invoicedetails',    [invoiceDetailsApi::class, 'invoicedetails']);
     Route::post('api/addtodetails',     [invoiceDetailsApi::class, 'addtodetails']);
     Route::get('api/deletedetails',     [invoiceDetailsApi::class, 'deletedetails']);
 

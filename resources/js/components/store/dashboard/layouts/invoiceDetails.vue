@@ -26,7 +26,10 @@
                         <td>{{ details.quantity }}</td>
                         <td>{{ details.price * details.quantity }}</td>
                         <td class="bold">
-                            <a href="#" @click="handleClick(details.id)">
+                            <a
+                                href="#"
+                                @click="handleClick(details.id, 'details')"
+                            >
                                 <i class="fas fa-trash-alt btn btn-danger"></i>
                             </a>
                         </td>
@@ -37,16 +40,28 @@
         <!-- End Invoice Table -->
         <div class="col-md-12 mt-5" v-if="invoice_id">
             <div class="border rounded col-md-12 mt-5">
-                <h5 v-if="invoiceDetails.discount" class="bold p-3">
-                    {{ lang.total_be_discount }}
+                <h6 v-if="invoiceDetails.discount" class="bold p-1 text-danger">
+                    {{ lang.total_be_discount + "=" }}
                     <span>
-                        {{ invoiceDetails.total }}
-                        <span class="text-danger">
+                        {{ parseFloat(invoiceDetails.f_discount).toFixed(2) }}
+                        <span class="">
                             {{ "× " + invoiceDetails.discount + "%" }}
                         </span>
                     </span>
-                </h5>
-                <h5 class="bold p-3">{{ lang.total_amount }}</h5>
+                </h6>
+                <h6 v-if="invoice_s.tax" class="bold p-1 text-danger">
+                    {{ lang.tax }} =>
+                    <span class="">{{ invoice_s.tax + "%" }}</span>
+                </h6>
+                <button
+                    v-if="invoice_id != 0"
+                    :class="getClass()"
+                    @click="handleClick(invoice_id, 'invoice')"
+                >
+                    <i class="fas fa-xmark mr-2 ml-2 text-light"></i>
+                    {{ lang.cancel_the_bill }}
+                </button>
+                <h5 class="bold p-2">{{ lang.total_amount }}</h5>
                 <input
                     type="text"
                     class="form-control disabled p-3 text-center bold bg-d-blue text-light"
@@ -54,7 +69,8 @@
                     :value="
                         getInvoiceValue(
                             invoiceDetails.f_discount,
-                            invoiceDetails.discount
+                            invoiceDetails.discount,
+                            invoice_s.tax
                         )
                     "
                     disabled
@@ -73,25 +89,26 @@ export default {
             invoiceDetails: {},
             invoice_id: 0,
             lang: this.$parent.lang,
+            invoice_s: {},
+            locale: this.getLocale(),
         };
     },
     watch: {
         $route: function () {
-            if (
-                this.$route.query.invoice_id ||
-                this.$route.query.get_invoice_details
-            ) {
+            if (this.$route.query.invoice_id && this.$route.query.time) {
                 this.invoice_id = this.$route.query.invoice_id;
                 this.getInvoiceDetails();
+                this.getInvoiceSettings(this.store_id);
             } else {
                 this.invoiceDetails = {};
-                this.store_id = 0;
             }
         },
     },
-    mounted() {},
+    mounted() {
+        // this.getInvoiceSettings(this.store_id);
+    },
     methods: {
-        handleClick: function (details_id) {
+        handleClick: function (id, type) {
             this.$confirm({
                 message: `Are you sure?`,
                 button: {
@@ -100,7 +117,11 @@ export default {
                 },
                 callback: (confirm) => {
                     if (confirm) {
-                        this.deleteDetails(details_id, this.store_id);
+                        if (type == "details") {
+                            this.deleteDetails(id, this.store_id);
+                        } else {
+                            this.deleteInvoice(this.invoice_id, this.store_id);
+                        }
                     }
                 },
             });
@@ -118,6 +139,17 @@ export default {
                     // console.log(err);
                 });
         },
+        getInvoiceSettings: function (store_id) {
+            axios
+                .get(`/api/invoice/settings?store_id=${store_id}`)
+                .then((res) => {
+                    // console.log(res);
+                    this.invoice_s = res.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
         deleteDetails: function (details_id, store_id) {
             axios
                 .get(
@@ -131,13 +163,70 @@ export default {
                     // console.log(err);
                 });
         },
-        getInvoiceValue: function (total, discount) {
+        deleteInvoice: function (invoice_id) {
+            axios
+                .get(
+                    `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}&table_id=${this.invoiceDetails.table_id}`
+                )
+                .then((res) => {
+                    // console.log(res);
+                    this.notification(
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.delete_suucess
+                    );
+                    this.urlReplace();
+                    this.invoice_id = 0;
+                    this.invoiceDetails = "empty";
+                })
+                .catch((err) => {
+                    // console.log(err);
+                    this.notification(
+                        this.getType("error"),
+                        this.lang.error,
+                        this.lang.upaate_error
+                    );
+                });
+        },
+        notification: function (type, title, text) {
+            this.$notify({
+                group: "dashboard",
+                speed: 1500,
+                type: type, // error , warn, success
+                title: title,
+                text: text,
+            });
+        },
+        urlReplace: function () {
+            if (this.$route.query) {
+                this.$router
+                    .replace({
+                        path: this.$route.path,
+                    })
+                    .catch(() => {});
+            }
+        },
+        getInvoiceValue: function (total, discount, tax) {
             // if (this.invoiceDetails == "empty")
             //     console.log(this.invoiceDetails);
             if (this.invoiceDetails == "empty") {
                 return 0;
             } else {
-                return total;
+                return parseFloat(total + (total * tax) / 100).toFixed(2);
+            }
+        },
+        getClass() {
+            if (this.locale == "ar") {
+                return "btn btn-danger text-light bold text-uppercase float-start";
+            } else {
+                return "btn btn-danger text-light bold text-uppercase float-end";
+            }
+        },
+        getType: function (type) {
+            if (this.locale == "ar") {
+                return `${type} text-end`;
+            } else {
+                return type;
             }
         },
     },

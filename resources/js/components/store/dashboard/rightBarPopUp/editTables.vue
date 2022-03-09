@@ -29,21 +29,6 @@
                         v-if="tableForm"
                     >
                         <input
-                            v-if="form.table_id"
-                            hidden
-                            v-model="form.table_id"
-                            type="text"
-                            name="table_id"
-                        />
-
-                        <input
-                            hidden
-                            v-model="form.store_id"
-                            type="text"
-                            name="store_id"
-                        />
-
-                        <input
                             v-model="form.name"
                             type="text"
                             name="name"

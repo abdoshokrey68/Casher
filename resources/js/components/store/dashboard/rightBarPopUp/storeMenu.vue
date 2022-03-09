@@ -108,13 +108,6 @@
                                     @submit.prevent="updateStoreMenu()"
                                     @keydown="form.onKeydown($event)"
                                 >
-                                    <input
-                                        hidden
-                                        v-model="form.store_id"
-                                        type="text"
-                                        name="store_id"
-                                    />
-
                                     <div class="background-color">
                                         <label for="background_co">{{
                                             lang.bg_co

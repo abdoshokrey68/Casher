@@ -17,7 +17,10 @@
                     }"
                     :class="getClass(0)"
                 >
-                    {{ lang.all_prudacts }}
+                    <span class="mr-2 ml-2 bold">
+                        {{ lang.all_prudacts }}
+                    </span>
+                    <i class="fas fa-check-to-slot"></i>
                 </router-link>
                 <div v-for="(section, index) in sections" :key="index">
                     <router-link
@@ -30,7 +33,10 @@
                         }"
                         :class="getClass(section.id)"
                     >
-                        {{ section.name }}
+                        <span class="mr-2 ml-2 bold">
+                            {{ section.name }}
+                        </span>
+                        <i :class="section.icon"></i>
                     </router-link>
                 </div>
             </div>
