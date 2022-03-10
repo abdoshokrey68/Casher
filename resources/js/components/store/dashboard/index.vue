@@ -229,7 +229,7 @@ export default {
                     this.storeINFO = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getPositions: function () {

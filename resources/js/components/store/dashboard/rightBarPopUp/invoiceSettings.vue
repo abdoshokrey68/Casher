@@ -279,7 +279,7 @@ export default {
             const response = await this.form
                 .post("/api/invoice/settings/edit")
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,

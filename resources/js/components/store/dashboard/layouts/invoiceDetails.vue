@@ -45,7 +45,7 @@
                     <span>
                         {{ parseFloat(invoiceDetails.total).toFixed(2) }}
                         <span class="">
-                            {{ "× " + invoiceDetails.discount + "%" }}
+                            {{ "-" + invoiceDetails.discount + "%" }}
                         </span>
                     </span>
                 </h6>

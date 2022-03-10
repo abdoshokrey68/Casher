@@ -113,13 +113,15 @@ export default {
                 .then((res) => {
                     this.tables = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    // console.log(err);
+                });
         },
         getInvoices: function () {
             axios
                 .get(`/api/invoice/notpaid?store_id=${this.store_id}`)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.invoices = res.data;
                 })
                 .catch((err) => {});

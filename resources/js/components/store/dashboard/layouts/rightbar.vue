@@ -298,7 +298,7 @@ export default {
                     this.position = res.data.position;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
     },

@@ -88,20 +88,22 @@ class storeApi extends Controller
                 } else {
                     $store->audience = 1;
                 }
-                if ($request->password) {
-                    $request->validate([
-                        'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
-                    ]);
-                    $store->password = Hash::make($request->password);
-                }
+                // if ($request->password) {
+                //     $request->validate([
+                //         'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/'
+                //     ]);
+                //     $store->password = Hash::make($request->password);
+                // }
                 if ($request->image) {
                     $request->validate([
                         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
                     ]);
                     $imageName = time() . rand(1, 9000) . '.' . $request->image->extension();
                     $request->image->move(public_path('/image/stores/image'), $imageName);
-                    if (file_exists(public_path("/image/stores/image/$store->image"))) {
-                        unlink(public_path("/image/stores/image/$store->image"));
+                    if ($store->image) {
+                        if (file_exists(public_path("/image/stores/image/$store->image"))) {
+                            unlink(public_path("/image/stores/image/$store->image"));
+                        }
                     }
                     $store->image = $imageName;
                 }
@@ -111,8 +113,10 @@ class storeApi extends Controller
                     ]);
                     $coverName = time() . rand(1, 9000) . '.' . $request->cover->extension();
                     $request->cover->move(public_path('/image/stores/cover'), $coverName);
-                    if (file_exists(public_path("/image/stores/cover/$store->cover"))) {
-                        unlink(public_path("/image/stores/cover/$store->cover"));
+                    if ($store->cover) {
+                        if (file_exists(public_path("/image/stores/cover/$store->cover"))) {
+                            unlink(public_path("/image/stores/cover/$store->cover"));
+                        }
                     }
                     $store->cover = $coverName;
                 }

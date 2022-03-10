@@ -319,13 +319,15 @@ export default {
                     // console.log(res.data);
                     this.menu = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    // console.log(err)
+                });
         },
         async updateStoreMenu() {
             const response = await this.form
                 .post("/api/store/menu")
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
@@ -335,7 +337,7 @@ export default {
                     this.getStoreMenu();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                     this.notification(
                         this.getType("error"),
                         this.lang.error,

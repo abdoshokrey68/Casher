@@ -168,7 +168,7 @@ export default {
                     this.invoice = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         async paidinvoice() {
@@ -184,7 +184,7 @@ export default {
                     this.payinvoiceToggle();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         printExternal: function (url) {

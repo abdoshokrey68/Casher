@@ -234,7 +234,7 @@ export default {
                     this.store = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getInvoiceDetails: function () {
@@ -247,7 +247,7 @@ export default {
                     this.invoice = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getInvoiceSettings: function (store_id, locale) {

@@ -199,7 +199,7 @@ export default {
             const response = await this.form
                 .post("/api/addtable")
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
@@ -251,7 +251,9 @@ export default {
                 .then((res) => {
                     this.tables = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    // console.log(err);
+                });
         },
         getTable: function (table_id) {
             axios
@@ -261,7 +263,9 @@ export default {
                 .then((res) => {
                     this.table = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    // console.log(err);
+                });
         },
         deleteTable: function (table_id) {
             axios
@@ -269,7 +273,7 @@ export default {
                     `/api/deletetable?table_id=${table_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
@@ -278,7 +282,7 @@ export default {
                     this.getTables();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                     this.notification(
                         this.getType("error"),
                         this.lang.error,

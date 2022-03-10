@@ -76,10 +76,12 @@ export default {
             axios
                 .get(`/api/gethistory?store_id=${store_id}&locale=${locale}`)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.histories = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    console.log(err);
+                });
         },
         getClass: function (status) {
             if (status == 0) {

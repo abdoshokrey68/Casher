@@ -687,7 +687,7 @@ export default {
                     this.getSections();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         async updateSection() {
@@ -699,7 +699,7 @@ export default {
                         this.lang.success,
                         this.lang.section_update_succ
                     );
-                    console.log(res);
+                    // console.log(res);
                     this.form.reset();
                     this.NewSectionFrom = !this.NewSectionFrom;
                     this.$router.replace({
@@ -713,7 +713,7 @@ export default {
                         this.lang.error,
                         this.lang.section_update_error
                     );
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         editsectionsToggle: function () {
@@ -727,7 +727,7 @@ export default {
                     this.sections = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getSection(section_id) {
@@ -740,7 +740,7 @@ export default {
                     this.section = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         notification: function (type, title, text) {
@@ -804,7 +804,7 @@ export default {
                     this.position = res.data.position;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getType: function (type) {

@@ -46,9 +46,10 @@
                             type="number"
                             step="0.01"
                             name="amount"
+                            id="amount"
                             min="0"
                             class="form-control mt-2 mb-2"
-                            placeholder="Enter Your WhatsApp Number"
+                            :placeholder="lang.whatsapp_number"
                         />
                         <div
                             class="text-danger bold"
@@ -57,7 +58,7 @@
                         />
                     </div>
 
-                    <div class="float-end mt-2">
+                    <div class="float-end mt-2 mb-2">
                         <button
                             type="submit"
                             class="btn btn-primary"
@@ -101,7 +102,6 @@ export default {
             store_id: this.$parent.store_id,
             box: {},
             username: null,
-            password: null,
             boxForm: false,
             lang: this.$parent.lang,
             form: new Form({
@@ -111,11 +111,13 @@ export default {
                 password: null,
             }),
             locale: "",
+            invoices: {},
         };
     },
     mounted() {
-        this.getBoxInfo();
         this.locale = this.getLocale();
+        this.getBoxInfo();
+        this.getInvoices();
     },
     watch: {
         box: function () {
@@ -130,12 +132,12 @@ export default {
             const response = await this.form
                 .post("/api/store/addtobox")
                 .then((res) => {
+                    this.invoiceNotPaid();
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
                         this.lang.data_has_Sent
                     );
-                    console.log(res.data);
                     this.form.reset();
                     this.boxForm = !this.boxForm;
                     this.getBoxInfo();
@@ -155,7 +157,6 @@ export default {
                     // console.log(res.data);
                     this.box = res.data.box;
                     this.username = res.data.username;
-                    this.password = res.data.password;
                 })
                 .catch((err) => {
                     this.notification(
@@ -164,6 +165,16 @@ export default {
                         this.lang.went_wrong
                     );
                 });
+        },
+        getInvoices: function () {
+            axios
+                .get(`/api/invoice/all/notpaid?store_id=${this.store_id}`)
+                .then((res) => {
+                    // console.log(res.data);
+                    this.invoices = res.data;
+                    this.invoiceNotPaid();
+                })
+                .catch((err) => {});
         },
         notification: function (type, title, text) {
             this.$notify({
@@ -183,8 +194,8 @@ export default {
                     yes: "Yes",
                 },
                 callback: (confirm, password) => {
-                    if (confirm && password == "1234") {
-                        // this.form.password = password;
+                    if (confirm) {
+                        this.form.password = password;
                         this.addToStoreBox();
                     }
                 },
@@ -195,6 +206,17 @@ export default {
                 return "btn btn-primary col-md-12 p-2 mt-2";
             } else {
                 return "btn btn-primary col-md-12 p-2 mt-2 disabled";
+            }
+        },
+        invoiceNotPaid: function () {
+            if (this.invoices) {
+                this.invoices.forEach((invoice) => {
+                    this.notification(
+                        this.getType("error"),
+                        this.lang.error,
+                        `${this.lang.invoice_no} ${invoice.id} ${this.lang.not_paid} `
+                    );
+                });
             }
         },
         boxReceive: function (status) {

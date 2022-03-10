@@ -272,11 +272,13 @@ export default {
                     `/api/dailyinvoice?store_id=${this.store_id}&getfrom=${this.from}&getto=${this.to}`
                 )
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
                     this.invoices = res.data.invoices;
                     this.total = res.data.invoicetotal;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    // console.log(err);
+                });
         },
         deleteInvoice: function (invoice_id, password) {
             axios
@@ -284,7 +286,7 @@ export default {
                     `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}&password=${password}`
                 )
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
                     this.getDailyInvoice();
                     this.notification(
                         this.getType("success"),
@@ -293,7 +295,7 @@ export default {
                     );
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                     this.notification(
                         this.getType("error"),
                         this.lang.error,
@@ -333,7 +335,7 @@ export default {
                     this.position = res.data.position;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getType: function (type) {

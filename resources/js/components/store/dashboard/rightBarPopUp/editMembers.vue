@@ -841,7 +841,7 @@ export default {
             const response = await this.form
                 .post("/api/editmember")
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
@@ -972,7 +972,7 @@ export default {
                     this.position = res.data.position;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         getType: function (type) {

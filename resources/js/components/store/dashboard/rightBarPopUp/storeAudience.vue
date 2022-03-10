@@ -102,10 +102,14 @@ export default {
             axios
                 .get(`/api/audience/get?store_id=${store_id}`)
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.audiences = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    {
+                        // console.log(err)
+                    }
+                });
         },
         deleteAudience: function (store_id, audience_id) {
             axios
@@ -116,7 +120,11 @@ export default {
                     // console.log(res.data);
                     this.getAudience(this.store_id);
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    {
+                        // console.log(err)
+                    }
+                });
         },
         handleClick: function (audience_id) {
             this.$confirm({

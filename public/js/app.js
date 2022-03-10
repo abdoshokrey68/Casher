@@ -6856,8 +6856,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/storeinfo?store_id=".concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this.storeINFO = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getPositions: function getPositions() {
@@ -7724,8 +7723,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this.position = res.data.position;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     }
   }
@@ -8096,8 +8094,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/storeinfo?store_id=".concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this.store = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getInvoiceDetails: function getInvoiceDetails() {
@@ -8106,8 +8103,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/invoicedetails?invoice_id=".concat(this.invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.invoice = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getInvoiceSettings: function getInvoiceSettings(store_id, locale) {
@@ -8408,25 +8404,22 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/dailyinvoice?store_id=".concat(this.store_id, "&getfrom=").concat(this.from, "&getto=").concat(this.to)).then(function (res) {
-        console.log(res);
+        // console.log(res);
         _this.invoices = res.data.invoices;
         _this.total = res.data.invoicetotal;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     deleteInvoice: function deleteInvoice(invoice_id, password) {
       var _this2 = this;
 
       axios.post("/api/deleteinvoice?invoice_id=".concat(invoice_id, "&store_id=").concat(this.store_id, "&password=").concat(password)).then(function (res) {
-        console.log(res);
-
+        // console.log(res);
         _this2.getDailyInvoice();
 
         _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.delete_suucess);
       })["catch"](function (err) {
-        console.log(err);
-
+        // console.log(err);
         _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.upaate_error);
       });
     },
@@ -8463,8 +8456,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this4.position = res.data.position;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getType: function getType(type) {
@@ -9460,8 +9452,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return _this2.form.post("/api/editmember").then(function (res) {
-                  console.log(res.data);
-
+                  // console.log(res.data);
                   _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.data_modified);
 
                   _this2.formEmpty();
@@ -9581,8 +9572,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this7.position = res.data.position;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getType: function getType(type) {
@@ -10094,8 +10084,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.addProductForm = !_this.addProductForm;
 
                   _this.getProducts();
-                })["catch"](function (err) {
-                  console.log(err);
+                })["catch"](function (err) {// console.log(err);
                 });
 
               case 2:
@@ -10120,10 +10109,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return _this2.form.post("/api/updateproduct").then(function (res) {
-                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.product_update_succ);
+                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.product_update_succ); // console.log(res.data);
 
-                  console.log(res.data);
 
+                  // console.log(res.data);
                   _this2.formEmpty();
 
                   _this2.urlReplace();
@@ -10132,9 +10121,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.getProducts();
                 })["catch"](function (err) {
-                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.product_update_error);
+                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.product_update_error); // console.log(err);
 
-                  console.log(err);
                 });
 
               case 2:
@@ -10168,8 +10156,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/getproduct?edit_product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this4.product = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getSections: function getSections() {
@@ -10178,8 +10165,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.date)
         _this5.sections = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     deleteProduct: function deleteProduct(product_id) {
@@ -10190,8 +10176,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this6.getProducts();
 
         _this6.notification(_this6.getType("success"), _this6.lang.success, _this6.lang.delete_suucess);
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     handleClick: function handleClick(product_id) {
@@ -10239,8 +10224,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this8.position = res.data.position;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     onImageInput: function onImageInput(event) {
@@ -10970,8 +10954,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.NewSectionFrom = !_this.NewSectionFrom;
 
                   _this.getSections();
-                })["catch"](function (err) {
-                  console.log(err);
+                })["catch"](function (err) {// console.log(err);
                 });
 
               case 2:
@@ -10996,10 +10979,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return _this2.form.post("/api/updatesection").then(function (res) {
-                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.section_update_succ);
+                  _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.section_update_succ); // console.log(res);
 
-                  console.log(res);
 
+                  // console.log(res);
                   _this2.form.reset();
 
                   _this2.NewSectionFrom = !_this2.NewSectionFrom;
@@ -11010,9 +10993,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.getSections();
                 })["catch"](function (err) {
-                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.section_update_error);
+                  _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.section_update_error); // console.log(err);
 
-                  console.log(err);
                 });
 
               case 2:
@@ -11035,8 +11017,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this3.sections = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getSection: function getSection(section_id) {
@@ -11045,8 +11026,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/getsection?section_id=".concat(section_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this4.section = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     notification: function notification(type, title, text) {
@@ -11106,8 +11086,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this7.position = res.data.position;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getType: function getType(type) {
@@ -11348,8 +11327,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.buttonloading = !_this.buttonloading;
                 _context.next = 3;
                 return _this.form.post("/api/addtable").then(function (res) {
-                  console.log(res.data);
-
+                  // console.log(res.data);
                   _this.notification(_this.getType("success"), _this.lang.success, _this.lang.add_success);
 
                   _this.tableForm = !_this.tableForm;
@@ -11422,8 +11400,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get("/api/gettables?store_id=".concat(this.store_id)).then(function (res) {
         _this3.tables = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getTable: function getTable(table_id) {
@@ -11431,22 +11408,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get("/api/gettable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
         _this4.table = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     deleteTable: function deleteTable(table_id) {
       var _this5 = this;
 
       axios.get("/api/deletetable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
-        console.log(res.data);
-
+        // console.log(res.data);
         _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.delete_success);
 
         _this5.getTables();
       })["catch"](function (err) {
-        console.log(err);
-
+        // console.log(err);
         _this5.notification(_this5.getType("error"), _this5.lang.error, _this5.lang.deleted_there_problem);
       });
     },
@@ -11806,8 +11780,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/invoice/settings/edit").then(function (res) {
-                  console.log(res.data);
-
+                  // console.log(res.data);
                   _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_modified);
 
                   _this.getInvoiceSettings();
@@ -12000,15 +11973,14 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/gettables?store_id=".concat(this.store_id)).then(function (res) {
         _this.tables = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     getInvoices: function getInvoices() {
       var _this2 = this;
 
       axios.get("/api/invoice/notpaid?store_id=".concat(this.store_id)).then(function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         _this2.invoices = res.data;
       })["catch"](function (err) {});
     }
@@ -12202,8 +12174,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get("/api/invoicedetails?invoice_id=".concat(invoice_id, "&store_id=").concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this.invoice = res.data;
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     paidinvoice: function paidinvoice() {
@@ -12225,8 +12196,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.urlReplace();
 
                   _this2.payinvoiceToggle();
-                })["catch"](function (err) {
-                  console.log(err);
+                })["catch"](function (err) {// console.log(err);
                 });
 
               case 2:
@@ -12406,10 +12376,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/audience/get?store_id=".concat(store_id)).then(function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         _this.audiences = res.data;
       })["catch"](function (err) {
-        return console.log(err);
+        {// console.log(err)
+        }
       });
     },
     deleteAudience: function deleteAudience(store_id, audience_id) {
@@ -12419,7 +12390,8 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(res.data);
         _this2.getAudience(_this2.store_id);
       })["catch"](function (err) {
-        return console.log(err);
+        {// console.log(err)
+        }
       });
     },
     handleClick: function handleClick(audience_id) {
@@ -12557,6 +12529,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -12567,7 +12540,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       store_id: this.$parent.store_id,
       box: {},
       username: null,
-      password: null,
       boxForm: false,
       lang: this.$parent.lang,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -12576,12 +12548,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         status: 0,
         password: null
       }),
-      locale: ""
+      locale: "",
+      invoices: {}
     };
   },
   mounted: function mounted() {
-    this.getBoxInfo();
     this.locale = this.getLocale();
+    this.getBoxInfo();
+    this.getInvoices();
   },
   watch: {
     box: function box() {
@@ -12603,9 +12577,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/store/addtobox").then(function (res) {
-                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_has_Sent);
+                  _this.invoiceNotPaid();
 
-                  console.log(res.data);
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_has_Sent);
 
                   _this.form.reset();
 
@@ -12634,10 +12608,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // console.log(res.data);
         _this2.box = res.data.box;
         _this2.username = res.data.username;
-        _this2.password = res.data.password;
       })["catch"](function (err) {
         _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.went_wrong);
       });
+    },
+    getInvoices: function getInvoices() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/invoice/all/notpaid?store_id=".concat(this.store_id)).then(function (res) {
+        // console.log(res.data);
+        _this3.invoices = res.data;
+
+        _this3.invoiceNotPaid();
+      })["catch"](function (err) {});
     },
     notification: function notification(type, title, text) {
       this.$notify({
@@ -12650,7 +12633,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     handleClick: function handleClick() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$confirm({
         auth: true,
@@ -12660,9 +12643,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           yes: "Yes"
         },
         callback: function callback(confirm, password) {
-          if (confirm && password == "1234") {
-            // this.form.password = password;
-            _this3.addToStoreBox();
+          if (confirm) {
+            _this4.form.password = password;
+
+            _this4.addToStoreBox();
           }
         }
       });
@@ -12672,6 +12656,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return "btn btn-primary col-md-12 p-2 mt-2";
       } else {
         return "btn btn-primary col-md-12 p-2 mt-2 disabled";
+      }
+    },
+    invoiceNotPaid: function invoiceNotPaid() {
+      var _this5 = this;
+
+      if (this.invoices) {
+        this.invoices.forEach(function (invoice) {
+          _this5.notification(_this5.getType("error"), _this5.lang.error, "".concat(_this5.lang.invoice_no, " ").concat(invoice.id, " ").concat(_this5.lang.not_paid, " "));
+        });
       }
     },
     boxReceive: function boxReceive(status) {
@@ -12783,10 +12776,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/gethistory?store_id=".concat(store_id, "&locale=").concat(locale)).then(function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         _this.histories = res.data;
       })["catch"](function (err) {
-        return console.log(err);
+        console.log(err);
       });
     },
     getClass: function getClass(status) {
@@ -13142,8 +13135,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/store/menu?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this.menu = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err)
       });
     },
     updateStoreMenu: function updateStoreMenu() {
@@ -13157,16 +13149,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this2.form.post("/api/store/menu").then(function (res) {
-                  console.log(res.data);
-
+                  // console.log(res.data);
                   _this2.notification(_this2.getType("success"), _this2.lang.success, _this2.lang.data_modified);
 
                   _this2.form.reset();
 
                   _this2.getStoreMenu();
                 })["catch"](function (err) {
-                  console.log(err);
-
+                  // console.log(err);
                   _this2.notification(_this2.getType("error"), _this2.lang.error, _this2.lang.please_check_the_data);
                 });
 
@@ -13582,8 +13572,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -13607,7 +13595,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         fb: null,
         audience: false,
         email: null,
-        password: null,
         currency: "EGP",
         discount: 0,
         store_id: this.$parent.store_id
@@ -13656,8 +13643,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return _this.form.post("/api/updateinfo").then(function (res) {
-                  console.log(res.data);
-
+                  // console.log(res.data);
                   _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_modified);
 
                   _this.getStoreInfo();
@@ -13682,8 +13668,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/storeinfo?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.storeinfo = res.data;
-      })["catch"](function (err) {
-        return console.log(err);
+      })["catch"](function (err) {// console.log(err);
       });
     },
     notification: function notification(type, title, text) {
@@ -43689,7 +43674,7 @@ var render = function () {
                     _c("span", {}, [
                       _vm._v(
                         "\n                        " +
-                          _vm._s("× " + _vm.invoiceDetails.discount + "%") +
+                          _vm._s("-" + _vm.invoiceDetails.discount + "%") +
                           "\n                    "
                       ),
                     ]),
@@ -52235,8 +52220,9 @@ var render = function () {
                           type: "number",
                           step: "0.01",
                           name: "amount",
+                          id: "amount",
                           min: "0",
-                          placeholder: "Enter Your WhatsApp Number",
+                          placeholder: _vm.lang.whatsapp_number,
                         },
                         domProps: { value: _vm.form.amount },
                         on: {
@@ -52259,7 +52245,7 @@ var render = function () {
                         : _vm._e(),
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "float-end mt-2" }, [
+                    _c("div", { staticClass: "float-end mt-2 mb-2" }, [
                       _c(
                         "button",
                         {
@@ -53183,102 +53169,6 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "clear" }),
                   _vm._v(" "),
-                  _c("label", { attrs: { for: "store-password" } }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.lang.store_password)
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.password,
-                        expression: "form.password",
-                      },
-                    ],
-                    staticClass: "form-control mt-2 mb-2",
-                    attrs: {
-                      id: "store-password",
-                      type: "password",
-                      name: "password",
-                      placeholder: _vm.lang.store_password,
-                      autocomplete: "new-password",
-                    },
-                    domProps: { value: _vm.form.password },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "password", $event.target.value)
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _vm.form.errors.has("password")
-                    ? _c("div", {
-                        staticClass: "text-danger bold",
-                        domProps: {
-                          innerHTML: _vm._s(_vm.form.errors.get("password")),
-                        },
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.form.password
-                    ? _c("ul", { staticClass: "list-group" }, [
-                        _c("li", {}, [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-check text-primary bold mr-2 ml-2",
-                          }),
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.lang.pass_must_not) +
-                              "\n                        "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("li", {}, [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-check text-primary bold mr-2 ml-2",
-                          }),
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.lang.pass_must_contain) +
-                              "\n                        "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("li", {}, [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-check text-primary bold mr-2 ml-2",
-                          }),
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.lang.pass_symbols) +
-                              "\n                        "
-                          ),
-                        ]),
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.form.password
-                    ? _c("small", { staticClass: "text-primary bold" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.lang.leave_field) +
-                            "\n                    "
-                        ),
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "clear" }),
-                  _vm._v(" "),
                   _c("div", { staticClass: "store-phone" }, [
                     _c("label", { attrs: { for: "store-phone" } }, [
                       _vm._v(
@@ -53493,7 +53383,7 @@ var render = function () {
                     staticClass: "form-control mt-2 mb-2",
                     attrs: {
                       id: "store-discount",
-                      type: "text",
+                      type: "number",
                       name: "discount",
                       placeholder: _vm.lang.store_discount,
                     },

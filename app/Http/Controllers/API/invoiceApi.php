@@ -53,6 +53,20 @@ class invoiceApi extends Controller
         }
     }
 
+    public function allnotpaid(Request $request)
+    {
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'box_add');
+        if ($check) {
+            $store_id = $request->store_id;
+            $store = store::find($request->store_id);
+            $invoices = invoice::where('store_id', $store_id)->where('paid', NULL)->get();
+            if ($invoices)
+                return $invoices;
+        } else {
+            return abort(401);
+        }
+    }
     public function settings(Request $request)
     {
         $this->validate($request, [

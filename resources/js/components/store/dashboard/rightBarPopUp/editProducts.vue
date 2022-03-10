@@ -473,7 +473,7 @@ export default {
                     this.getProducts();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         async updateproduct() {
@@ -485,7 +485,7 @@ export default {
                         this.lang.success,
                         this.lang.product_update_succ
                     );
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.formEmpty();
                     this.urlReplace();
                     this.addProductForm = !this.addProductForm;
@@ -497,7 +497,7 @@ export default {
                         this.lang.error,
                         this.product_update_error
                     );
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         cancelMethod: function () {
@@ -525,7 +525,9 @@ export default {
                     // console.log(res.data);
                     this.product = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    // console.log(err);
+                });
         },
         getSections: function () {
             axios
@@ -535,7 +537,7 @@ export default {
                     this.sections = res.data;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         deleteProduct: function (product_id) {
@@ -553,7 +555,7 @@ export default {
                     );
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         handleClick: function (product_id) {
@@ -603,7 +605,7 @@ export default {
                     this.position = res.data.position;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         },
         onImageInput(event) {

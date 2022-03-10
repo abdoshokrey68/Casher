@@ -73,7 +73,7 @@
                             v-html="form.errors.get('email')"
                         />
 
-                        <div class="clear"></div>
+                        <!-- <div class="clear"></div>
                         <label for="store-password">
                             {{ lang.store_password }}</label
                         >
@@ -110,10 +110,8 @@
                                 ></i>
                                 {{ lang.pass_symbols }}
                             </li>
-                        </ul>
-                        <small v-if="!form.password" class="text-primary bold">
-                            {{ lang.leave_field }}
-                        </small>
+                        </ul> -->
+
                         <div class="clear"></div>
                         <div class="store-phone">
                             <label for="store-phone">
@@ -200,7 +198,7 @@
                         <input
                             id="store-discount"
                             v-model="form.discount"
-                            type="text"
+                            type="number"
                             name="discount"
                             class="form-control mt-2 mb-2"
                             :placeholder="lang.store_discount"
@@ -356,7 +354,6 @@ export default {
                 fb: null,
                 audience: false,
                 email: null,
-                password: null,
                 currency: "EGP",
                 discount: 0,
                 store_id: this.$parent.store_id,
@@ -397,7 +394,7 @@ export default {
             const response = await this.form
                 .post("/api/updateinfo")
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
@@ -420,7 +417,9 @@ export default {
                     // console.log(res.data);
                     this.storeinfo = res.data;
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    // console.log(err);
+                });
         },
 
         notification: function (type, title, text) {
