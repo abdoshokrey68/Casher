@@ -7721,7 +7721,9 @@ __webpack_require__.r(__webpack_exports__);
     getPositions: function getPositions() {
       var _this = this;
 
+      console.log("rightbar Test");
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+        console.log(res.data);
         _this.position = res.data.position;
       })["catch"](function (err) {// console.log(err);
       });
