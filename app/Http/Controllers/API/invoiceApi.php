@@ -112,49 +112,48 @@ class invoiceApi extends Controller
 
     public function deleteinvoice(Request $request)
     {
-        $this->validate($request, [
-            "password"  => "required"
-        ]);
-        $user = Auth::user();
-        if (Hash::check($request->password, $user->password)) {
-            $positionApi = new positionApi();
-            $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_delete');
-            if ($check) {
-                $invoice = invoice::find($request->invoice_id);
-                if ($invoice) {
-                    if ($request->table_id) {
-                        if (!$invoice->paid) {
-                            if ($request->table_id != 0) {
-                                $table = table::find($request->table_id);
-                                if ($table) {
-                                    // this Statment to check when the invoice deleted is paid no not
-                                    $table->status = 0;
-                                    $table->save();
-                                } else {
-                                    return abort(404);
-                                }
+        // $this->validate($request, [
+        //     "password"  => "required"
+        // ]);
+        // $user = Auth::user();
+        // if (Hash::check($request->password, $user->password)) {
+        $positionApi = new positionApi();
+        $check = $positionApi->checkPositionRoute($request->store_id, Auth::id(), 'invoice_delete');
+        if ($check) {
+            $invoice = invoice::find($request->invoice_id);
+            if ($invoice) {
+                if ($request->table_id) {
+                    if (!$invoice->paid) {
+                        if ($request->table_id != 0) {
+                            $table = table::find($request->table_id);
+                            if ($table) {
+                                // this Statment to check when the invoice deleted is paid or not
+                                $table->status = 0;
+                                $table->save();
+                            } else {
+                                return abort(404);
                             }
-                        } else {
-                            return abort(404);
                         }
+                    } else {
+                        return abort(404);
                     }
-                    $store = store::find($invoice->store_id);
-                    $historyApi = new historyApi;
-                    $des_ar = " تم حذف الفاتورة رقم $invoice->id ";
-                    $des_en = " Invoice No. $invoice->id has been deleted ";
-
-                    $invoice->delete();
-                    $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
-                    return "Deleted successfully";
-                } else {
-                    return abort(404);
                 }
+                $store = store::find($invoice->store_id);
+                $historyApi = new historyApi;
+                $des_ar = " تم حذف الفاتورة رقم $invoice->id ";
+                $des_en = " Invoice No. $invoice->id has been deleted ";
+                $invoice->delete();
+                $history = $historyApi->createHistory($des_ar, $des_en, $store->id, Auth::id());
+                return "Deleted successfully";
             } else {
-                return abort(401);
+                return abort(404);
             }
         } else {
             return abort(401);
         }
+        // } else {
+        //     return abort(401);
+        // }
     }
 
     public function payInvoice(Request $request)

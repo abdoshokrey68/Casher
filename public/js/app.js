@@ -7055,7 +7055,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       axios.post("/api/deleteinvoice?invoice_id=".concat(invoice_id, "&store_id=").concat(this.store_id, "&table_id=").concat(this.invoiceDetails.table_id)).then(function (res) {
-        // console.log(res);
+        // console.log(res.data);
         _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.delete_suucess);
 
         _this5.urlReplace();
@@ -8410,10 +8410,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {// console.log(err);
       });
     },
-    deleteInvoice: function deleteInvoice(invoice_id, password) {
+    deleteInvoice: function deleteInvoice(invoice_id) {
       var _this2 = this;
 
-      axios.post("/api/deleteinvoice?invoice_id=".concat(invoice_id, "&store_id=").concat(this.store_id, "&password=").concat(password)).then(function (res) {
+      axios.post("/api/deleteinvoice?invoice_id=".concat(invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res);
         _this2.getDailyInvoice();
 
@@ -8427,16 +8427,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$confirm({
-        auth: true,
+        // auth: true,
         message: "Are you sure?",
         button: {
           no: "No",
           yes: "Yes"
         },
-        callback: function callback(confirm, password) {
+        callback: function callback(confirm) {
           if (confirm) {
             // this.form.password = password;
-            _this3.deleteInvoice(invoice_id, password);
+            _this3.deleteInvoice(invoice_id);
           }
         }
       });

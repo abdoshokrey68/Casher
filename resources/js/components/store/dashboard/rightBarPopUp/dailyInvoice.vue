@@ -280,10 +280,10 @@ export default {
                     // console.log(err);
                 });
         },
-        deleteInvoice: function (invoice_id, password) {
+        deleteInvoice: function (invoice_id) {
             axios
                 .post(
-                    `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}&password=${password}`
+                    `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
                     // console.log(res);
@@ -305,16 +305,16 @@ export default {
         },
         handleClick: function (invoice_id) {
             this.$confirm({
-                auth: true,
+                // auth: true,
                 message: `Are you sure?`,
                 button: {
                     no: "No",
                     yes: "Yes",
                 },
-                callback: (confirm, password) => {
+                callback: (confirm) => {
                     if (confirm) {
                         // this.form.password = password;
-                        this.deleteInvoice(invoice_id, password);
+                        this.deleteInvoice(invoice_id);
                     }
                 },
             });

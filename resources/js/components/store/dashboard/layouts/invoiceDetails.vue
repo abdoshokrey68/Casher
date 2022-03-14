@@ -170,7 +170,7 @@ export default {
                     `/api/deleteinvoice?invoice_id=${invoice_id}&store_id=${this.store_id}&table_id=${this.invoiceDetails.table_id}`
                 )
                 .then((res) => {
-                    // console.log(res);
+                    // console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
