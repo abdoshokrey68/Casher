@@ -165,7 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-
         /*
          * Application Service Providers...
          */
@@ -182,6 +181,9 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
 
         LaravelDaily\Invoices\InvoiceServiceProvider::class,
+
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
     ],
 
     /*

@@ -52,10 +52,10 @@ class audienceApi extends Controller
                 $audience->save();
                 return $audience;
             } else {
-                return 'false';
+                return abort(401);
             }
         } else {
-            return 'false';
+            return abort(404);
         }
     }
 

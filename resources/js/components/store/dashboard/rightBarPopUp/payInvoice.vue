@@ -79,7 +79,7 @@
                                 {{ lang.pay }}
                             </span>
                         </button>
-                        <button
+                        <!-- <button
                             class="btn btn-primary col-md-12 h5 p-3 mt-3 text-center bold"
                             @click.prevent="
                                 printExternal(
@@ -89,7 +89,7 @@
                         >
                             <i class="fas fa-print"></i>
                             {{ lang.invoice_printing }}
-                        </button>
+                        </button> -->
                         <button
                             @click.prevent="payinvoiceToggle()"
                             class="btn btn-light mt-2 col-md-12 text-danger bold"
@@ -175,11 +175,11 @@ export default {
             const response = await this.form
                 .post("/api/payinvoice")
                 .then((res) => {
-                    // this.notification(
-                    //     "success",
-                    //     "Success",
-                    //     "Section added successfully"
-                    // );
+                    this.notification(
+                        this.getType("success"),
+                        this.lang.success,
+                        this.lang.Invoice_paid_successfully
+                    );
                     this.urlReplace();
                     this.payinvoiceToggle();
                 })

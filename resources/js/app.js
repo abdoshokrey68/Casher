@@ -12,6 +12,7 @@ Vue.use(Notifications)
 
 Vue.use(VueConfirmDialog)
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
+// axios.defaults.withCredentials = true;
 
 // ===================== Store Dashboard Layouts ======================
 Vue.component('navigation-bar', require('./components/store/dashboard/layouts/navigationbar.vue').default);

@@ -24,4 +24,9 @@ class ApiController extends Controller
         // $historyApi = new historyApi;
         // $history = $historyApi->createHistory('إنشاء مرجع من كلاس اخر ', ' Create History from another class', $store->id, Auth::id());
     }
+
+    public function index()
+    {
+        return 'test';
+    }
 }

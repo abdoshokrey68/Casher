@@ -25,15 +25,15 @@ class storeApi extends Controller
 
     public function store_d(Request $request)
     {
-        $store_id = $request->store_id;
         $this->validate($request, [
-            'store_id'  => 'required|integer'
+            'store_id'  => 'required'
         ]);
+        return $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
             return store::with('sections', 'sections.products')->find($store_id);
         } else {
-            return 'false';
+            return abort(404);
         }
     }
 
@@ -47,7 +47,7 @@ class storeApi extends Controller
         if ($store) {
             return store::find($store_id);
         } else {
-            return 'false';
+            return abort(404);
         }
     }
 
@@ -143,10 +143,8 @@ class storeApi extends Controller
             'location'  => 'required',
             'currency'  => 'required|min:3|max:3',
         ]);
-        // $request->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
 
         $store = new store();
-        // $store = store::create([$request->all()]);
         $store->name = $request->name;
         $store->email = $request->email;
         $store->phone = $request->phone;

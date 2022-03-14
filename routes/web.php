@@ -59,97 +59,97 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 Route::get('api/invoicedetails',    [invoiceDetailsApi::class, 'invoicedetails']);
 
-Route::group(['middleware' => ['checkMemberPosition']], function () {
-    // Route::group(['middleware' => ['checkMemberPosition']], function () {
-    // ================================================================
-    // ========================== Store API ===========================
-    // ================================================================
-    Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
-    Route::get('api/store_d',           [storeApi::class, 'store_d']);
-    Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
+// Route::group(['middleware' => ['checkMemberPosition']], function () {
+//     // Route::group(['middleware' => ['checkMemberPosition']], function () {
+//     // ================================================================
+//     // ========================== Store API ===========================
+//     // ================================================================
+//     Route::get('api/storeinfo',         [storeApi::class, 'storeinfo']);
+//     Route::get('api/store_d',           [storeApi::class, 'store_d']);
+//     Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']);
 
-    // ================================================================
-    // ========================== INVOICES API ========================
-    // ================================================================
-    Route::get('api/dailyinvoice',      [invoiceApi::class, 'dailyinvoice']);
-    Route::get('api/invoice/notpaid',      [invoiceApi::class, 'notpaid']);
-    Route::get('api/invoice/all/notpaid',      [invoiceApi::class, 'allnotpaid']);
-    Route::post('api/deleteinvoice',     [invoiceApi::class, 'deleteinvoice']);
-    Route::post('api/payinvoice',        [invoiceApi::class, 'payInvoice']);
-    Route::get('api/invoice/settings',    [invoiceApi::class, 'settings']);
-    Route::post('api/invoice/settings/edit',    [invoiceApi::class, 'settingsEdit']);
-    Route::get('api/invoice/export',    [invoiceApi::class, 'export']);
+//     // ================================================================
+//     // ========================== INVOICES API ========================
+//     // ================================================================
+//     Route::get('api/dailyinvoice',      [invoiceApi::class, 'dailyinvoice']);
+//     Route::get('api/invoice/notpaid',      [invoiceApi::class, 'notpaid']);
+//     Route::get('api/invoice/all/notpaid',      [invoiceApi::class, 'allnotpaid']);
+//     Route::post('api/deleteinvoice',     [invoiceApi::class, 'deleteinvoice']);
+//     Route::post('api/payinvoice',        [invoiceApi::class, 'payInvoice']);
+//     Route::get('api/invoice/settings',    [invoiceApi::class, 'settings']);
+//     Route::post('api/invoice/settings/edit',    [invoiceApi::class, 'settingsEdit']);
+//     Route::get('api/invoice/export',    [invoiceApi::class, 'export']);
 
-    // ================================================================
-    // ====================== INVOICE DETAILS API =====================
-    // ================================================================
-    Route::post('api/addtodetails',     [invoiceDetailsApi::class, 'addtodetails']);
-    Route::get('api/deletedetails',     [invoiceDetailsApi::class, 'deletedetails']);
+//     // ================================================================
+//     // ====================== INVOICE DETAILS API =====================
+//     // ================================================================
+//     Route::post('api/addtodetails',     [invoiceDetailsApi::class, 'addtodetails']);
+//     Route::get('api/deletedetails',     [invoiceDetailsApi::class, 'deletedetails']);
 
-    // ================================================================
-    // ========================== SECTIONS API ========================
-    // ================================================================
-    Route::get('api/sectiondet',        [sectionApi::class, 'sectiondet']);
-    Route::get('api/getsections',       [sectionApi::class, 'getsections']);
-    Route::get('api/getsection',        [sectionApi::class, 'getsection']);
-    Route::get('api/deletesection',     [sectionApi::class, 'deletesection']);
-    Route::post('api/createnewsection', [sectionApi::class, 'createnewsection']);
-    Route::post('api/updatesection',    [sectionApi::class, 'updatesection']);
+//     // ================================================================
+//     // ========================== SECTIONS API ========================
+//     // ================================================================
+//     Route::get('api/sectiondet',        [sectionApi::class, 'sectiondet']);
+//     Route::get('api/getsections',       [sectionApi::class, 'getsections']);
+//     Route::get('api/getsection',        [sectionApi::class, 'getsection']);
+//     Route::get('api/deletesection',     [sectionApi::class, 'deletesection']);
+//     Route::post('api/createnewsection', [sectionApi::class, 'createnewsection']);
+//     Route::post('api/updatesection',    [sectionApi::class, 'updatesection']);
 
-    // ================================================================
-    // ========================== PRODUCTS API ========================
-    // ================================================================
-    Route::get('api/getproducts',       [productApi::class, 'getproducts']);
-    Route::get('api/getproduct',        [productApi::class, 'getproduct']);
-    Route::get('api/productdetails',    [productApi::class, 'productdetails']);
-    Route::post('api/addnewproduct',    [productApi::class, 'addnewproduct']);
-    Route::post('api/updateproduct',    [productApi::class, 'updateproduct']);
-    Route::get('api/deleteproduct',     [productApi::class, 'deleteproduct']);
-    Route::get('api/product/export',    [productApi::class, 'export']);
+//     // ================================================================
+//     // ========================== PRODUCTS API ========================
+//     // ================================================================
+//     Route::get('api/getproducts',       [productApi::class, 'getproducts']);
+//     Route::get('api/getproduct',        [productApi::class, 'getproduct']);
+//     Route::get('api/productdetails',    [productApi::class, 'productdetails']);
+//     Route::post('api/addnewproduct',    [productApi::class, 'addnewproduct']);
+//     Route::post('api/updateproduct',    [productApi::class, 'updateproduct']);
+//     Route::get('api/deleteproduct',     [productApi::class, 'deleteproduct']);
+//     Route::get('api/product/export',    [productApi::class, 'export']);
 
-    // ================================================================
-    // ========================== MEMBERS API =========================
-    // ================================================================
-    Route::get('api/getmembers',        [membersApi::class, 'index']);
-    Route::get('api/getmember',         [membersApi::class, 'getmember']);
-    Route::post('api/addnewmember',     [membersApi::class, 'add']);
-    Route::post('api/editmember',       [membersApi::class, 'edit']);
-    Route::get('api/deletemember',      [membersApi::class, 'delete']);
-    Route::get('api/member/position',   [membersApi::class, 'position']);
+//     // ================================================================
+//     // ========================== MEMBERS API =========================
+//     // ================================================================
+//     Route::get('api/getmembers',        [membersApi::class, 'index']);
+//     Route::get('api/getmember',         [membersApi::class, 'getmember']);
+//     Route::post('api/addnewmember',     [membersApi::class, 'add']);
+//     Route::post('api/editmember',       [membersApi::class, 'edit']);
+//     Route::get('api/deletemember',      [membersApi::class, 'delete']);
+//     Route::get('api/member/position',   [membersApi::class, 'position']);
 
-    // ================================================================
-    // ========================== TABLES API ==========================
-    // ================================================================
-    Route::get('api/gettables',         [tableApi::class, 'gettables']);
-    Route::get('api/gettable',          [tableApi::class, 'gettable']);
-    Route::post('api/addtable',         [tableApi::class, 'addtable']);
-    Route::post('api/updatetable',      [tableApi::class, 'updatetable']);
-    Route::get('api/deletetable',       [tableApi::class, 'deletetable']);
+//     // ================================================================
+//     // ========================== TABLES API ==========================
+//     // ================================================================
+//     Route::get('api/gettables',         [tableApi::class, 'gettables']);
+//     Route::get('api/gettable',          [tableApi::class, 'gettable']);
+//     Route::post('api/addtable',         [tableApi::class, 'addtable']);
+//     Route::post('api/updatetable',      [tableApi::class, 'updatetable']);
+//     Route::get('api/deletetable',       [tableApi::class, 'deletetable']);
 
-    // ================================================================
-    // ========================== Menu API ==========================
-    // ================================================================
-    Route::get('api/store/menu',        [menuApi::class, 'index']);
-    Route::post('api/store/menu',       [menuApi::class, 'edit']);
-
-
-    // ================================================================
-    // ========================== Store BOX API ==========================
-    // ================================================================
-    Route::get('api/store/getboxinfo',  [boxApi::class, 'getboxinfo']);
-    Route::post('api/store/addtobox',   [boxApi::class, 'addtobox']);
+//     // ================================================================
+//     // ========================== Menu API ==========================
+//     // ================================================================
+//     Route::get('api/store/menu',        [menuApi::class, 'index']);
+//     Route::post('api/store/menu',       [menuApi::class, 'edit']);
 
 
-    // ================================================================
-    // ========================== Store HISTORY API ===================
-    // ================================================================
-    Route::get('api/gethistory',  [historyApi::class, 'index']);
-    // Route::post('api/store/addtobox',   [historyApi::class, 'addtobox']);
+//     // ================================================================
+//     // ========================== Store BOX API ==========================
+//     // ================================================================
+//     Route::get('api/store/getboxinfo',  [boxApi::class, 'getboxinfo']);
+//     Route::post('api/store/addtobox',   [boxApi::class, 'addtobox']);
 
-    // ================================================================
-    // ========================== Store Audience API ==================
-    // ================================================================
-    Route::get('api/audience/get',      [audienceApi::class, 'index']);
-    Route::get('api/audience/add',      [audienceApi::class, 'add']);
-    Route::get('api/audience/delete',   [audienceApi::class, 'delete']);
-});
+
+//     // ================================================================
+//     // ========================== Store HISTORY API ===================
+//     // ================================================================
+//     Route::get('api/gethistory',  [historyApi::class, 'index']);
+//     // Route::post('api/store/addtobox',   [historyApi::class, 'addtobox']);
+
+//     // ================================================================
+//     // ========================== Store Audience API ==================
+//     // ================================================================
+//     Route::get('api/audience/get',      [audienceApi::class, 'index']);
+//     Route::get('api/audience/add',      [audienceApi::class, 'add']);
+//     Route::get('api/audience/delete',   [audienceApi::class, 'delete']);
+// });

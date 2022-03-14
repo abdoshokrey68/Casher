@@ -41,9 +41,11 @@ return [
             'provider' => 'users',
         ],
         'api' => [
-            'driver' => 'passport',
+            // 'driver' => 'jwt',
+            'driver' => 'session',
             'provider' => 'users',
-            'hash'      => false
+            'hash'      => true,
+            // 'hash'      => false
         ],
     ],
 
