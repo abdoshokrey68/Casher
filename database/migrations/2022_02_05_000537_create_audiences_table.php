@@ -15,7 +15,8 @@ class CreateAudiencesTable extends Migration
     {
         Schema::create('audiences', function (Blueprint $table) {
             $table->id();
-            $table->integer('phone');
+            $table->string('phone');
+            // $table->string('phone', 20);
             $table->unsignedBigInteger('store_id');
             $table->integer('member_id')->nullable();
             $table->timestamps();

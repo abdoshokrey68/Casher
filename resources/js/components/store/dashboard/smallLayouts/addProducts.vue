@@ -137,7 +137,7 @@ export default {
         },
         getProductDetails: function () {
             axios
-                .get(
+                .post(
                     `/api/productdetails?product_id=${this.product_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -159,7 +159,7 @@ export default {
         },
         addProductToInvoice: function (product_id) {
             axios
-                .get(
+                .post(
                     `/api/addproducttoinvoice?product_id=${product_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {

@@ -77,12 +77,6 @@
                             @submit.prevent="addaudience()"
                             @keydown="form.onKeydown($event)"
                         >
-                            <input
-                                hidden
-                                v-model="form.store_id"
-                                type="number"
-                                name="store_id"
-                            />
                             <label for="phone">
                                 <i
                                     class="fas fa-bell text-warning bold mr-2 ml-2"
@@ -263,7 +257,7 @@ export default {
     },
     mounted() {
         this.getdetails(this.store_id);
-        this.getStoreMenu();
+        this.getStoreMenu(this.store_id);
         this.getDate();
         this.locale = this.getLocale();
     },
@@ -277,14 +271,14 @@ export default {
         },
         async addaudience() {
             const response = await this.form
-                .get("/api/audience/add")
+                .post("/api/audience/add")
                 .then((res) => {
+                    console.log(res.data);
                     this.notification(
                         this.getType("success"),
                         this.lang.success,
                         this.lang.data_has_sent
                     );
-                    // console.log(res.data);
                     this.form.reset();
                     this.joinForm = !this.joinForm;
                 })
@@ -310,20 +304,19 @@ export default {
             var day = date.getDay() - 30;
             this.date_30 = day + "-" + monthCount + "-" + year;
         },
-        getStoreMenu: function () {
+        getStoreMenu: function (store_id) {
             axios
-                .get(`/api/store/menu?store_id=${this.store_id}`)
+                .post(`/api/store/menu?store_id=${store_id}`)
                 .then((res) => {
-                    // console.log(res.data);
+                    console.log(res.data);
                     this.menu = res.data;
                 })
                 .catch((err) => console.log(err));
         },
         getdetails: function (store_id) {
             axios
-                .get(`/api/store_d?store_id=${store_id}`)
+                .post(`/api/store_d?store_id=${store_id}`)
                 .then((res) => {
-                    console.log(res.data);
                     this.store_d = res.data;
                 })
                 .catch((err) => {

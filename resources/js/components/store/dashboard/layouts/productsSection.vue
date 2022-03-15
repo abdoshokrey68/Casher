@@ -133,7 +133,7 @@ export default {
         },
         getSections: function () {
             axios
-                .get(
+                .post(
                     `/api/sectiondet?store_id=${this.store_id}&section_id=${this.section_id}`
                 )
                 .then((res) => {

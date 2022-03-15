@@ -228,7 +228,7 @@ export default {
     methods: {
         getStoreInfo: function (store_id) {
             axios
-                .get(`/api/storeinfo?store_id=${store_id}`)
+                .post(`/api/storeinfo?store_id=${store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.store = res.data;
@@ -239,7 +239,7 @@ export default {
         },
         getInvoiceDetails: function () {
             axios
-                .get(
+                .post(
                     `/api/invoicedetails?invoice_id=${this.invoice_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -252,7 +252,7 @@ export default {
         },
         getInvoiceSettings: function (store_id, locale) {
             axios
-                .get(`/api/invoice/settings?store_id=${this.store_id}&locale=${locale}`)
+                .post(`/api/invoice/settings?store_id=${this.store_id}&locale=${locale}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.invoice_s = res.data;

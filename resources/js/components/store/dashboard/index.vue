@@ -223,7 +223,7 @@ export default {
     methods: {
         getStoreInfo: function (store_id) {
             axios
-                .get(`/api/storeinfo?store_id=${store_id}`)
+                .post(`/api/storeinfo?store_id=${store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.storeINFO = res.data;
@@ -234,7 +234,7 @@ export default {
         },
         getPositions: function () {
             axios
-                .get(`/api/member/position?store_id=${this.store_id}`)
+                .post(`/api/member/position?store_id=${this.store_id}`)
                 .then((res) => {
                     this.position = res.data.position;
                 })

@@ -40,7 +40,7 @@
                             <div
                                 class="text-danger bold"
                                 v-if="form.errors.has('autotax')"
-                                v-html="form.errors.get('autotax')"
+                                v-html="form.errors.post('autotax')"
                             />
                         </div>
 
@@ -60,7 +60,7 @@
                             <div
                                 class="text-danger bold"
                                 v-if="form.errors.has('tax_record')"
-                                v-html="form.errors.get('tax_record')"
+                                v-html="form.errors.post('tax_record')"
                             />
                         </div>
 
@@ -297,7 +297,7 @@ export default {
         },
         getInvoiceSettings: function () {
             axios
-                .get(`/api/invoice/settings?store_id=${this.store_id}`)
+                .post(`/api/invoice/settings?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.invoice = res.data;

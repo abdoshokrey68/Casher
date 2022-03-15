@@ -247,7 +247,7 @@ export default {
         },
         getTables: function () {
             axios
-                .get(`/api/gettables?store_id=${this.store_id}`)
+                .post(`/api/gettables?store_id=${this.store_id}`)
                 .then((res) => {
                     this.tables = res.data;
                 })
@@ -257,7 +257,7 @@ export default {
         },
         getTable: function (table_id) {
             axios
-                .get(
+                .post(
                     `/api/gettable?table_id=${table_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -269,7 +269,7 @@ export default {
         },
         deleteTable: function (table_id) {
             axios
-                .get(
+                .post(
                     `/api/deletetable?table_id=${table_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {

@@ -13,6 +13,7 @@ class menuApi extends Controller
 {
     public function index(Request $request)
     {
+        return $request;
         $this->validate($request, [
             'store_id'  => 'required'
         ]);

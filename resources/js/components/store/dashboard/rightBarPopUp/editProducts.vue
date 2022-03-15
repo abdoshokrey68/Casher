@@ -507,7 +507,7 @@ export default {
         },
         getProducts: function () {
             axios
-                .get(`/api/getproducts?store_id=${this.store_id}`)
+                .post(`/api/getproducts?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.products = res.data;
@@ -518,7 +518,7 @@ export default {
         },
         getProduct: function (product_id) {
             axios
-                .get(
+                .post(
                     `/api/getproduct?edit_product_id=${product_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -531,7 +531,7 @@ export default {
         },
         getSections: function () {
             axios
-                .get(`/api/getsections?store_id=${this.store_id}`)
+                .post(`/api/getsections?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.date)
                     this.sections = res.data;
@@ -542,7 +542,7 @@ export default {
         },
         deleteProduct: function (product_id) {
             axios
-                .get(
+                .post(
                     `/api/deleteproduct?product_id=${product_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -600,7 +600,7 @@ export default {
         },
         getPositions: function () {
             axios
-                .get(`/api/member/position?store_id=${this.store_id}`)
+                .post(`/api/member/position?store_id=${this.store_id}`)
                 .then((res) => {
                     this.position = res.data.position;
                 })

@@ -100,7 +100,7 @@ export default {
         },
         getAudience: function (store_id) {
             axios
-                .get(`/api/audience/get?store_id=${store_id}`)
+                .post(`/api/audience/get?store_id=${store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.audiences = res.data;
@@ -113,7 +113,7 @@ export default {
         },
         deleteAudience: function (store_id, audience_id) {
             axios
-                .get(
+                .post(
                     `/api/audience/delete?store_id=${store_id}&audience_id=${audience_id}`
                 )
                 .then((res) => {

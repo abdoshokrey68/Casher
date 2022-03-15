@@ -721,7 +721,7 @@ export default {
         },
         getSections() {
             axios
-                .get(`/api/getsections?store_id=${this.store_id}`)
+                .post(`/api/getsections?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.sections = res.data;
@@ -732,7 +732,7 @@ export default {
         },
         getSection(section_id) {
             axios
-                .get(
+                .post(
                     `/api/getsection?section_id=${section_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -768,7 +768,7 @@ export default {
         },
         deleteSection: function (section_id) {
             axios
-                .get(
+                .post(
                     `/api/deletesection?section_id=${section_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -799,7 +799,7 @@ export default {
         },
         getPositions: function () {
             axios
-                .get(`/api/member/position?store_id=${this.store_id}`)
+                .post(`/api/member/position?store_id=${this.store_id}`)
                 .then((res) => {
                     this.position = res.data.position;
                 })

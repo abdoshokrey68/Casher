@@ -160,7 +160,7 @@ export default {
         },
         getInvoiceDetails: function (invoice_id, store_id) {
             axios
-                .get(
+                .post(
                     `/api/invoicedetails?invoice_id=${invoice_id}&store_id=${store_id}`
                 )
                 .then((res) => {

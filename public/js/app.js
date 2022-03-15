@@ -6853,7 +6853,7 @@ __webpack_require__.r(__webpack_exports__);
     getStoreInfo: function getStoreInfo(store_id) {
       var _this = this;
 
-      axios.get("/api/storeinfo?store_id=".concat(store_id)).then(function (res) {
+      axios.post("/api/storeinfo?store_id=".concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this.storeINFO = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -6862,7 +6862,7 @@ __webpack_require__.r(__webpack_exports__);
     getPositions: function getPositions() {
       var _this2 = this;
 
-      axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this2.position = res.data.position;
       })["catch"](function (err) {});
     },
@@ -7026,7 +7026,7 @@ __webpack_require__.r(__webpack_exports__);
     getInvoiceDetails: function getInvoiceDetails() {
       var _this2 = this;
 
-      axios.get("/api/invoicedetails?invoice_id=".concat(this.invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/invoicedetails?invoice_id=".concat(this.invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.invoiceDetails = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -7035,7 +7035,7 @@ __webpack_require__.r(__webpack_exports__);
     getInvoiceSettings: function getInvoiceSettings(store_id) {
       var _this3 = this;
 
-      axios.get("/api/invoice/settings?store_id=".concat(store_id)).then(function (res) {
+      axios.post("/api/invoice/settings?store_id=".concat(store_id)).then(function (res) {
         // console.log(res);
         _this3.invoice_s = res.data;
       })["catch"](function (err) {
@@ -7045,7 +7045,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteDetails: function deleteDetails(details_id, store_id) {
       var _this4 = this;
 
-      axios.get("/api/deletedetails?invoice_details_id=".concat(details_id, "&store_id=").concat(store_id)).then(function (res) {
+      axios.post("/api/deletedetails?invoice_details_id=".concat(details_id, "&store_id=").concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this4.getInvoiceDetails();
       })["catch"](function (err) {// console.log(err);
@@ -7393,7 +7393,7 @@ __webpack_require__.r(__webpack_exports__);
     getSections: function getSections() {
       var _this = this;
 
-      axios.get("/api/sectiondet?store_id=".concat(this.store_id, "&section_id=").concat(this.section_id)).then(function (res) {
+      axios.post("/api/sectiondet?store_id=".concat(this.store_id, "&section_id=").concat(this.section_id)).then(function (res) {
         if (_this.section_id != 0) {
           // console.log(res.data.products);
           _this.sectionDetails = res.data;
@@ -7422,6 +7422,165 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7563,7 +7722,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       console.log("rightbar Test");
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         console.log(res.data);
         _this.position = res.data.position;
       })["catch"](function (err) {// console.log(err);
@@ -7677,7 +7836,7 @@ __webpack_require__.r(__webpack_exports__);
     getSections: function getSections() {
       var _this = this;
 
-      axios.get("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
         _this.sections = res.data;
       });
     },
@@ -7934,7 +8093,7 @@ __webpack_require__.r(__webpack_exports__);
     getStoreInfo: function getStoreInfo(store_id) {
       var _this = this;
 
-      axios.get("/api/storeinfo?store_id=".concat(store_id)).then(function (res) {
+      axios.post("/api/storeinfo?store_id=".concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this.store = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -7943,7 +8102,7 @@ __webpack_require__.r(__webpack_exports__);
     getInvoiceDetails: function getInvoiceDetails() {
       var _this2 = this;
 
-      axios.get("/api/invoicedetails?invoice_id=".concat(this.invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/invoicedetails?invoice_id=".concat(this.invoice_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.invoice = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -7952,7 +8111,7 @@ __webpack_require__.r(__webpack_exports__);
     getInvoiceSettings: function getInvoiceSettings(store_id, locale) {
       var _this3 = this;
 
-      axios.get("/api/invoice/settings?store_id=".concat(this.store_id, "&locale=").concat(locale)).then(function (res) {
+      axios.post("/api/invoice/settings?store_id=".concat(this.store_id, "&locale=").concat(locale)).then(function (res) {
         // console.log(res.data);
         _this3.invoice_s = res.data;
       })["catch"](function (err) {
@@ -8246,7 +8405,7 @@ __webpack_require__.r(__webpack_exports__);
     getDailyInvoice: function getDailyInvoice() {
       var _this = this;
 
-      axios.get("/api/dailyinvoice?store_id=".concat(this.store_id, "&getfrom=").concat(this.from, "&getto=").concat(this.to)).then(function (res) {
+      axios.post("/api/dailyinvoice?store_id=".concat(this.store_id, "&getfrom=").concat(this.from, "&getto=").concat(this.to)).then(function (res) {
         // console.log(res);
         _this.invoices = res.data.invoices;
         _this.total = res.data.invoicetotal;
@@ -8297,7 +8456,7 @@ __webpack_require__.r(__webpack_exports__);
     getPositions: function getPositions() {
       var _this4 = this;
 
-      axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this4.position = res.data.position;
       })["catch"](function (err) {// console.log(err);
       });
@@ -9324,7 +9483,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getmembers: function getmembers() {
       var _this3 = this;
 
-      axios.get("/api/getmembers?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/getmembers?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res);
         _this3.members = res.data;
       })["catch"](function (err) {// console.log(err)
@@ -9333,7 +9492,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getMember: function getMember(member_id, store_id) {
       var _this4 = this;
 
-      axios.get("/api/getmember?member_id=".concat(member_id, "&store_id=").concat(store_id)).then(function (res) {
+      axios.post("/api/getmember?member_id=".concat(member_id, "&store_id=").concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this4.member = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -9342,7 +9501,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deletemember: function deletemember(member_id, store_id) {
       var _this5 = this;
 
-      axios.get("/api/deletemember?member_id=".concat(member_id, "&store_id=").concat(store_id)).then(function (res) {
+      axios.post("/api/deletemember?member_id=".concat(member_id, "&store_id=").concat(store_id)).then(function (res) {
         _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.employee_deleted);
 
         _this5.getmembers();
@@ -9413,7 +9572,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getPositions: function getPositions() {
       var _this7 = this;
 
-      axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this7.position = res.data.position;
       })["catch"](function (err) {// console.log(err);
       });
@@ -9987,7 +10146,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getProducts: function getProducts() {
       var _this3 = this;
 
-      axios.get("/api/getproducts?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/getproducts?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this3.products = res.data;
       })["catch"](function (err) {// consol.log(err)
@@ -9996,7 +10155,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getProduct: function getProduct(product_id) {
       var _this4 = this;
 
-      axios.get("/api/getproduct?edit_product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/getproduct?edit_product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this4.product = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -10005,7 +10164,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getSections: function getSections() {
       var _this5 = this;
 
-      axios.get("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.date)
         _this5.sections = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -10014,7 +10173,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteProduct: function deleteProduct(product_id) {
       var _this6 = this;
 
-      axios.get("/api/deleteproduct?product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/deleteproduct?product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res);
         _this6.getProducts();
 
@@ -10065,7 +10224,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getPositions: function getPositions() {
       var _this8 = this;
 
-      axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this8.position = res.data.position;
       })["catch"](function (err) {// console.log(err);
       });
@@ -10857,7 +11016,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getSections: function getSections() {
       var _this3 = this;
 
-      axios.get("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/getsections?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this3.sections = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -10866,7 +11025,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getSection: function getSection(section_id) {
       var _this4 = this;
 
-      axios.get("/api/getsection?section_id=".concat(section_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/getsection?section_id=".concat(section_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this4.section = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -10901,7 +11060,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteSection: function deleteSection(section_id) {
       var _this6 = this;
 
-      axios.get("/api/deletesection?section_id=".concat(section_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/deletesection?section_id=".concat(section_id, "&store_id=").concat(this.store_id)).then(function (res) {
         _this6.notification(_this6.getType("success"), _this6.lang.success, _this6.lang.delete_suucess);
 
         _this6.getSections();
@@ -10927,7 +11086,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getPositions: function getPositions() {
       var _this7 = this;
 
-      axios.get("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         _this7.position = res.data.position;
       })["catch"](function (err) {// console.log(err);
       });
@@ -11241,7 +11400,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getTables: function getTables() {
       var _this3 = this;
 
-      axios.get("/api/gettables?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/gettables?store_id=".concat(this.store_id)).then(function (res) {
         _this3.tables = res.data;
       })["catch"](function (err) {// console.log(err);
       });
@@ -11249,7 +11408,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getTable: function getTable(table_id) {
       var _this4 = this;
 
-      axios.get("/api/gettable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/gettable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
         _this4.table = res.data;
       })["catch"](function (err) {// console.log(err);
       });
@@ -11257,7 +11416,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteTable: function deleteTable(table_id) {
       var _this5 = this;
 
-      axios.get("/api/deletetable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios.post("/api/deletetable?table_id=".concat(table_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this5.notification(_this5.getType("success"), _this5.lang.success, _this5.lang.delete_success);
 
@@ -11645,7 +11804,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getInvoiceSettings: function getInvoiceSettings() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/invoice/settings?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/invoice/settings?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.invoice = res.data;
       })["catch"](function (err) {
@@ -11814,7 +11973,7 @@ __webpack_require__.r(__webpack_exports__);
     getTables: function getTables() {
       var _this = this;
 
-      axios.get("/api/gettables?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/gettables?store_id=".concat(this.store_id)).then(function (res) {
         _this.tables = res.data;
       })["catch"](function (err) {// console.log(err);
       });
@@ -11822,7 +11981,7 @@ __webpack_require__.r(__webpack_exports__);
     getInvoices: function getInvoices() {
       var _this2 = this;
 
-      axios.get("/api/invoice/notpaid?store_id=".concat(this.store_id)).then(function (res) {
+      axios.post("/api/invoice/notpaid?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.invoices = res.data;
       })["catch"](function (err) {});
@@ -12014,7 +12173,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getInvoiceDetails: function getInvoiceDetails(invoice_id, store_id) {
       var _this = this;
 
-      axios.get("/api/invoicedetails?invoice_id=".concat(invoice_id, "&store_id=").concat(store_id)).then(function (res) {
+      axios.post("/api/invoicedetails?invoice_id=".concat(invoice_id, "&store_id=").concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this.invoice = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -12215,7 +12374,7 @@ __webpack_require__.r(__webpack_exports__);
     getAudience: function getAudience(store_id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/audience/get?store_id=".concat(store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/audience/get?store_id=".concat(store_id)).then(function (res) {
         // console.log(res.data);
         _this.audiences = res.data;
       })["catch"](function (err) {
@@ -12226,7 +12385,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteAudience: function deleteAudience(store_id, audience_id) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/audience/delete?store_id=".concat(store_id, "&audience_id=").concat(audience_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/audience/delete?store_id=".concat(store_id, "&audience_id=").concat(audience_id)).then(function (res) {
         // console.log(res.data);
         _this2.getAudience(_this2.store_id);
       })["catch"](function (err) {
@@ -12444,7 +12603,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getBoxInfo: function getBoxInfo() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/store/getboxinfo?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/store/getboxinfo?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.box = res.data.box;
         _this2.username = res.data.username;
@@ -12455,7 +12614,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getInvoices: function getInvoices() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/invoice/all/notpaid?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/invoice/all/notpaid?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this3.invoices = res.data;
 
@@ -12615,7 +12774,7 @@ __webpack_require__.r(__webpack_exports__);
     getHistory: function getHistory(store_id, locale) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/gethistory?store_id=".concat(store_id, "&locale=").concat(locale)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/gethistory?store_id=".concat(store_id, "&locale=").concat(locale)).then(function (res) {
         // console.log(res.data);
         _this.histories = res.data;
       })["catch"](function (err) {
@@ -12972,7 +13131,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getStoreMenu: function getStoreMenu() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/store/menu?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/store/menu?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this.menu = res.data;
       })["catch"](function (err) {// console.log(err)
@@ -13505,7 +13664,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getStoreInfo: function getStoreInfo() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/storeinfo?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/storeinfo?store_id=".concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.storeinfo = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -13744,7 +13903,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getProductDetails: function getProductDetails() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/productdetails?product_id=".concat(this.product_id, "&store_id=").concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/productdetails?product_id=".concat(this.product_id, "&store_id=").concat(this.store_id)).then(function (res) {
         // console.log(res.data);
         _this2.product = res.data;
       })["catch"](function (err) {// console.log(err);
@@ -13761,7 +13920,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     addProductToInvoice: function addProductToInvoice(product_id) {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/addproducttoinvoice?product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {// console.log(res);
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/addproducttoinvoice?product_id=".concat(product_id, "&store_id=").concat(this.store_id)).then(function (res) {// console.log(res);
       })["catch"](function (err) {// console.log(err);
       });
     },
@@ -14104,12 +14263,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
  // import mainFooter from "../layouts/mainFooter.vue";
 
@@ -14133,7 +14286,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.getdetails(this.store_id);
-    this.getStoreMenu();
+    this.getStoreMenu(this.store_id);
     this.getDate();
     this.locale = this.getLocale();
   },
@@ -14155,11 +14308,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.form.get("/api/audience/add").then(function (res) {
-                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_has_sent); // console.log(res.data);
+                return _this.form.post("/api/audience/add").then(function (res) {
+                  console.log(res.data);
 
+                  _this.notification(_this.getType("success"), _this.lang.success, _this.lang.data_has_sent);
 
-                  // console.log(res.data);
                   _this.form.reset();
 
                   _this.joinForm = !_this.joinForm;
@@ -14192,11 +14345,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var day = date.getDay() - 30;
       this.date_30 = day + "-" + monthCount + "-" + year;
     },
-    getStoreMenu: function getStoreMenu() {
+    getStoreMenu: function getStoreMenu(store_id) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/store/menu?store_id=".concat(this.store_id)).then(function (res) {
-        // console.log(res.data);
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/store/menu?store_id=".concat(store_id)).then(function (res) {
+        console.log(res.data);
         _this2.menu = res.data;
       })["catch"](function (err) {
         return console.log(err);
@@ -14205,8 +14358,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getdetails: function getdetails(store_id) {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/store_d?store_id=".concat(store_id)).then(function (res) {
-        console.log(res.data);
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/store_d?store_id=".concat(store_id)).then(function (res) {
         _this3.store_d = res.data;
       })["catch"](function (err) {
         console.log(err);
@@ -14375,6 +14527,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.withCredentials = true;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -43921,6 +44074,329 @@ var render = function () {
           )
         : _vm._e(),
     ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "list-group p-2" }, [
+      !this.cash_system
+        ? _c("div", [
+            _vm.position.invoice_add
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "list-group-item list-group-item-action text-center mb-2 action",
+                    on: {
+                      click: function ($event) {
+                        return _vm.newInvoiceToggle()
+                      },
+                    },
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-plus mr-2 ml-2" }),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.lang.new_invoice) +
+                        "\n            "
+                    ),
+                  ]
+                )
+              : _vm._e(),
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.invoice_add
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              attrs: { disabled: !_vm.invoice_btn },
+              on: {
+                click: function ($event) {
+                  return _vm.payInvoiceToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-money-bill-wave mr-2 ml-2" }),
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.lang.pay_the_amount) +
+                  "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.section_show ||
+      _vm.position.section_add ||
+      _vm.position.section_edit ||
+      _vm.position.section_delete
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.editsectionsToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-list mr-2 ml-2" }),
+              _vm._v(
+                "\n            " + _vm._s(_vm.lang.edit_sections) + "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.product_show ||
+      _vm.position.product_add ||
+      _vm.position.product_edit ||
+      _vm.position.product_delete
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.editproductsToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-cookie-bite mr-2 ml-2" }),
+              _vm._v(
+                "\n            " + _vm._s(_vm.lang.edit_products) + "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.invoice_show
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.daliyinvoiceTogle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-file-alt mr-2 ml-2" }),
+              _vm._v(
+                "\n            " + _vm._s(_vm.lang.daily_invoice) + "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.member_show ||
+      _vm.position.member_add ||
+      _vm.position.member_edit ||
+      _vm.position.member_delete
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.editmembersToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-users-cog mr-2 ml-2" }),
+              _vm._v(
+                "\n            " + _vm._s(_vm.lang.edit_members) + "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "list-group-item list-group-item-action text-center mb-2 action",
+          on: {
+            click: function ($event) {
+              return _vm.storeAudienceToggle()
+            },
+          },
+        },
+        [
+          _c("i", { staticClass: "fas fa-users mr-2 ml-2" }),
+          _vm._v(
+            "\n            " + _vm._s(_vm.lang.store_audience) + "\n        "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _vm.position.store_show || _vm.position.store_edit
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.storesettingsToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-store mr-2 ml-2" }),
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.lang.store_settings) +
+                  "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.invoice_edit
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.invoiceSettingsToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-receipt mr-2 ml-2" }),
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.lang.invoice_settings) +
+                  "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.table_show ||
+      _vm.position.table_add ||
+      _vm.position.table_edit ||
+      _vm.position.table_delete
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.edittablesToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-cogs mr-2 ml-2" }),
+              _vm._v(
+                "\n\n            " +
+                  _vm._s(_vm.lang.table_manage) +
+                  "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.box_add
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.storeBoxToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-cash-register mr-2 ml-2" }),
+              _vm._v("\n            " + _vm._s(_vm.lang.box) + "\n        "),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.history_show
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.storeHistoryToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-shield mr-2 ml-2" }),
+              _vm._v(
+                "\n            " + _vm._s(_vm.lang.dark_box) + "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.position.menu_edit
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "list-group-item list-group-item-action text-center mb-2 action",
+              on: {
+                click: function ($event) {
+                  return _vm.storeMenuToggle()
+                },
+              },
+            },
+            [
+              _c("i", { staticClass: "fas fa-concierge-bell mr-2 ml-2" }),
+              _vm._v(
+                "\n            " + _vm._s(_vm.lang.store_menu) + "\n        "
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass:
+            "list-group-item list-group-item-action text-center mb-2 action",
+          attrs: { href: _vm.menu_link, target: "_blank" },
+        },
+        [
+          _c("i", { staticClass: "fas fa-up-right-from-square mr-2 ml-2" }),
+          _vm._v("\n            " + _vm._s(_vm.lang.open_menu) + "\n        "),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "list-group-item list-group-item-action bg-danger text-light bold text-center mb-2 action",
+        },
+        [
+          _c("i", { staticClass: "fas fa-sign-out-alt" }),
+          _vm._v("\n            " + _vm._s(_vm.lang.logout) + "\n        "),
+        ]
+      ),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -50527,7 +51003,9 @@ var render = function () {
                         ? _c("div", {
                             staticClass: "text-danger bold",
                             domProps: {
-                              innerHTML: _vm._s(_vm.form.errors.get("autotax")),
+                              innerHTML: _vm._s(
+                                _vm.form.errors.post("autotax")
+                              ),
                             },
                           })
                         : _vm._e(),
@@ -50579,7 +51057,7 @@ var render = function () {
                           staticClass: "text-danger bold",
                           domProps: {
                             innerHTML: _vm._s(
-                              _vm.form.errors.get("tax_record")
+                              _vm.form.errors.post("tax_record")
                             ),
                           },
                         })
@@ -53523,35 +54001,6 @@ var render = function () {
                           },
                         },
                         [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.store_id,
-                                expression: "form.store_id",
-                              },
-                            ],
-                            attrs: {
-                              hidden: "",
-                              type: "number",
-                              name: "store_id",
-                            },
-                            domProps: { value: _vm.form.store_id },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "store_id",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
                           _c("label", { attrs: { for: "phone" } }, [
                             _c("i", {
                               staticClass:

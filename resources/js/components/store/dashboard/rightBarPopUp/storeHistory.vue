@@ -74,7 +74,7 @@ export default {
         },
         getHistory: function (store_id, locale) {
             axios
-                .get(`/api/gethistory?store_id=${store_id}&locale=${locale}`)
+                .post(`/api/gethistory?store_id=${store_id}&locale=${locale}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.histories = res.data;

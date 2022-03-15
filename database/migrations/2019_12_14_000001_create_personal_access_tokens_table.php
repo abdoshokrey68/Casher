@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
 
-class CreatePersonalAccessTokensTable extends Migration
+class CreatePersonalAccessTokensTable extends SanctumPersonalAccessToken
 {
     /**
      * Run the migrations.

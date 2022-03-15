@@ -152,7 +152,7 @@ export default {
         },
         getBoxInfo: function () {
             axios
-                .get(`/api/store/getboxinfo?store_id=${this.store_id}`)
+                .post(`/api/store/getboxinfo?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.box = res.data.box;
@@ -168,7 +168,7 @@ export default {
         },
         getInvoices: function () {
             axios
-                .get(`/api/invoice/all/notpaid?store_id=${this.store_id}`)
+                .post(`/api/invoice/all/notpaid?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.invoices = res.data;

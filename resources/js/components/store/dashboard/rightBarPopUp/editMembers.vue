@@ -863,7 +863,7 @@ export default {
         },
         getmembers: function () {
             axios
-                .get(`/api/getmembers?store_id=${this.store_id}`)
+                .post(`/api/getmembers?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res);
                     this.members = res.data;
@@ -874,7 +874,7 @@ export default {
         },
         getMember: function (member_id, store_id) {
             axios
-                .get(
+                .post(
                     `/api/getmember?member_id=${member_id}&store_id=${store_id}`
                 )
                 .then((res) => {
@@ -887,7 +887,7 @@ export default {
         },
         deletemember: function (member_id, store_id) {
             axios
-                .get(
+                .post(
                     `/api/deletemember?member_id=${member_id}&store_id=${store_id}`
                 )
                 .then((res) => {
@@ -967,7 +967,7 @@ export default {
         // },
         getPositions: function () {
             axios
-                .get(`/api/member/position?store_id=${this.store_id}`)
+                .post(`/api/member/position?store_id=${this.store_id}`)
                 .then((res) => {
                     this.position = res.data.position;
                 })

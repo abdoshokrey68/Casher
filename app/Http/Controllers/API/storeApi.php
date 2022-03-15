@@ -28,7 +28,7 @@ class storeApi extends Controller
         $this->validate($request, [
             'store_id'  => 'required'
         ]);
-        return $store_id = $request->store_id;
+        $store_id = $request->store_id;
         $store = store::find($store_id);
         if ($store) {
             return store::with('sections', 'sections.products')->find($store_id);

@@ -268,7 +268,7 @@ export default {
         },
         getDailyInvoice: function () {
             axios
-                .get(
+                .post(
                     `/api/dailyinvoice?store_id=${this.store_id}&getfrom=${this.from}&getto=${this.to}`
                 )
                 .then((res) => {
@@ -330,7 +330,7 @@ export default {
         },
         getPositions: function () {
             axios
-                .get(`/api/member/position?store_id=${this.store_id}`)
+                .post(`/api/member/position?store_id=${this.store_id}`)
                 .then((res) => {
                     this.position = res.data.position;
                 })

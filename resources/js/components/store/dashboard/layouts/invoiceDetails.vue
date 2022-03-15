@@ -129,7 +129,7 @@ export default {
         },
         getInvoiceDetails: function () {
             axios
-                .get(
+                .post(
                     `/api/invoicedetails?invoice_id=${this.invoice_id}&store_id=${this.store_id}`
                 )
                 .then((res) => {
@@ -142,7 +142,7 @@ export default {
         },
         getInvoiceSettings: function (store_id) {
             axios
-                .get(`/api/invoice/settings?store_id=${store_id}`)
+                .post(`/api/invoice/settings?store_id=${store_id}`)
                 .then((res) => {
                     // console.log(res);
                     this.invoice_s = res.data;
@@ -153,7 +153,7 @@ export default {
         },
         deleteDetails: function (details_id, store_id) {
             axios
-                .get(
+                .post(
                     `/api/deletedetails?invoice_details_id=${details_id}&store_id=${store_id}`
                 )
                 .then((res) => {

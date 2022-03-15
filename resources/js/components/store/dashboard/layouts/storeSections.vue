@@ -88,7 +88,7 @@ export default {
         },
         getSections() {
             axios
-                .get(`/api/getsections?store_id=${this.store_id}`)
+                .post(`/api/getsections?store_id=${this.store_id}`)
                 .then((res) => {
                     this.sections = res.data;
                 });

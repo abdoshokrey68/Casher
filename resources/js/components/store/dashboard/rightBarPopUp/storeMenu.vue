@@ -314,7 +314,7 @@ export default {
         },
         getStoreMenu: function () {
             axios
-                .get(`/api/store/menu?store_id=${this.store_id}`)
+                .post(`/api/store/menu?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.menu = res.data;

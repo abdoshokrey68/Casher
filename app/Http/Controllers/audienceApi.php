@@ -39,21 +39,16 @@ class audienceApi extends Controller
             'store_id'  => 'required',
             'phone'     => 'required'
         ]);
-        $user = User::find(Auth::id());
         $store = store::find($request->store_id);
         if ($store) {
-            if ($store->manager_id == $user->id) {
-                $audience = new audience();
-                $audience->store_id = $request->store_id;
-                $audience->phone = $request->phone;
-                if (Auth::id()) {
-                    $audience->member_id = Auth::id();
-                }
-                $audience->save();
-                return $audience;
-            } else {
-                return abort(401);
+            $audience = new audience();
+            $audience->store_id = intval($request->store_id);
+            $audience->phone = $request->phone;
+            if (Auth::id()) {
+                $audience->member_id = Auth::id();
             }
+            $audience->save();
+            return $audience;
         } else {
             return abort(404);
         }

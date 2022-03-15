@@ -42,6 +42,165 @@
         </div>
         <!-- End Store Info -->
 
+        <div class="list-group p-2">
+            <div v-if="!this.cash_system">
+                <button
+                    v-if="position.invoice_add"
+                    @click="newInvoiceToggle()"
+                    class="list-group-item list-group-item-action text-center mb-2 action"
+                >
+                    <i class="fas fa-plus mr-2 ml-2"></i>
+                    {{ lang.new_invoice }}
+                </button>
+            </div>
+            <button
+                v-if="position.invoice_add"
+                @click="payInvoiceToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+                :disabled="!invoice_btn"
+            >
+                <i class="fas fa-money-bill-wave mr-2 ml-2"></i>
+                {{ lang.pay_the_amount }}
+            </button>
+            <!-- <button
+                @click="deleteInvoiceToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                Delete Invoice
+            </button> -->
+            <button
+                v-if="
+                    position.section_show ||
+                    position.section_add ||
+                    position.section_edit ||
+                    position.section_delete
+                "
+                @click="editsectionsToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-list mr-2 ml-2"></i>
+                {{ lang.edit_sections }}
+            </button>
+            <button
+                v-if="
+                    position.product_show ||
+                    position.product_add ||
+                    position.product_edit ||
+                    position.product_delete
+                "
+                @click="editproductsToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-cookie-bite mr-2 ml-2"></i>
+                {{ lang.edit_products }}
+            </button>
+            <button
+                v-if="position.invoice_show"
+                @click="daliyinvoiceTogle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-file-alt mr-2 ml-2"></i>
+                {{ lang.daily_invoice }}
+            </button>
+            <button
+                v-if="
+                    position.member_show ||
+                    position.member_add ||
+                    position.member_edit ||
+                    position.member_delete
+                "
+                @click="editmembersToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-users-cog mr-2 ml-2"></i>
+                {{ lang.edit_members }}
+            </button>
+            <button
+                @click="storeAudienceToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-users mr-2 ml-2"></i>
+                {{ lang.store_audience }}
+            </button>
+            <button
+                v-if="position.store_show || position.store_edit"
+                @click="storesettingsToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-store mr-2 ml-2"></i>
+                {{ lang.store_settings }}
+            </button>
+            <button
+                v-if="position.invoice_edit"
+                @click="invoiceSettingsToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-receipt mr-2 ml-2"></i>
+                {{ lang.invoice_settings }}
+            </button>
+            <button
+                v-if="
+                    position.table_show ||
+                    position.table_add ||
+                    position.table_edit ||
+                    position.table_delete
+                "
+                @click="edittablesToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-cogs mr-2 ml-2"></i>
+
+                {{ lang.table_manage }}
+            </button>
+            <button
+                v-if="position.box_add"
+                @click="storeBoxToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-cash-register mr-2 ml-2"></i>
+                {{ lang.box }}
+            </button>
+            <button
+                v-if="position.history_show"
+                @click="storeHistoryToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-shield mr-2 ml-2"></i>
+                {{ lang.dark_box }}
+            </button>
+            <button
+                v-if="position.menu_edit"
+                @click="storeMenuToggle()"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+            >
+                <i class="fas fa-concierge-bell mr-2 ml-2"></i>
+                {{ lang.store_menu }}
+            </button>
+            <a
+                :href="menu_link"
+                class="list-group-item list-group-item-action text-center mb-2 action"
+                target="_blank"
+            >
+                <i class="fas fa-up-right-from-square mr-2 ml-2"></i>
+                {{ lang.open_menu }}
+            </a>
+            <!-- <a :href="logout" @click.prevent="logout()"> Logout </a>
+
+            <form
+                id="logout-form"
+                :action="logout"
+                method="POST"
+                class="d-none"
+            >
+                @csrf
+            </form> -->
+            <button
+                class="list-group-item list-group-item-action bg-danger text-light bold text-center mb-2 action"
+            >
+                <i class="fas fa-sign-out-alt"></i>
+                {{ lang.logout }}
+            </button>
+        </div>
         <!-- End Orderd List -->
     </div>
 </template>
@@ -135,7 +294,7 @@ export default {
         getPositions: function () {
             console.log("rightbar Test");
             axios
-                .get(`/api/member/position?store_id=${this.store_id}`)
+                .post(`/api/member/position?store_id=${this.store_id}`)
                 .then((res) => {
                     console.log(res.data);
                     this.position = res.data.position;

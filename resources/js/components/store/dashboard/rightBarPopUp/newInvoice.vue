@@ -109,7 +109,7 @@ export default {
         },
         getTables: function () {
             axios
-                .get(`/api/gettables?store_id=${this.store_id}`)
+                .post(`/api/gettables?store_id=${this.store_id}`)
                 .then((res) => {
                     this.tables = res.data;
                 })
@@ -119,7 +119,7 @@ export default {
         },
         getInvoices: function () {
             axios
-                .get(`/api/invoice/notpaid?store_id=${this.store_id}`)
+                .post(`/api/invoice/notpaid?store_id=${this.store_id}`)
                 .then((res) => {
                     // console.log(res.data);
                     this.invoices = res.data;
