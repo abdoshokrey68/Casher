@@ -17,10 +17,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.axios.defaults.withCredentials = true;
 
-// const axiosConfig = {
-//     baseURL: 'http://localhost:8000/',
-//     timeout: 30000,
-// };
+// window.axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
+// window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+const axiosConfig = {
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+    }
+};
 
 // Vue.prototype.$axios = axios.create(axiosConfig)
 

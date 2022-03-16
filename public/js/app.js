@@ -14531,11 +14531,15 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.withCredentials = true; // const axiosConfig = {
-//     baseURL: 'http://localhost:8000/',
-//     timeout: 30000,
-// };
-// Vue.prototype.$axios = axios.create(axiosConfig)
+window.axios.defaults.withCredentials = true; // window.axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
+// window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+var axiosConfig = {
+  headers: {
+    'Content-Type': 'application/json;charset=UTF-8',
+    "Access-Control-Allow-Origin": "*"
+  }
+}; // Vue.prototype.$axios = axios.create(axiosConfig)
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
