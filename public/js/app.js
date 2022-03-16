@@ -7721,8 +7721,7 @@ __webpack_require__.r(__webpack_exports__);
     getPositions: function getPositions() {
       var _this = this;
 
-      console.log("rightbar Test");
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/member/position?store_id=".concat(this.store_id)).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("api/member/position?store_id=".concat(this.store_id)).then(function (res) {
         console.log(res.data);
         _this.position = res.data.position;
       })["catch"](function (err) {// console.log(err);
@@ -14476,9 +14475,10 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.getLocale = function getLo
     return 'ar';
   }
 }; // const lang = localStorage.getItem('lang') || 'ar';
+// axios.defaults.baseURL = 'http://localhost:8000';
 
 
-(axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.baseURL) = 'http://localhost:8000';
+(axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.baseURL) = 'https://bestcash.link';
 
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.getLang = function getLang() {
   var lang = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : def_lang;
@@ -14527,7 +14527,14 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.withCredentials = true;
+window.axios.defaults.withCredentials = true; // window.axios.defaults.baseURL = 'https://bestcash.link';
+// window.axios.defaults.headers= { 'any': 'any' };
+// const axiosConfig = {
+//     baseURL: 'http://localhost:8000/',
+//     timeout: 30000,
+// };
+// Vue.prototype.$axios = axios.create(axiosConfig)
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

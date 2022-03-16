@@ -73,8 +73,8 @@ Route::group(['middleware' => ['checkMemberPosition']], function () {
     // ================================================================
     // ========================== Store API ===========================
     // ================================================================
-    Route::post('api/store_d',         [storeApi::class, 'store_d']); // store_id != 0
-    Route::post('api/storeinfo',         [storeApi::class, 'storeinfo']); // store_id != 0
+    Route::post('api/store_d',          [storeApi::class, 'store_d']); // store_id != 0
+    Route::post('api/storeinfo',        [storeApi::class, 'storeinfo']); // store_id != 0
     Route::post('api/updateinfo',       [storeApi::class, 'updateinfo']); // store_id != 0
 
     // ================================================================

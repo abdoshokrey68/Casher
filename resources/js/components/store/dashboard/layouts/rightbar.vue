@@ -292,9 +292,8 @@ export default {
             document.getElementById("logout-form").submit();
         },
         getPositions: function () {
-            console.log("rightbar Test");
             axios
-                .post(`/api/member/position?store_id=${this.store_id}`)
+                .post(`api/member/position?store_id=${this.store_id}`)
                 .then((res) => {
                     console.log(res.data);
                     this.position = res.data.position;
