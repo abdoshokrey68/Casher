@@ -14478,11 +14478,10 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.getLocale = function getLo
     return 'ar';
   }
 }; // const lang = localStorage.getItem('lang') || 'ar';
+// axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'https://bestcash.link';
+// console.log(axios.defaults.baseURL)
 
-
-(axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.baseURL) = 'http://localhost:8000'; // axios.defaults.baseURL = 'https://bestcash.link';
-
-console.log((axios__WEBPACK_IMPORTED_MODULE_2___default().defaults.baseURL));
 
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.getLang = function getLang() {
   var lang = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : def_lang;

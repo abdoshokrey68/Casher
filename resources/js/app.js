@@ -14,6 +14,7 @@ Vue.use(VueConfirmDialog)
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
 // axios.defaults.withCredentials = true;
 
+
 // ===================== Store Dashboard Layouts ======================
 Vue.component('navigation-bar', require('./components/store/dashboard/layouts/navigationbar.vue').default);
 Vue.component('right-bar', require('./components/store/dashboard/layouts/rightbar.vue').default);
@@ -66,9 +67,9 @@ Vue.prototype.getLocale = function getLocale() {
     }
 }
 // const lang = localStorage.getItem('lang') || 'ar';
-axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'http://localhost:8000';
 // axios.defaults.baseURL = 'https://bestcash.link';
-console.log(axios.defaults.baseURL)
+// console.log(axios.defaults.baseURL)
 Vue.prototype.getLang = function getLang(lang = def_lang) {
     var url = this.$route.path.split("/");
     var filter = url.filter((e) => e == "en");
@@ -87,3 +88,4 @@ const app = new Vue({
     mounted() {
     }
 });
+

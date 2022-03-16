@@ -39,10 +39,10 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-            'hash'      => true,
         ],
         'api' => [
-            'driver' => 'token',
+            'driver' => 'session',
+            // 'driver' => 'token',
             'provider' => 'users',
             'hash'      => true,
         ],
