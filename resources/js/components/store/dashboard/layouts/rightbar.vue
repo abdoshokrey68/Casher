@@ -293,7 +293,11 @@ export default {
         },
         getPositions: function () {
             axios
-                .post(`api/member/position?store_id=${this.store_id}`)
+                .post(`api/member/position?store_id=${this.store_id}`, {
+                    headers: {
+                        // remove headers
+                    },
+                })
                 .then((res) => {
                     console.log(res.data);
                     this.position = res.data.position;

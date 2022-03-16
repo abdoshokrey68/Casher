@@ -17,9 +17,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.axios.defaults.withCredentials = true;
 
-// window.axios.defaults.baseURL = 'https://bestcash.link';
-// window.axios.defaults.headers= { 'any': 'any' };
-
 // const axiosConfig = {
 //     baseURL: 'http://localhost:8000/',
 //     timeout: 30000,
