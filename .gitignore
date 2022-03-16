@@ -3,6 +3,9 @@
 /public/storage
 /storage/*.key
 /vendor
+@dark stone
+@maps
+تخطيط
 .env
 .env.backup
 .phpunit.result.cache
