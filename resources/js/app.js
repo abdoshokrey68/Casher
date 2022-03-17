@@ -68,7 +68,7 @@ Vue.prototype.getLocale = function getLocale() {
 }
 // const lang = localStorage.getItem('lang') || 'ar';
 // axios.defaults.baseURL = 'http://localhost:8000';
-// axios.defaults.baseURL = 'https://bestcash.link';
+axios.defaults.baseURL = 'https://bestcash.link';
 // console.log(axios.defaults.baseURL)
 Vue.prototype.getLang = function getLang(lang = def_lang) {
     var url = this.$route.path.split("/");
